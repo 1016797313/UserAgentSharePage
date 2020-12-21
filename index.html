@@ -190,7 +190,7 @@
 				grid-template-rows: repeat(2, max-content);
 			}
 			#modeopt {
-				grid-template-columns: max-content repeat(2, max-content auto) repeat(2, max-content 2px);
+				grid-template-columns: max-content repeat(2, max-content auto) repeat(2, max-content);
 			}
 			#base label,#mode label,#classBox label {
 				display: inline-flex;
@@ -296,6 +296,9 @@
 				display:block;
 				height:12px;
 				width:12px;
+				position:relative;
+				top:-14px;
+				left:2px;
 			}
 			.new-check.new-style,.orig-box:checked + .new-check.new-style:before {
 				border-radius:0;
@@ -309,6 +312,9 @@
 				border-radius: 0;
 				transform: rotate(45deg);
 				background-color: transparent;
+				position:relative;
+				top:-16px;
+				left:4px;
 			}
 			input[type=checkbox] {
 				float: right;
@@ -321,6 +327,7 @@
 				font-size:.75em;
 				font-weight:bold;
 				padding:3px 1em;
+				margin:0 2px;
 			}
 			input[type=button]:hover {
 				background-color:#1e62d0;
@@ -456,10 +463,10 @@
 			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
-					padding: 3px 1px;
+					padding: 3px 0;
 				}
 				#modeopt input[type=button] {
-					padding: 3px;
+					padding: 2px 3px;
 				}
 				#app_container noscript {
 					padding: calc(50% - .5em) calc(100% - 16em);
@@ -483,12 +490,6 @@
 					top:0;
 					left:0;
 				}
-				.orig-box:checked + .new-style:after {
-					margin: calc(-35px * .8 / 2) auto 0;
-				}
-				.orig-box:checked + .new-check.new-style::after {
-					margin: calc(-38px * .85 / 2) auto 0;
-				}
 			}
 			@media only screen and (min-width: 600px) {
 				body {
@@ -503,7 +504,7 @@
 					padding-left: 6px
 				}
 				#modeopt input[type=button] {
-					padding: 3px 20px;
+					padding: 3px .5em;
 				}
 				#app_container noscript {
 					padding: calc((.8em * 27 + 6px) / 4 - .7em) calc(100% - 24em);
@@ -530,12 +531,6 @@
 					left: 40%;
 					top: 15%;
 				}
-				.orig-box:checked + .new-style:after {
-					margin: -14px auto 0;
-				}
-				.orig-box:checked + .new-check.new-style::after {
-					margin: calc(-26px * .6) auto 0;
-				}
 			}
 		</style>
 	</head>
@@ -557,12 +552,9 @@
 					<input id="add" type="radio" name="mode" value="add" class="orig-box">
 					<span class="new-style new-radio"></span>添加
 				</label><div></div>
-				<input id="openNew" name="openNew" type="button" value="+" onclick="uaCode.util.$(false,'#addui').classList.remove('none')">
-				<div></div>
+				<input id="openNew" name="openNew" type="button" value="+" onclick="uaCode.util.$(false,'#addui').classList.remove('none')"><div></div>
 				<input id="openClass" name="openClass" type="button" value="标签筛选" onclick="uaCode.util.$(false,'#class').classList.remove('none')">
-				<div></div>
 				<input id="openUA" name="openUA" type="button" value="打开窗口" onclick="uaCode.util.$(false,'#ua').classList.remove('none')">
-				<div></div>
 			</div>
 		</div>
 		<div id="searchbox">
