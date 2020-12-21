@@ -237,7 +237,7 @@
 				overflow-y: scroll;
 				display: grid;
 				grid-auto-rows: max-content;
-				height: calc(.8em * 27 + 6px);
+				height: calc(1.5em * 15);
 			}
 			#action,#action2,#action3,#addbtn {
 				text-align: center;
@@ -336,17 +336,18 @@
 				position: relative;
 			}
 			#searchlabel {
-				position: absolute;
-				top: 37%;
+				position: relative;
+				height: 14px;
+				display: block;
 				font-size: .9em;
 				color: gray;
 				padding: 0 10px;
-				transition: top .2s ease-in-out,  font-size .2s ease-in-out, color .2s ease-in-out;
+				transition: top .2s ease-in-out, height .2s ease-in-out, font-size .2s ease-in-out, color .2s ease-in-out;
 			}
 			#searchlabel.up {
-				top: 0;
+				top: 1px;
 				color: lightgray;
-				margin: 1px;
+				height: 1px;
 				font-size: .5em;
 			}
 			#search {
@@ -363,9 +364,11 @@
 				color: lightgray;
 				float: right;
 			}
-			#nulltext {
+			#nulltext,#app noscript {
 				font-size: 2em;
 				color: lightgray;
+				margin: auto;
+				line-height: calc(1.5em * 7 + .5em);
 			}
 			.flag {
 				font-size: .75em;
@@ -412,8 +415,8 @@
 				height: 2em;
 			}
 			#addui {
-				backdrop-filter: blur(5px);
 				-webkit-backdrop-filter: blur(5px);
+				backdrop-filter: blur(5px);
 				background-color: rgba(233,233,233,0.5);
 				padding: 0;
 				border: 5px solid rgba(0,0,0,0.25);
@@ -434,8 +437,8 @@
 				background: #2b75c4;
 				width: 18em;
 				border-radius: 20px;
-				appearance: none;
 				-webkit-appearance: none;
+				appearance: none;
 				border: none;
 				padding: 0 8px 2px;
 			}
@@ -468,12 +471,6 @@
 				#modeopt input[type=button] {
 					padding: 2px 3px;
 				}
-				#app_container noscript {
-					padding: calc(50% - .5em) calc(100% - 16em);
-				}
-				#nulltext {
-					margin: calc(50% - .5em) auto;
-				}
 				textarea {
 					height: 146px;
 					width: 96%;
@@ -490,6 +487,9 @@
 					top:0;
 					left:0;
 				}
+				#searchlabel {
+					top: 12px;
+				}
 			}
 			@media only screen and (min-width: 600px) {
 				body {
@@ -505,12 +505,6 @@
 				}
 				#modeopt input[type=button] {
 					padding: 3px .5em;
-				}
-				#app_container noscript {
-					padding: calc((.8em * 27 + 6px) / 4 - .7em) calc(100% - 24em);
-				}
-				#nulltext {
-					margin: calc((.8em * 27 + 6px) / 4 - .7em) auto;
 				}
 				textarea {
 					height: 87%;
@@ -530,6 +524,9 @@
 				#addui {
 					left: 40%;
 					top: 15%;
+				}
+				#searchlabel {
+					top: 14px;
 				}
 			}
 		</style>
@@ -565,7 +562,7 @@
 		<div id="app">
 			<div id="app_container">
 				<p id="nulltext" class="none">什么都没找到 T_T</p>
-				<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
+				<noscript>亲,打开 JavaScript 才能工作哟!</noscript>
 			</div>
 			<p id="ajump" class="none"></p>
 		</div>
