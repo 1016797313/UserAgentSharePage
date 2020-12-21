@@ -26,5 +26,9 @@
 	blank: {
 		名称: "空白",
 		内容: ""
+	},
+	curr: {
+		名称: "当前",
+		内容: navigator.userAgent
 	}
 });
