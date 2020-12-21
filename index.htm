@@ -407,6 +407,7 @@
 			}
 			#addui {
 				backdrop-filter: blur(5px);
+				-webkit-backdrop-filter: blur(5px);
 				background-color: rgba(233,233,233,0.5);
 				padding: 0;
 				border: 5px solid rgba(0,0,0,0.25);
@@ -427,7 +428,8 @@
 				background: #2b75c4;
 				width: 18em;
 				border-radius: 20px;
-				appearance: inherit;
+				appearance: none;
+				-webkit-appearance: none;
 				border: none;
 				padding: 0 8px 2px;
 			}
@@ -599,7 +601,7 @@
 		</div>
 		<div id="addui" class="none win">
 			<div id="addtype">
-				<input id="dataType" class="drag" name="dataType" type="button" value="类型" style="float:left;">
+				<input id="dataType" class="drag" name="dataType" type="button" value="加入" style="float:left;">
 				<label>
 					<input id="Raapp" type="radio" name="atype" value="aapp" class="orig-box" onchange="uaCode.aform.switchCard()" checked>
 					<span class="new-style new-radio"></span>APP
