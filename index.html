@@ -761,22 +761,14 @@ function base64EncodeUnicode(str) {
  * https://stackoverflow.com/questions/49988202/macos-webview-download-a-html5-blob-file
 */
 function saveFile(data,name,blob) {
-    if(blob==="true") {
-        var bl = new Blob([data], { type: 'text/plain;charset=utf-8' });
-        var a = document.createElement("a");
-        a.download = name;
-		a.href = window.URL.createObjectURL(bl);
-		a.style.display = "none";
-		document.body.appendChild(a);
-        a.click();
-    } else {
-        var a = document.createElement('a');
-        a.href = 'data:text/plain;base64,' + base64EncodeUnicode(data);
-        a.download = name;
-        a.style.display = "none";
-        document.body.appendChild(a);
-        a.click();
-    }
+	var a = document.createElement("a");
+    a.href = (blob==="true") ?
+		window.URL.createObjectURL(new Blob([data], { type: 'text/plain;charset=utf-8' })) :
+		'data:text/plain;base64,' + base64EncodeUnicode(data);
+    a.download = name;
+	_(a,false,"none");
+	document.body.appendChild(a);
+	a.click();
 }
 
 			function getUpperHead(word) {
@@ -823,19 +815,21 @@ function saveFile(data,name,blob) {
 				});
 			}
 			
-			function tagLetter(clas,chinese) {
+			function tagConv(clas,fro,to) {
 				if (clas.slice(0,1)==="_") {
-					return clas.slice(1);
+					return (to) ? clas.slice(1) : "third" ;
+				} else if (fro===to) {
+					return clas;
 				} else {
-					return (chinese) ? clas : uaData.flag[clas][0];
+					return (fro) ? uaData.tagfind[clas] : uaData.flag[clas][0];
 				}
 			}
 			
 			function toast(text) {
-				if (window.via.toast) {
-					window.via.toast(text);
-				} else {
+				if (window.via.toast===undefined) {
 					document.title = text;
+				} else {
+					window.via.toast(text);
 				}
 			}
 			
@@ -907,12 +901,8 @@ function saveFile(data,name,blob) {
 			function makeFlagDiv(clas,box,chinese,opa) {
 				const flag = document.createElement("div");
 				_(flag,false,"flag");
-				flag.innerHTML = tagLetter(clas,chinese);
-				if (clas.slice(0,1)==="_") {
-					clas = "third";
-				} else {
-					clas = (chinese) ? uaData.tagfind[clas] : clas;
-				}
+				flag.innerHTML = tagConv(clas,chinese,true);
+				clas = tagConv(clas,chinese,false);
 				if (!box) {
 					_(flag,false,`T${clas}`);
 				} else {
@@ -1344,7 +1334,7 @@ function saveFile(data,name,blob) {
 						if(inp.id.slice(1)==="third") {
 							obj.class.push("_" + $(false,`#${typr}thirdt`).value);
 						} else {
-							obj.class.push(tagLetter(inp.id.slice(1),false));
+							obj.class.push(tagConv(inp.id.slice(1),false,true));
 						}
 					});
 					Object.assign(uaData.stor.apps, {
@@ -1539,7 +1529,7 @@ function saveFile(data,name,blob) {
 			function aform_dataSave() {
 				let data = '', blob = $_("savet").value, repeat = false,
 					name = $(false,'#sfname').value + ".js";
-				uaData.forEach( js => {
+				uaData.jslist.forEach( js => {
 					if (name===js) { repeat = true; }
 				});
 				if (name==='.js') {
