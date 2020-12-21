@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<title>Useragent 生成</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script>
+			const uaData = {
+				base:{},
+				apps:{},
+				flag:{},
+				count:{},
+				text:{},
+				tagtext:{},
+				tagfind:{},
+				index:"",
+				jslist:[],
+				stor:{
+					apps:{},
+					flag:{}
+				},
+				设置:{
+					代码版本:"5.0 Beta 3",
+					基础默认:1,
+					数字记号:"#",
+					标签筛选状态色:"#00ad46",
+					测试模式:false,
+					前置记号:"^",
+					无缝记号:"~",
+					存储键名:"uaDataStor",
+				}
+			};
+			function 加入(box,obj) {
+				switch (box) {
+					case "标签":
+						Object.assign(uaData.flag,obj);
+						Object.keys(obj).forEach( key => {
+							uaData.tagfind[obj[key][0]] = key;
+						});
+						break;
+					case "APP":
+						Object.keys(obj).forEach( key => {
+							let cont;
+							if (typeof obj[key]["内容"] === "object") {
+								if (obj[key]["内容"] instanceof Array) {
+									cont = [obj[key]["内容"][0],obj[key]["内容"][1]];
+								} else {
+									cont = {
+										qBasic: obj[key]["内容"]["平台"],
+										qFrom: obj[key]["内容"]["来自"],
+										qString: obj[key]["内容"]["应用"]
+									}
+								}
+							} else {
+								cont = obj[key]["内容"];
+							}
+							Object.assign(uaData.apps,{
+								[key]: {
+									text: obj[key]["名称"],
+									prefix: (obj[key]["前置"]==="是") ? true : false,
+									followed: (obj[key]["无缝"]==="是") ? true : false,
+									class: obj[key]["标签"],
+									content: cont
+								}
+							});
+						});
+						break;
+					case "基础":
+						Object.keys(obj).forEach( key => {
+							if (key!=="默认项") {
+								Object.assign(uaData.base,{
+									[key]: {
+										text: obj[key]["名称"],
+										content: obj[key]["内容"]
+									}
+								});
+							}
+						});
+						break;
+					case "数据":
+						uaData.jslist = obj;
+						break;
+				}
+			}
+		</script>
+		<script src="数据列表.js"></script>
+		<script>
+			uaData.jslist.forEach( js => {
+				let script=document.createElement('script');
+				script.async = false;
+				script.src = js;
+				document.querySelector("head").appendChild(script);
+			});
+		</script>
+		<style>
+			:focus {
+				outline: none;
+			}
+			body {
+				font-size: 100%;
+			}
+			textarea {
+				color: black;
+				font-family: monospace;
+				border: 1px solid lightgray;
+				border-radius: 10px;
+				padding: 5px;
+				display: block;
+			}
+			body > div {
+				margin: 0 .5em;
+			}
+			.none,.sel_none,.tag_none {
+				display: none !important;
+			}
+			p {
+				margin: 1px;
+			}
+			a {
+				text-decoration: none;
+				color: black;
+				font-family: monospace;
+				margin: 0 1px;
+				font-size: .7em;
+				width: .5em;
+				height: 1.1em;
+				line-height: 1.1em;
+				font-weight: 600;
+			}
+			noscript {
+				color: lightgray;
+				text-align: center;
+			}
+			#base,#mode {
+				grid-template-columns: 4.5em auto;
+			}
+			#app {
+				grid-template-columns: auto max-content;
+			}
+			#base,#mode,#app {
+				border: 1px solid lightgray;
+				border-radius: 10px;
+				overflow: hidden;
+				display: grid;
+			}
+			#base,#searchbox,#app {
+				margin-bottom: 4px;
+			}
+			.win {
+				font-size: 1em;
+				position: fixed;
+				top: 0;
+				left: 0;
+				background: rgba(0,0,0,0.25);
+				border-radius: 10px;
+				padding: 5px;
+				margin: 0;
+			}
+			#classBox,.classBox {
+				background: rgba(0,0,0,.75);
+				padding: 3px;
+				border-radius: 10px;
+			}
+			#classBox .flag,.classBox .sflag {
+				padding: 0 4px;
+				margin: 0 2px;
+			}
+			#classBox input,.classBox input {
+				display: none;
+			}
+			.setHead {
+				background: lightgray;
+				font-size: .75em;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#ajump {
+				display: grid;
+				width: 7px;
+				background-color: lightgray;
+				margin: 0;
+				padding: 3px;
+			}
+			#baseopt,#modeopt {
+				display: grid;
+				line-height: 22px;
+			}
+			#baseopt {
+				grid-template-columns: repeat(4, max-content);
+				grid-template-rows: repeat(2, max-content);
+			}
+			#modeopt {
+				grid-template-columns: max-content repeat(2, max-content auto) repeat(2, max-content 2px);
+			}
+			#base label,#mode label,#classBox label {
+				display: inline-flex;
+			}
+			#app label {
+				margin-left: .5em;
+			}
+			#app label i {
+				float: right;
+				color: lightgray;
+			}
+			.CaseHead {
+				font-size: .75em;
+				font-weight: bold;
+				background: darkgray;
+				padding-left: 5px;
+			}
+			.sideBar {
+				width: 15px;
+				background-color: lightgray;
+				padding: 3px;
+			}
+			div.sideBar > div {
+				text-align: center;
+				font-size: .5em;
+				height: 1.6em;
+				line-height: 1.6em;
+			}
+			div.sideBar > div:last-of-type {
+				position: absolute;
+				width: 1.5em;
+				height: 1.5em;
+				line-height: 1.5em;
+				text-align: center;
+				transform: translate3d(-1.5em, 0, 0);
+				font-size:2em;
+				opacity:0;
+				transition: opacity .3s ease, top .1s linear;
+				color:#eee;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius:100%;
+			}
+			#app_container {
+				overflow-y: scroll;
+				display: grid;
+				grid-auto-rows: max-content;
+				height: calc(.8em * 27 + 6px);
+			}
+			#action,#action2,#action3,#addbtn {
+				text-align: center;
+				display: grid;
+				grid-template-columns: repeat(2, max-content auto) max-content;
+			}
+			#addbtn {
+				grid-template-columns: repeat(3, max-content auto) max-content;
+			}
+			#action {
+				margin: 0 .5em;
+			}
+			#action2,#action3 {
+				margin-top: 4px;
+			}
+			.orig-box {
+				display: none;
+			}
+			.new-style {
+				background-color:white;
+				border:1px solid rgba(0,0,0,0.15);
+				border-radius:100%;
+				display:inline-block;
+				vertical-align:middle;
+				width:16px;
+				height:16px;
+				line-height:16px;
+			}
+			.new-radio.new-style {
+				margin: 2px;
+			}
+			.orig-box:checked + .new-style.new-radio:after {
+				transform:scale(.8);
+			}
+			.new-check.new-style {
+				margin: 3px 3px 1px;
+				float: right;
+			}
+			.orig-box:checked + .new-style {
+				border: 1px solid #2b75c4;
+			}
+			.orig-box:checked + .new-style:before {
+				background-color:transparent;
+				border-radius:100%;
+				content:"";
+				display:inline-block;
+				height:12px;
+				margin:1px;
+				width:12px;
+				transform:scale(1.1);
+			}
+			.orig-box:checked + .new-style:after {
+				background-color:#2b75c4;
+				border-radius:100%;
+				content:"";
+				display:block;
+				height:12px;
+				width:12px;
+			}
+			.new-check.new-style,.orig-box:checked + .new-check.new-style:before {
+				border-radius:0;
+			}
+			.orig-box:checked + .new-check.new-style::after {
+				width: 5px;
+				height: 9px;
+				border-color: #2b75c4;
+				border-style: solid;
+				border-width: 0 3px 3px 0;
+				border-radius: 0;
+				transform: rotate(45deg);
+				background-color: transparent;
+			}
+			input[type=checkbox] {
+				float: right;
+			}
+			input[type=button] {
+				background-color:#2b75c4;
+				border-radius:6px;
+				border:1px solid transparent;
+				color:#ffffff;
+				font-size:.75em;
+				font-weight:bold;
+				padding:3px 1em;
+			}
+			input[type=button]:hover {
+				background-color:#1e62d0;
+			}
+			#searchbox {
+				position: relative;
+			}
+			#searchlabel {
+				position: absolute;
+				top: 37%;
+				font-size: .9em;
+				color: gray;
+				padding: 0 10px;
+				transition: top .2s ease-in-out,  font-size .2s ease-in-out, color .2s ease-in-out;
+			}
+			#searchlabel.up {
+				top: 0;
+				color: lightgray;
+				margin: 1px;
+				font-size: .5em;
+			}
+			#search {
+				border: 1px solid lightgray;
+				color: black;
+				width: calc(100% - 1.1em);
+				font-family: monospace;
+				border-radius: 20px;
+				padding: 0 6px;
+				display: block;
+			}
+			#version {
+				font-size: .5em;
+				color: lightgray;
+				float: right;
+			}
+			#nulltext {
+				font-size: 2em;
+				color: lightgray;
+			}
+			.flag {
+				font-size: .75em;
+				border-radius: 5px;
+				display: inline;
+				margin: 0 1px;
+				padding: 1px 5px;
+				vertical-align: 2px;
+			}
+			#addtype {
+				text-align: center;
+				margin: auto;
+			}
+			.atab > *,#addbtn,#addsave > * {
+				margin: 3px;
+			}
+			.classPart > * {
+				margin: 3px 0;
+			}
+			.atab > label,#addsave > label,.classPart > label {
+				display: flex;
+			}
+			.atab > label b,#addsave label b,.classPart > label b,.atab div p,#addsave div p {
+				width: 5em;
+				margin: 0 .25em;
+			}
+			.classPart > label b {
+				margin: 0 .45em 0 calc(.25em - 3px);
+			}
+			.atab > label input,#addsave > label input,.classPart > label input {
+				border: 1px solid lightgray;
+				color: black;
+				padding: 0 6px;
+				display: block;
+				width: 17em;
+				border-radius: 20px;
+			}
+			.atab div p,#addsave div p {
+				display: inline-block;
+				font-weight: bold;
+			}
+			.longbtn {
+				width: 97%;
+				height: 2em;
+			}
+			#addui {
+				backdrop-filter: blur(5px);
+				-webkit-backdrop-filter: blur(5px);
+				background-color: rgba(233,233,233,0.5);
+				padding: 0;
+				border: 5px solid rgba(0,0,0,0.25);
+				width: min-content;
+			}
+			#openNew {
+				width: min-content;
+				padding: 0 6px !important;
+				font-size: 1em;
+			}
+			#closeAdd,#dataType {
+				background-color: rgba(100,100,100,0.25);
+				padding: 2px .5em;
+				margin: 2px;
+			}
+			.msel {
+				color: white;
+				background: #2b75c4;
+				width: 18em;
+				border-radius: 20px;
+				appearance: none;
+				-webkit-appearance: none;
+				border: none;
+				padding: 0 8px 2px;
+			}
+			.help1 {
+				color: purple;
+			}
+			.help2 {
+				color: slateblue;
+			}
+			.help3 {
+				color: dodgerblue;
+			}
+			.help1,.help2,.help3 {
+				font-weight: bold;
+			}
+			#qhlp {
+				width: 27em;
+				font-size: .75em;
+			}
+			#qhlp p {
+				display: block;
+				width: 100%;
+				word-wrap: break-word;
+				word-break: break-all;
+			}
+			@media only screen and (min-width: 360px) {
+				#baseopt,#modeopt {
+					padding: 3px 1px;
+				}
+				#modeopt input[type=button] {
+					padding: 3px;
+				}
+				#app_container noscript {
+					padding: calc(50% - .5em) calc(100% - 16em);
+				}
+				#nulltext {
+					margin: calc(50% - .5em) auto;
+				}
+				textarea {
+					height: 146px;
+					width: 96%;
+				}
+				#ua {
+					width: 80%;
+					top: 40%;
+					left: 8.5%;
+				}
+				#class {
+					width: 60%;
+				}
+				#addui {
+					top:0;
+					left:0;
+				}
+				.orig-box:checked + .new-style:after {
+					margin: calc(-35px * .8 / 2) auto 0;
+				}
+				.orig-box:checked + .new-check.new-style::after {
+					margin: calc(-38px * .85 / 2) auto 0;
+				}
+			}
+			@media only screen and (min-width: 600px) {
+				body {
+					width: 500px;
+					margin: 10px auto;
+				}
+				#baseopt {
+					padding: 6px;
+					line-height: 19px;
+				}
+				#modeopt {
+					padding-left: 6px
+				}
+				#modeopt input[type=button] {
+					padding: 3px 20px;
+				}
+				#app_container noscript {
+					padding: calc((.8em * 27 + 6px) / 4 - .7em) calc(100% - 24em);
+				}
+				#nulltext {
+					margin: calc((.8em * 27 + 6px) / 4 - .7em) auto;
+				}
+				textarea {
+					height: 87%;
+					width: 98%;
+				}
+				#ua {
+					width: 30%;
+					height: 20em;
+					top: 7%;
+					left: 34.25%;
+				}
+				#class {
+					width: 20%;
+					top: 1%;
+					left: 40%;
+				}
+				#addui {
+					left: 40%;
+					top: 15%;
+				}
+				.orig-box:checked + .new-style:after {
+					margin: -14px auto 0;
+				}
+				.orig-box:checked + .new-check.new-style::after {
+					margin: calc(-26px * .6) auto 0;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="base">
+			<div class="setHead"><p>基础 UA</p></div>
+			<div id="baseopt">
+				<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
+			</div>
+		</div>
+		<div id="mode">
+			<div class="setHead"><p>生成模式</p></div>
+			<div id="modeopt">
+				<label for="gen">
+					<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked>
+					<span class="new-style new-radio"></span>生成
+				</label>
+				<label for="add">
+					<input id="add" type="radio" name="mode" value="add" class="orig-box">
+					<span class="new-style new-radio"></span>添加
+				</label><div></div>
+				<input id="openNew" name="openNew" type="button" value="+" onclick="uaCode.util.$(false,'#addui').classList.remove('none')">
+				<div></div>
+				<input id="openClass" name="openClass" type="button" value="标签筛选" onclick="uaCode.util.$(false,'#class').classList.remove('none')">
+				<div></div>
+				<input id="openUA" name="openUA" type="button" value="打开窗口" onclick="uaCode.util.$(false,'#ua').classList.remove('none')">
+				<div></div>
+			</div>
+		</div>
+		<div id="searchbox">
+			<p id="version"></p>
+			<label id="searchlabel" for="search">在此输入搜索 APP ...</label>
+			<input id="search" name="search" type="text" oninput="uaCode.filter.app(this.value)" onfocusin="(()=>{this.labels[0].classList.add('up');})();" onfocusout="(()=>{if(this.value===''){this.labels[0].classList.remove('up');}})();">
+		</div>
+		<div id="app">
+			<div id="app_container">
+				<p id="nulltext" class="none">什么都没找到 T_T</p>
+				<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
+			</div>
+			<p id="ajump" class="none"></p>
+		</div>
+		<div id="action">
+			<input id="clear" name="clear" type="button" value="清空选择" onclick="uaCode.util.$_('app').forEach( check => { check.checked = false; })"><div></div>
+			<input id="shows" name="shows" type="button" value="列出已选" onclick="uaCode.filter.sel(this)"><div></div>
+			<input id="start" name="start" type="button" value="生成 UA" onclick="uaCode.gen()">
+		</div>
+		<div id="ua" class="none win">
+			<textarea id="useragent" placeholder="你想要的在这儿 ^_^"></textarea>
+			<div id="action2">
+				<input id="clearUA" name="clearUA" type="button" value="清空" onclick="(()=>{uaCode.util.$(false,'textarea').value = '';})();"><div class="drag"></div>
+				<input id="copy" name="copy" type="button" value="复制" onclick="(()=>{uaCode.util.$(false,'textarea').select();document.execCommand('copy');})();"><div class="drag"></div>
+				<input id="closeUA" name="closeUA" type="button" value="关闭窗口" onclick="this.parentNode.parentNode.classList.add('none')">
+			</div>
+		</div>
+		<div id="class" class="none win">
+			<div id="classBox"></div>
+			<div id="action3">
+				<input id="restoreClass" name="closeClass" type="button" value="恢复" onclick="(()=>{uaCode.util.$(true,'#classBox input:not(:checked)').forEach( box => { box.checked = true; uaCode.tagClick(box.parentNode.id,true);});})();"><div class="drag"></div>
+				<input id="revertClass" name="closeClass" type="button" value="反选" onclick="(()=>{uaCode.util.$(true,'#classBox input').forEach( box => { box.checked = (box.checked===true) ? false : true; uaCode.tagClick(box.parentNode.id,true);});})();"><div class="drag"></div>
+				<input id="closeClass" name="closeClass" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
+			</div>
+		</div>
+		<div id="addui" class="none win">
+			<div id="addtype">
+				<input id="dataType" class="drag" name="dataType" type="button" value="加入" style="float:left;">
+				<label>
+					<input id="Raapp" type="radio" name="atype" value="aapp" class="orig-box" onchange="uaCode.aform.switchCard()" checked>
+					<span class="new-style new-radio"></span>APP
+				</label>
+				<label>
+					<input id="Rqapp" type="radio" name="atype" value="qapp" class="orig-box" onchange="uaCode.aform.switchCard()">
+					<span class="new-style new-radio"></span>快应用
+				</label>
+				<label>
+					<input id="Ratag" type="radio" name="atype" value="atag" class="orig-box" onchange="uaCode.aform.switchCard()">
+					<span class="new-style new-radio"></span>标签
+				</label>
+				<input id="closeAdd" name="closeAdd" type="button" value="关闭" style="float:right;" onclick="this.parentNode.parentNode.classList.add('none')">
+			</div>
+			<div id="addtable">
+				<div id="aappt" class="atab">
+					<label><b>标识</b>
+						<input id="akey" type="text" name="aapp" placeholder="数字和英文字母，首字母对应名称拼音首字母" oninput="uaCode.aform.check(false)"/>
+						<select id="asel" class="msel none" onchange="uaCode.aform.modify()">
+							<option selected hidden disabled value="">请选择要修改的项目...</option>
+						</select>
+					</label>
+					<label><b>名称</b>
+						<input id="atext" type="text" name="aapp">
+					</label>
+					<div id="apre">
+						<p>前置</p>
+						<label>
+							<input id="apret" type="radio" name="apre" value="true" class="orig-box" onchange="uaCode.aform.switchBoth()">
+							<span class="new-style new-radio"></span>是
+						</label>
+						<label>
+							<input id="apref" type="radio" name="apre" value="false" class="orig-box" onchange="uaCode.aform.switchBoth()" checked>
+							<span class="new-style new-radio"></span>否
+						</label>
+						<label>
+							<input id="apreb" type="radio" name="apre" value="both" class="orig-box" onchange="uaCode.aform.switchBoth()">
+							<span class="new-style new-radio"></span>前后都有
+						</label>
+					</div>
+					<div id="afol">
+						<p>无缝</p>
+						<label>
+							<input id="afolt" type="radio" name="afol" value="true" class="orig-box">
+							<span class="new-style new-radio"></span>是
+						</label>
+						<label>
+							<input id="afolf" type="radio" name="afol" value="false" class="orig-box" checked>
+							<span class="new-style new-radio"></span>否
+						</label>
+					</div>
+					<label class="acont1"><b>关键字</b>
+						<input id="acont1" type="text" name="acont1"/>
+					</label>
+					<label class="acont2 none"><b>前置关键字</b>
+						<input id="acont2a" type="text" name="acont2"/>
+					</label>
+					<label class="acont2 none"><b>后置关键字</b>
+						<input id="acont2b" type="text" name="acont2"/>
+					</label>
+					<div id="acls">
+						<div id="aclsbox" class="classBox"></div>
+						<div id="aclsboxt" class="classPart">
+							<label id="aclsboxl" class="none"><b>自定义标签</b>
+								<input id="athirdt" type="text" name="athird"/>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div id="qappt" class="atab none">
+					<label><b>标识</b>
+						<input id="qkey" type="text" name="qapp" placeholder="数字和英文字母，首字母对应名称拼音首字母" oninput="uaCode.aform.check(false)"/>
+						<select id="qsel" class="msel none" onchange="uaCode.aform.modify()">
+							<option selected hidden disabled value="">请选择要修改的项目...</option>
+						</select>
+					</label>
+					<label><b>名称</b>
+						<input id="qtext" type="text" name="qapp"/>
+					</label>
+					<div id="qhlp">
+						<p><span class="help1">hap/1.6/xiaomi com.miui.hybrid/1.6.0.3 </span><span class="help3">cn.cmcc.quickapp/1.1.7 </span><span>({"packageName":"</span><span class="help2">com.miui.quickappCenter</span><span>","type":"url","extra":{"scene":"recommend"}})</span></p>
+					</div>
+					<label><b class="help1">平台</b>
+						<input id="qcont1" type="text" name="qcont"/>
+					</label>
+					<label><b class="help2">来自</b>
+						<input id="qcont2" type="text" name="qcont"/>
+					</label>
+					<label><b class="help3">应用</b>
+						<input id="qcont3" type="text" name="qcont"/>
+					</label>
+					<div id="qcls">
+						<div id="qclsbox" class="classBox"></div>
+						<div id="qclsboxt" class="classPart">
+							<label id="qclsboxl" class="none"><b>自定义标签</b>
+								<input id="qthirdt" type="text" name="qthird"/>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div id="atagt" class="atab none">
+					<label><b>标识</b>
+						<input id="tkey" type="text" name="atag" placeholder="数字和英文字母" oninput="uaCode.aform.check(false)"/>
+						<select id="tsel" class="msel none" onchange="uaCode.aform.modify()">
+							<option selected hidden disabled value="">请选择要修改的项目...</option>
+						</select>
+					</label>
+					<label><b>名称</b>
+						<input id="ttext" type="text" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
+					</label>
+					<label><b>背景</b>
+						<input id="tbgc" type="color" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
+					</label>
+					<label><b>文字</b>
+						<input id="tfgc" type="color" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
+					</label>
+					<div id="tprw">
+						<p>预览</p>
+						<div id="tclsbox" class="flag"></div>
+					</div>
+				</div>
+			</div>
+			<div id="addbtn">
+				<input id="aok" name="aok" type="button" value="保存" onclick="uaCode.aform.add()"><div></div>
+				<input id="aclear" name="aclear" type="button" value="清空表单" onclick="uaCode.aform.clear()"><div></div>
+				<input id="anew" name="anew" type="button" value="管理" onclick="uaCode.aform.switchModify()"><div></div>
+				<input id="adel" name="adel" type="button" value="删除" onclick="uaCode.aform.del()">
+			</div>
+			<div id="addsave">
+				<label><b>文件名</b>
+					<input id="sfname" type="text" name="file" placeholder="不要包含 .js"  oninput="(()=>{this.style.borderColor='lightgray'})();">
+				</label>
+				<div id="savet">
+					<p>保存类型</p>
+					<label>
+						<input id="saveblob" type="radio" name="savet" value="true" class="orig-box">
+						<span class="new-style new-radio"></span>blob
+					</label>
+					<label>
+						<input id="savedata" type="radio" name="savet" value="false" class="orig-box">
+						<span class="new-style new-radio"></span>data:
+					</label>
+					<label>
+						<input id="savecopy" type="radio" name="savet" value="copy" class="orig-box" checked>
+						<span class="new-style new-radio"></span>手动
+					</label>
+				</div>
+				<input id="sdsave" name="sdsave" class="longbtn" type="button" value="保存数据 js" onclick="uaCode.aform.save()"/>
+				<input id="slsave" name="slsave" class="longbtn" type="button" value="保存数据列表 js" onclick="uaCode.aform.savelist()"/>
+			</div>
+		</div>
+		<script>
+		const uaCode = (() => {
+			let lab,cas,lah,ntx,pos=[0,0];
+
+/* https://www.w3docs.com/snippets/javascript/how-to-encode-and-decode-strings-with-base64-in-javascript.html */
+function base64EncodeUnicode(str) {
+  // Firstly, escape the string using encodeURIComponent to get the UTF-8 encoding of the characters, 
+  // Secondly, we convert the percent encodings into raw bytes, and add it to btoa() function.
+  utf8Bytes = encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+    return String.fromCharCode('0x' + p1);
+  });
+  return btoa(utf8Bytes);
+}
+
+/**
+ * Save a text as file using HTML <a> temporary element and Blob
+ * @author Loreto Parisi
+ * https://stackoverflow.com/questions/49988202/macos-webview-download-a-html5-blob-file
+*/
+function saveFile(data,name,blob) {
+    if(blob==="true") {
+        var bl = new Blob([data], { type: 'text/plain;charset=utf-8' });
+        var a = document.createElement("a");
+        a.download = name;
+		a.href = window.URL.createObjectURL(bl);
+		a.style.display = "none";
+		document.body.appendChild(a);
+        a.click();
+    } else {
+        var a = document.createElement('a');
+        a.href = 'data:text/plain;base64,' + base64EncodeUnicode(data);
+        a.download = name;
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+    }
+}
+
+			function getUpperHead(word) {
+				const temp = word.slice(0,1).toUpperCase();
+				return /^[A-Z]$/u.test(temp) ? temp : uaData.设置.数字记号;
+			}
+			
+			function $(all,sel) {
+				return (all) ? document.querySelectorAll(sel) : document.querySelector(sel);
+			}
+			
+			function $_(name) {
+				const list = $(true,`input[name="${name}"]:checked`);
+				return list.length === 1 && list[0].type === "radio" ? list[0] : list;
+			}
+			
+			function _(ele,del,nclass) {
+				if (del) {
+					ele.classList.remove(nclass);
+				} else {
+					ele.classList.add(nclass);
+				}
+			}
+			
+			function scanAll() {
+				let found = 0;
+				lah.forEach( ele => {
+					if (window.getComputedStyle(ele).display!=="none") {
+						found += 1;
+					}
+				});
+				return found;
+			}
+			
+			function scanForHead() {
+				cas.forEach( ele => {
+					let found = 0;
+					lab.forEach( la => {
+						if (getUpperHead(la.id) === ele.innerHTML && window.getComputedStyle(la).display !== "none") {
+							found += 1;
+						}
+					});
+					_(ele,found>=1,"none");
+				});
+			}
+			
+			function tagLetter(clas,chinese) {
+				if (clas.slice(0,1)==="_") {
+					return clas.slice(1);
+				} else {
+					return (chinese) ? clas : uaData.flag[clas][0];
+				}
+			}
+			
+			function toast(text) {
+				if (window.via.toast) {
+					window.via.toast(text);
+				} else {
+					document.title = text;
+				}
+			}
+			
+			function genUA() {
+				const baseUA = $_("mode").value === "add" ? 
+							$(false,"textarea").value :
+							uaData.base[$_("base").value].content,
+					midSpace = /.+\s.+/u;
+				let prefixUA = "",
+					preFollowUA = "",
+					suffixUA = " ",
+					sufFollowUA = "";
+				$_("app").forEach( app => {
+					const appo = uaData.apps[app.value];
+					if (typeof appo.content === "object") {
+						if (appo.content.qBasic!==undefined) {
+							appo.content = `${appo.content.qBasic} ${appo.content.qString} (${JSON.stringify({
+								packageName: appo.content.qFrom,
+								type: "url",
+								extra: {
+									scene: "recommend"
+								}
+							})})`;
+						}
+					}
+					if (appo.prefix) {
+						if (appo.followed) {
+							preFollowUA = midSpace.test(appo.content) ?
+											appo.content + preFollowUA :
+											preFollowUA + appo.content ;
+						} else {
+							prefixUA = `${appo.content} ${prefixUA}`;
+						}
+					} else if (appo.content instanceof Array) {
+						if (appo.followed) {
+							preFollowUA = midSpace.test(appo.content[0]) ?
+											appo.content[0] + preFollowUA :
+											preFollowUA + appo.content[0] ;
+							sufFollowUA = midSpace.test(appo.content[1]) ?
+											sufFollowUA + appo.content[1] :
+											appo.content[1] + sufFollowUA ;
+						} else {
+							prefixUA = `${appo.content[0]} ${prefixUA}`;
+							suffixUA += `${appo.content[1]} `;
+						}
+					} else {
+						if (appo.followed) {
+							sufFollowUA = midSpace.test(appo.content) ?
+											sufFollowUA + appo.content :
+											appo.content + sufFollowUA ;
+						} else {
+							suffixUA += `${appo.content} `;
+						}
+					}
+				});
+				$(false,"textarea").value = prefixUA + preFollowUA + baseUA + sufFollowUA + suffixUA;
+				_($(false,"#ua"),true,"none");
+			}
+			
+			function makeItemID(app) {
+				const idi = document.createElement("i");
+				let id = app;
+				if (uaData.apps[app].followed) { id = uaData.设置.无缝记号 + id; }
+				if (uaData.apps[app].prefix) { id = uaData.设置.前置记号 + id; }
+				idi.innerHTML = id;
+				return idi;
+			}
+			
+			function makeFlagDiv(clas,box,chinese,opa) {
+				const flag = document.createElement("div");
+				_(flag,false,"flag");
+				flag.innerHTML = tagLetter(clas,chinese);
+				if (clas.slice(0,1)==="_") {
+					clas = "third";
+				} else {
+					clas = (chinese) ? uaData.tagfind[clas] : clas;
+				}
+				if (!box) {
+					_(flag,false,`T${clas}`);
+				} else {
+					flag.onselectstart = () => {
+						return false;
+					}
+				}
+				flag.style.cssText = `background-color:${uaData.flag[clas][1]};color:${uaData.flag[clas][2]};opacity:${opa}`;
+				return flag;
+			}
+			
+			function makeHeadandLink(first,touch) {
+				const head = document.createElement("div");
+				Object.assign(head,{id: `i${first}`, innerHTML: first});
+				_(head,false,"CaseHead");
+				if(!touch) {
+					const jump = document.createElement("a");
+					Object.assign(jump,{href: `#i${first}`, innerHTML: first});
+					$(false,"#ajump").appendChild(jump);
+				} else {
+					uaData.index += first;
+				}
+				return head;
+			}
+			
+			function pushTagText(cls,app) {
+				if (uaData.tagtext[cls]===undefined) { uaData.tagtext[cls] = []; }
+				uaData.tagtext[cls].push(app);
+			}
+			
+			function parseClassinItem(lab,app) {
+				let count = 0;
+				if (uaData.apps[app].class.length===0) {
+					pushTagText("no_tag",app);
+					lab.classList.add("no_tag");
+					return 1;
+				} else {
+					uaData.apps[app].class.forEach( cls => {
+						count += 1;
+						lab.appendChild(makeFlagDiv(cls,false,true,1));
+						if (cls.slice(0,1)==="_") {
+							cls = "third";
+						} else {
+							cls = uaData.tagfind[cls];
+						}
+						pushTagText(cls,app);
+						_(lab,false,cls);
+					});
+					return count;
+				}
+			}
+			
+			function newBox(type) {
+				const box = document.createElement("span");
+				_(box,false,"new-style");
+				_(box,false,`new-${type}`);
+				return box;
+			}
+			
+			function makeItem(touch) {
+				let ofirst = "Z",cont = $(false,"#app_container");
+				Object.keys(uaData.apps).sort().forEach( app => {
+					uaData.text[app] = uaData.apps[app].text;
+					const lab = document.createElement("label"),
+						box = document.createElement("input"),
+						first = getUpperHead(app);
+					if (first!==ofirst) {
+						cont.appendChild(makeHeadandLink(first,touch));
+						ofirst = first;
+					}
+					lab.id = app;
+					Object.assign(box, {type: "checkbox", name: "app", value: app});
+					_(box,false,"orig-box");
+					lab.appendChild(box);
+					lab.appendChild(newBox("check"));
+					lab.innerHTML += uaData.apps[app].text;
+					uaData.count[app] = parseClassinItem(lab,app);
+					if (uaData.设置.测试模式) { lab.appendChild(makeItemID(app)); }
+					cont.appendChild(lab);
+				});
+			}
+			
+			function makeFlaginBox() {
+				Object.keys(uaData.flag).forEach( flag => {
+					const lab = document.createElement("label"),
+						box = document.createElement("input");
+					lab.id = `L${flag}`;
+					Object.assign(box, {type: "checkbox", name: "flag", id: flag, value: flag, checked: true});
+					box.addEventListener('change', e => {
+						uaCode.tagClick(e.target.parentNode.id,true);
+					});
+					lab.appendChild(box);
+					lab.appendChild(makeFlagDiv(flag,true,false,1));
+					$(false,"#classBox").appendChild(lab);
+				});
+			}
+			
+			function makeBaseRadio() {
+				Object.keys(uaData.base).forEach( base => {
+					const lab = document.createElement("label"),
+						box = document.createElement("input");
+					lab.for = base;
+					Object.assign(box, {type: "radio", name: "base", id: base, value: base});
+					_(box,false,"orig-box");
+					lab.appendChild(box);
+					lab.appendChild(newBox("radio"));
+					lab.innerHTML += uaData.base[base].text;
+					$(false,"#baseopt").appendChild(lab);
+					if ($(true,"#baseopt label").length===uaData.设置.基础默认) {
+						document.getElementById(base).checked = true;
+					}
+				});
+			}
+			
+			function unlockMouseMove() {
+				document.onmousemove = null;
+			}
+			
+			function winActiv(awin) {
+				let wing = $(true,".win");
+				wing.forEach( (win,i) => {
+					if (win.style.zIndex>awin.style.zIndex) {
+						win.style.zIndex--;
+					}
+				});
+				awin.style.zIndex = wing.length + 1;
+			}
+			
+			function dndWin(touch) {
+				let wing = $(true,".win");
+				wing.forEach( (win,i) => {
+					win.style.zIndex = i + 2;
+				});
+				if (touch) {
+					wing.forEach( win => {
+						win.addEventListener('touchstart', e => {
+							pos = [
+							(e.touches[0].clientX - win.offsetLeft),
+							(e.touches[0].clientY - win.offsetTop)
+							];
+							winActiv(win);
+						},{ passive: true });
+						win.addEventListener('touchmove', e => {
+							win.style.left = (e.touches[0].clientX - pos[0]) + 'px';
+							win.style.top = (e.touches[0].clientY - pos[1]) + 'px';
+						},{ passive: true });
+					});
+				} else {
+					$(true,".drag").forEach( drag => {
+						let win = drag.parentNode.parentNode;
+						drag.addEventListener('mousedown', e => {
+							pos = [
+							(e.clientX - win.offsetLeft),
+							(e.clientY - win.offsetTop)
+							];
+							winActiv(win);
+							document.onmousemove = e => {
+								win.style.left = (e.clientX - pos[0]) + 'px';
+								win.style.top = (e.clientY - pos[1]) + 'px';
+							};
+							drag.removeEventListener('mouseup', uaCode.util.unlock);
+							drag.addEventListener('mouseup', uaCode.util.unlock);
+						});
+					});
+				}
+			}
+			
+			function filterExec(item,nclass) {
+				let found = 0;
+				lab.forEach( ele => {
+					found = 0;
+					item.forEach( val => { found += val===ele.id ? 1 : 0; });
+					_(ele,found>=1,nclass);
+				});
+				scanForHead();
+				_(ntx,scanAll()===0,"none");
+			}
+			
+			function filterResume(nclass) {
+				lah.forEach( ele => { _(ele,true,nclass); });
+				scanForHead();
+				if (scanAll()!==0) { _(ntx,false,"none"); }
+			}
+			
+			function fltAppUA(word) {
+				if (word==="") {
+					filterResume("none");
+				} else {
+					const item = Object.keys(uaData.text).filter(obj => uaData.text[obj].toLowerCase().includes(word.toLowerCase()));
+					filterExec(item,"none");
+				}
+			}
+			
+			function fltAppUASelected(btn) {
+				if (btn.value==="列出已选") {
+					const item = [];
+					$_("app").forEach( ele => item.push(ele.value));
+					filterExec(item,"sel_none");
+					btn.value = "列出全部";
+				} else {
+					filterResume("sel_none");
+					btn.value = "列出已选";
+				}
+			}
+			
+			function fltAppUATag(clas,selected) {
+				$(true,`.T${clas}`).forEach( tag => {
+					if (selected) {
+						_(tag,true,"none");
+					} else {
+						_(tag,false,"none");
+					}
+				});
+				if (uaData.tagtext[clas]!==undefined) {
+					uaData.tagtext[clas].forEach( id => {
+						if (selected) {
+							uaData.count[id]++;
+						} else {
+							uaData.count[id]--;
+						}
+					});
+				}
+				const item = Object.keys(uaData.count).filter(obj => uaData.count[obj]!==0);
+				filterExec(item,"tag_none");
+			}
+			
+			function aform_switchCard() {
+				const val = $_("atype").value;
+				$(true,".atab").forEach( tab => {
+					if (tab.id===`${val}t`) {
+						_(tab,true,"none");
+						$(false,`#anew`).value = "添加";
+						aform_switchModify();
+					} else {
+						_(tab,false,"none");
+					}
+				});
+			}
+			
+			function aform_switchBoth() {
+				const val = $_("apre").value,
+				      both = $(true,".acont2"),
+				      sing = $(false,".acont1");
+				if (val==="both") {
+					both.forEach( input => { _(input,true,"none"); });
+					_(sing,false,"none");
+				} else {
+					both.forEach( input => { _(input,false,"none"); });
+					_(sing,true,"none");
+				}
+			}
+			
+			function aform_makeFlaginBox() {
+				$(true,".classBox").forEach( sbox => {
+					Object.keys(uaData.flag).forEach( flag => {
+						if (flag!=="qapp" && flag!=="no_tag") {
+							const lab = document.createElement("label"),
+								box = document.createElement("input");
+							lab.id = `${getUpperHead(sbox.id)}${flag}`;
+							Object.assign(box, {type: "checkbox", name: "sflag", id: `${sbox.id.slice(0,1)}${flag}`, value: flag, checked: false});
+							box.addEventListener('change', e => {
+								uaCode.tagClick(e.target.parentNode.id,false);
+								if (flag==="third") {
+									if (box.checked) {
+										_($(false,`#${sbox.id}l`),true,"none");
+									} else {
+										_($(false,`#${sbox.id}l`),false,"none");
+									}
+								}
+							});
+							lab.appendChild(box);
+							lab.appendChild(makeFlagDiv(flag,true,false,0.5));
+							sbox.appendChild(lab);
+						}
+					});
+				});
+			}
+			
+			function tagClick(id,flt) {
+				const box = $(false,`#${id} input`);
+					flag = $(false,`#${id} .flag`);
+				if (box.checked) {
+					flag.style.opacity = 1;
+				} else {
+					flag.style.opacity = .5;
+				}
+				if (flt) {
+					fltAppUATag(id.slice(1),box.checked);
+					$(false,'#openClass').style.backgroundColor = ($(true,'#classBox input:not(:checked)').length===0) ? '' : uaData.设置.标签筛选状态色;
+				}
+			}
+			
+			function aform_updateFlagPreview() {
+				const box = $(false,'#tclsbox'),
+					txt = $(false,'#ttext').value,
+					bgc = $(false,'#tbgc').value,
+					fgc = $(false,'#tfgc').value;
+				if (txt!=="") {
+					box.innerHTML = txt;
+					_(box,true,"none");
+				} else {
+					_(box,false,"none");
+				}
+				box.style.cssText = `background-color:${bgc};color:${fgc}`;
+			}
+			
+			function aform_Clear() {
+				$(true,'#addtable input[type="text"]').forEach( i => {
+					i.value = "";
+					i.style.borderColor = "lightgray";
+				});
+				$(true,".classBox input").forEach( c => { c.checked = false; });
+				$(true,".classBox .flag").forEach( f => { f.style.opacity = .5; });
+				$(true,".classPart label").forEach( t => { _(t,false,"none"); });
+				$(true,'#apref,#afolf').forEach( r => { r.checked = true; });
+				$(true,'.msel').forEach( s => { s.value = ""; });
+				$(false,'#tbgc').value = '#ffffff';
+				$(false,'#tfgc').value = '#000000';
+				aform_updateFlagPreview();
+				aform_switchBoth();
+			}
+			
+			function aform_Check(type) {
+				let a = true;
+				$(true,`#${type}t input[type="text"]`).forEach( i => {
+					i.style.borderColor = "lightgray";
+					if (getComputedStyle(i).display!=="none" &&
+						getComputedStyle(i.parentNode).display!=="none" && 
+						i.value==="") {
+						i.style.borderColor = "red";
+						a = false;
+					}
+				});
+				return (a && $(false,`#anew`).value==="管理") ? aform_KeyCheck(true) : a ;
+			}
+			
+			function aform_tType(type) {
+				switch (type) {
+					case "aapp":
+						return "a";
+						break;
+					case "qapp":
+						return "q";
+						break;
+					case "atag":
+						return "t";
+						break;
+				}
+			}
+			
+			function aform_KeyCheck(toast) {
+				const type = aform_tType($_("atype").value);
+				let inp = $(false,`#${type}key`), key = inp.value;
+				switch (type) {
+					case "t":
+						if (key in uaData.flag||key in uaData.stor.flag) {
+							inp.style.borderColor = "orange";
+							if(toast){ toast('标识重复'); }
+							return false;
+						} else if (key.slice(0,1)==="_") {
+							inp.style.borderColor = "orange";
+							if(toast){ toast('"_" 开头用于自定义标签'); }
+							return false;
+						}
+						break;
+					default:
+						if (key in uaData.apps||key in uaData.stor.apps) {
+							inp.style.borderColor = "orange";
+							if(toast){ toast('标识重复'); }
+							return false;
+						}
+						break;
+				}
+				if (key==="") {
+					inp.style.borderColor = "lightgray";
+					return false;
+				} else {
+					inp.style.borderColor = "green";
+					return true;
+				}
+			}
+			
+			function aform_Add() {
+				const atyp = $_("atype").value;
+				let key,name,pre,nfol,cont,obj,flag,typr,opt;
+				function convBool(val) { return (val==="true") ? true : false ; }
+				if (!aform_Check(atyp)) { return; }
+				typr = aform_tType(atyp);
+				key = ($(false,`#anew`).value==="管理") ?
+					$(false,`#${typr}key`).value :
+					$(false,`#${typr}sel`).value ;
+				switch (typr) {
+					case "a":
+						cont = ($_("apre").value!=="both") ?  
+							$(false,"#acont1").value : [
+							$(false,"#acont2a").value,
+							$(false,"#acont2b").value ];
+						break;
+					case "q":
+						cont = {
+							qBasic: $(false,"#qcont1").value,
+							qFrom: $(false,"#qcont2").value,
+							qString: $(false,"#qcont3").value,
+						};
+						break;
+				}
+				if (atyp==="atag") {
+					obj = [
+						$(false,'#ttext').value,
+						$(false,'#tbgc').value,
+						$(false,'#tfgc').value
+					]
+					Object.assign(uaData.stor.flag, { [`${key}`]: obj });
+				} else {
+					obj = {
+						text: $(false,`#${typr}text`).value,
+						prefix: (atyp==="qapp"||$_("apre").value==="both") ? false :
+								convBool($_("apre").value),
+						followed: (atyp==="qapp") ? false : convBool($_("afol").value),
+						content: (atyp==="qapp") ? {
+							平台:cont.qBasic,
+							来自:cont.qFrom,
+							应用:cont.qString
+						} : cont,
+						class: (atyp!=="qapp") ? [] : ["快应用"]
+					}
+					
+					$_("sflag").forEach( inp => {
+						if(inp.id.slice(1)==="third") {
+							obj.class.push("_" + $(false,`#${typr}thirdt`).value);
+						} else {
+							obj.class.push(tagLetter(inp.id.slice(1),false));
+						}
+					});
+					Object.assign(uaData.stor.apps, {
+						[`${key}`]: {
+							名称: obj.text,
+							前置: (obj.prefix) ? "是" : "不是",
+							无缝: (obj.followed) ? "是" : "不是",
+							标签: obj.class,
+							内容: obj.content
+						}
+					});
+				}
+				if ($(false,`#anew`).value==="管理") {
+					opt = document.createElement('option');
+					if (atyp==="atag") {
+						opt.value = key; opt.innerHTML = `${obj[0]} (${key})`;
+					} else {
+						opt.value = key; opt.innerHTML = `${obj.text} (${key})`;
+					}
+					$(false,`#${typr}sel`).appendChild(opt);
+					aform_Clear();
+				} else {
+					opt = $(false,`#${typr}sel option[value="${key}"]`);
+					if (atyp==="atag") {
+						opt.innerHTML = `${obj[0]} (${key})`;
+					} else {
+						opt.innerHTML = `${obj.text} (${key})`;
+					}
+					aform_Clear();
+				}
+				toast('保存成功');
+			}
+			
+			function tagSelect(id) {
+				const box = $(false,`#${id} input`);
+					flag = $(false,`#${id} .flag`);
+				box.checked = true;
+				flag.style.opacity = 1;
+			}
+			
+			function aform_Modify() {
+				const type = aform_tType($_("atype").value),
+					item = $(false,`#${type}sel`).value;
+				let obj,cobj,cont,ccls = [];
+				switch (type) {
+					case "t" :
+						obj = uaData.stor.flag[item];
+						break;
+					default:
+						cobj = uaData.stor.apps[item];
+						if (typeof cobj["内容"] === "object") {
+							if (cobj["内容"] instanceof Array) {
+								cont = [cobj["内容"][0],cobj["内容"][1]];
+							} else {
+								cont = {
+									qBasic: cobj["内容"]["平台"],
+									qFrom: cobj["内容"]["来自"],
+									qString: cobj["内容"]["应用"]
+								}
+							}
+						} else {
+							cont = cobj["内容"];
+						}
+						cobj["标签"].forEach( ct => {
+							ccls.push((ct.slice(0,1)==="_") ? ct : uaData.tagfind[ct]);
+						})
+						obj = {
+							text: cobj["名称"],
+							prefix: (cobj["前置"]==="是") ? true : false,
+							followed: (cobj["无缝"]==="是") ? true : false,
+							class: ccls,
+							content: cont
+						}
+						break;
+				}
+				
+				function resetClass(type) {
+					$(true,`#${type}clsbox input`).forEach( c => { c.checked = false; });
+					$(true,`#${type}clsbox .flag`).forEach( f => { f.style.opacity = .5; });
+					_($(false,`#${type}clsboxl`),false,"none");
+				}
+				
+				switch (type) {
+					case "a" :
+						$(false,"#atext").value = obj.text;
+						if (obj.content instanceof Array) {
+							$(false,"#apreb").checked = true;
+							aform_switchBoth();
+							$(false,"#acont2a").value = obj.content[0];
+							$(false,"#acont2b").value = obj.content[1];
+						} else {
+							if (obj.prefix) {
+								$(false,"#apret").checked = true;
+							} else {
+								$(false,"#apref").checked = true;
+							}
+							aform_switchBoth();
+							$(false,"#acont1").value = obj.content;
+						}
+						if (obj.followed) {
+							$(false,"#afolt").checked = true;
+						} else {
+							$(false,"#afolf").checked = true;
+						}
+						resetClass(type);
+						obj.class.forEach( cls => {
+							if (cls.slice(0,1)==="_") {
+								tagSelect("Athird");
+								_($(false,"#aclsboxl"),true,"none");
+								$(false,"#athirdt").value = cls.slice(1);
+							} else {
+								tagSelect(`A${cls}`);
+							}
+						});
+						break;
+					case "q" :
+						$(false,"#qtext").value = obj.text;
+						$(false,"#qcont1").value = obj.content.qBasic;
+						$(false,"#qcont2").value = obj.content.qFrom;
+						$(false,"#qcont3").value = obj.content.qString;
+						resetClass(type);
+						obj.class.forEach( cls => {
+							if (cls!=="qapp") {
+								if (cls.slice(0,1)==="_") {
+									tagSelect("Qthird");
+									_($(false,"#qclsboxl"),true,"none");
+									$(false,"#qthirdt").value = cls.slice(1);
+								} else {
+									tagSelect(`Q${cls}`);
+								}
+							}
+						});
+						break;
+					case "t" :
+						$(false,"#ttext").value = obj[0];
+						$(false,"#tbgc").value = obj[1];
+						$(false,"#tfgc").value = obj[2];
+						aform_updateFlagPreview();
+						break;
+				}
+			}
+			
+			function aform_Delete() {
+				const type = aform_tType($_("atype").value),
+					val = $(false,`#${type}sel`).value,
+					opt = $(false,`#${type}sel option[value="${val}"]`);
+				if (opt!==null) {
+					switch (type) {
+						case "t" :
+							delete uaData.stor.flag[val];
+							break;
+						default:
+							delete uaData.stor.apps[val];
+							break;
+					}
+					$(false,`#${type}sel`).removeChild(opt);
+					aform_Clear();
+					toast('删除成功');
+				} else {
+					toast('没有选择项目');
+				}
+			}
+			
+			function aform_switchModify() {
+				const type = aform_tType($_("atype").value),
+					sel = $(false,`#${type}sel`),
+					key = $(false,`#${type}key`),
+					btn = $(false,`#anew`);
+				if (btn.value==="管理") {
+					_(key,false,"none");
+					_(sel,true,"none");
+					btn.value = "添加";
+				} else {
+					_(key,true,"none");
+					_(sel,false,"none");
+					btn.value = "管理";
+				}
+			}
+			
+			function aform_dataBuilder(type) {
+				const head = (type==="apps") ? '加入("APP",' : '加入("标签",' ;
+				return `${head}\n${JSON.stringify(uaData.stor[type])}\n);\n`;
+			}
+			
+			function aform_toWin(cont) {
+				const win = $(false,"#ua");
+				$(false,"textarea").value = cont;
+				_(win,true,'none');
+				winActiv(win);
+			}
+			
+			function aform_dataSave() {
+				let data = '', blob = $_("savet").value, repeat = false,
+					name = $(false,'#sfname').value + ".js";
+				uaData.forEach( js => {
+					if (name===js) { repeat = true; }
+				});
+				if (name==='.js') {
+					$(false,'#sfname').style.borderColor = 'red';
+					toast('文件名为空');
+					return;
+				} else if (repeat) {
+					$(false,'#sfname').style.borderColor = 'orange';
+					toast('文件名重复');
+					return;
+				}
+				if (Object.keys(uaData.stor.flag).length !== 0) {
+					data += aform_dataBuilder("flag");
+				}
+				if (Object.keys(uaData.stor.apps).length !== 0) {
+					data += aform_dataBuilder("apps");
+				}
+				if (data!==undefined && name!=="") {
+					if (blob==="copy") {
+						aform_toWin(data);
+					} else {
+						saveFile(data,name,blob);
+					}
+					uaData.jslist.push(name);
+				}
+			}
+			
+			function aform_listSave() {
+				const blob = $_("savet").value, name = '数据列表.js',
+				list = `加入("数据",${JSON.stringify(uaData.jslist)});`;
+				if (blob==="copy") {
+					aform_toWin(list);
+				} else {
+					saveFile(list,name,blob);
+				}
+			}
+			
+			function init(touch){
+				makeItem(touch);
+				makeFlaginBox();
+				aform_makeFlaginBox();
+				$(false,"#Raapp").checked = true;
+				$(false,"#sfname").value = '';
+				$(false,"#savecopy").checked = true;
+				aform_Clear();
+				makeBaseRadio();
+				dndWin(touch);
+				$(false,"#version").innerHTML = `版本:${uaData.设置.代码版本} 总数:${Object.keys(uaData.apps).length}`;
+				lab = $(true,"#app_container label"),
+				cas = $(true,"#app_container .CaseHead"),
+				lah = $(true,"#app_container > label,.CaseHead"),
+				ntx = $(false,"#nulltext");
+			};
+
+			return {
+				init: init,
+				gen: genUA,
+				tagClick: tagClick,
+				filter: {
+					app: fltAppUA,
+					sel: fltAppUASelected,
+				},
+				util: {
+					_: _,
+					$: $,
+					$_: $_,
+					unlock: unlockMouseMove,
+				},
+				aform: {
+					switchBoth: aform_switchBoth,
+					switchCard: aform_switchCard,
+					updateFlagPreview: aform_updateFlagPreview,
+					add: aform_Add,
+					clear: aform_Clear,
+					del: aform_Delete,
+					check: aform_KeyCheck,
+					switchModify: aform_switchModify,
+					modify: aform_Modify,
+					save: aform_dataSave,
+					savelist: aform_listSave,
+				}
+			}
+		})();
+window.onload = () => {
+		if ("ontouchend" in document) {
+		uaCode.init(true);
+		// https://github.com/YueminHu/indexSidebar
+;(function(){
+	var emitter = {
+		events: {},
+		trigger (event, data) {
+			var handlers = this.events[event];
+			if(!handlers)return;
+			handlers.forEach((fn) => {
+				fn(data)
+			})
+		},
+		subscribe (event, fn) {
+			(this.events[event]) || (this.events[event] = []);
+			this.events[event].push(fn);
+		}
+	};
+	emitter.subscribe('fingerLand', (data) => {
+		var content = data.innerHTML, indicator = document.querySelector('div.indicator');
+		indicator.classList.remove("none");
+		indicator.innerHTML = content;
+		indicator.style.opacity = '1';
+		indicator.style.top = data.getBoundingClientRect().top + 'px';
+	});
+	emitter.subscribe('fingerLand', (elem) => {
+	if (elem.innerHTML.length == 1) {
+			var content = elem.innerHTML, scrolledElem = document.querySelector(`div#app_container > div[id="i${content}"]`);
+			scrolledElem.scrollIntoView();
+		}
+	})
+	emitter.subscribe('fingerOff', () => {
+		var indicator = document.querySelector('div.indicator');
+		indicator.style.opacity = '0';
+		setTimeout("document.querySelector('div.indicator').classList.add('none')",500);
+	})
+
+	function IndexSidebar(options) {
+		this.init(options);
+	};
+	IndexSidebar.prototype = {
+		constructor: IndexSidebar,
+		init (options) {
+			var options = options || {};
+			var defaultOptions = {
+				indices: uaData.index,
+				mounted: document.body
+			}
+			for (var k in defaultOptions) {
+				if(!options.hasOwnProperty(k)){
+					options[k] = defaultOptions[k]
+				}
+			}
+			var sidebarNode = document.createElement('div');
+			options.indices.split('').forEach((elem, index) => {
+				var indexNode = document.createElement('div');
+				indexNode.innerHTML = elem;
+				sidebarNode.appendChild(indexNode);
+			})
+			var indicator = document.createElement('div');
+			indicator.classList.add('indicator');
+			indicator.classList.add('none')
+			sidebarNode.appendChild(indicator)
+			sidebarNode.classList.add('sideBar');
+			options.mounted.appendChild(sidebarNode);
+			this.unitHeight = sidebarNode.firstElementChild.getBoundingClientRect().height;
+			this.nodeList = sidebarNode.childNodes;
+			this.touchStart = {
+				x:null,
+				y:null
+			};
+			this.startElem = null;
+			sidebarNode.addEventListener('touchstart', (e) => {
+				this.touchstart(e);
+			});
+			sidebarNode.addEventListener('touchmove', (e) => {
+				e.preventDefault();
+				this.touchmove(e);
+			},{passive: false});
+			sidebarNode.addEventListener('touchend', (e) => {
+				this.touchend(e);
+			});
+		},
+		touchstart (e) {
+			this.touchStart.x = e.touches[0].clientX;
+			this.touchStart.y = e.touches[0].clientY;
+			this.startElem = {
+				node: e.srcElement,
+				top: e.srcElement.getBoundingClientRect().top,
+				bottom: e.srcElement.getBoundingClientRect().bottom,
+				getIndex () {
+					var parent = this.node.parentNode, siblings = parent.childNodes, siblingsCount = siblings.length;
+					for (var i = 0; i < siblingsCount; i ++) {
+						if(siblings[i] === this.node)this.index = i;
+					}
+				},
+				index: null
+			};
+			this.startElem.getIndex();
+			emitter.trigger('fingerLand', e.srcElement)
+		},
+		touchmove (e) {
+			var deltaY = (e.touches[0].pageY - this.touchStart.y);
+			if (deltaY > this.startElem.bottom - this.touchStart.y) {
+				var margin = this.startElem.bottom - this.touchStart.y;
+				deltaY -= margin;
+				var currentNodeIndex = ~~(deltaY / this.unitHeight) + 1;
+				if (this.nodeIndex !== currentNodeIndex) {
+					this.nodeIndex = currentNodeIndex;
+					var currentNode = this.nodeList[this.startElem.index + currentNodeIndex]
+					emitter.trigger('fingerLand', currentNode);
+				}
+			} else if (deltaY < this.startElem.top - this.touchStart.y) {
+				var margin = this.touchStart.y - this.startElem.top;
+				deltaY += margin;
+				var currentNodeIndex = Math.abs(~~(deltaY / this.unitHeight)) + 1;
+				if (this.nodeIndex !== currentNodeIndex) {
+					this.nodeIndex = currentNodeIndex;
+					var currentNode = this.nodeList[this.startElem.index - currentNodeIndex]
+					emitter.trigger('fingerLand', currentNode);
+				}
+			} else {
+				var currentNodeIndex = 0;
+				if (this.nodeIndex !== currentNodeIndex) {
+					this.nodeIndex = currentNodeIndex;
+					var currentNode = this.nodeList[this.startElem.index]
+					emitter.trigger('fingerLand', currentNode);
+				}
+			}
+		},
+		touchend (e) {
+			this.touchStart.x = this.touchStart.y = this.startElem = null;
+			emitter.trigger('fingerOff')
+		}
+	}
+	window.indexSidebar1 = new IndexSidebar({
+		mounted: document.querySelector('#app')
+	});
+})();
+} else {
+	document.querySelector("#ajump").classList.remove("none");
+	uaCode.init(false);
+}
+
+	if(document.querySelector("#search").value!==""){
+		document.querySelector("#searchlabel").classList.add("up");
+	}
+}
+		</script>
+	</body>
+</html>
