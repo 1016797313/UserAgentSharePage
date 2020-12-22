@@ -182,15 +182,19 @@
 				padding: 3px;
 			}
 			#baseopt,#modeopt {
-				display: grid;
 				line-height: 22px;
 			}
 			#baseopt {
+				display: grid;
 				grid-template-columns: repeat(4, max-content);
 				grid-template-rows: repeat(2, max-content);
 			}
 			#modeopt {
-				grid-template-columns: max-content repeat(2, max-content auto) repeat(2, max-content);
+				display: flex;
+				justify-content: space-between;
+			}
+			#modeopt > div {
+				display: flex;
 			}
 			#base label,#mode label,#classBox label {
 				display: inline-flex;
@@ -241,11 +245,8 @@
 			}
 			#action,#action2,#action3,#addbtn {
 				text-align: center;
-				display: grid;
-				grid-template-columns: repeat(2, max-content auto) max-content;
-			}
-			#addbtn {
-				grid-template-columns: repeat(3, max-content auto) max-content;
+				display: flex;
+				justify-content: space-between;
 			}
 			#action {
 				margin: 0 .5em;
@@ -462,6 +463,11 @@
 				word-wrap: break-word;
 				word-break: break-all;
 			}
+			.drag {
+				width: -webkit-fill-available;
+				width: -moz-available;
+				width: fill-available;
+			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
 					padding: 3px 0;
@@ -539,17 +545,21 @@
 		<div id="mode">
 			<div class="setHead"><p>生成模式</p></div>
 			<div id="modeopt">
-				<label for="gen">
-					<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked>
-					<span class="new-style new-radio"></span>生成
-				</label>
-				<label for="add">
-					<input id="add" type="radio" name="mode" value="add" class="orig-box">
-					<span class="new-style new-radio"></span>添加
-				</label><div></div>
-				<input id="openNew" name="openNew" type="button" value="+" onclick="uaCode.util.$(false,'#addui').classList.remove('none')"><div></div>
-				<input id="openClass" name="openClass" type="button" value="标签筛选" onclick="uaCode.util.$(false,'#class').classList.remove('none')">
-				<input id="openUA" name="openUA" type="button" value="打开窗口" onclick="uaCode.util.$(false,'#ua').classList.remove('none')">
+				<div>
+					<label for="gen">
+						<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked>
+						<span class="new-style new-radio"></span>生成
+					</label>
+					<label for="add">
+						<input id="add" type="radio" name="mode" value="add" class="orig-box">
+						<span class="new-style new-radio"></span>添加
+					</label>
+				</div>
+				<div>
+					<input id="openNew" name="openNew" type="button" value="+" onclick="uaCode.util.$(false,'#addui').classList.remove('none')">
+					<input id="openClass" name="openClass" type="button" value="标签筛选" onclick="uaCode.util.$(false,'#class').classList.remove('none')">
+					<input id="openUA" name="openUA" type="button" value="打开窗口" onclick="uaCode.util.$(false,'#ua').classList.remove('none')">
+				</div>
 			</div>
 		</div>
 		<div id="searchbox">
@@ -565,8 +575,8 @@
 			<p id="ajump" class="none"></p>
 		</div>
 		<div id="action">
-			<input id="clear" name="clear" type="button" value="清空选择" onclick="uaCode.util.$_('app').forEach( check => { check.checked = false; })"><div></div>
-			<input id="shows" name="shows" type="button" value="列出已选" onclick="uaCode.filter.sel(this)"><div></div>
+			<input id="clear" name="clear" type="button" value="清空选择" onclick="uaCode.util.$_('app').forEach( check => { check.checked = false; })">
+			<input id="shows" name="shows" type="button" value="列出已选" onclick="uaCode.filter.sel(this)">
 			<input id="start" name="start" type="button" value="生成 UA" onclick="uaCode.gen()">
 		</div>
 		<div id="ua" class="none win">
@@ -711,9 +721,9 @@
 				</div>
 			</div>
 			<div id="addbtn">
-				<input id="aok" name="aok" type="button" value="保存" onclick="uaCode.aform.add()"><div></div>
-				<input id="aclear" name="aclear" type="button" value="清空表单" onclick="uaCode.aform.clear()"><div></div>
-				<input id="anew" name="anew" type="button" value="管理" onclick="uaCode.aform.switchModify()"><div></div>
+				<input id="aok" name="aok" type="button" value="保存" onclick="uaCode.aform.add()">
+				<input id="aclear" name="aclear" type="button" value="清空表单" onclick="uaCode.aform.clear()">
+				<input id="anew" name="anew" type="button" value="管理" onclick="uaCode.aform.switchModify()">
 				<input id="adel" name="adel" type="button" value="删除" onclick="uaCode.aform.del()">
 			</div>
 			<div id="addsave">
