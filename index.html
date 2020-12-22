@@ -19,6 +19,7 @@
 					apps:{},
 					flag:{}
 				},
+				storKey:"userAgentData",
 				设置:{
 					代码版本:"5.0 Beta 4",
 					基础默认:1,
@@ -90,6 +91,20 @@
 				script.src = js;
 				document.querySelector("head").appendChild(script);
 			});
+			(() => {
+				const stor = window.localStorage;
+				if (stor.hasOwnProperty(uaData.storKey)) {
+					let data = JSON.parse(stor.getItem(uaData.storKey));
+					if (data.apps) {
+						Object.assign(uaData.stor.apps,data.apps);
+						加入("APP",data.apps);
+					}
+					if (data.tags) {
+						Object.assign(uaData.stor.tags,data.tags);
+						加入("标签",data.tags);
+					}
+				}
+			})();
 		</script>
 		<style>
 			:focus {
@@ -470,7 +485,41 @@
 				width: 100%;
 				width: -webkit-fill-available;
 				width: -moz-available;
-				width: fill-available;
+			}
+			@keyframes toast {
+				0% {
+					opacity: 0%;
+				}
+				35% {
+					opacity: 100%;
+				}
+				85% {
+					opacity: 100%;
+				}
+				100% {
+					opacity: 0%;
+				}
+			}
+			#toast {
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 10%;
+				width: max-content;
+				margin: 0 auto;
+				display: none;
+				border-radius: 20px;
+				padding: .5em 1em;
+				font-size: .75em;
+				font-weight: bold;
+				background-color: rgba(0,0,0,0.8);
+				color: white;
+				text-align: center;
+				z-index: 9;
+			}
+			.toasting {
+				display: block !important;
+				animation: toast 3s;
 			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
@@ -618,9 +667,11 @@
 			</div>
 			<div id="addtable">
 				<div id="aappt" class="atab">
-					<label><b>标识</b>
+					<label id="akeyl"><b>标识</b>
 						<input id="akey" type="text" name="aapp" placeholder="数字和英文字母，首字母对应名称拼音首字母" oninput="uaCode.aform.check(false)"/>
-						<select id="asel" class="msel none" onchange="uaCode.aform.modify()">
+					</label>
+					<label id="asell" class="none"><b>标识</b>
+						<select id="asel" class="msel" onchange="uaCode.aform.modify()">
 							<option selected hidden disabled value="">请选择要修改的项目...</option>
 						</select>
 					</label>
@@ -672,9 +723,11 @@
 					</div>
 				</div>
 				<div id="qappt" class="atab none">
-					<label><b>标识</b>
+					<label id="qkeyl"><b>标识</b>
 						<input id="qkey" type="text" name="qapp" placeholder="数字和英文字母，首字母对应名称拼音首字母" oninput="uaCode.aform.check(false)"/>
-						<select id="qsel" class="msel none" onchange="uaCode.aform.modify()">
+					</label>
+					<label id="qsell" class="none"><b>标识</b>
+						<select id="qsel" class="msel" onchange="uaCode.aform.modify()">
 							<option selected hidden disabled value="">请选择要修改的项目...</option>
 						</select>
 					</label>
@@ -703,9 +756,11 @@
 					</div>
 				</div>
 				<div id="atagt" class="atab none">
-					<label><b>标识</b>
+					<label id="tkeyl"><b>标识</b>
 						<input id="tkey" type="text" name="atag" placeholder="数字和英文字母" oninput="uaCode.aform.check(false)"/>
-						<select id="tsel" class="msel none" onchange="uaCode.aform.modify()">
+					</label>
+					<label id="tsell" class="none"><b>标识</b>
+						<select id="tsel" class="msel" onchange="uaCode.aform.modify()">
 							<option selected hidden disabled value="">请选择要修改的项目...</option>
 						</select>
 					</label>
@@ -753,6 +808,7 @@
 				<input id="slsave" name="slsave" class="longbtn" type="button" value="保存数据列表 js" onclick="uaCode.aform.savelist()"/>
 			</div>
 		</div>
+		<div id="toast" onanimationend="this.classList.remove('toasting')"></div>
 		<script>
 		const uaCode = (() => {
 			let lab,cas,lah,ntx,pos=[0,0];
@@ -838,8 +894,10 @@ function saveFile(data,name,blob) {
 			}
 			
 			function toast(text) {
-				if (window.via.toast===undefined) {
-					document.title = text;
+				if (!window.via||typeof window.via.toast!=="function") {
+					const toast = $(false,"#toast");
+					toast.innerHTML = text;
+					toast.classList.add("toasting");
 				} else {
 					window.via.toast(text);
 				}
@@ -1380,6 +1438,27 @@ function saveFile(data,name,blob) {
 				toast('保存成功');
 			}
 			
+			function lsb_initOption() {
+				if (Object.key(uaData.stor).length!==0) {
+					if (uaData.stor.apps) {
+						Object.keys(uaData.stor.apps).forEach( app => {
+							let sel, opt = document.createElement('option');
+							sel = (uaData.stor[app].content.qFrom) ?
+								$(false,`#qsel`) : $(false,`#asel`);
+							opt.value = app; opt.innerHTML = `${uaData.stor[app].text} (${app})`;
+							sel.appendChild(opt);
+						});
+					}
+					if (uaData.stor.tags) {
+						Object.keys(uaData.stor.tags).forEach( tag => {
+							let sel = $(false,`#tsel`), opt = document.createElement('option');
+							opt.value = tag; opt.innerHTML = `${uaData.stor[tag][0]} (${tag})`;
+							sel.appendChild(opt);
+						});
+					}
+				}
+			}
+					
 			function tagSelect(id) {
 				const box = $(false,`#${id} input`);
 					flag = $(false,`#${id} .flag`);
@@ -1512,8 +1591,8 @@ function saveFile(data,name,blob) {
 			
 			function aform_switchModify() {
 				const type = aform_tType($_("atype").value),
-					sel = $(false,`#${type}sel`),
-					key = $(false,`#${type}key`),
+					sel = $(false,`#${type}sell`),
+					key = $(false,`#${type}keyl`),
 					btn = $(false,`#anew`);
 				if (btn.value==="管理") {
 					_(key,false,"none");
