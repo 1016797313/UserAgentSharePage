@@ -1607,20 +1607,24 @@
 				const type = aform_tType($_("atype").value),
 					val = $(false,`#${type}sel`).value,
 					opt = $(false,`#${type}sel option[value="${val}"]`);
-				if (opt!==null) {
-					switch (type) {
-						case "t" :
-							delete uaData.stor.flag[val];
-							break;
-						default:
-							delete uaData.stor.apps[val];
-							break;
+				if ($(false,`#anew`)==="添加") {
+					if (opt!==null) {
+						switch (type) {
+							case "t" :
+								delete uaData.stor.flag[val];
+								break;
+							default:
+								delete uaData.stor.apps[val];
+								break;
+						}
+						$(false,`#${type}sel`).removeChild(opt);
+						aform_Clear();
+						toast('删除成功');
+					} else {
+						toast('没有选择项目');
 					}
-					$(false,`#${type}sel`).removeChild(opt);
-					aform_Clear();
-					toast('删除成功');
 				} else {
-					toast('没有选择项目');
+					toast('只能在管理模式下删除项目');
 				}
 			}
 			
