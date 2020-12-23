@@ -1605,10 +1605,11 @@
 			
 			function aform_Delete() {
 				const type = aform_tType($_("atype").value),
-					val = $(false,`#${type}sel`).value,
+					sel = $(false,`#${type}sel`),
+					val = sel.value,
 					opt = $(false,`#${type}sel option[value="${val}"]`);
-				if ($(false,`#anew`)==="添加") {
-					if (opt!==null) {
+				if ($(false,`#anew`).value==="添加") {
+					if (val!=="") {
 						switch (type) {
 							case "t" :
 								delete uaData.stor.flag[val];
@@ -1617,7 +1618,7 @@
 								delete uaData.stor.apps[val];
 								break;
 						}
-						$(false,`#${type}sel`).removeChild(opt);
+						sel.removeChild(opt);
 						aform_Clear();
 						toast('删除成功');
 					} else {
@@ -1642,11 +1643,6 @@
 					_(sel,false,"none");
 					btn.value = "管理";
 				}
-			}
-			
-			function aform_dataBuilder(type) {
-				const head = (type==="apps") ? '加入("APP",' : '加入("标签",' ;
-				return `${head}\n${JSON.stringify(uaData.stor[type])}\n);\n`;
 			}
 			
 			function aform_toWin(cont) {
