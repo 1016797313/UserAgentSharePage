@@ -21,7 +21,7 @@
 				},
 				storKey:"userAgentData",
 				设置:{
-					代码版本:"5.0 Beta 4",
+					代码版本:"5.0 Beta 5",
 					基础默认:1,
 					数字记号:"#",
 					标签筛选状态色:"#00ad46",
@@ -94,14 +94,19 @@
 			(() => {
 				const stor = window.localStorage;
 				if (stor.hasOwnProperty(uaData.storKey)) {
-					let data = JSON.parse(stor.getItem(uaData.storKey));
-					if (data.apps) {
-						Object.assign(uaData.stor.apps,data.apps);
-						加入("APP",data.apps);
-					}
-					if (data.tags) {
-						Object.assign(uaData.stor.tags,data.tags);
-						加入("标签",data.tags);
+					try {
+						let data = JSON.parse(stor.getItem(uaData.storKey));
+						if (data.apps) {
+							Object.assign(uaData.stor.apps,data.apps);
+							加入("APP",data.apps);
+						}
+						if (data.flag) {
+							Object.assign(uaData.stor.flag,data.flag);
+							加入("标签",data.flag);
+						}
+					} catch(e) {
+						alert(`存储数据异常，将会被清空...\n 内容:${stor.getItem(uaData.storKey)}`);
+						stor.removeItem(uaData.storKey);
 					}
 				}
 			})();
@@ -211,7 +216,7 @@
 			#modeopt > div {
 				display: flex;
 			}
-			#base label,#mode label,#classBox label {
+			#base label,#mode label,#classBox label,.classBox label {
 				display: inline-flex;
 			}
 			#app label {
@@ -258,7 +263,7 @@
 				grid-auto-rows: max-content;
 				height: calc(1.5em * 14.5);
 			}
-			#action,#action2,#action3,#addbtn {
+			#action,#action2,#action3,#addbtn,.savebtn {
 				text-align: center;
 				display: flex;
 				justify-content: space-between;
@@ -430,10 +435,6 @@
 				display: inline-block;
 				font-weight: bold;
 			}
-			.longbtn {
-				width: 97%;
-				height: 2em;
-			}
 			#addui {
 				background-color: rgba(233,233,233,0.75);
 				padding: 0;
@@ -525,6 +526,9 @@
 				display: block !important;
 				animation: toast 3s;
 			}
+			.savebtn input {
+				width: 28%;
+			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
 					padding: 3px 0;
@@ -550,6 +554,10 @@
 				}
 				#searchlabel {
 					top: 12px;
+				}
+				#stordata {
+					width: 24em;
+					height: 80px;
 				}
 			}
 			@media only screen and (min-width: 600px) {
@@ -588,6 +596,9 @@
 				}
 				#searchlabel {
 					top: 14px;
+				}
+				#stordata {
+					width: 20em;
 				}
 			}
 		</style>
@@ -639,8 +650,8 @@
 		<div id="ua" class="none win">
 			<textarea id="useragent" placeholder="你想要的在这儿 ^_^"></textarea>
 			<div id="action2">
-				<input id="clearUA" name="clearUA" type="button" value="清空" onclick="(()=>{uaCode.util.$(false,'textarea').value = '';})();"><div class="drag"></div>
-				<input id="copy" name="copy" type="button" value="复制" onclick="(()=>{uaCode.util.$(false,'textarea').select();document.execCommand('copy');})();"><div class="drag"></div>
+				<input id="clearUA" name="clearUA" type="button" value="清空" onclick="(()=>{uaCode.util.$(false,'#useragent').value = '';})();"><div class="drag"></div>
+				<input id="copy" name="copy" type="button" value="复制" onclick="(()=>{uaCode.util.$(false,'#useragent').select();document.execCommand('copy');})();"><div class="drag"></div>
 				<input id="closeUA" name="closeUA" type="button" value="关闭窗口" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
 		</div>
@@ -784,65 +795,29 @@
 				</div>
 			</div>
 			<div id="addbtn">
-				<input id="aok" name="aok" type="button" value="保存" onclick="uaCode.aform.add()">
+				<input id="aok" name="aok" type="button" value="保存项目" onclick="uaCode.aform.add()">
 				<input id="aclear" name="aclear" type="button" value="清空表单" onclick="uaCode.aform.clear()">
 				<input id="anew" name="anew" type="button" value="管理" onclick="uaCode.aform.switchModify()">
-				<input id="adel" name="adel" type="button" value="删除" onclick="uaCode.aform.del()">
+				<input id="adel" name="adel" type="button" value="删除项目" onclick="uaCode.aform.del()">
 			</div>
 			<div id="addsave">
-				<label><b>文件名</b>
-					<input id="sfname" type="text" name="file" placeholder="不要包含 .js"  oninput="(()=>{this.style.borderColor='lightgray'})();">
-				</label>
-				<div id="savet">
-					<p>保存类型</p>
-					<label>
-						<input id="saveblob" type="radio" name="savet" value="true" class="orig-box">
-						<span class="new-style new-radio"></span>blob
-					</label>
-					<label>
-						<input id="savedata" type="radio" name="savet" value="false" class="orig-box">
-						<span class="new-style new-radio"></span>data:
-					</label>
-					<label>
-						<input id="savecopy" type="radio" name="savet" value="copy" class="orig-box" checked>
-						<span class="new-style new-radio"></span>手动
-					</label>
+				<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
+				<div class="savebtn">
+					<input id="ssave" name="ssave" type="button" value="保存数据" onclick="uaCode.lsb.save()">
+					<input id="copy" name="copy" type="button" value="复制内容" onclick="(()=>{uaCode.util.$(false,'#stordata').select();document.execCommand('copy');})();">
+					<input id="cleartext" name="cleartext" type="button" value="清空内容" onclick="(()=>{uaCode.util.$(false,'#stordata').value = '';})();">
 				</div>
-				<input id="sdsave" name="sdsave" class="longbtn" type="button" value="保存数据 js" onclick="uaCode.aform.save()"/>
-				<input id="slsave" name="slsave" class="longbtn" type="button" value="保存数据列表 js" onclick="uaCode.aform.savelist()"/>
+				<div class="savebtn">
+					<input id="simp" name="simp" type="button" value="导入数据" onclick="uaCode.lsb.import()">
+					<input id="sexp" name="sexp" type="button" value="导出数据" onclick="uaCode.lsb.export()">
+					<input id="adel" name="adel" type="button" value="清空存储" onclick="uaCode.lsb.clear()">
+				</div>
 			</div>
 		</div>
 		<div id="toast" onanimationend="this.classList.remove('toasting')"></div>
 		<script>
 		const uaCode = (() => {
-			let lab,cas,lah,ntx,pos=[0,0];
-
-/* https://www.w3docs.com/snippets/javascript/how-to-encode-and-decode-strings-with-base64-in-javascript.html */
-function base64EncodeUnicode(str) {
-  // Firstly, escape the string using encodeURIComponent to get the UTF-8 encoding of the characters, 
-  // Secondly, we convert the percent encodings into raw bytes, and add it to btoa() function.
-  utf8Bytes = encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
-    return String.fromCharCode('0x' + p1);
-  });
-  return btoa(utf8Bytes);
-}
-
-/**
- * Save a text as file using HTML <a> temporary element and Blob
- * @author Loreto Parisi
- * https://stackoverflow.com/questions/49988202/macos-webview-download-a-html5-blob-file
-*/
-function saveFile(data,name,blob) {
-	var a = document.createElement("a");
-    a.href = (blob==="true") ?
-		window.URL.createObjectURL(new Blob([data], { type: 'text/plain;charset=utf-8' })) :
-		'data:text/plain;base64,' + base64EncodeUnicode(data);
-    a.download = name;
-	_(a,false,"none");
-	document.body.appendChild(a);
-	a.click();
-}
-
+			let lab,cas,lah,ntx,loc,pos=[0,0];
 			function getUpperHead(word) {
 				const temp = word.slice(0,1).toUpperCase();
 				return /^[A-Z]$/u.test(temp) ? temp : uaData.设置.数字记号;
@@ -1443,26 +1418,82 @@ function saveFile(data,name,blob) {
 			}
 			
 			function lsb_initOption() {
-				if (Object.key(uaData.stor).length!==0) {
+				if (Object.keys(uaData.stor).length!==0) {
 					if (uaData.stor.apps) {
 						Object.keys(uaData.stor.apps).forEach( app => {
 							let sel, opt = document.createElement('option');
-							sel = (uaData.stor[app].content.qFrom) ?
+							sel = (uaData.stor.apps[app].内容.来自) ?
 								$(false,`#qsel`) : $(false,`#asel`);
-							opt.value = app; opt.innerHTML = `${uaData.stor[app].text} (${app})`;
+							opt.value = app; opt.innerHTML = `${uaData.stor.apps[app].内容} (${app})`;
 							sel.appendChild(opt);
 						});
 					}
-					if (uaData.stor.tags) {
-						Object.keys(uaData.stor.tags).forEach( tag => {
+					if (uaData.stor.flag) {
+						Object.keys(uaData.stor.flag).forEach( tag => {
 							let sel = $(false,`#tsel`), opt = document.createElement('option');
-							opt.value = tag; opt.innerHTML = `${uaData.stor[tag][0]} (${tag})`;
+							opt.value = tag; opt.innerHTML = `${uaData.stor.flag[tag][0]} (${tag})`;
 							sel.appendChild(opt);
 						});
 					}
 				}
 			}
-					
+			
+			function lsb_save() {
+				if (Object.keys(uaData.stor.apps).length!==0 ||
+					Object.keys(uaData.stor.flag).length!==0) {
+					loc.setItem(uaData.storKey,JSON.stringify(uaData.stor));
+					toast('保存成功，下次刷新生效');
+				} else {
+					toast('没有自定义数据');
+				}
+			}
+
+			function lsb_export() {
+				if (loc.hasOwnProperty(uaData.storKey)) {
+					$(false,"#stordata").value = loc.getItem(uaData.storKey);
+				} else {
+					toast('没有自定义数据');
+				}
+			}
+			
+			function lsb_import() {
+				let err = 0;
+				if ($(false,"#stordata").value!=="") {
+					try {
+						const data = JSON.parse($(false,"#stordata").value);
+						if (loc.hasOwnProperty(uaData.storKey)) {
+							let odata = JSON.parse(loc.getItem(uaData.storKey));
+							Object.keys(data).forEach( k => {
+								if (odata[k]) {
+									Object.assign(odata[k],data[k]);
+								} else {
+									odata[k] = data[k];
+								}
+							});
+							loc.setItem(uaData.storKey,JSON.stringify(odata));
+						} else {
+							loc.setItem(uaData.storKey,JSON.stringify(data));
+						}
+						$(false,"#stordata").value = "";
+					} catch(e) {
+						err = 1;
+						if (e instanceof SyntaxError) {
+							toast('导入失败:格式不正确');
+						} else {
+							toast('导入失败');
+						}
+					}
+					if (err===0) { toast('导入成功'); }
+				} else {
+					toast('没有输入数据');
+				}
+			}
+			
+			function lsb_clear() {
+				loc.removeItem(uaData.storKey);
+				toast('清空啦');
+			}
+			
 			function tagSelect(id) {
 				const box = $(false,`#${id} input`);
 					flag = $(false,`#${id} .flag`);
@@ -1621,54 +1652,13 @@ function saveFile(data,name,blob) {
 				winActiv(win);
 			}
 			
-			function aform_dataSave() {
-				let data = '', blob = $_("savet").value, repeat = false,
-					name = $(false,'#sfname').value + ".js";
-				uaData.jslist.forEach( js => {
-					if (name===js) { repeat = true; }
-				});
-				if (name==='.js') {
-					$(false,'#sfname').style.borderColor = 'red';
-					toast('文件名为空');
-					return;
-				} else if (repeat) {
-					$(false,'#sfname').style.borderColor = 'orange';
-					toast('文件名重复');
-					return;
-				}
-				if (Object.keys(uaData.stor.flag).length !== 0) {
-					data += aform_dataBuilder("flag");
-				}
-				if (Object.keys(uaData.stor.apps).length !== 0) {
-					data += aform_dataBuilder("apps");
-				}
-				if (data!==undefined && name!=="") {
-					if (blob==="copy") {
-						aform_toWin(data);
-					} else {
-						saveFile(data,name,blob);
-					}
-					uaData.jslist.push(name);
-				}
-			}
-			
-			function aform_listSave() {
-				const blob = $_("savet").value, name = '数据列表.js',
-				list = `加入("数据",${JSON.stringify(uaData.jslist)});`;
-				if (blob==="copy") {
-					aform_toWin(list);
-				} else {
-					saveFile(list,name,blob);
-				}
-			}
-			
 			function init(touch){
+				lsb_initOption();
 				makeItem(touch);
 				makeFlaginBox();
 				aform_makeFlaginBox();
 				$(false,"#Raapp").checked = true;
-				$(false,"#sfname").value = '';
-				$(false,"#savecopy").checked = true;
+				$(false,"#stordata").value = '';
 				aform_Clear();
 				makeBaseRadio();
 				dndWin(touch);
@@ -1677,6 +1667,7 @@ function saveFile(data,name,blob) {
 				cas = $(true,"#app_container .CaseHead"),
 				lah = $(true,"#app_container > label,.CaseHead"),
 				ntx = $(false,"#nulltext");
+				loc = window.localStorage;
 			};
 
 			return {
@@ -1703,8 +1694,12 @@ function saveFile(data,name,blob) {
 					check: aform_KeyCheck,
 					switchModify: aform_switchModify,
 					modify: aform_Modify,
-					save: aform_dataSave,
-					savelist: aform_listSave,
+				},
+				lsb: {
+					save: lsb_save,
+					clear: lsb_clear,
+					import: lsb_import,
+					export: lsb_export,
 				}
 			}
 		})();
