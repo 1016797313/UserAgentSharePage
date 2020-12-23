@@ -150,17 +150,11 @@
 				color: lightgray;
 				text-align: center;
 			}
-			#base,#mode {
-				grid-template-columns: 4.5em auto;
-			}
-			#app {
-				grid-template-columns: auto max-content;
-			}
 			#base,#mode,#app {
 				border: 1px solid lightgray;
 				border-radius: 10px;
 				overflow: hidden;
-				display: grid;
+				display: flex;
 			}
 			#base,#searchbox,#app {
 				margin-bottom: 4px;
@@ -193,9 +187,12 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				width: 6.5em;
 			}
 			#ajump {
-				display: grid;
+				display: flex;
+				flex-flow: column;
+				justify-content: space-between;
 				width: 7px;
 				background-color: lightgray;
 				margin: 0;
@@ -203,6 +200,7 @@
 			}
 			#baseopt,#modeopt {
 				line-height: 22px;
+				width: 100%;
 			}
 			#baseopt {
 				display: grid;
@@ -262,6 +260,7 @@
 				display: grid;
 				grid-auto-rows: max-content;
 				height: calc(1.5em * 14.5);
+				width: 100%;
 			}
 			#action,#action2,#action3,#addbtn,.savebtn {
 				text-align: center;
