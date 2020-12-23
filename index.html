@@ -1666,6 +1666,7 @@
 				aform_Clear();
 				makeBaseRadio();
 				dndWin(touch);
+				$(false,"#search").value = '';
 				$(false,"#version").innerHTML = `版本:${uaData.设置.代码版本} 总数:${Object.keys(uaData.apps).length}`;
 				lab = $(true,"#app_container label"),
 				cas = $(true,"#app_container .CaseHead"),
@@ -1851,10 +1852,6 @@ window.onload = () => {
 	document.querySelector("#ajump").classList.remove("none");
 	uaCode.init(false);
 }
-
-	if(document.querySelector("#search").value!==""){
-		document.querySelector("#searchlabel").classList.add("up");
-	}
 }
 		</script>
 	</body>
