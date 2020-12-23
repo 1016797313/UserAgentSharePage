@@ -804,13 +804,13 @@
 				<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
 				<div class="savebtn">
 					<input id="ssave" name="ssave" type="button" value="保存数据" onclick="uaCode.lsb.save()">
-					<input id="copy" name="copy" type="button" value="复制内容" onclick="(()=>{uaCode.util.$(false,'#stordata').select();document.execCommand('copy');})();">
+					<input id="scopy" name="scopy" type="button" value="复制内容" onclick="(()=>{uaCode.util.$(false,'#stordata').select();document.execCommand('copy');})();">
 					<input id="cleartext" name="cleartext" type="button" value="清空内容" onclick="(()=>{uaCode.util.$(false,'#stordata').value = '';})();">
 				</div>
 				<div class="savebtn">
 					<input id="simp" name="simp" type="button" value="导入数据" onclick="uaCode.lsb.import()">
 					<input id="sexp" name="sexp" type="button" value="导出数据" onclick="uaCode.lsb.export()">
-					<input id="adel" name="adel" type="button" value="清空存储" onclick="uaCode.lsb.clear()">
+					<input id="sdel" name="sdel" type="button" value="清空存储" onclick="uaCode.lsb.clear()">
 				</div>
 			</div>
 		</div>
