@@ -164,7 +164,7 @@
 				position: fixed;
 				top: 0;
 				left: 0;
-				background: rgba(255,255,255,0.6);
+				background: rgba(160,210,255,0.6);
 				margin: 0;
 				box-shadow: 0 0 10px dodgerblue;
 				-webkit-backdrop-filter: blur(10px);
@@ -219,7 +219,8 @@
 			}
 			#app label {
 				margin-left: .5em;
-				display: block;
+				display: flex;
+				align-items: center;
 			}
 			#app label i {
 				float: right;
@@ -289,8 +290,7 @@
 				transform:scale(.8);
 			}
 			.new-check.new-style {
-				margin: 3px 3px 1px;
-				float: right;
+				margin: 3px 3px 1px auto;
 			}
 			.orig-box:checked + .new-style {
 				border: 1px solid #2b75c4;
@@ -393,8 +393,7 @@
 			.flag {
 				font-size: .75em;
 				border-radius: 5px;
-				display: inline;
-				margin: 0 1px;
+				margin: 0 2px;
 				padding: 1px 5px;
 				vertical-align: 2px;
 			}
@@ -1044,13 +1043,13 @@
 						ofirst = first;
 					}
 					lab.id = app;
+					lab.innerHTML += uaData.apps[app].text;
+					uaData.count[app] = parseClassinItem(lab,app);
+					if (uaData.设置.测试模式) { lab.appendChild(makeItemID(app)); }
 					Object.assign(box, {type: "checkbox", name: "app", value: app});
 					_(box,false,"orig-box");
 					lab.appendChild(box);
 					lab.appendChild(newBox("check"));
-					lab.innerHTML += uaData.apps[app].text;
-					uaData.count[app] = parseClassinItem(lab,app);
-					if (uaData.设置.测试模式) { lab.appendChild(makeItemID(app)); }
 					cont.appendChild(lab);
 				});
 			}
@@ -1116,8 +1115,10 @@
 							winActiv(win);
 						},{ passive: true });
 						win.addEventListener('touchmove', e => {
-							win.style.left = (e.touches[0].clientX - pos[0]) + 'px';
-							win.style.top = (e.touches[0].clientY - pos[1]) + 'px';
+							if (e.target.nodeName!=="TEXTARIA") {
+								win.style.left = (e.touches[0].clientX - pos[0]) + 'px';
+								win.style.top = (e.touches[0].clientY - pos[1]) + 'px';
+							}
 						},{ passive: true });
 					});
 				} else {
