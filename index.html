@@ -167,8 +167,8 @@
 				background: rgba(255,255,255,0.6);
 				margin: 0;
 				box-shadow: 0 0 10px dodgerblue;
-				backdrop-filter: blur(10px);
 				-webkit-backdrop-filter: blur(10px);
+				backdrop-filter: blur(10px);
 			}
 			#classBox,.classBox {
 				padding: 3px;
@@ -219,6 +219,7 @@
 			}
 			#app label {
 				margin-left: .5em;
+				display: block;
 			}
 			#app label i {
 				float: right;
@@ -257,8 +258,6 @@
 			}
 			#app_container {
 				overflow-y: scroll;
-				display: grid;
-				grid-auto-rows: max-content;
 				height: calc(1.5em * 14.5);
 				width: 100%;
 			}
