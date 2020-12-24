@@ -1108,10 +1108,12 @@
 				if (touch) {
 					wing.forEach( win => {
 						win.addEventListener('touchstart', e => {
-							pos = [
-							(e.touches[0].clientX - win.offsetLeft),
-							(e.touches[0].clientY - win.offsetTop)
-							];
+							if (e.target.nodeName!=="TEXTARIA") {
+								pos = [
+								(e.touches[0].clientX - win.offsetLeft),
+								(e.touches[0].clientY - win.offsetTop)
+								];
+							}
 							winActiv(win);
 						},{ passive: true });
 						win.addEventListener('touchmove', e => {
