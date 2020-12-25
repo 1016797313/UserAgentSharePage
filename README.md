@@ -1,28 +1,33 @@
 # UserAgentSharePage
 
 ## 介绍
-这是一个用于自动拼接、管理从 APP 中提取出来的 UserAgent 字符串 (简称 UA) 的工具页面。
+这是一个用于自动拼接 、管理从 APP 中提取出来的 UserAgent 字符串 (简称 UA) 的工具页面 。
 
-生成的 UA 可用于浏览器，使得目标服务器认为是 APP 访问的，从而提供更干净的页面。
+生成的 UA 可用于浏览器 ，使得目标服务器认为是 APP 访问的 ，从而提供更干净的页面 。
 
-这个项目基于 酷安 @长谷川直树 的 UA 提取计划 [酷安](https://www.coolapk.com/feed/19620138?shareKey=NWNlMTdjYmZlODIwNWZlNTk5Yzg~&shareUid=1166187&shareFrom=com.coolapk.market_11.0-beta6)，也是其计划的补充部分。
+这个项目基于 酷安 @长谷川直树 的 UA 提取计划 [酷安](https://www.coolapk.com/feed/19620138?shareKey=NWNlMTdjYmZlODIwNWZlNTk5Yzg~&shareUid=1166187&shareFrom=com.coolapk.market_11.0-beta6) ，也是其计划的补充部分 。
 
-使用的数据由多名网友贡献，在此表示感谢。
+使用的数据由多名网友贡献 ，在此表示感谢 。
 
-由于空闲时间不多，很多 UA 未经测试，不一定有效，
+由于空闲时间不多 ，很多 UA 未经测试 ，不一定有效 ，
 
-而且本人技术水平有限，代码混乱，Bug 多多。
+而且本人技术水平有限 ，代码混乱 ，Bug 多多 。
 
-还望大家帮助测试，多提意见和建议，多谢。
+还望大家帮助测试 ，多提意见和建议 ，多谢 。
 
-这个页面使用了 GitHub @YueminHu 的 indexSidebar 控件 [GitHub](https://github.com/YueminHu/indexSidebar)，在此表示感谢。
-文末和网页代码里包含了此控件使用的 MIT 许可证原文。
+这个页面使用了 GitHub @YueminHu 的 indexSidebar 控件 [GitHub](https://github.com/YueminHu/indexSidebar) ，在此表示感谢 。
+文末和网页代码里包含了此控件使用的 MIT 许可证原文 。
 
 ## 帮助
 ### 使用
 #### "基础 UA"
-你可以选择模板作为 UA 的主体，包括 ：
-安卓标准 UA 、各厂定制内核 (腾讯的 TBS (X5) 、阿里的 UCBS (U4)) 、iPhone 、塞班等等 。
+
+你可以选择模板作为 UA 的主体，包括 :
+1.  安卓标准 UA 
+2.  各厂定制内核 (腾讯的 TBS (X5) 、阿里的 UCBS (U4)) 
+3.  iPhone 
+4.  塞班
+等等 。
 选择 "空白" 将不使用模板 。
 选择 "当前" 将获取当前浏览器使用的 UA 作为基础 UA 。
 
@@ -49,7 +54,9 @@ APP 列表右侧是导航条，
 > 这里要说一下，有些网站和部分 UA 有冲突，所以没有设置全选功能，也不建议全部使用。
 
 ## 添加
-使用那个 "+" 的小按钮，你可以添加、管理、导入、导出你的自定义 APP UA 数据。
+通过点击 "+" 按钮 ，进入 "添加项目" 窗口 ，
+你可以添加 、管理 、导入 、导出你的自定义 APP UA 数据 。
+
 ### UA 基础格式
 
 #### 标准 UA
@@ -65,7 +72,7 @@ Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv)
 Mozilla/5.0 (Linux; U; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014)
 ```
 
-大部分的 APP 的 UA 都是以这两种格式作为基础的。
+大部分的 APP 的 UA 都是以这两种格式作为基础的 。
 
 #### 快应用
 快应用 UA 格式如下:
