@@ -449,7 +449,7 @@
 			.msel {
 				color: white;
 				background: #2b75c4;
-				width: 18em;
+				width: 19em;
 				border-radius: 20px;
 				-webkit-appearance: none;
 				appearance: none;
@@ -539,6 +539,17 @@
 			}
 			.win .close:hover {
 				background-color: rgba(140,0,0,0.6);
+			}
+			.win .help {
+				background-color: rgba(80,0,160,0.6);
+				font-size: 1em;
+				border-radius: 0;
+				border: 0;
+				margin: 0;
+				width: max-content;
+			}
+			.win .close:hover {
+				background-color: rgba(40,0,80,0.6);
 			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
@@ -659,7 +670,7 @@
 			<input id="start" name="start" type="button" value="生成 UA" onclick="uaCode.gen()">
 		</div>
 		<div id="ua" class="none win">
-			<div class="titlebar" onselectstart="(()=>{return false;});();">
+			<div class="titlebar" onselectstart="(()=>{return false;})();">
 				<div class="title drag">UA 窗口</div>
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
@@ -670,7 +681,7 @@
 			</div>
 		</div>
 		<div id="class" class="none win">
-			<div class="titlebar" onselectstart="(()=>{return false;});();">
+			<div class="titlebar" onselectstart="(()=>{return false;})();">
 				<div class="title drag">标签筛选</div>
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
@@ -681,8 +692,9 @@
 			</div>
 		</div>
 		<div id="addui" class="none win">
-			<div class="titlebar" onselectstart="(()=>{return false;});();">
+			<div class="titlebar" onselectstart="(()=>{return false;})();">
 				<div class="title drag">添加项目</div>
+				<input class="help" type="button" value="帮助" onclick="(()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'})();">
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
 			<div id="addtype">
@@ -817,7 +829,7 @@
 				<input id="aok" name="aok" type="button" value="加入" onclick="uaCode.aform.add()">
 				<input id="aclear" name="aclear" type="button" value="清空表单" onclick="uaCode.aform.clear()">
 				<input id="anew" name="anew" type="button" value="管理" onclick="uaCode.aform.switchModify()">
-				<input id="adel" name="adel" type="button" value="删除项目" onclick="uaCode.aform.del()">
+				<input id="adel" name="adel" type="button" value="删除" onclick="uaCode.aform.del()">
 			</div>
 			<div id="addsave">
 				<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
@@ -1009,7 +1021,7 @@
 					return 1;
 				} else {
 					uaData.apps[app].class.forEach( cls => {
-						if (uaData.tagfind[cls]!==undefined) {
+						if (cls.slice(0,1)==="_" || uaData.tagfind[cls]!==undefined) {
 							count += 1;
 							lab.appendChild(makeFlagDiv(cls,false,true,1));
 							if (cls.slice(0,1)==="_") {
@@ -1756,7 +1768,29 @@
 window.onload = () => {
 		if ("ontouchend" in document) {
 		uaCode.init(true);
-		// https://github.com/YueminHu/indexSidebar
+		
+// https://github.com/YueminHu/indexSidebar
+// 
+// Copyright (c) 2016 YueminHu
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 ;(function(){
 	var emitter = {
 		events: {},
