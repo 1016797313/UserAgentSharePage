@@ -540,17 +540,6 @@
 			.win .close:hover {
 				background-color: rgba(140,0,0,0.6);
 			}
-			.win .help {
-				background-color: rgba(0,144,255,0.6);
-				font-size: 1em;
-				border-radius: 0;
-				border: 0;
-				margin: 0;
-				width: max-content;
-			}
-			.win .help:hover {
-				background-color: rgba(0,88,155,0.6);
-			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
 					padding: 3px 0;
@@ -665,6 +654,7 @@
 			<p id="ajump" class="none"></p>
 		</div>
 		<div id="action">
+			<input type="button" value="帮助" onclick="(()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'})();">
 			<input id="clear" name="clear" type="button" value="清空选择" onclick="uaCode.util.$_('app').forEach( check => { check.checked = false; })">
 			<input id="shows" name="shows" type="button" value="列出已选" onclick="uaCode.filter.sel(this)">
 			<input id="start" name="start" type="button" value="生成 UA" onclick="uaCode.gen()">
@@ -694,7 +684,6 @@
 		<div id="addui" class="none win">
 			<div class="titlebar">
 				<div class="title drag">添加项目</div>
-				<input class="help" type="button" value="帮助" onclick="(()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'})();">
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
 			<div id="addtype">
