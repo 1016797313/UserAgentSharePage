@@ -457,7 +457,7 @@
 				padding: 0 8px 2px;
 			}
 			.help1 {
-				color: purple;
+				color: crimson;
 			}
 			.help2 {
 				color: slateblue;
@@ -525,8 +525,7 @@
 				font-weight: bold;
 			}
 			.title {
-				text-align: center;
-				padding: 3px 0;
+				padding: 3px 7px;
 				width: 100%;
 				background-color: transparent;
 			}
@@ -632,7 +631,7 @@
 					</label>
 					<label for="add">
 						<input id="add" type="radio" name="mode" value="add" class="orig-box">
-						<span class="new-style new-radio"></span>添加
+						<span class="new-style new-radio"></span>追加
 					</label>
 				</div>
 				<div>
@@ -683,7 +682,7 @@
 		</div>
 		<div id="addui" class="none win">
 			<div class="titlebar" onselectstart="(()=>{return false;});();">
-				<div class="title drag">加入项目</div>
+				<div class="title drag">添加项目</div>
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
 			<div id="addtype">
@@ -815,7 +814,7 @@
 				</div>
 			</div>
 			<div id="addbtn">
-				<input id="aok" name="aok" type="button" value="保存项目" onclick="uaCode.aform.add()">
+				<input id="aok" name="aok" type="button" value="加入" onclick="uaCode.aform.add()">
 				<input id="aclear" name="aclear" type="button" value="清空表单" onclick="uaCode.aform.clear()">
 				<input id="anew" name="anew" type="button" value="管理" onclick="uaCode.aform.switchModify()">
 				<input id="adel" name="adel" type="button" value="删除项目" onclick="uaCode.aform.del()">
@@ -1010,15 +1009,26 @@
 					return 1;
 				} else {
 					uaData.apps[app].class.forEach( cls => {
-						count += 1;
-						lab.appendChild(makeFlagDiv(cls,false,true,1));
-						if (cls.slice(0,1)==="_") {
-							cls = "third";
+						if (uaData.tagfind[cls]!==undefined) {
+							count += 1;
+							lab.appendChild(makeFlagDiv(cls,false,true,1));
+							if (cls.slice(0,1)==="_") {
+								cls = "third";
+							} else {
+								cls = uaData.tagfind[cls];
+							}
+							pushTagText(cls,app);
+							_(lab,false,cls);
 						} else {
-							cls = uaData.tagfind[cls];
+							toast(`项目 "${app}" 被指定了不存在的标签 "${cls}" ...`);
+							uaData.stor.apps[app].class.splice(
+								uaData.stor.apps[app].class.findIndex( v => {
+									return v === cls;
+								}),1
+							);
+							loc.setItem(uaData.storKey,JSON.stringify(uaData.stor));
+							location.reload();
 						}
-						pushTagText(cls,app);
-						_(lab,false,cls);
 					});
 					return count;
 				}
@@ -1236,16 +1246,20 @@
 								box = document.createElement("input");
 							lab.id = `${getUpperHead(sbox.id)}${flag}`;
 							Object.assign(box, {type: "checkbox", name: "sflag", id: `${sbox.id.slice(0,1)}${flag}`, value: flag, checked: false});
-							box.addEventListener('change', e => {
-								uaCode.tagClick(e.target.parentNode.id,false);
-								if (flag==="third") {
+							if (flag==="third") {
+								box.addEventListener('change', e => {
+									uaCode.tagClick(e.target.parentNode.id,false);
 									if (box.checked) {
 										_($(false,`#${sbox.id}l`),true,"none");
 									} else {
 										_($(false,`#${sbox.id}l`),false,"none");
 									}
-								}
-							});
+								});
+							} else {
+								box.addEventListener('change', e => {
+									uaCode.tagClick(e.target.parentNode.id,false);
+								});
+							}
 							lab.appendChild(box);
 							lab.appendChild(makeFlagDiv(flag,true,false,0.5));
 							sbox.appendChild(lab);
@@ -1367,6 +1381,10 @@
 				key = ($(false,`#anew`).value==="管理") ?
 					$(false,`#${typr}key`).value :
 					$(false,`#${typr}sel`).value ;
+				if (key==="" && $(false,`#anew`).value==="添加") {
+					toast("请选择需要修改的项目");
+					return;
+				}
 				switch (typr) {
 					case "a":
 						cont = ($_("apre").value!=="both") ?  
@@ -1438,7 +1456,11 @@
 					}
 					aform_Clear();
 				}
-				toast('保存成功');
+				if ($(false,`#aok`).value==="加入") {
+					toast('加入成功');
+				} else {
+					toast('修改成功');
+				}
 			}
 			
 			function lsb_initOption() {
@@ -1657,15 +1679,18 @@
 				const type = aform_tType($_("atype").value),
 					sel = $(false,`#${type}sell`),
 					key = $(false,`#${type}keyl`),
-					btn = $(false,`#anew`);
+					btn = $(false,`#anew`),
+					ok = $(false,`#aok`);
 				if (btn.value==="管理") {
 					_(key,false,"none");
 					_(sel,true,"none");
 					btn.value = "添加";
+					ok.value = "确定";
 				} else {
 					_(key,true,"none");
 					_(sel,false,"none");
 					btn.value = "管理";
+					ok.value = "加入";
 				}
 			}
 			
