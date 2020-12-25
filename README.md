@@ -41,9 +41,9 @@ APP 列表右侧是导航条，
 
 ### 添加
 使用那个 "+" 的小按钮，你可以添加、管理、导入、导出你的自定义 APP UA 数据。
-1.  UA 基础格式
+## UA 基础格式
 
-1. 1. 标准 UA
+1. 标准 UA
 下面是标准的 WebView UA 的例子:
 ```
 Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36
@@ -56,7 +56,7 @@ Mozilla/5.0 (Linux; U; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014)
 
 大部分的 APP 的 UA 都是以这两种格式作为基础的。
 
-1. 2. 快应用
+2. 快应用
 快应用 UA 格式如下:
 ```
 hap/1.6/xiaomi com.miui.hybrid/1.6.0.3 cn.cmcc.quickapp/1.1.7 ({"packageName":"com.miui.quickappCenter","type":"url","extra":{"scene":"recommend"}})
@@ -67,14 +67,14 @@ cn.cmcc.quickapp/1.1.7                 # 应用，中国移动。
 com.miui.quickappCenter                # 来自，来源是小米快应用中心。
 ```
 
-2.  选项
-2. 1. "标识"
+## 选项
+1. "标识"
 用来区分不同的 UA 条目，接受英文字母和数字。
 不建议使用符号。不能和其它条目标识重复 (输入框边框会变为橙色来提示重复)。
 为了便于排序和导航，第一个字母应为 APP 名称第一个字的拼音首字母。
-2. 2. "名称"
+2. "名称"
 APP 的显示名称。
-2. 3. "前置" 和 "无缝"
+3. "前置" 和 "无缝"
 举例:
 ```
 # 这个关键字是前置的
@@ -96,23 +96,23 @@ Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) App
 
 Test/1.0Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36
 ```
-2. 4. 关键字
+4. 关键字
 填写除了基础部分以外的部分 (有用的部分)，
 例如上面的 Test/1.0
 
-2. 5. 标签区域
+5. 标签区域
 你可以点亮标签来给应用加标签。
 
-2. 6. "加入"/"确定"
+6. "加入"/"确定"
 可以将条目暂时加入到临时区域，以便修改。
 > 注意，加入到临时区域不会永久保存，刷新或者关闭浏览器就会消失 !!!
 
-2. 7. "管理"/"添加"
+7. "管理"/"添加"
 切换管理模式，
 在管理模式，可以修改和删除自定义的条目。
 > "删除" 按钮只能在管理模式才可使用。
 
-2. 8. "保存数据"/"导入"/"导出"/"清空存储"
+8. "保存数据"/"导入"/"导出"/"清空存储"
 把数据保存到 "网页存储" (localStorage) ，下次刷新会自动加载数据。
 > 只有存到这里，刷新以后，才会在 APP 列表里看到。
 
