@@ -660,7 +660,7 @@
 			<input id="start" name="start" type="button" value="生成 UA" onclick="uaCode.gen()">
 		</div>
 		<div id="ua" class="none win">
-			<div class="titlebar">
+			<div class="titlebar" onselectstart="(()=>{return false;});();">
 				<div class="title drag">UA 窗口</div>
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
@@ -671,7 +671,7 @@
 			</div>
 		</div>
 		<div id="class" class="none win">
-			<div class="titlebar">
+			<div class="titlebar" onselectstart="(()=>{return false;});();">
 				<div class="title drag">标签筛选</div>
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
@@ -682,7 +682,7 @@
 			</div>
 		</div>
 		<div id="addui" class="none win">
-			<div class="titlebar">
+			<div class="titlebar" onselectstart="(()=>{return false;});();">
 				<div class="title drag">加入项目</div>
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
