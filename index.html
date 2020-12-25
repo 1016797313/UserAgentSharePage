@@ -214,7 +214,7 @@
 			#modeopt > div {
 				display: flex;
 			}
-			#base label,#mode label,#classBox label,.classBox label {
+			#base label,#mode label,#classBox label,.classBox label,#clsbox {
 				display: inline-flex;
 			}
 			#app label {
@@ -1550,7 +1550,7 @@
 						}
 						cobj["标签"].forEach( ct => {
 							ccls.push((ct.slice(0,1)==="_") ? ct : uaData.tagfind[ct]);
-						})
+						});
 						obj = {
 							text: cobj["名称"],
 							prefix: (cobj["前置"]==="是") ? true : false,
