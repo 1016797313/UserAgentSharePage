@@ -541,15 +541,15 @@
 				background-color: rgba(140,0,0,0.6);
 			}
 			.win .help {
-				background-color: rgba(80,0,160,0.6);
+				background-color: rgba(0,144,255,0.6);
 				font-size: 1em;
 				border-radius: 0;
 				border: 0;
 				margin: 0;
 				width: max-content;
 			}
-			.win .close:hover {
-				background-color: rgba(40,0,80,0.6);
+			.win .help:hover {
+				background-color: rgba(0,88,155,0.6);
 			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
@@ -670,7 +670,7 @@
 			<input id="start" name="start" type="button" value="生成 UA" onclick="uaCode.gen()">
 		</div>
 		<div id="ua" class="none win">
-			<div class="titlebar" onselectstart="(()=>{return false;})();">
+			<div class="titlebar">
 				<div class="title drag">UA 窗口</div>
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
@@ -681,7 +681,7 @@
 			</div>
 		</div>
 		<div id="class" class="none win">
-			<div class="titlebar" onselectstart="(()=>{return false;})();">
+			<div class="titlebar">
 				<div class="title drag">标签筛选</div>
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
@@ -692,7 +692,7 @@
 			</div>
 		</div>
 		<div id="addui" class="none win">
-			<div class="titlebar" onselectstart="(()=>{return false;})();">
+			<div class="titlebar">
 				<div class="title drag">添加项目</div>
 				<input class="help" type="button" value="帮助" onclick="(()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'})();">
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
@@ -1713,6 +1713,14 @@
 				winActiv(win);
 			}
 			
+			function disTilteSelect() {
+				$(true,".title").forEach( title => {
+					title.onselectstart = () => {
+						return false;
+					}
+				});
+			}
+			
 			function init(touch){
 				lsb_initOption();
 				makeItem(touch);
@@ -1723,6 +1731,7 @@
 				aform_Clear();
 				makeBaseRadio();
 				dndWin(touch);
+				disTilteSelect();
 				$(false,"#search").value = '';
 				$(false,"#version").innerHTML = `版本:${uaData.设置.代码版本} 总数:${Object.keys(uaData.apps).length}`;
 				lab = $(true,"#app_container label"),
