@@ -2,9 +2,15 @@
 
 ## 介绍
 这是一个用于自动拼接、管理从 APP 中提取出来的 UserAgent 字符串 (简称 UA) 的工具页面。
+
 生成的 UA 可用于浏览器，使得目标服务器认为是 APP 访问的，从而提供更干净的页面。
+
 这个项目基于 酷安 @长谷川直树 的 UA 提取计划 [酷安](https://www.coolapk.com/feed/19620138?shareKey=NWNlMTdjYmZlODIwNWZlNTk5Yzg~&shareUid=1166187&shareFrom=com.coolapk.market_11.0-beta6)，也是其计划的补充部分。
+
 使用的数据由多名网友贡献，在此表示感谢。
+由于空闲时间不多，很多 UA 未经测试，不一定有效，
+而且本人技术水平有限，代码混乱，Bug 多多
+还望大家帮助测试，多提意见和建议，多谢。
 
 这个页面使用了 GitHub @YueminHu 的 indexSidebar 控件 [GitHub](https://github.com/YueminHu/indexSidebar)，在此表示感谢。
 文末和网页代码里包含了此控件使用的 MIT 许可证原文。
