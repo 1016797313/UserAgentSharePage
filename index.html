@@ -4,6 +4,7 @@
 		<title>Useragent 生成</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#2b75c4">
 		<script>
 			const uaData = {
 				base:{},
@@ -610,6 +611,13 @@
 				}
 				#stordata {
 					width: 20em;
+				}
+			}
+			@media (prefers-color-scheme: dark) {
+				body {
+					-webkit-filter: hue-rotate(180deg) invert(1);
+					filter: hue-rotate(180deg) invert(1);
+					background-color: black;
 				}
 			}
 		</style>
