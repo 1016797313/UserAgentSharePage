@@ -77,10 +77,17 @@ jianshu: {
 },
 jdapp: {
 	名称: "京东",
-	前置: "不是",
-	无缝: "不是",
-	标签: [],
-	内容: "jdapp;android;8.4.6;"
+	前置: "是",
+	无缝: "是",
+	标签: ["TBS"],
+	内容: "jdapp;android;9.3.1;"
+},
+jdjxapp: {
+	名称: "京喜",
+	前置: "是",
+	无缝: "是",
+	标签: ["TBS"],
+	内容: "jdpingou;android;3.16.0;9;appBuild/14448;"
 },
 ppgx: {
 	名称: "皮皮搞笑",
@@ -283,7 +290,7 @@ ucbrowser: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["阿里"],
-	内容:"UCBrowser/13.1.4.1094"
+	内容:"UCBrowser/13.2.0.1100"
 },
 wyymusic: {
 	名称: "网易云",
@@ -437,7 +444,7 @@ apkpure: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容:"APKPure/3.16.5 (Aegon)"
+	内容:"APKPure/3.17.14 (Aegon)"
 },
 xMineirZx: {
 	名称: "小米内容中心",
@@ -785,9 +792,9 @@ blbl2: {
 kuan: {
 	名称: "酷安",
 	前置: "不是",
-	无缝: "是",
+	无缝: "不是",
 	标签: [],
-	内容:"+CoolMarket/11.0-alpha1"
+	内容:" (#Build; OPPO; OPPO R11 Plus; R11Plus_11_C.19; 9) +CoolMarket/11.0-beta6"
 },
 kuanvn: {
 	名称: "酷安 VN",
@@ -1039,7 +1046,7 @@ aliiot: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["阿里"],
-	内容:" AliApp(Alink/3.7.5)  TTID/702008@alink_android_3.7.5"
+	内容:" AliApp(Alink/3.7.8.1) TTID/702006@alink_android_3.7.8.1"
 },
 "115llq": {
 	名称: "115 浏览器",
@@ -1963,21 +1970,28 @@ tblite: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["阿里"],
-	内容:"AliApp(LT/3.28.1) UCBS/2.11.1.1 TTID/600000@ltao_android_3.28.1 1080X1920 A2U/x"
+	内容:"AliApp(LT/3.28.1) TTID/600000@ltao_android_3.28.1 1080X1920 A2U/x"
+},
+tblive: {
+	名称: "淘宝直播",
+	前置: "不是",
+	无缝: "不是",
+	标签: ["阿里"],
+	内容:"AliApp(TAOBAOLIVEAPP/1.8.26) TTID/700606@taobaolive_android_1.8.26"
 },
 qqapp: {
 	名称: "QQ",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["腾讯"],
-	内容:"V1_AND_SQ_8.4.10_1524_YYB_D QQ/8.4.10.4875 NetType/WIFI WebP/0.3.0 Pixel/1080 StatusBarHeight/80 SimpleUISwitch/1 QQTheme/2920 InMagicWin/0"
+	内容:"V1_AND_SQ_8.5.0_1596_YYB_D QQ/8.5.0.5025 NetType/WIFI WebP/0.3.0 Pixel/1080 StatusBarHeight/80 SimpleUISwitch/1 QQTheme/2920 InMagicWin/0"
 },
 weixin: {
 	名称: "微信",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["腾讯"],
-	内容:"MMWEBID/4268 MicroMessenger/7.0.19.1760(0x27001353) Process/toolsmp WeChat/arm64 NetType/WIFI Language/zh_CN ABI/arm64"
+	内容:"MMWEBID/4268 MicroMessenger/7.0.21.1800(0x27001539) Process/toolsmp WeChat/arm64 NetType/WIFI Language/zh_CN ABI/arm64"
 },
 jiandanss: {
 	名称: "简单搜索",
@@ -1991,21 +2005,21 @@ kuake: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["阿里"],
-	内容:"Quark/4.3.3.145"
+	内容:"Quark/4.5.5.155"
 },
 tmapp: {
 	名称: "天猫",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["阿里"],
-	内容:"AliApp(TM/9.14.0) UCBS/2.11.1.1 TTID/1565858170904@tmall_android_9.14.0 T-UA=android_9.14.0_1080x1920_1565858170904 TMANDROID/1565858170904@tmall_android_9.14.0,UT4Aplus/0.2.16"
+	内容:"AliApp(TM/9.16.0) TTID/206200@tmall_android_9.16.0 T-UA=android_9.16.0_1080x1920_206200 TMANDROID/206200@tmall_android_9.16.0,UT4Aplus/0.2.16"
 },
 alibaba: {
 	名称: "阿里巴巴",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["阿里"],
-	内容:"AliApp(1688/9.5.1.3) UCBS/2.11.1.1 TTID/702006@alibaba_android_9.5.1.3 A2U/x"
+	内容:"AliApp(1688/9.5.1.3) TTID/702006@alibaba_android_9.5.1.3 A2U/x"
 },
 sogoss: {
 	名称: "搜狗搜索",

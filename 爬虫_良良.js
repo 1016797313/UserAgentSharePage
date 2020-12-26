@@ -37,4 +37,11 @@ googlespider: {
 	标签: ["谷歌","爬虫"],
 	内容: "(compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
 },
+bytespider: {
+	名称: "字节跳动爬虫",
+	前置: "不是",
+	无缝: "不是",
+	标签: ["头条","爬虫"],
+	内容: "Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.4586.1691 Mobile Safari/537.36; Bytespider; bytespider@bytedance.com"
+},
 });

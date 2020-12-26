@@ -1,7 +1,7 @@
 加入("基础",{
 	std: {
 		名称: "标准",
-		内容: `Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36`
+		内容: `Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.51 Mobile Safari/537.36`
 	},
 	short: {
 		名称: "标准短",
@@ -9,11 +9,11 @@
 	},
 	ucbs: {
 		名称: "UCBS",
-		内容: `Mozilla/5.0 (Linux; U; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 UWS/3.22.1.58 Mobile Safari/537.36 UCBS/3.21.0.169_200731162109`
+		内容: `Mozilla/5.0 (Linux; U; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 UWS/3.22.1.58 Mobile Safari/537.36 UCBS/3.21.0.175_200831203602`
 	},
 	tbs: {
 		名称: "TBS",
-		内容: `Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045410 Mobile Safari/537.36`
+		内容: `Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045434 Mobile Safari/537.36`
 	},
 	symb: {
 		名称: "塞班",

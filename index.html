@@ -22,7 +22,7 @@
 				},
 				storKey:"userAgentData",
 				设置:{
-					代码版本:"5.0 Beta 5",
+					代码版本:"5.0 Beta 6",
 					基础默认:1,
 					数字记号:"#",
 					标签筛选状态色:"#00ad46",
@@ -150,6 +150,15 @@
 			noscript {
 				color: lightgray;
 				text-align: center;
+				z-index: 10;
+				font-size: 4em;
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-color: white;
+				font-weight: bold;
 			}
 			#base,#mode,#app {
 				border: 1px solid lightgray;
@@ -381,7 +390,7 @@
 				color: lightgray;
 				float: right;
 			}
-			#nulltext,#app noscript {
+			#nulltext {
 				font-size: 2em;
 				color: lightgray;
 				margin: auto;
@@ -541,6 +550,50 @@
 			.win .close:hover {
 				background-color: rgba(140,0,0,0.6);
 			}
+			@keyframes load-finish {
+				0% {
+					opacity: 100%;
+				}
+				100% {
+					opacity: 0%;
+				}
+			}
+			.finish {
+				animation: load-finish 2s;
+			}
+			#load {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 9;
+				background-color: white;
+				opacity: 100%;
+			}
+			#loadstr {
+				max-width: 80%;
+				margin: 0 auto;
+				margin-top: 33%;
+				font-size: 2.5em;
+				font-weight: bold;
+				text-align: center;
+				color: lightgray;
+			}
+			#loadprogb {
+				width: 25em;
+				height: 10px;
+				margin: 4em auto;
+				border-radius: 5px;
+				background-color: darkgray;
+			}
+			#loadprogc {
+				height: 10px;
+				border-radius: 5px;
+				background-color: #2b75c4;
+				width: 0;
+				transition: width 0.3s ease;
+			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
 					padding: 3px 0;
@@ -622,15 +675,16 @@
 					filter: hue-rotate(180deg) invert(1);
 					background-color: black;
 				}
+				#version,#searchlabel.up {
+					color: black;
+				}
 			}
 		</style>
 	</head>
 	<body>
 		<div id="base">
 			<div class="setHead"><p>基础 UA</p></div>
-			<div id="baseopt">
-				<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
-			</div>
+			<div id="baseopt"></div>
 		</div>
 		<div id="mode">
 			<div class="setHead"><p>生成模式</p></div>
@@ -660,7 +714,6 @@
 		<div id="app">
 			<div id="app_container">
 				<p id="nulltext" class="none">什么都没找到 T_T</p>
-				<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
 			</div>
 			<p id="ajump" class="none"></p>
 		</div>
@@ -846,6 +899,13 @@
 			</div>
 		</div>
 		<div id="toast" onanimationend="this.classList.remove('toasting')"></div>
+		<div id="load" onanimationend="this.classList.add('none')">
+			<p id="loadstr">正在加载... 0%</p>
+			<div id="loadprogb">
+				<div id="loadprogc"></div>
+			</div>
+		</div>
+		<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
 		<script>
 		const uaCode = (() => {
 			let lab,cas,lah,ntx,loc,pos=[0,0];
@@ -1721,19 +1781,34 @@
 				});
 			}
 			
+			function progress(p) {
+				$(false,"#loadstr").innerHTML = `正在加载... ${p}%`;
+				$(false,"#loadprogc").style.width = `${p}%`
+				if (p===100) {
+					_($(false,"#load"),false,"finish");
+				}
+			}
+			
 			function init(touch){
+				progress(1);
 				lsb_initOption();
 				makeItem(touch);
+				progress(30);
 				makeFlaginBox();
+				progress(40);
 				aform_makeFlaginBox();
+				progress(50);
 				$(false,"#Raapp").checked = true;
 				$(false,"#stordata").value = '';
 				aform_Clear();
+				progress(60);
 				makeBaseRadio();
 				dndWin(touch);
+				progress(90);
 				disTilteSelect();
 				$(false,"#search").value = '';
 				$(false,"#version").innerHTML = `版本:${uaData.设置.代码版本} 总数:${Object.keys(uaData.apps).length}`;
+				progress(100);
 				lab = $(true,"#app_container label"),
 				cas = $(true,"#app_container .CaseHead"),
 				lah = $(true,"#app_container > label,.CaseHead"),
