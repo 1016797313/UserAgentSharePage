@@ -560,7 +560,7 @@
 				}
 			}
 			.finish {
-				animation: load-finish 2s;
+				animation: load-finish 3s;
 			}
 			#load {
 				width: 100%;
@@ -576,25 +576,11 @@
 			#loadstr {
 				max-width: 80%;
 				margin: 0 auto;
-				margin-top: 33%;
+				margin-top: 6em;
 				font-size: 2em;
 				font-weight: bold;
 				text-align: center;
 				color: lightgray;
-			}
-			#loadprogb {
-				width: 20em;
-				height: 10px;
-				margin: 4em auto;
-				border-radius: 5px;
-				background-color: darkgray;
-			}
-			#loadprogc {
-				height: 10px;
-				border-radius: 5px;
-				background-color: #2b75c4;
-				width: 0;
-				transition: width 0.3s ease;
 			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
@@ -902,10 +888,7 @@
 		</div>
 		<div id="toast" onanimationend="this.classList.remove('toasting')"></div>
 		<div id="load" onanimationend="this.classList.add('none')">
-			<p id="loadstr">正在加载... 0%</p>
-			<div id="loadprogb">
-				<div id="loadprogc"></div>
-			</div>
+			<p id="loadstr">正在加载...</p>
 		</div>
 		<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
 		<script>
@@ -1783,34 +1766,20 @@
 				});
 			}
 			
-			function progress(p) {
-				$(false,"#loadstr").innerHTML = `正在加载... ${p}%`;
-				$(false,"#loadprogc").style.width = `${p}%`
-				if (p===100) {
-					_($(false,"#load"),false,"finish");
-				}
-			}
-			
 			function init(touch){
-				progress(1);
 				lsb_initOption();
 				makeItem(touch);
-				progress(30);
 				makeFlaginBox();
-				progress(40);
 				aform_makeFlaginBox();
-				progress(50);
 				$(false,"#Raapp").checked = true;
 				$(false,"#stordata").value = '';
 				aform_Clear();
-				progress(60);
 				makeBaseRadio();
 				dndWin(touch);
-				progress(90);
 				disTilteSelect();
 				$(false,"#search").value = '';
 				$(false,"#version").innerHTML = `版本:${uaData.设置.代码版本} 总数:${Object.keys(uaData.apps).length}`;
-				progress(100);
+				_($(false,"#load"),false,"finish");
 				lab = $(true,"#app_container label"),
 				cas = $(true,"#app_container .CaseHead"),
 				lah = $(true,"#app_container > label,.CaseHead"),
