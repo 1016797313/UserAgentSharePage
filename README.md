@@ -65,7 +65,7 @@ APP 列表右侧是导航条，
 
 你可以添加 、管理 、导入 、导出你的自定义 APP UA 数据 。
 
-目前不支持对原有数据进行自定义修改 。
+> 由于目前本人技术水平不能保证稳定性，_不打算_支持对自带数据进行自定义修改 。
 
 ### UA 基础格式
 
@@ -168,7 +168,7 @@ _[前置]_ _[前置 无缝][前置无缝]_**基础**_[无缝][无 缝]_ _[普通
 > 导入数据会合并原有数据，原有数据不会消失。(除非数据太多了，会被挤掉 ...
 
 ## indexSidebar 许可信息
-
+```
  MIT License
 
 Copyright (c) 2016 YueminHu
@@ -190,3 +190,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```

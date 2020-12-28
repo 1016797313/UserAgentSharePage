@@ -362,21 +362,6 @@
 			#searchbox {
 				position: relative;
 			}
-			#searchlabel {
-				position: relative;
-				height: 14px;
-				display: block;
-				font-size: .9em;
-				color: gray;
-				padding: 0 10px;
-				transition: top .2s ease-in-out, height .2s ease-in-out, font-size .2s ease-in-out, color .2s ease-in-out;
-			}
-			#searchlabel.up {
-				top: 1px;
-				color: lightgray;
-				height: 1px;
-				font-size: .5em;
-			}
 			#search {
 				border: 1px solid lightgray;
 				color: black;
@@ -429,7 +414,7 @@
 				display: flex;
 			}
 			.atab > label b,#addsave label b,.classPart > label b,.atab div p,#addsave div p {
-				width: 5em;
+				width: 20%;
 				margin: 0 .25em;
 				font-size: .9em;
 			}
@@ -441,7 +426,7 @@
 				color: black;
 				padding: 0 6px;
 				display: block;
-				width: 18em;
+				width: 80%;
 				border-radius: 20px;
 			}
 			.atab div p,#addsave div p {
@@ -480,7 +465,7 @@
 				font-weight: bold;
 			}
 			#qhlp {
-				width: 27em;
+				width: 100%;
 				font-size: .75em;
 			}
 			#qhlp p {
@@ -582,6 +567,11 @@
 				text-align: center;
 				color: lightgray;
 			}
+			#stordata {
+				width: 100%;
+				width: -moz-available;
+				width: -webkit-fill-available;
+			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
 					padding: 3px 0;
@@ -609,7 +599,6 @@
 					top: 12px;
 				}
 				#stordata {
-					width: 24em;
 					height: 80px;
 				}
 			}
@@ -653,9 +642,6 @@
 				#searchlabel {
 					top: 14px;
 				}
-				#stordata {
-					width: 20em;
-				}
 			}
 			@media (prefers-color-scheme: dark) {
 				body {
@@ -663,7 +649,7 @@
 					filter: hue-rotate(180deg) invert(1);
 					background-color: black;
 				}
-				#version,#searchlabel.up {
+				#version {
 					color: black;
 				}
 			}
@@ -696,8 +682,8 @@
 		</div>
 		<div id="searchbox">
 			<p id="version"></p>
-			<label id="searchlabel" for="search">在此输入搜索 APP ...</label>
-			<input id="search" name="search" type="text" oninput="uaCode.filter.app(this.value)" onfocusin="(()=>{this.labels[0].classList.add('up');})();" onfocusout="(()=>{if(this.value===''){this.labels[0].classList.remove('up');}})();">
+			<label for="search" class="none">在此输入搜索 APP ...</label>
+			<input id="search" name="search" type="text" placeholder="在此输入搜索 APP ..." oninput="uaCode.filter.app(this.value)">
 		</div>
 		<div id="app">
 			<div id="app_container">
@@ -716,6 +702,7 @@
 				<div class="title drag">UA 窗口</div>
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
+			<label for="useragent" class="none">UA 编辑框</label>
 			<textarea id="useragent" placeholder="你想要的在这儿 ^_^"></textarea>
 			<div id="action2">
 				<input id="clearUA" name="clearUA" type="button" value="清空" onclick="(()=>{uaCode.util.$(false,'#useragent').value = '';})();">
@@ -873,6 +860,7 @@
 				<input id="adel" name="adel" type="button" value="删除" onclick="uaCode.aform.del()">
 			</div>
 			<div id="addsave">
+				<label for="stordata" class="none">复制到这里就可以导入啦</label>
 				<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
 				<div class="savebtn">
 					<input id="ssave" name="ssave" type="button" value="保存数据" onclick="uaCode.lsb.save()">
@@ -1126,7 +1114,7 @@
 					const lab = document.createElement("label"),
 						box = document.createElement("input");
 					lab.id = `L${flag}`;
-					Object.assign(box, {type: "checkbox", name: "flag", id: flag, value: flag, checked: true});
+					Object.assign(box, {type: "checkbox", name: "flag", id: `B${flag}`, value: flag, checked: true});
 					box.addEventListener('change', e => {
 						uaCode.tagClick(e.target.parentNode.id,true);
 					});
