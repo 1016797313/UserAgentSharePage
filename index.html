@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 	<head>
-		<title>Useragent 生成</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="theme-color" content="#2b75c4">
+		<title>Useragent 生成</title>
 		<script>
 			const uaData = {
 				base:{},
@@ -130,7 +130,9 @@
 			body > div {
 				margin: 0 .5em;
 			}
-			.none,.sel_none,.tag_none {
+			.none,
+			.sel_none,
+			.tag_none {
 				display: none !important;
 			}
 			p {
@@ -165,6 +167,8 @@
 				border: 1px solid lightgray;
 				border-radius: 10px;
 				overflow: hidden;
+				display: -webkit-box;
+				display: -ms-flexbox;
 				display: flex;
 			}
 			#base,#searchbox,#app {
@@ -177,7 +181,8 @@
 				left: 0;
 				background: rgba(160,210,255,0.6);
 				margin: 0;
-				box-shadow: 0 0 10px dodgerblue;
+				-webkit-box-shadow: 0 0 10px dodgerblue;
+				        box-shadow: 0 0 10px dodgerblue;
 				-webkit-backdrop-filter: blur(10px);
 				backdrop-filter: blur(10px);
 			}
@@ -185,25 +190,40 @@
 				padding: 3px;
 				border-radius: 10px;
 			}
-			#classBox .flag,.classBox .sflag {
+			#classBox .flag,
+			.classBox .sflag {
 				padding: 0 4px;
 				margin: 0 2px;
 			}
-			#classBox input,.classBox input {
+			#classBox input,
+			.classBox input {
 				display: none;
 			}
 			.setHead {
 				background: lightgray;
 				font-size: .75em;
+				display: -webkit-box;
+				display: -ms-flexbox;
 				display: flex;
-				justify-content: center;
-				align-items: center;
+				-webkit-box-pack: center;
+				    -ms-flex-pack: center;
+				        justify-content: center;
+				-webkit-box-align: center;
+				    -ms-flex-align: center;
+				        align-items: center;
 				width: 6.5em;
 			}
 			#ajump {
+				display: -webkit-box;
+				display: -ms-flexbox;
 				display: flex;
-				flex-flow: column;
-				justify-content: space-between;
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				    -ms-flex-flow: column;
+				        flex-flow: column;
+				-webkit-box-pack: justify;
+				    -ms-flex-pack: justify;
+				        justify-content: space-between;
 				width: 7px;
 				background-color: lightgray;
 				margin: 0;
@@ -214,24 +234,79 @@
 				width: 100%;
 			}
 			#baseopt {
+				display: -ms-grid;
 				display: grid;
+				-ms-grid-columns: (-webkit-max-content)[4];
+				-ms-grid-columns: (max-content)[4];
+				grid-template-columns: repeat(4, -webkit-max-content);
 				grid-template-columns: repeat(4, max-content);
+				-ms-grid-rows: (-webkit-max-content)[2];
+				-ms-grid-rows: (max-content)[2];
+				grid-template-rows: repeat(2, -webkit-max-content);
 				grid-template-rows: repeat(2, max-content);
 			}
+			#baseopt > *:nth-child(1) {
+				-ms-grid-row: 1;
+				-ms-grid-column: 1;
+			}
+			#baseopt > *:nth-child(2) {
+				-ms-grid-row: 1;
+				-ms-grid-column: 2;
+			}
+			#baseopt > *:nth-child(3) {
+				-ms-grid-row: 1;
+				-ms-grid-column: 3;
+			}
+			#baseopt > *:nth-child(4) {
+				-ms-grid-row: 1;
+				-ms-grid-column: 4;
+			}
+			#baseopt > *:nth-child(5) {
+				-ms-grid-row: 2;
+				-ms-grid-column: 1;
+			}
+			#baseopt > *:nth-child(6) {
+				-ms-grid-row: 2;
+				-ms-grid-column: 2;
+			}
+			#baseopt > *:nth-child(7) {
+				-ms-grid-row: 2;
+				-ms-grid-column: 3;
+			}
+			#baseopt > *:nth-child(8) {
+				-ms-grid-row: 2;
+				-ms-grid-column: 4;
+			}
 			#modeopt {
+				display: -webkit-box;
+				display: -ms-flexbox;
 				display: flex;
-				justify-content: space-between;
+				-webkit-box-pack: justify;
+				    -ms-flex-pack: justify;
+				        justify-content: space-between;
 			}
 			#modeopt > div {
+				display: -webkit-box;
+				display: -ms-flexbox;
 				display: flex;
 			}
-			#base label,#mode label,#classBox label,.classBox label,#tclsbox {
+			#base label,
+			#mode label,
+			#classBox label,
+			.classBox label,
+			#tclsbox {
+				display: -webkit-inline-box;
+				display: -ms-inline-flexbox;
 				display: inline-flex;
 			}
 			#app label {
 				margin-left: .5em;
+				display: -webkit-box;
+				display: -ms-flexbox;
 				display: flex;
-				align-items: center;
+				-webkit-box-align: center;
+				    -ms-flex-align: center;
+				        align-items: center;
 			}
 			#app label i {
 				float: right;
@@ -260,9 +335,12 @@
 				height: 1.5em;
 				line-height: 1.5em;
 				text-align: center;
-				transform: translate3d(-1.5em, 0, 0);
+				-webkit-transform: translate3d(-1.5em, 0, 0);
+				        transform: translate3d(-1.5em, 0, 0);
 				font-size:2em;
 				opacity:0;
+				-webkit-transition: opacity .3s ease, top .1s linear;
+				-o-transition: opacity .3s ease, top .1s linear;
 				transition: opacity .3s ease, top .1s linear;
 				color:#eee;
 				background-color: rgba(0, 0, 0, 0.4);
@@ -275,8 +353,12 @@
 			}
 			#action,#action2,#action3,#addbtn,.savebtn {
 				text-align: center;
+				display: -webkit-box;
+				display: -ms-flexbox;
 				display: flex;
-				justify-content: space-between;
+				-webkit-box-pack: justify;
+				    -ms-flex-pack: justify;
+				        justify-content: space-between;
 			}
 			#action {
 				margin: 0 .5em;
@@ -288,47 +370,41 @@
 				background-color:white;
 				border:1px solid rgba(0,0,0,0.15);
 				border-radius:100%;
-				display:inline-block;
-				vertical-align:middle;
 				width:16px;
 				height:16px;
 				line-height:16px;
 			}
 			.new-radio.new-style {
 				margin: 2px;
+				display:-webkit-box;
+				display:-ms-flexbox;
+				display:flex;
 			}
 			.orig-box:checked + .new-style.new-radio:after {
-				transform:scale(.8);
+				-webkit-transform:scale(.8);
+				    -ms-transform:scale(.8);
+				        transform:scale(.8);
 			}
 			.new-check.new-style {
 				margin: 3px 3px 1px auto;
+				border-radius:0;
+				display:inline-block;
 			}
 			.orig-box:checked + .new-style {
 				border: 1px solid #2b75c4;
-			}
-			.orig-box:checked + .new-style:before {
-				background-color:transparent;
-				border-radius:100%;
-				content:"";
-				display:inline-block;
-				height:12px;
-				margin:1px;
-				width:12px;
-				transform:scale(1.1);
 			}
 			.orig-box:checked + .new-style:after {
 				background-color:#2b75c4;
 				border-radius:100%;
 				content:"";
-				display:block;
 				height:12px;
 				width:12px;
-				position:relative;
-				top:-14px;
-				left:2px;
-			}
-			.new-check.new-style,.orig-box:checked + .new-check.new-style:before {
-				border-radius:0;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				margin: auto;
+				-ms-flex-item-align: center;
+				    align-self: center;
 			}
 			.orig-box:checked + .new-check.new-style::after {
 				width: 5px;
@@ -337,11 +413,10 @@
 				border-style: solid;
 				border-width: 0 3px 3px 0;
 				border-radius: 0;
-				transform: rotate(45deg);
+				-webkit-transform: rotate(45deg);
+				    -ms-transform: rotate(45deg);
+				        transform: rotate(45deg);
 				background-color: transparent;
-				position:relative;
-				top:-16px;
-				left:4px;
 			}
 			input[type=checkbox] {
 				float: right;
@@ -392,6 +467,10 @@
 				margin: 0 2px;
 				padding: 1px 5px;
 				vertical-align: 2px;
+				-webkit-user-select: none;
+				   -moz-user-select: none;
+				    -ms-user-select: none;
+				        user-select: none;
 			}
 			#addtype {
 				text-align: center;
@@ -410,10 +489,26 @@
 			.classPart > * {
 				margin: 3px 0;
 			}
-			.atab > label,#addsave > label,.classPart > label {
+			.atab > label,
+			#addsave > label,
+			.classPart > label {
+				display: -webkit-box;
+				display: -ms-flexbox;
 				display: flex;
 			}
-			.atab > label b,#addsave label b,.classPart > label b,.atab div p,#addsave div p {
+			#addtype > label,
+			.atab > div > label {
+				display: -webkit-inline-box;
+				display: -ms-inline-flexbox;
+				display: inline-flex;
+				vertical-align: middle;
+				line-height: 1.25em;
+			}
+			.atab > label b,
+			#addsave label b,
+			.classPart > label b,
+			.atab div p,
+			#addsave div p {
 				width: 20%;
 				min-width:5em;
 				margin: 0 .25em;
@@ -422,7 +517,9 @@
 			.classPart > label b {
 				margin: 0 .45em 0 calc(.25em - 3px);
 			}
-			.atab > label input,#addsave > label input,.classPart > label input {
+			.atab > label input,
+			#addsave > label input,
+			.classPart > label input {
 				border: 1px solid lightgray;
 				color: black;
 				padding: 0 6px;
@@ -431,15 +528,20 @@
 				min-width: 14em;
 				border-radius: 20px;
 			}
-			.atab div p,#addsave div p {
+			.atab div p,
+			#addsave div p {
 				display: inline-block;
 				font-weight: bold;
 			}
 			#addui {
 				padding: 0;
+				width: -webkit-min-content;
+				width: -moz-min-content;
 				width: min-content;
 			}
 			#openNew {
+				width: -webkit-min-content;
+				width: -moz-min-content;
 				width: min-content;
 				padding: 0 5px !important;
 				font-size: 1em;
@@ -450,32 +552,24 @@
 				width: 19em;
 				border-radius: 20px;
 				-webkit-appearance: none;
-				appearance: none;
+				-moz-appearance: none;
+				     appearance: none;
 				border: none;
 				padding: 0 8px 2px;
 			}
-			.help1 {
-				color: crimson;
-			}
-			.help2 {
-				color: slateblue;
-			}
-			.help3 {
-				color: dodgerblue;
-			}
-			.help1,.help2,.help3 {
-				font-weight: bold;
-			}
-			#qhlp {
-				width: 100%;
-				font-size: .75em;
-			}
-			#qhlp p {
-				display: block;
-				width: 100%;
-				word-wrap: break-word;
-				word-break: break-all;
-				font-size: 1.1em;
+			@-webkit-keyframes toast {
+				0% {
+					opacity: 0%;
+				}
+				35% {
+					opacity: 100%;
+				}
+				85% {
+					opacity: 100%;
+				}
+				100% {
+					opacity: 0%;
+				}
 			}
 			@keyframes toast {
 				0% {
@@ -496,6 +590,8 @@
 				left: 0;
 				right: 0;
 				bottom: 10%;
+				width: -webkit-max-content;
+				width: -moz-max-content;
 				width: max-content;
 				margin: 0 auto;
 				display: none;
@@ -510,13 +606,16 @@
 			}
 			.toasting {
 				display: block !important;
-				animation: toast 3s;
+				-webkit-animation: toast 3s;
+				        animation: toast 3s;
 			}
 			.savebtn input {
 				width: 28%;
 			}
 			.titlebar {
 				width: 100%;
+				display: -webkit-box;
+				display: -ms-flexbox;
 				display: flex;
 				color: black;
 				font-size: .75em;
@@ -526,6 +625,10 @@
 				padding: 3px 7px;
 				width: 100%;
 				background-color: transparent;
+				-webkit-user-select: none;
+				   -moz-user-select: none;
+				    -ms-user-select: none;
+				        user-select: none;
 			}
 			.win .close {
 				background-color: rgba(255,0,0,0.6);
@@ -533,10 +636,20 @@
 				border-radius: 0;
 				border: 0;
 				margin: 0;
+				width: -webkit-max-content;
+				width: -moz-max-content;
 				width: max-content;
 			}
 			.win .close:hover {
 				background-color: rgba(140,0,0,0.6);
+			}
+			@-webkit-keyframes load-finish {
+				0% {
+					opacity: 100%;
+				}
+				100% {
+					opacity: 0%;
+				}
 			}
 			@keyframes load-finish {
 				0% {
@@ -547,7 +660,8 @@
 				}
 			}
 			.finish {
-				animation: load-finish 3s;
+				-webkit-animation: load-finish 3s;
+				        animation: load-finish 3s;
 			}
 			#load {
 				width: 100%;
@@ -570,9 +684,8 @@
 				color: lightgray;
 			}
 			#stordata {
-				width: 100%;
-				width: -moz-available;
 				width: -webkit-fill-available;
+				width: -moz-available;
 			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
@@ -804,16 +917,13 @@
 					<label><b>名称</b>
 						<input id="qtext" type="text" name="qapp"/>
 					</label>
-					<div id="qhlp">
-						<p><span class="help1">hap/1.6/xiaomi com.miui.hybrid/1.6.0.3 </span><span class="help3">cn.cmcc.quickapp/1.1.7 </span><span>({"packageName":"</span><span class="help2">com.miui.quickappCenter</span><span>","type":"url","extra":{"scene":"recommend"}})</span></p>
-					</div>
-					<label><b class="help1">平台</b>
+					<label><b>平台</b>
 						<input id="qcont1" type="text" name="qcont"/>
 					</label>
-					<label><b class="help2">来自</b>
+					<label><b>来自</b>
 						<input id="qcont2" type="text" name="qcont"/>
 					</label>
-					<label><b class="help3">应用</b>
+					<label><b>应用</b>
 						<input id="qcont3" type="text" name="qcont"/>
 					</label>
 					<div id="qcls">
@@ -1012,13 +1122,7 @@
 				_(flag,false,"flag");
 				flag.innerHTML = tagConv(clas,chinese,true);
 				clas = tagConv(clas,chinese,false);
-				if (!box) {
-					_(flag,false,`T${clas}`);
-				} else {
-					flag.onselectstart = () => {
-						return false;
-					}
-				}
+				if (!box) { _(flag,false,`T${clas}`); }
 				flag.style.cssText = `background-color:${uaData.flag[clas][1]};color:${uaData.flag[clas][2]};opacity:${opa}`;
 				return flag;
 			}
@@ -1742,14 +1846,6 @@
 				winActiv(win);
 			}
 			
-			function disTilteSelect() {
-				$(true,".title").forEach( title => {
-					title.onselectstart = () => {
-						return false;
-					}
-				});
-			}
-			
 			function init(touch){
 				lsb_initOption();
 				makeItem(touch);
@@ -1760,7 +1856,6 @@
 				aform_Clear();
 				makeBaseRadio();
 				dndWin(touch);
-				disTilteSelect();
 				$(false,"#search").value = '';
 				$(false,"#version").innerHTML = `版本:${uaData.设置.代码版本} 总数:${Object.keys(uaData.apps).length}`;
 				_($(false,"#load"),false,"finish");
