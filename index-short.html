@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#2b75c4">
+		<title>Useragent 生成</title>
+		<script>
+			var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj};function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true})}else{obj[key]=value}return obj}var uaData={base:{},apps:{},flag:{},count:{},text:{},tagtext:{},tagfind:{},index:"",jslist:[],stor:{apps:{},flag:{}},storKey:"userAgentData",设置:{代码版本:"5.0 Beta 6",基础默认:1,数字记号:"#",标签筛选状态色:"#00ad46",测试模式:false,前置记号:"^",无缝记号:"~"}};function 加入(box,obj){switch(box){case"\u6807\u7B7E":Object.assign(uaData.flag,obj);Object.keys(obj).forEach(function(key){uaData.tagfind[obj[key][0]]=key});break;case"APP":Object.keys(obj).forEach(function(key){var cont=void 0;if(_typeof(obj[key]["\u5185\u5BB9"])==="object"){if(obj[key]["\u5185\u5BB9"]instanceof Array){cont=[obj[key]["\u5185\u5BB9"][0],obj[key]["\u5185\u5BB9"][1]]}else{cont={qBasic:obj[key]["\u5185\u5BB9"]["\u5E73\u53F0"],qFrom:obj[key]["\u5185\u5BB9"]["\u6765\u81EA"],qString:obj[key]["\u5185\u5BB9"]["\u5E94\u7528"]}}}else{cont=obj[key]["\u5185\u5BB9"]}Object.assign(uaData.apps,_defineProperty({},key,{text:obj[key]["\u540D\u79F0"],prefix:obj[key]["\u524D\u7F6E"]==="\u662F"?true:false,followed:obj[key]["\u65E0\u7F1D"]==="\u662F"?true:false,class:obj[key]["\u6807\u7B7E"],content:cont}))});break;case"\u57FA\u7840":Object.keys(obj).forEach(function(key){if(key!=="\u9ED8\u8BA4\u9879"){Object.assign(uaData.base,_defineProperty({},key,{text:obj[key]["\u540D\u79F0"],content:obj[key]["\u5185\u5BB9"]}))}});break;case"\u6570\u636E":uaData.jslist=obj;break;}}
+		</script>
+		<script src="数据列表.js"></script>
+		<script>
+			uaData.jslist.forEach(function(js){var script=document.createElement("script");script.async=false;script.src=js;document.querySelector("head").appendChild(script)});(function(){var stor=window.localStorage;if(stor.hasOwnProperty(uaData.storKey)){try{var data=JSON.parse(stor.getItem(uaData.storKey));if(data.apps){Object.assign(uaData.stor.apps,data.apps);加入("APP",data.apps)}if(data.flag){Object.assign(uaData.stor.flag,data.flag);加入("\u6807\u7B7E",data.flag)}}catch(e){alert("\u5B58\u50A8\u6570\u636E\u5F02\u5E38\uFF0C\u5C06\u4F1A\u88AB\u6E05\u7A7A...\n \u5185\u5BB9:"+stor.getItem(uaData.storKey));stor.removeItem(uaData.storKey)}}})();
+		</script>
+		<style>
+			:focus {
+				outline: none;
+			}
+			body {
+				font-size: 100%;
+			}
+			textarea {
+				color: black;
+				font-family: monospace;
+				border: 1px solid lightgray;
+				border-radius: 10px;
+				padding: 5px;
+				display: block;
+			}
+			body > div {
+				margin: 0 .5em;
+			}
+			.none,
+			.sel_none,
+			.tag_none {
+				display: none !important;
+			}
+			p {
+				margin: 1px;
+			}
+			a {
+				text-decoration: none;
+				color: black;
+				font-family: monospace;
+				margin: 0 1px;
+				font-size: .7em;
+				width: .5em;
+				height: 1.1em;
+				line-height: 1.1em;
+				font-weight: 600;
+			}
+			noscript {
+				color: lightgray;
+				text-align: center;
+				z-index: 10;
+				font-size: 4em;
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-color: white;
+				font-weight: bold;
+				margin: 0;
+			}
+			#base,#mode,#app {
+				border: 1px solid lightgray;
+				border-radius: 10px;
+				overflow: hidden;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+			}
+			#base,#searchbox,#app {
+				margin-bottom: 4px;
+			}
+			.win {
+				font-size: 1em;
+				position: fixed;
+				top: 0;
+				left: 0;
+				background: rgba(160,210,255,0.6);
+				margin: 0;
+				-webkit-box-shadow: 0 0 10px dodgerblue;
+				        box-shadow: 0 0 10px dodgerblue;
+				-webkit-backdrop-filter: blur(10px);
+				backdrop-filter: blur(10px);
+			}
+			#classBox,.classBox {
+				padding: 3px;
+				border-radius: 10px;
+			}
+			#classBox .flag,
+			.classBox .sflag {
+				padding: 0 4px;
+				margin: 0 2px;
+			}
+			#classBox input,
+			.classBox input {
+				display: none;
+			}
+			.setHead {
+				background: lightgray;
+				font-size: .75em;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-pack: center;
+				    -ms-flex-pack: center;
+				        justify-content: center;
+				-webkit-box-align: center;
+				    -ms-flex-align: center;
+				        align-items: center;
+				width: 6.5em;
+			}
+			#ajump {
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				    -ms-flex-flow: column;
+				        flex-flow: column;
+				-webkit-box-pack: justify;
+				    -ms-flex-pack: justify;
+				        justify-content: space-between;
+				width: 7px;
+				background-color: lightgray;
+				margin: 0;
+				padding: 3px;
+			}
+			#baseopt,#modeopt {
+				line-height: 22px;
+				width: 100%;
+			}
+			#baseopt {
+				display: -ms-grid;
+				display: grid;
+				-ms-grid-columns: (-webkit-max-content)[4];
+				-ms-grid-columns: (max-content)[4];
+				grid-template-columns: repeat(4, -webkit-max-content);
+				grid-template-columns: repeat(4, max-content);
+				-ms-grid-rows: (-webkit-max-content)[2];
+				-ms-grid-rows: (max-content)[2];
+				grid-template-rows: repeat(2, -webkit-max-content);
+				grid-template-rows: repeat(2, max-content);
+			}
+			#baseopt > *:nth-child(1) {
+				-ms-grid-row: 1;
+				-ms-grid-column: 1;
+			}
+			#baseopt > *:nth-child(2) {
+				-ms-grid-row: 1;
+				-ms-grid-column: 2;
+			}
+			#baseopt > *:nth-child(3) {
+				-ms-grid-row: 1;
+				-ms-grid-column: 3;
+			}
+			#baseopt > *:nth-child(4) {
+				-ms-grid-row: 1;
+				-ms-grid-column: 4;
+			}
+			#baseopt > *:nth-child(5) {
+				-ms-grid-row: 2;
+				-ms-grid-column: 1;
+			}
+			#baseopt > *:nth-child(6) {
+				-ms-grid-row: 2;
+				-ms-grid-column: 2;
+			}
+			#baseopt > *:nth-child(7) {
+				-ms-grid-row: 2;
+				-ms-grid-column: 3;
+			}
+			#baseopt > *:nth-child(8) {
+				-ms-grid-row: 2;
+				-ms-grid-column: 4;
+			}
+			#modeopt {
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-pack: justify;
+				    -ms-flex-pack: justify;
+				        justify-content: space-between;
+			}
+			#modeopt > div {
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+			}
+			#base label,
+			#mode label,
+			#classBox label,
+			.classBox label,
+			#tclsbox {
+				display: -webkit-inline-box;
+				display: -ms-inline-flexbox;
+				display: inline-flex;
+			}
+			#app label {
+				margin-left: .5em;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-align: center;
+				    -ms-flex-align: center;
+				        align-items: center;
+			}
+			#app label i {
+				float: right;
+				color: lightgray;
+			}
+			.CaseHead {
+				font-size: .75em;
+				font-weight: bold;
+				background: darkgray;
+				padding-left: 5px;
+			}
+			.sideBar {
+				width: 15px;
+				background-color: lightgray;
+				padding: 3px;
+			}
+			div.sideBar > div {
+				text-align: center;
+				font-size: .5em;
+				height: 1.6em;
+				line-height: 1.6em;
+			}
+			div.sideBar > div:last-of-type {
+				position: absolute;
+				width: 1.5em;
+				height: 1.5em;
+				line-height: 1.5em;
+				text-align: center;
+				-webkit-transform: translate3d(-1.5em, 0, 0);
+				        transform: translate3d(-1.5em, 0, 0);
+				font-size:2em;
+				opacity:0;
+				-webkit-transition: opacity .3s ease, top .1s linear;
+				-o-transition: opacity .3s ease, top .1s linear;
+				transition: opacity .3s ease, top .1s linear;
+				color:#eee;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius:100%;
+			}
+			#app_container {
+				overflow-y: scroll;
+				height: calc(1.5em * 14.5);
+				width: 100%;
+			}
+			#action,#action2,#action3,#addbtn,.savebtn {
+				text-align: center;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-pack: justify;
+				    -ms-flex-pack: justify;
+				        justify-content: space-between;
+			}
+			#action {
+				margin: 0 .5em;
+			}
+			.orig-box {
+				display: none;
+			}
+			.new-style {
+				background-color:white;
+				border:1px solid rgba(0,0,0,0.15);
+				border-radius:100%;
+				width:16px;
+				height:16px;
+				line-height:16px;
+			}
+			.new-radio.new-style {
+				margin: 2px;
+				display:-webkit-box;
+				display:-ms-flexbox;
+				display:flex;
+			}
+			.orig-box:checked + .new-style.new-radio:after {
+				-webkit-transform:scale(.8);
+				    -ms-transform:scale(.8);
+				        transform:scale(.8);
+			}
+			.new-check.new-style {
+				margin: 3px 3px 1px auto;
+				border-radius:0;
+				display:inline-block;
+			}
+			.orig-box:checked + .new-style {
+				border: 1px solid #2b75c4;
+			}
+			.orig-box:checked + .new-style:after {
+				background-color:#2b75c4;
+				border-radius:100%;
+				content:"";
+				height:12px;
+				width:12px;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				margin: auto;
+				-ms-flex-item-align: center;
+				    align-self: center;
+			}
+			.orig-box:checked + .new-check.new-style::after {
+				width: 5px;
+				height: 9px;
+				border-color: #2b75c4;
+				border-style: solid;
+				border-width: 0 3px 3px 0;
+				border-radius: 0;
+				-webkit-transform: rotate(45deg);
+				    -ms-transform: rotate(45deg);
+				        transform: rotate(45deg);
+				background-color: transparent;
+			}
+			input[type=checkbox] {
+				float: right;
+			}
+			input[type=button] {
+				background-color:#2b75c4;
+				border-radius:6px;
+				border:1px solid transparent;
+				color:#ffffff;
+				font-size:.75em;
+				font-weight:bold;
+				padding:3px 1em;
+				margin:0 2px;
+			}
+			input[type=button]:hover {
+				background-color:#1e62d0;
+			}
+			#searchbox {
+				position: relative;
+			}
+			#search {
+				border: 1px solid lightgray;
+				color: black;
+				width: calc(100% - 1.1em);
+				font-family: monospace;
+				border-radius: 20px;
+				padding: 0 6px;
+				display: block;
+			}
+			#version {
+				font-size: .5em;
+				color: lightgray;
+				float: right;
+			}
+			#nulltext {
+				font-size: 2em;
+				color: lightgray;
+				margin: auto;
+				width: 10em;
+				text-align: center;
+			}
+			#nulltext {
+				line-height: calc(1.5em * 7.25);
+			}
+			.flag {
+				font-size: .75em;
+				border-radius: 5px;
+				margin: 0 2px;
+				padding: 1px 5px;
+				vertical-align: 2px;
+				-webkit-user-select: none;
+				   -moz-user-select: none;
+				    -ms-user-select: none;
+				        user-select: none;
+			}
+			#addtype {
+				text-align: center;
+				margin: auto;
+				font-size: .9em;
+			}
+			.atab > *,
+			#addbtn,
+			#addsave > *,
+			#action2 > *,
+			#action3 > *,
+			#classBox,
+			#useragent {
+				margin: 3px;
+			}
+			.classPart > * {
+				margin: 3px 0;
+			}
+			.atab > label,
+			#addsave > label,
+			.classPart > label {
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+			}
+			#addtype > label,
+			.atab > div > label {
+				display: -webkit-inline-box;
+				display: -ms-inline-flexbox;
+				display: inline-flex;
+				vertical-align: middle;
+				line-height: 1.25em;
+			}
+			.atab > label b,
+			#addsave label b,
+			.classPart > label b,
+			.atab div p,
+			#addsave div p {
+				width: 20%;
+				min-width:5em;
+				margin: 0 .25em;
+				font-size: .9em;
+			}
+			.classPart > label b {
+				margin: 0 .45em 0 calc(.25em - 3px);
+			}
+			.atab > label input,
+			#addsave > label input,
+			.classPart > label input {
+				border: 1px solid lightgray;
+				color: black;
+				padding: 0 6px;
+				display: block;
+				width: 80%;
+				min-width: 14em;
+				border-radius: 20px;
+			}
+			.atab div p,
+			#addsave div p {
+				display: inline-block;
+				font-weight: bold;
+			}
+			#addui {
+				padding: 0;
+				width: -webkit-min-content;
+				width: -moz-min-content;
+				width: min-content;
+			}
+			#openNew {
+				width: -webkit-min-content;
+				width: -moz-min-content;
+				width: min-content;
+				padding: 0 5px !important;
+				font-size: 1em;
+			}
+			.msel {
+				color: white;
+				background: #2b75c4;
+				width: 80%;
+				min-width: 14em;
+				border-radius: 20px;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				     appearance: none;
+				border: none;
+				padding: 0 8px 2px;
+			}
+			@-webkit-keyframes toast {
+				0% {
+					opacity: 0%;
+				}
+				35% {
+					opacity: 100%;
+				}
+				85% {
+					opacity: 100%;
+				}
+				100% {
+					opacity: 0%;
+				}
+			}
+			@keyframes toast {
+				0% {
+					opacity: 0%;
+				}
+				35% {
+					opacity: 100%;
+				}
+				85% {
+					opacity: 100%;
+				}
+				100% {
+					opacity: 0%;
+				}
+			}
+			#toast {
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 10%;
+				width: -webkit-max-content;
+				width: -moz-max-content;
+				width: max-content;
+				margin: 0 auto;
+				display: none;
+				border-radius: 20px;
+				padding: .5em 1em;
+				font-size: .75em;
+				font-weight: bold;
+				background-color: rgba(0,0,0,0.8);
+				color: white;
+				text-align: center;
+				z-index: 9;
+			}
+			.toasting {
+				display: block !important;
+				-webkit-animation: toast 3s;
+				        animation: toast 3s;
+			}
+			.savebtn input {
+				width: 28%;
+			}
+			.titlebar {
+				width: 100%;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				color: black;
+				font-size: .75em;
+				font-weight: bold;
+			}
+			.title {
+				padding: 3px 7px;
+				width: 100%;
+				background-color: transparent;
+				-webkit-user-select: none;
+				   -moz-user-select: none;
+				    -ms-user-select: none;
+				        user-select: none;
+			}
+			.win .close {
+				background-color: rgba(255,0,0,0.6);
+				font-size: 1em;
+				border-radius: 0;
+				border: 0;
+				margin: 0;
+				width: -webkit-max-content;
+				width: -moz-max-content;
+				width: max-content;
+			}
+			.win .close:hover {
+				background-color: rgba(140,0,0,0.6);
+			}
+			@-webkit-keyframes load-finish {
+				0% {
+					opacity: 100%;
+				}
+				100% {
+					opacity: 0%;
+				}
+			}
+			@keyframes load-finish {
+				0% {
+					opacity: 100%;
+				}
+				100% {
+					opacity: 0%;
+				}
+			}
+			.finish {
+				-webkit-animation: load-finish 3s;
+				        animation: load-finish 3s;
+			}
+			#load {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 9;
+				background-color: white;
+				opacity: 100%;
+				margin: 0;
+			}
+			#loadstr {
+				max-width: 80%;
+				margin: 0 auto;
+				margin-top: 6em;
+				font-size: 2em;
+				font-weight: bold;
+				text-align: center;
+				color: lightgray;
+			}
+			#stordata {
+				width: -webkit-fill-available;
+				width: -moz-available;
+			}
+			@media only screen and (min-width: 360px) {
+				#baseopt,#modeopt {
+					padding: 3px 0;
+				}
+				#modeopt input[type=button] {
+					padding: 2px 3px;
+				}
+				textarea {
+					height: 146px;
+					width: 94%;
+				}
+				#ua {
+					width: 80%;
+					top: 40%;
+					left: 8.5%;
+				}
+				#class {
+					width: 65%;
+				}
+				#addui {
+					top:5px;
+					left:5px;
+				}
+				#stordata {
+					height: 80px;
+				}
+			}
+			@media only screen and (min-width: 600px) {
+				body {
+					width: 500px;
+					margin: 10px auto;
+				}
+				#baseopt {
+					padding: 6px;
+					line-height: 19px;
+				}
+				#modeopt {
+					padding-left: 6px
+				}
+				#modeopt input[type=button] {
+					padding: 3px .5em;
+				}
+				textarea {
+					height: 78%;
+					width: 97%;
+				}
+				#ua {
+					width: 40em;
+					top: 6em;
+					left: auto;
+					margin-left: -5em;
+					height: 20em;
+				}
+				#class {
+					width: 24em;
+					top: 5px;
+					left: auto;
+					margin-left: 4em;
+				}
+				#addui {
+					left: auto;
+					top: 4em;
+					margin-left: 5em;
+				}
+			}
+			@media (prefers-color-scheme: dark) {
+				body {
+					-webkit-filter: hue-rotate(180deg) invert(1);
+					filter: hue-rotate(180deg) invert(1);
+					background-color: black;
+				}
+				#version {
+					color: black;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="base">
+			<div class="setHead"><p>基础 UA</p></div>
+			<div id="baseopt"></div>
+		</div>
+		<div id="mode">
+			<div class="setHead"><p>生成模式</p></div>
+			<div id="modeopt">
+				<div>
+					<label for="gen">
+						<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked>
+						<span class="new-style new-radio"></span>生成
+					</label>
+					<label for="add">
+						<input id="add" type="radio" name="mode" value="add" class="orig-box">
+						<span class="new-style new-radio"></span>追加
+					</label>
+				</div>
+				<div>
+					<input id="openNew" name="openNew" type="button" value="+" onclick="uaCode.util.$(false,'#addui').classList.remove('none')">
+					<input id="openClass" name="openClass" type="button" value="标签筛选" onclick="uaCode.util.$(false,'#class').classList.remove('none')">
+					<input id="openUA" name="openUA" type="button" value="打开窗口" onclick="uaCode.util.$(false,'#ua').classList.remove('none')">
+				</div>
+			</div>
+		</div>
+		<div id="searchbox">
+			<p id="version"></p>
+			<label for="search" class="none">在此输入搜索 APP ...</label>
+			<input id="search" name="search" type="text" placeholder="在此输入搜索 APP ..." oninput="uaCode.filter.app(this.value)">
+		</div>
+		<div id="app">
+			<div id="app_container">
+				<p id="nulltext" class="none">什么都没找到 T_T</p>
+			</div>
+			<p id="ajump" class="none"></p>
+		</div>
+		<div id="action">
+			<input type="button" value="帮助" onclick="(()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'})();">
+			<input id="clear" name="clear" type="button" value="清空选择" onclick="uaCode.util.$_('app').forEach( check => { check.checked = false; })">
+			<input id="shows" name="shows" type="button" value="列出已选" onclick="uaCode.filter.sel(this)">
+			<input id="start" name="start" type="button" value="生成 UA" onclick="uaCode.gen()">
+		</div>
+		<div id="ua" class="none win">
+			<div class="titlebar">
+				<div class="title drag">UA 窗口</div>
+				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
+			</div>
+			<label for="useragent" class="none">UA 编辑框</label>
+			<textarea id="useragent" placeholder="你想要的在这儿 ^_^"></textarea>
+			<div id="action2">
+				<input id="clearUA" name="clearUA" type="button" value="清空" onclick="(()=>{uaCode.util.$(false,'#useragent').value = '';})();">
+				<input id="copy" name="copy" type="button" value="复制" onclick="(()=>{uaCode.util.$(false,'#useragent').select();document.execCommand('copy');})();">
+			</div>
+		</div>
+		<div id="class" class="none win">
+			<div class="titlebar">
+				<div class="title drag">标签筛选</div>
+				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
+			</div>
+			<div id="classBox"></div>
+			<div id="action3">
+				<input id="restoreClass" type="button" value="恢复" onclick="(()=>{uaCode.util.$(true,'#classBox input:not(:checked)').forEach( box => { box.checked = true; uaCode.tagClick(box.parentNode.id,true);});})();">
+				<input id="revertClass" type="button" value="反选" onclick="(()=>{uaCode.util.$(true,'#classBox input').forEach( box => { box.checked = (box.checked===true) ? false : true; uaCode.tagClick(box.parentNode.id,true);});})();">
+			</div>
+		</div>
+		<div id="addui" class="none win">
+			<div class="titlebar">
+				<div class="title drag">添加项目</div>
+				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
+			</div>
+			<div id="addtype">
+				<label>
+					<input id="Raapp" type="radio" name="atype" value="aapp" class="orig-box" onchange="uaCode.aform.switchCard()" checked>
+					<span class="new-style new-radio"></span>APP
+				</label>
+				<label>
+					<input id="Rqapp" type="radio" name="atype" value="qapp" class="orig-box" onchange="uaCode.aform.switchCard()">
+					<span class="new-style new-radio"></span>快应用
+				</label>
+				<label>
+					<input id="Ratag" type="radio" name="atype" value="atag" class="orig-box" onchange="uaCode.aform.switchCard()">
+					<span class="new-style new-radio"></span>标签
+				</label>
+			</div>
+			<div id="addtable">
+				<div id="aappt" class="atab">
+					<label id="akeyl"><b>标识</b>
+						<input id="akey" type="text" name="aapp" placeholder="数字和英文字母，首字母对应名称拼音首字母" oninput="uaCode.aform.check(false)"/>
+					</label>
+					<label id="asell" class="none"><b>标识</b>
+						<select id="asel" class="msel" onchange="uaCode.aform.modify()">
+							<option selected hidden disabled value="">请选择要修改的项目...</option>
+						</select>
+					</label>
+					<label><b>名称</b>
+						<input id="atext" type="text" name="aapp">
+					</label>
+					<div id="apre">
+						<p>前置</p>
+						<label>
+							<input id="apret" type="radio" name="apre" value="true" class="orig-box" onchange="uaCode.aform.switchBoth()">
+							<span class="new-style new-radio"></span>是
+						</label>
+						<label>
+							<input id="apref" type="radio" name="apre" value="false" class="orig-box" onchange="uaCode.aform.switchBoth()" checked>
+							<span class="new-style new-radio"></span>否
+						</label>
+						<label>
+							<input id="apreb" type="radio" name="apre" value="both" class="orig-box" onchange="uaCode.aform.switchBoth()">
+							<span class="new-style new-radio"></span>前后都有
+						</label>
+					</div>
+					<div id="afol">
+						<p>无缝</p>
+						<label>
+							<input id="afolt" type="radio" name="afol" value="true" class="orig-box">
+							<span class="new-style new-radio"></span>是
+						</label>
+						<label>
+							<input id="afolf" type="radio" name="afol" value="false" class="orig-box" checked>
+							<span class="new-style new-radio"></span>否
+						</label>
+					</div>
+					<label class="acont1"><b>关键字</b>
+						<input id="acont1" type="text" name="acont1"/>
+					</label>
+					<label class="acont2 none"><b>前置关键字</b>
+						<input id="acont2a" type="text" name="acont2"/>
+					</label>
+					<label class="acont2 none"><b>后置关键字</b>
+						<input id="acont2b" type="text" name="acont2"/>
+					</label>
+					<div id="acls">
+						<div id="aclsbox" class="classBox"></div>
+						<div id="aclsboxt" class="classPart">
+							<label id="aclsboxl" class="none"><b>自定义标签</b>
+								<input id="athirdt" type="text" name="athird"/>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div id="qappt" class="atab none">
+					<label id="qkeyl"><b>标识</b>
+						<input id="qkey" type="text" name="qapp" placeholder="数字和英文字母，首字母对应名称拼音首字母" oninput="uaCode.aform.check(false)"/>
+					</label>
+					<label id="qsell" class="none"><b>标识</b>
+						<select id="qsel" class="msel" onchange="uaCode.aform.modify()">
+							<option selected hidden disabled value="">请选择要修改的项目...</option>
+						</select>
+					</label>
+					<label><b>名称</b>
+						<input id="qtext" type="text" name="qapp"/>
+					</label>
+					<label><b>平台</b>
+						<input id="qcont1" type="text" name="qcont"/>
+					</label>
+					<label><b>来自</b>
+						<input id="qcont2" type="text" name="qcont"/>
+					</label>
+					<label><b>应用</b>
+						<input id="qcont3" type="text" name="qcont"/>
+					</label>
+					<div id="qcls">
+						<div id="qclsbox" class="classBox"></div>
+						<div id="qclsboxt" class="classPart">
+							<label id="qclsboxl" class="none"><b>自定义标签</b>
+								<input id="qthirdt" type="text" name="qthird"/>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div id="atagt" class="atab none">
+					<label id="tkeyl"><b>标识</b>
+						<input id="tkey" type="text" name="atag" placeholder="数字和英文字母" oninput="uaCode.aform.check(false)"/>
+					</label>
+					<label id="tsell" class="none"><b>标识</b>
+						<select id="tsel" class="msel" onchange="uaCode.aform.modify()">
+							<option selected hidden disabled value="">请选择要修改的项目...</option>
+						</select>
+					</label>
+					<label><b>名称</b>
+						<input id="ttext" type="text" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
+					</label>
+					<label><b>背景</b>
+						<input id="tbgc" type="color" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
+					</label>
+					<label><b>文字</b>
+						<input id="tfgc" type="color" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
+					</label>
+					<div id="tprw">
+						<p>预览</p>
+						<div id="tclsbox" class="flag"></div>
+					</div>
+				</div>
+			</div>
+			<div id="addbtn">
+				<input id="aok" name="aok" type="button" value="加入" onclick="uaCode.aform.add()">
+				<input id="aclear" name="aclear" type="button" value="清空表单" onclick="uaCode.aform.clear()">
+				<input id="anew" name="anew" type="button" value="管理" onclick="uaCode.aform.switchModify()">
+				<input id="adel" name="adel" type="button" value="删除" onclick="uaCode.aform.del()">
+			</div>
+			<div id="addsave">
+				<label for="stordata" class="none">复制到这里就可以导入啦</label>
+				<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
+				<div class="savebtn">
+					<input id="ssave" name="ssave" type="button" value="保存数据" onclick="uaCode.lsb.save()">
+					<input id="scopy" name="scopy" type="button" value="复制内容" onclick="(()=>{uaCode.util.$(false,'#stordata').select();document.execCommand('copy');})();">
+					<input id="cleartext" name="cleartext" type="button" value="清空内容" onclick="(()=>{uaCode.util.$(false,'#stordata').value = '';})();">
+				</div>
+				<div class="savebtn">
+					<input id="simp" name="simp" type="button" value="导入数据" onclick="uaCode.lsb.import()">
+					<input id="sexp" name="sexp" type="button" value="导出数据" onclick="uaCode.lsb.export()">
+					<input id="sdel" name="sdel" type="button" value="清空存储" onclick="uaCode.lsb.clear()">
+				</div>
+			</div>
+		</div>
+		<div id="toast" onanimationend="this.classList.remove('toasting')"></div>
+		<div id="load" onanimationend="this.classList.add('none')">
+			<p id="loadstr">正在加载...</p>
+		</div>
+		<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
+		<script>
+		var uaCode=function(){var lab=void 0,cas=void 0,lah=void 0,ntx=void 0,loc=void 0,pos=[0,0];function getUpperHead(word){var temp=word.slice(0,1).toUpperCase();return /^[A-Z]$/.test(temp)?temp:uaData.设置.数字记号}function $(all,sel){return all?document.querySelectorAll(sel):document.querySelector(sel)}function $_(name){var list=$(true,"input[name=\""+name+"\"]:checked");return list.length===1&&list[0].type==="radio"?list[0]:list}function _(ele,del,nclass){if(del){ele.classList.remove(nclass)}else{ele.classList.add(nclass)}}function scanAll(){var found=0;lah.forEach(function(ele){if(window.getComputedStyle(ele).display!=="none"){found+=1}});return found}function scanForHead(){cas.forEach(function(ele){var found=0;lab.forEach(function(la){if(getUpperHead(la.id)===ele.innerHTML&&window.getComputedStyle(la).display!=="none"){found+=1}});_(ele,found>=1,"none")})}function tagConv(clas,fro,to){if(clas.slice(0,1)==="_"){return to?clas.slice(1):"third"}else if(fro===to){return clas}else{return fro?uaData.tagfind[clas]:uaData.flag[clas][0]}}function toast(text){if(!window.via||typeof window.via.toast!=="function"){var _toast=$(false,"#toast");_toast.innerHTML=text;_toast.classList.add("toasting")}else{window.via.toast(text)}}function genUA(){var baseUA=$_("mode").value==="add"?$(false,"textarea").value:uaData.base[$_("base").value].content,midSpace=/(?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+[\t-\r \xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF](?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+/;var prefixUA="",preFollowUA="",suffixUA=" ",sufFollowUA="";$_("app").forEach(function(app){var appo=uaData.apps[app.value];if(_typeof(appo.content)==="object"){if(appo.content.qBasic!==undefined){appo.content=appo.content.qBasic+" "+appo.content.qString+" ("+JSON.stringify({packageName:appo.content.qFrom,type:"url",extra:{scene:"recommend"}})+")"}}if(appo.prefix){if(appo.followed){preFollowUA=midSpace.test(appo.content)?appo.content+preFollowUA:preFollowUA+appo.content}else{prefixUA=appo.content+" "+prefixUA}}else if(appo.content instanceof Array){if(appo.followed){preFollowUA=midSpace.test(appo.content[0])?appo.content[0]+preFollowUA:preFollowUA+appo.content[0];sufFollowUA=midSpace.test(appo.content[1])?sufFollowUA+appo.content[1]:appo.content[1]+sufFollowUA}else{prefixUA=appo.content[0]+" "+prefixUA;suffixUA+=appo.content[1]+" "}}else{if(appo.followed){sufFollowUA=midSpace.test(appo.content)?sufFollowUA+appo.content:appo.content+sufFollowUA}else{suffixUA+=appo.content+" "}}});$(false,"textarea").value=prefixUA+preFollowUA+baseUA+sufFollowUA+suffixUA;_($(false,"#ua"),true,"none")}function makeItemID(app){var idi=document.createElement("i");var id=app;if(uaData.apps[app].followed){id=uaData.设置.无缝记号+id}if(uaData.apps[app].prefix){id=uaData.设置.前置记号+id}idi.innerHTML=id;return idi}function makeFlagDiv(clas,box,chinese,opa){var flag=document.createElement("div");_(flag,false,"flag");flag.innerHTML=tagConv(clas,chinese,true);clas=tagConv(clas,chinese,false);if(!box){_(flag,false,"T"+clas)}flag.style.cssText="background-color:"+uaData.flag[clas][1]+";color:"+uaData.flag[clas][2]+";opacity:"+opa;return flag}function makeHeadandLink(first,touch){var head=document.createElement("div");Object.assign(head,{id:"i"+first,innerHTML:first});_(head,false,"CaseHead");if(!touch){var jump=document.createElement("a");Object.assign(jump,{href:"#i"+first,innerHTML:first});$(false,"#ajump").appendChild(jump)}else{uaData.index+=first}return head}function pushTagText(cls,app){if(uaData.tagtext[cls]===undefined){uaData.tagtext[cls]=[]}uaData.tagtext[cls].push(app)}function parseClassinItem(lab,app){var count=0;if(uaData.apps[app].class.length===0){pushTagText("no_tag",app);lab.classList.add("no_tag");return 1}else{uaData.apps[app].class.forEach(function(cls){if(cls.slice(0,1)==="_"||uaData.tagfind[cls]!==undefined){count+=1;lab.appendChild(makeFlagDiv(cls,false,true,1));if(cls.slice(0,1)==="_"){cls="third"}else{cls=uaData.tagfind[cls]}pushTagText(cls,app);_(lab,false,cls)}else{toast("\u9879\u76EE \""+app+"\" \u88AB\u6307\u5B9A\u4E86\u4E0D\u5B58\u5728\u7684\u6807\u7B7E \""+cls+"\" ...");uaData.stor.apps[app].class.splice(uaData.stor.apps[app].class.findIndex(function(v){return v===cls}),1);loc.setItem(uaData.storKey,JSON.stringify(uaData.stor));location.reload()}});return count}}function newBox(type){var box=document.createElement("span");_(box,false,"new-style");_(box,false,"new-"+type);return box}function makeItem(touch){var ofirst="Z",cont=$(false,"#app_container");Object.keys(uaData.apps).sort().forEach(function(app){uaData.text[app]=uaData.apps[app].text;var lab=document.createElement("label"),box=document.createElement("input"),first=getUpperHead(app);if(first!==ofirst){cont.appendChild(makeHeadandLink(first,touch));ofirst=first}lab.id=app;lab.innerHTML+=uaData.apps[app].text;uaData.count[app]=parseClassinItem(lab,app);if(uaData.设置.测试模式){lab.appendChild(makeItemID(app))}Object.assign(box,{type:"checkbox",name:"app",value:app});_(box,false,"orig-box");lab.appendChild(box);lab.appendChild(newBox("check"));cont.appendChild(lab)})}function makeFlaginBox(){Object.keys(uaData.flag).forEach(function(flag){var lab=document.createElement("label"),box=document.createElement("input");lab.id="L"+flag;Object.assign(box,{type:"checkbox",name:"flag",id:"B"+flag,value:flag,checked:true});box.addEventListener("change",function(e){uaCode.tagClick(e.target.parentNode.id,true)});lab.appendChild(box);lab.appendChild(makeFlagDiv(flag,true,false,1));$(false,"#classBox").appendChild(lab)})}function makeBaseRadio(){Object.keys(uaData.base).forEach(function(base){var lab=document.createElement("label"),box=document.createElement("input");lab.for=base;Object.assign(box,{type:"radio",name:"base",id:base,value:base});_(box,false,"orig-box");lab.appendChild(box);lab.appendChild(newBox("radio"));lab.innerHTML+=uaData.base[base].text;$(false,"#baseopt").appendChild(lab);if($(true,"#baseopt label").length===uaData.设置.基础默认){document.getElementById(base).checked=true}})}function unlockMouseMove(){document.onmousemove=null}function winActiv(awin){var wing=$(true,".win");wing.forEach(function(win,i){if(win.style.zIndex>awin.style.zIndex){win.style.zIndex--}});awin.style.zIndex=wing.length+1}function dndWin(touch){var wing=$(true,".win");wing.forEach(function(win,i){win.style.zIndex=i+2});if(touch){wing.forEach(function(win){win.addEventListener("touchstart",function(e){if(e.target.nodeName!=="TEXTAREA"){pos=[e.touches[0].clientX-win.offsetLeft,e.touches[0].clientY-win.offsetTop]}winActiv(win)},{passive:true});win.addEventListener("touchmove",function(e){if(e.target.nodeName!=="TEXTAREA"){win.style.left=e.touches[0].clientX-pos[0]+"px";win.style.top=e.touches[0].clientY-pos[1]+"px"}},{passive:true})})}else{$(true,".drag").forEach(function(drag){var win=drag.parentNode.parentNode;drag.addEventListener("mousedown",function(e){pos=[e.clientX-win.offsetLeft,e.clientY-win.offsetTop];winActiv(win);document.onmousemove=function(e){win.style.left=e.clientX-pos[0]+"px";win.style.top=e.clientY-pos[1]+"px"};drag.removeEventListener("mouseup",uaCode.util.unlock);drag.addEventListener("mouseup",uaCode.util.unlock)})})}}function filterExec(item,nclass){var found=0;lab.forEach(function(ele){found=0;item.forEach(function(val){found+=val===ele.id?1:0});_(ele,found>=1,nclass)});scanForHead();_(ntx,scanAll()===0,"none")}function filterResume(nclass){lah.forEach(function(ele){_(ele,true,nclass)});scanForHead();if(scanAll()!==0){_(ntx,false,"none")}}function fltAppUA(word){if(word===""){filterResume("none")}else{var item=Object.keys(uaData.text).filter(function(obj){return uaData.text[obj].toLowerCase().includes(word.toLowerCase())});filterExec(item,"none")}}function fltAppUASelected(btn){if(btn.value==="\u5217\u51FA\u5DF2\u9009"){var item=[];$_("app").forEach(function(ele){return item.push(ele.value)});filterExec(item,"sel_none");btn.value="\u5217\u51FA\u5168\u90E8"}else{filterResume("sel_none");btn.value="\u5217\u51FA\u5DF2\u9009"}}function fltAppUATag(clas,selected){$(true,".T"+clas).forEach(function(tag){if(selected){_(tag,true,"none")}else{_(tag,false,"none")}});if(uaData.tagtext[clas]!==undefined){uaData.tagtext[clas].forEach(function(id){if(selected){uaData.count[id]++}else{uaData.count[id]--}})}var item=Object.keys(uaData.count).filter(function(obj){return uaData.count[obj]!==0});filterExec(item,"tag_none")}function aform_switchCard(){var val=$_("atype").value;$(true,".atab").forEach(function(tab){if(tab.id===val+"t"){_(tab,true,"none");$(false,"#anew").value="\u6DFB\u52A0";aform_switchModify()}else{_(tab,false,"none")}})}function aform_switchBoth(){var val=$_("apre").value,both=$(true,".acont2"),sing=$(false,".acont1");if(val==="both"){both.forEach(function(input){_(input,true,"none")});_(sing,false,"none")}else{both.forEach(function(input){_(input,false,"none")});_(sing,true,"none")}}function aform_makeFlaginBox(){$(true,".classBox").forEach(function(sbox){Object.keys(uaData.flag).forEach(function(flag){if(flag!=="qapp"&&flag!=="no_tag"){var _lab=document.createElement("label"),box=document.createElement("input");_lab.id=""+getUpperHead(sbox.id)+flag;Object.assign(box,{type:"checkbox",name:"sflag",id:""+sbox.id.slice(0,1)+flag,value:flag,checked:false});if(flag==="third"){box.addEventListener("change",function(e){uaCode.tagClick(e.target.parentNode.id,false);if(box.checked){_($(false,"#"+sbox.id+"l"),true,"none")}else{_($(false,"#"+sbox.id+"l"),false,"none")}})}else{box.addEventListener("change",function(e){uaCode.tagClick(e.target.parentNode.id,false)})}_lab.appendChild(box);_lab.appendChild(makeFlagDiv(flag,true,false,0.5));sbox.appendChild(_lab)}})})}function tagClick(id,flt){var box=$(false,"#"+id+" input");flag=$(false,"#"+id+" .flag");if(box.checked){flag.style.opacity=1}else{flag.style.opacity=.5}if(flt){fltAppUATag(id.slice(1),box.checked);$(false,"#openClass").style.backgroundColor=$(true,"#classBox input:not(:checked)").length===0?"":uaData.设置.标签筛选状态色}}function aform_updateFlagPreview(){var box=$(false,"#tclsbox"),txt=$(false,"#ttext").value,bgc=$(false,"#tbgc").value,fgc=$(false,"#tfgc").value;if(txt!==""){box.innerHTML=txt;_(box,true,"none")}else{_(box,false,"none")}box.style.cssText="background-color:"+bgc+";color:"+fgc}function aform_Clear(){$(true,"#addtable input[type=\"text\"]").forEach(function(i){i.value="";i.style.borderColor="lightgray"});$(true,".classBox input").forEach(function(c){c.checked=false});$(true,".classBox .flag").forEach(function(f){f.style.opacity=.5});$(true,".classPart label").forEach(function(t){_(t,false,"none")});$(true,"#apref,#afolf").forEach(function(r){r.checked=true});$(true,".msel").forEach(function(s){s.value=""});$(false,"#tbgc").value="#ffffff";$(false,"#tfgc").value="#000000";aform_updateFlagPreview();aform_switchBoth()}function aform_Check(type){var a=true;$(true,"#"+type+"t input[type=\"text\"]").forEach(function(i){i.style.borderColor="lightgray";if(getComputedStyle(i).display!=="none"&&getComputedStyle(i.parentNode).display!=="none"&&i.value===""){i.style.borderColor="red";a=false}});return a&&$(false,"#anew").value==="\u7BA1\u7406"?aform_KeyCheck(true):a}function aform_tType(type){switch(type){case"aapp":return"a";break;case"qapp":return"q";break;case"atag":return"t";break;}}function aform_KeyCheck(toast){var type=aform_tType($_("atype").value);var inp=$(false,"#"+type+"key"),key=inp.value;switch(type){case"t":if(key in uaData.flag||key in uaData.stor.flag){inp.style.borderColor="orange";if(toast){toast("\u6807\u8BC6\u91CD\u590D")}return false}else if(key.slice(0,1)==="_"){inp.style.borderColor="orange";if(toast){toast("\"_\" \u5F00\u5934\u7528\u4E8E\u81EA\u5B9A\u4E49\u6807\u7B7E")}return false}break;default:if(key in uaData.apps||key in uaData.stor.apps){inp.style.borderColor="orange";if(toast){toast("\u6807\u8BC6\u91CD\u590D")}return false}break;}if(key===""){inp.style.borderColor="lightgray";return false}else{inp.style.borderColor="green";return true}}function aform_Add(){var atyp=$_("atype").value;var key=void 0,name=void 0,pre=void 0,nfol=void 0,cont=void 0,obj=void 0,flag=void 0,typr=void 0,opt=void 0;function convBool(val){return val==="true"?true:false}if(!aform_Check(atyp)){return}typr=aform_tType(atyp);key=$(false,"#anew").value==="\u7BA1\u7406"?$(false,"#"+typr+"key").value:$(false,"#"+typr+"sel").value;if(key===""&&$(false,"#anew").value==="\u6DFB\u52A0"){toast("\u8BF7\u9009\u62E9\u9700\u8981\u4FEE\u6539\u7684\u9879\u76EE");return}switch(typr){case"a":cont=$_("apre").value!=="both"?$(false,"#acont1").value:[$(false,"#acont2a").value,$(false,"#acont2b").value];break;case"q":cont={qBasic:$(false,"#qcont1").value,qFrom:$(false,"#qcont2").value,qString:$(false,"#qcont3").value};break;}if(atyp==="atag"){obj=[$(false,"#ttext").value,$(false,"#tbgc").value,$(false,"#tfgc").value];Object.assign(uaData.stor.flag,_defineProperty({},""+key,obj))}else{obj={text:$(false,"#"+typr+"text").value,prefix:atyp==="qapp"||$_("apre").value==="both"?false:convBool($_("apre").value),followed:atyp==="qapp"?false:convBool($_("afol").value),content:atyp==="qapp"?{平台:cont.qBasic,来自:cont.qFrom,应用:cont.qString}:cont,class:atyp!=="qapp"?[]:["\u5FEB\u5E94\u7528"]};$_("sflag").forEach(function(inp){if(inp.id.slice(1)==="third"){obj.class.push("_"+$(false,"#"+typr+"thirdt").value)}else{obj.class.push(tagConv(inp.id.slice(1),false,true))}});Object.assign(uaData.stor.apps,_defineProperty({},""+key,{名称:obj.text,前置:obj.prefix?"\u662F":"\u4E0D\u662F",无缝:obj.followed?"\u662F":"\u4E0D\u662F",标签:obj.class,内容:obj.content}))}if($(false,"#anew").value==="\u7BA1\u7406"){opt=document.createElement("option");if(atyp==="atag"){opt.value=key;opt.innerHTML=obj[0]+" ("+key+")"}else{opt.value=key;opt.innerHTML=obj.text+" ("+key+")"}$(false,"#"+typr+"sel").appendChild(opt);aform_Clear()}else{opt=$(false,"#"+typr+"sel option[value=\""+key+"\"]");if(atyp==="atag"){opt.innerHTML=obj[0]+" ("+key+")"}else{opt.innerHTML=obj.text+" ("+key+")"}aform_Clear()}if($(false,"#aok").value==="\u52A0\u5165"){toast("\u52A0\u5165\u6210\u529F")}else{toast("\u4FEE\u6539\u6210\u529F")}}function lsb_initOption(){if(Object.keys(uaData.stor).length!==0){if(uaData.stor.apps){Object.keys(uaData.stor.apps).forEach(function(app){var sel=void 0,opt=document.createElement("option");sel=uaData.stor.apps[app].内容.来自?$(false,"#qsel"):$(false,"#asel");opt.value=app;opt.innerHTML=uaData.stor.apps[app].内容+" ("+app+")";sel.appendChild(opt)})}if(uaData.stor.flag){Object.keys(uaData.stor.flag).forEach(function(tag){var sel=$(false,"#tsel"),opt=document.createElement("option");opt.value=tag;opt.innerHTML=uaData.stor.flag[tag][0]+" ("+tag+")";sel.appendChild(opt)})}}}function lsb_save(){if(Object.keys(uaData.stor.apps).length!==0||Object.keys(uaData.stor.flag).length!==0){loc.setItem(uaData.storKey,JSON.stringify(uaData.stor));toast("\u4FDD\u5B58\u6210\u529F\uFF0C\u4E0B\u6B21\u5237\u65B0\u751F\u6548")}else{toast("\u6CA1\u6709\u81EA\u5B9A\u4E49\u6570\u636E")}}function lsb_export(){if(loc.hasOwnProperty(uaData.storKey)){$(false,"#stordata").value=loc.getItem(uaData.storKey)}else{toast("\u6CA1\u6709\u81EA\u5B9A\u4E49\u6570\u636E")}}function lsb_import(){var err=0;if($(false,"#stordata").value!==""){try{var data=JSON.parse($(false,"#stordata").value);if(loc.hasOwnProperty(uaData.storKey)){var odata=JSON.parse(loc.getItem(uaData.storKey));Object.keys(data).forEach(function(k){if(odata[k]){Object.assign(odata[k],data[k])}else{odata[k]=data[k]}});loc.setItem(uaData.storKey,JSON.stringify(odata))}else{loc.setItem(uaData.storKey,JSON.stringify(data))}$(false,"#stordata").value=""}catch(e){err=1;if(e instanceof SyntaxError){toast("\u5BFC\u5165\u5931\u8D25:\u683C\u5F0F\u4E0D\u6B63\u786E")}else{toast("\u5BFC\u5165\u5931\u8D25")}}if(err===0){toast("\u5BFC\u5165\u6210\u529F")}}else{toast("\u6CA1\u6709\u8F93\u5165\u6570\u636E")}}function lsb_clear(){loc.removeItem(uaData.storKey);toast("\u6E05\u7A7A\u5566")}function tagSelect(id){var box=$(false,"#"+id+" input");flag=$(false,"#"+id+" .flag");box.checked=true;flag.style.opacity=1}function aform_Modify(){var type=aform_tType($_("atype").value),item=$(false,"#"+type+"sel").value;var obj=void 0,cobj=void 0,cont=void 0,ccls=[];switch(type){case"t":obj=uaData.stor.flag[item];break;default:cobj=uaData.stor.apps[item];if(_typeof(cobj["\u5185\u5BB9"])==="object"){if(cobj["\u5185\u5BB9"]instanceof Array){cont=[cobj["\u5185\u5BB9"][0],cobj["\u5185\u5BB9"][1]]}else{cont={qBasic:cobj["\u5185\u5BB9"]["\u5E73\u53F0"],qFrom:cobj["\u5185\u5BB9"]["\u6765\u81EA"],qString:cobj["\u5185\u5BB9"]["\u5E94\u7528"]}}}else{cont=cobj["\u5185\u5BB9"]}cobj["\u6807\u7B7E"].forEach(function(ct){ccls.push(ct.slice(0,1)==="_"?ct:uaData.tagfind[ct])});obj={text:cobj["\u540D\u79F0"],prefix:cobj["\u524D\u7F6E"]==="\u662F"?true:false,followed:cobj["\u65E0\u7F1D"]==="\u662F"?true:false,class:ccls,content:cont};break;}function resetClass(type){$(true,"#"+type+"clsbox input").forEach(function(c){c.checked=false});$(true,"#"+type+"clsbox .flag").forEach(function(f){f.style.opacity=.5});_($(false,"#"+type+"clsboxl"),false,"none")}switch(type){case"a":$(false,"#atext").value=obj.text;if(obj.content instanceof Array){$(false,"#apreb").checked=true;aform_switchBoth();$(false,"#acont2a").value=obj.content[0];$(false,"#acont2b").value=obj.content[1]}else{if(obj.prefix){$(false,"#apret").checked=true}else{$(false,"#apref").checked=true}aform_switchBoth();$(false,"#acont1").value=obj.content}if(obj.followed){$(false,"#afolt").checked=true}else{$(false,"#afolf").checked=true}resetClass(type);obj.class.forEach(function(cls){if(cls.slice(0,1)==="_"){tagSelect("Athird");_($(false,"#aclsboxl"),true,"none");$(false,"#athirdt").value=cls.slice(1)}else{tagSelect("A"+cls)}});break;case"q":$(false,"#qtext").value=obj.text;$(false,"#qcont1").value=obj.content.qBasic;$(false,"#qcont2").value=obj.content.qFrom;$(false,"#qcont3").value=obj.content.qString;resetClass(type);obj.class.forEach(function(cls){if(cls!=="qapp"){if(cls.slice(0,1)==="_"){tagSelect("Qthird");_($(false,"#qclsboxl"),true,"none");$(false,"#qthirdt").value=cls.slice(1)}else{tagSelect("Q"+cls)}}});break;case"t":$(false,"#ttext").value=obj[0];$(false,"#tbgc").value=obj[1];$(false,"#tfgc").value=obj[2];aform_updateFlagPreview();break;}}function aform_Delete(){var type=aform_tType($_("atype").value),sel=$(false,"#"+type+"sel"),val=sel.value,opt=$(false,"#"+type+"sel option[value=\""+val+"\"]");if($(false,"#anew").value==="\u6DFB\u52A0"){if(val!==""){switch(type){case"t":delete uaData.stor.flag[val];break;default:delete uaData.stor.apps[val];break;}sel.removeChild(opt);aform_Clear();toast("\u5220\u9664\u6210\u529F")}else{toast("\u6CA1\u6709\u9009\u62E9\u9879\u76EE")}}else{toast("\u53EA\u80FD\u5728\u7BA1\u7406\u6A21\u5F0F\u4E0B\u5220\u9664\u9879\u76EE")}}function aform_switchModify(){var type=aform_tType($_("atype").value),sel=$(false,"#"+type+"sell"),key=$(false,"#"+type+"keyl"),btn=$(false,"#anew"),ok=$(false,"#aok");if(btn.value==="\u7BA1\u7406"){_(key,false,"none");_(sel,true,"none");btn.value="\u6DFB\u52A0";ok.value="\u786E\u5B9A"}else{_(key,true,"none");_(sel,false,"none");btn.value="\u7BA1\u7406";ok.value="\u52A0\u5165"}}function aform_toWin(cont){var win=$(false,"#ua");$(false,"textarea").value=cont;_(win,true,"none");winActiv(win)}function init(touch){lsb_initOption();makeItem(touch);makeFlaginBox();aform_makeFlaginBox();$(false,"#Raapp").checked=true;$(false,"#stordata").value="";aform_Clear();makeBaseRadio();dndWin(touch);$(false,"#search").value="";$(false,"#version").innerHTML="\u7248\u672C:"+uaData.设置.代码版本+" \u603B\u6570:"+Object.keys(uaData.apps).length;_($(false,"#load"),false,"finish");lab=$(true,"#app_container label"),cas=$(true,"#app_container .CaseHead"),lah=$(true,"#app_container > label,.CaseHead"),ntx=$(false,"#nulltext");loc=window.localStorage};return{init:init,gen:genUA,tagClick:tagClick,filter:{app:fltAppUA,sel:fltAppUASelected},util:{_:_,$:$,$_:$_,unlock:unlockMouseMove},aform:{switchBoth:aform_switchBoth,switchCard:aform_switchCard,updateFlagPreview:aform_updateFlagPreview,add:aform_Add,clear:aform_Clear,del:aform_Delete,check:aform_KeyCheck,switchModify:aform_switchModify,modify:aform_Modify},lsb:{save:lsb_save,clear:lsb_clear,import:lsb_import,export:lsb_export}}}();
+window.onload = () => {
+		if ("ontouchend" in document) {
+		uaCode.init(true);
+		
+// https://github.com/YueminHu/indexSidebar
+// 
+// Copyright (c) 2016 YueminHu
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+;(function(){var emitter={events:{},trigger:function trigger(event,data){var handlers=this.events[event];if(!handlers)return;handlers.forEach(function(fn){fn(data)})},subscribe:function subscribe(event,fn){this.events[event]||(this.events[event]=[]);this.events[event].push(fn)}};emitter.subscribe('fingerLand',function(data){var content=data.innerHTML,indicator=document.querySelector('div.indicator');indicator.classList.remove('none');indicator.innerHTML=content;indicator.style.opacity='1';indicator.style.top=data.getBoundingClientRect().top+'px'});emitter.subscribe('fingerLand',function(elem){if(elem.innerHTML.length==1){var content=elem.innerHTML,scrolledElem=document.querySelector('div#app_container > div[id="i'+content+'"]');scrolledElem.scrollIntoView()}});emitter.subscribe('fingerOff',function(){var indicator=document.querySelector('div.indicator');indicator.style.opacity='0';setTimeout('document.querySelector(\'div.indicator\').classList.add(\'none\')',500)});function IndexSidebar(options){this.init(options)};IndexSidebar.prototype={constructor:IndexSidebar,init:function init(options){var _this=this;var options=options||{};var defaultOptions={indices:uaData.index,mounted:document.body};for(var k in defaultOptions){if(!options.hasOwnProperty(k)){options[k]=defaultOptions[k]}}var sidebarNode=document.createElement('div');options.indices.split('').forEach(function(elem,index){var indexNode=document.createElement('div');indexNode.innerHTML=elem;sidebarNode.appendChild(indexNode)});var indicator=document.createElement('div');indicator.classList.add('indicator');indicator.classList.add('none');sidebarNode.appendChild(indicator);sidebarNode.classList.add('sideBar');options.mounted.appendChild(sidebarNode);this.unitHeight=sidebarNode.firstElementChild.getBoundingClientRect().height;this.nodeList=sidebarNode.childNodes;this.touchStart={x:null,y:null};this.startElem=null;sidebarNode.addEventListener('touchstart',function(e){_this.touchstart(e)});sidebarNode.addEventListener('touchmove',function(e){e.preventDefault();_this.touchmove(e)},{passive:false});sidebarNode.addEventListener('touchend',function(e){_this.touchend(e)})},touchstart:function touchstart(e){this.touchStart.x=e.touches[0].clientX;this.touchStart.y=e.touches[0].clientY;this.startElem={node:e.srcElement,top:e.srcElement.getBoundingClientRect().top,bottom:e.srcElement.getBoundingClientRect().bottom,getIndex:function getIndex(){var parent=this.node.parentNode,siblings=parent.childNodes,siblingsCount=siblings.length;for(var i=0;i<siblingsCount;i++){if(siblings[i]===this.node)this.index=i}},index:null};this.startElem.getIndex();emitter.trigger('fingerLand',e.srcElement)},touchmove:function touchmove(e){var deltaY=e.touches[0].pageY-this.touchStart.y;if(deltaY>this.startElem.bottom-this.touchStart.y){var margin=this.startElem.bottom-this.touchStart.y;deltaY-=margin;var currentNodeIndex=~~(deltaY/this.unitHeight)+1;if(this.nodeIndex!==currentNodeIndex){this.nodeIndex=currentNodeIndex;var currentNode=this.nodeList[this.startElem.index+currentNodeIndex];emitter.trigger('fingerLand',currentNode)}}else if(deltaY<this.startElem.top-this.touchStart.y){var margin=this.touchStart.y-this.startElem.top;deltaY+=margin;var currentNodeIndex=Math.abs(~~(deltaY/this.unitHeight))+1;if(this.nodeIndex!==currentNodeIndex){this.nodeIndex=currentNodeIndex;var currentNode=this.nodeList[this.startElem.index-currentNodeIndex];emitter.trigger('fingerLand',currentNode)}}else{var currentNodeIndex=0;if(this.nodeIndex!==currentNodeIndex){this.nodeIndex=currentNodeIndex;var currentNode=this.nodeList[this.startElem.index];emitter.trigger('fingerLand',currentNode)}}},touchend:function touchend(e){this.touchStart.x=this.touchStart.y=this.startElem=null;emitter.trigger('fingerOff')}};window.indexSidebar1=new IndexSidebar({mounted:document.querySelector('#app')})})()}else{document.querySelector('#ajump').classList.remove('none');uaCode.init(false)}};
+		</script>
+	</body>
+</html>
