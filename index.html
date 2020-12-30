@@ -168,7 +168,6 @@
 				border-radius: 10px;
 				overflow: hidden;
 				display: -webkit-box;
-				display: -ms-flexbox;
 				display: flex;
 			}
 			#base,#searchbox,#app {
@@ -203,26 +202,20 @@
 				background: lightgray;
 				font-size: .75em;
 				display: -webkit-box;
-				display: -ms-flexbox;
 				display: flex;
 				-webkit-box-pack: center;
-				    -ms-flex-pack: center;
 				        justify-content: center;
 				-webkit-box-align: center;
-				    -ms-flex-align: center;
 				        align-items: center;
 				width: 6.5em;
 			}
 			#ajump {
 				display: -webkit-box;
-				display: -ms-flexbox;
 				display: flex;
 				-webkit-box-orient: vertical;
 				-webkit-box-direction: normal;
-				    -ms-flex-flow: column;
 				        flex-flow: column;
 				-webkit-box-pack: justify;
-				    -ms-flex-pack: justify;
 				        justify-content: space-between;
 				width: 7px;
 				background-color: lightgray;
@@ -234,60 +227,20 @@
 				width: 100%;
 			}
 			#baseopt {
-				display: -ms-grid;
 				display: grid;
-				-ms-grid-columns: (-webkit-max-content)[4];
-				-ms-grid-columns: (max-content)[4];
 				grid-template-columns: repeat(4, -webkit-max-content);
 				grid-template-columns: repeat(4, max-content);
-				-ms-grid-rows: (-webkit-max-content)[2];
-				-ms-grid-rows: (max-content)[2];
 				grid-template-rows: repeat(2, -webkit-max-content);
 				grid-template-rows: repeat(2, max-content);
 			}
-			#baseopt > *:nth-child(1) {
-				-ms-grid-row: 1;
-				-ms-grid-column: 1;
-			}
-			#baseopt > *:nth-child(2) {
-				-ms-grid-row: 1;
-				-ms-grid-column: 2;
-			}
-			#baseopt > *:nth-child(3) {
-				-ms-grid-row: 1;
-				-ms-grid-column: 3;
-			}
-			#baseopt > *:nth-child(4) {
-				-ms-grid-row: 1;
-				-ms-grid-column: 4;
-			}
-			#baseopt > *:nth-child(5) {
-				-ms-grid-row: 2;
-				-ms-grid-column: 1;
-			}
-			#baseopt > *:nth-child(6) {
-				-ms-grid-row: 2;
-				-ms-grid-column: 2;
-			}
-			#baseopt > *:nth-child(7) {
-				-ms-grid-row: 2;
-				-ms-grid-column: 3;
-			}
-			#baseopt > *:nth-child(8) {
-				-ms-grid-row: 2;
-				-ms-grid-column: 4;
-			}
 			#modeopt {
 				display: -webkit-box;
-				display: -ms-flexbox;
 				display: flex;
 				-webkit-box-pack: justify;
-				    -ms-flex-pack: justify;
 				        justify-content: space-between;
 			}
 			#modeopt > div {
 				display: -webkit-box;
-				display: -ms-flexbox;
 				display: flex;
 			}
 			#base label,
@@ -296,16 +249,13 @@
 			.classBox label,
 			#tclsbox {
 				display: -webkit-inline-box;
-				display: -ms-inline-flexbox;
 				display: inline-flex;
 			}
 			#app label {
 				margin-left: .5em;
 				display: -webkit-box;
-				display: -ms-flexbox;
 				display: flex;
 				-webkit-box-align: center;
-				    -ms-flex-align: center;
 				        align-items: center;
 			}
 			#app label i {
@@ -354,10 +304,8 @@
 			#action,#action2,#action3,#addbtn,.savebtn {
 				text-align: center;
 				display: -webkit-box;
-				display: -ms-flexbox;
 				display: flex;
 				-webkit-box-pack: justify;
-				    -ms-flex-pack: justify;
 				        justify-content: space-between;
 			}
 			#action {
@@ -377,12 +325,10 @@
 			.new-radio.new-style {
 				margin: 2px;
 				display:-webkit-box;
-				display:-ms-flexbox;
 				display:flex;
 			}
 			.orig-box:checked + .new-style.new-radio:after {
 				-webkit-transform:scale(.8);
-				    -ms-transform:scale(.8);
 				        transform:scale(.8);
 			}
 			.new-check.new-style {
@@ -400,10 +346,8 @@
 				height:12px;
 				width:12px;
 				display: -webkit-box;
-				display: -ms-flexbox;
 				display: flex;
 				margin: auto;
-				-ms-flex-item-align: center;
 				    align-self: center;
 			}
 			.orig-box:checked + .new-check.new-style::after {
@@ -414,7 +358,6 @@
 				border-width: 0 3px 3px 0;
 				border-radius: 0;
 				-webkit-transform: rotate(45deg);
-				    -ms-transform: rotate(45deg);
 				        transform: rotate(45deg);
 				background-color: transparent;
 			}
@@ -469,7 +412,6 @@
 				vertical-align: 2px;
 				-webkit-user-select: none;
 				   -moz-user-select: none;
-				    -ms-user-select: none;
 				        user-select: none;
 			}
 			#addtype {
@@ -493,13 +435,11 @@
 			#addsave > label,
 			.classPart > label {
 				display: -webkit-box;
-				display: -ms-flexbox;
 				display: flex;
 			}
 			#addtype > label,
 			.atab > div > label {
 				display: -webkit-inline-box;
-				display: -ms-inline-flexbox;
 				display: inline-flex;
 				vertical-align: middle;
 				line-height: 1.25em;
@@ -616,7 +556,6 @@
 			.titlebar {
 				width: 100%;
 				display: -webkit-box;
-				display: -ms-flexbox;
 				display: flex;
 				color: black;
 				font-size: .75em;
@@ -628,7 +567,6 @@
 				background-color: transparent;
 				-webkit-user-select: none;
 				   -moz-user-select: none;
-				    -ms-user-select: none;
 				        user-select: none;
 			}
 			.win .close {
@@ -678,7 +616,7 @@
 			#loadstr {
 				max-width: 80%;
 				margin: 0 auto;
-				margin-top: 6em;
+				margin-top: 1em;
 				font-size: 2em;
 				font-weight: bold;
 				text-align: center;
@@ -983,7 +921,16 @@
 		</div>
 		<div id="toast" onanimationend="this.classList.remove('toasting')"></div>
 		<div id="load" onanimationend="this.classList.add('none')">
-			<p id="loadstr">正在加载...</p>
+			<p id="loadstr">
+				正在加载...<br>
+				这个页面至少需要:<br>
+				Chrome 51<br>
+				Edge 79<br>
+				Firefox 52<br>
+				Safari 11<br>
+				Opera 38<br>
+				不支持 Internet Explorer !
+			</p>
 		</div>
 		<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
 		<script>
