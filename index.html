@@ -1437,18 +1437,18 @@
 					case "t":
 						if (key in uaData.flag||key in uaData.stor.flag) {
 							bor.style.borderColor = "orange";
-							if(toast){ toast('标识重复'); }
+							if(toast){ uaCode.util.toast('标识重复'); }
 							return false;
 						} else if (key.slice(0,1)==="_") {
 							bor.style.borderColor = "orange";
-							if(toast){ toast('"_" 开头用于自定义标签'); }
+							if(toast){ uaCode.util.toast('"_" 开头用于自定义标签'); }
 							return false;
 						}
 						break;
 					default:
 						if (key in uaData.apps||key in uaData.stor.apps) {
 							bor.style.borderColor = "orange";
-							if(toast){ toast('标识重复'); }
+							if(toast){ uaCode.util.toast('标识重复'); }
 							return false;
 						}
 						break;
