@@ -1432,7 +1432,7 @@
 			function aform_KeyCheck(toast) {
 				const type = aform_tType($_("atype").value);
 				let inp = $(false,`#${type}key`), key = inp.value,
-					bor = (type==="t") ? $(false,`#tkds`) : imp;
+					bor = (type==="t") ? $(false,`#tkds`) : inp;
 				switch (type) {
 					case "t":
 						if (key in uaData.flag||key in uaData.stor.flag) {
