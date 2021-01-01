@@ -22,10 +22,17 @@
 				},
 				storKey:"userAgentData",
 				设置:{
-					代码版本:"5.0 Beta 7",
+					代码版本:"5.0 Beta 8",
 					基础默认:1,
 					数字记号:"#",
-					标签筛选状态色:"#00ad46",
+					标签筛选开启:"#00ad46",
+					数据未保存:"orange",
+					输入框检查:[
+					"lightgray", // 未检查
+					"green",     // 检查成功
+					"orange",    // 检查失败
+					"red",       // 数据为空
+					],
 					测试模式:false,
 					前置记号:"^",
 					无缝记号:"~",
@@ -380,7 +387,7 @@
 			.atab > label input,
 			#addsave > label input,
 			.classPart > label input {
-				border: 1px solid lightgray;
+				border: 1px solid transparent;
 				color: black;
 				padding: 0 6px;
 				display: block;
@@ -564,7 +571,7 @@
 				font-size: 13.3333px;
 				min-width: 14em;
 				background: white;
-				border: 1px solid lightgray;
+				border: 1px solid transparent;
 				padding: 0 6px;
 			}
 
@@ -1279,7 +1286,7 @@
 				flag.style.opacity = (box.checked) ? 1 : .5;
 				if (flt) {
 					fltAppUATag(id.slice(1),box.checked);
-					$(false,'#openClass').style.backgroundColor = ($(true,'#classBox input:not(:checked)').length===0) ? '' : uaData.设置.标签筛选状态色;
+					$(false,'#openClass').style.backgroundColor = ($(true,'#classBox input:not(:checked)').length===0) ? '' : uaData.设置.标签筛选开启;
 				}
 			}
 			
@@ -1303,8 +1310,8 @@
 				const type = aform_tType($_("atype").value),
 					sel = $(false,`#${type}sell`),
 					key = $(false,`#${type}keyl`),
-					btn = $(false,`#anew`),
-					ok = $(false,`#aok`);
+					btn = $(false,'#anew'),
+					ok = $(false,'#aok');
 				if (btn.value==="管理") {
 					_(key,false,"none");
 					_(sel,true,"none");
@@ -1323,7 +1330,7 @@
 				$(true,".atab").forEach( tab => {
 					if (tab.id===`${val}t`) {
 						_(tab,true,"none");
-						$(false,`#anew`).value = "添加";
+						$(false,'#anew').value = "添加";
 						aform_switchModify();
 					} else {
 						_(tab,false,"none");
@@ -1397,16 +1404,16 @@
 			function aform_Clear() {
 				$(true,'#addtable input[type="text"]').forEach( i => {
 					i.value = "";
-					i.style.borderColor = "lightgray";
+					i.style.borderColor = uaData.设置.输入框检查[0];
 				});
-				$(false,'#tkds').style.borderColor = "lightgray";
+				$(false,'#tkds').style.borderColor = uaData.设置.输入框检查[0];
 				$(true,".classBox input").forEach( c => { c.checked = false; });
 				$(true,".classBox .flag").forEach( f => { f.style.opacity = .5; });
 				$(true,".classPart label").forEach( t => { _(t,false,"none"); });
 				$(true,'#apref,#afolf').forEach( r => { r.checked = true; });
 				$(true,'.msel').forEach( s => { s.value = ""; });
-				$(false,'#tbgc').value = '#ffffff';
-				$(false,'#tfgc').value = '#000000';
+				$(false,'#tbgc').value = '#000000';
+				$(false,'#tfgc').value = '#ffffff';
 				aform_updateFlagPreview();
 				aform_switchBoth();
 			}
@@ -1414,50 +1421,55 @@
 			function aform_Check(type) {
 				let a = true;
 				$(true,`#${type}t input[type="text"]`).forEach( i => {
-					i.style.borderColor = "lightgray";
+					i.style.borderColor = uaData.设置.输入框检查[0];
 					if (getComputedStyle(i).display!=="none" &&
 						getComputedStyle(i.parentNode).display!=="none" && 
 						i.value==="") {
 						if (i.id==="tkey") {
-							$(false,'#tkds').style.borderColor = "red";
+							$(false,'#tkds').style.borderColor = uaData.设置.输入框检查[3];
 						} else {
-							i.style.borderColor = "red";
+							i.style.borderColor = uaData.设置.输入框检查[3];
 						}
 						a = false;
 					}
 				});
-				return (a && $(false,`#anew`).value==="管理") ? aform_KeyCheck(true) : a ;
+				return (a && $(false,'#anew').value==="管理") ? aform_KeyCheck(true) : a ;
 			}
 			
 			function aform_KeyCheck(toast) {
-				const type = aform_tType($_("atype").value);
+				const type = aform_tType($_('atype').value), test = /^\w+$/u;
 				let inp = $(false,`#${type}key`), key = inp.value,
-					bor = (type==="t") ? $(false,`#tkds`) : inp;
+					bor = (type==="t") ? $(false,'#tkds') : inp;
+				if (!test.test(key)) {
+					bor.style.borderColor = uaData.设置.输入框检查[2];
+					if(toast){ uaCode.util.toast('输入错误'); }
+					return false;
+				}
 				switch (type) {
 					case "t":
 						if (key in uaData.flag||key in uaData.stor.flag) {
-							bor.style.borderColor = "orange";
+							bor.style.borderColor = uaData.设置.输入框检查[2];
 							if(toast){ uaCode.util.toast('标识重复'); }
 							return false;
 						} else if (key.slice(0,1)==="_") {
-							bor.style.borderColor = "orange";
+							bor.style.borderColor = uaData.设置.输入框检查[2];
 							if(toast){ uaCode.util.toast('"_" 开头用于自定义标签'); }
 							return false;
 						}
 						break;
 					default:
 						if (key in uaData.apps||key in uaData.stor.apps) {
-							bor.style.borderColor = "orange";
+							bor.style.borderColor = uaData.设置.输入框检查[2];
 							if(toast){ uaCode.util.toast('标识重复'); }
 							return false;
 						}
 						break;
 				}
 				if (key==="") {
-					bor.style.borderColor = "lightgray";
+					bor.style.borderColor = uaData.设置.输入框检查[0];
 					return false;
 				} else {
-					bor.style.borderColor = "green";
+					bor.style.borderColor = uaData.设置.输入框检查[1];
 					return true;
 				}
 			}
@@ -1468,10 +1480,10 @@
 				function convBool(val) { return (val==="true") ? true : false ; }
 				if (!aform_Check(atyp)) { return; }
 				typr = aform_tType(atyp);
-				key = ($(false,`#anew`).value==="管理") ?
+				key = ($(false,'#anew').value==="管理") ?
 					$(false,`#${typr}key`).value :
 					$(false,`#${typr}sel`).value ;
-				if (key==="" && $(false,`#anew`).value==="添加") {
+				if (key==="" && $(false,'#anew').value==="添加") {
 					toast("请选择需要修改的项目");
 					return;
 				}
@@ -1528,7 +1540,7 @@
 						}
 					});
 				}
-				if ($(false,`#anew`).value==="管理") {
+				if ($(false,'#anew').value==="管理") {
 					opt = document.createElement('option');
 					if (atyp==="atag") {
 						opt.value = key; opt.innerHTML = `${obj[0]} (${key})`;
@@ -1546,7 +1558,8 @@
 					}
 					aform_Clear();
 				}
-				if ($(false,`#aok`).value==="加入") {
+				$(false,'#ssave').style.backgroundColor = uaData.设置.数据未保存;
+				if ($(false,'#aok').value==="加入") {
 					toast('加入成功');
 				} else {
 					toast('修改成功');
@@ -1667,7 +1680,7 @@
 					sel = $(false,`#${type}sel`),
 					val = sel.value,
 					opt = $(false,`#${type}sel option[value="${val}"]`);
-				if ($(false,`#anew`).value==="添加") {
+				if ($(false,'#anew').value==="添加") {
 					if (val!=="") {
 						switch (type) {
 							case "t" :
@@ -1679,6 +1692,7 @@
 						}
 						sel.removeChild(opt);
 						aform_Clear();
+						$(false,'#ssave').style.backgroundColor = uaData.设置.数据未保存;
 						toast('删除成功');
 					} else {
 						toast('没有选择项目');
@@ -1696,14 +1710,14 @@
 						Object.keys(uaData.stor.apps).forEach( app => {
 							let sel, opt = document.createElement('option');
 							sel = (uaData.stor.apps[app].内容.来自) ?
-								$(false,`#qsel`) : $(false,`#asel`);
+								$(false,'#qsel') : $(false,'#asel');
 							opt.value = app; opt.innerHTML = `${uaData.stor.apps[app].内容} (${app})`;
 							sel.appendChild(opt);
 						});
 					}
 					if (uaData.stor.flag) {
 						Object.keys(uaData.stor.flag).forEach( tag => {
-							let sel = $(false,`#tsel`), opt = document.createElement('option');
+							let sel = $(false,'#tsel'), opt = document.createElement('option');
 							opt.value = tag; opt.innerHTML = `${uaData.stor.flag[tag][0]} (${tag})`;
 							sel.appendChild(opt);
 						});
@@ -1715,6 +1729,7 @@
 				if (Object.keys(uaData.stor.apps).length!==0 ||
 					Object.keys(uaData.stor.flag).length!==0) {
 					loc.setItem(uaData.storKey,JSON.stringify(uaData.stor));
+					$(false,'#ssave').style.backgroundColor = '';
 					toast('保存成功，下次刷新生效');
 				} else {
 					toast('没有自定义数据');
@@ -1779,20 +1794,20 @@
 			}
 			
 			function init(touch){
-				$(false,'#loadstr').innerHTML = `正在构建 ...`;
+				$(false,'#loadstr').innerHTML = '正在构建 ...';
 				lsb_initOption();
 				makeItem(touch);
 				makeFlaginBox();
 				aform_makeFlaginBox();
 				makeBaseRadio();
 				dndWin(touch);
-				$(false,'#loadstr').innerHTML = `正在初始化 ...`;
+				$(false,'#loadstr').innerHTML = '正在初始化 ...';
 				$(false,"#Raapp").checked = true;
 				$(false,"#stordata").value = '';
 				aform_Clear();
 				$(false,"#search").value = '';
 				$(false,"#version").innerHTML = `版本:${uaData.设置.代码版本} 总数:${Object.keys(uaData.apps).length}`;
-				$(false,'#loadstr').innerHTML = `加载完成`;
+				$(false,'#loadstr').innerHTML = '加载完成';
 				_($(false,"#load"),false,"finish");
 				lab = $(true,"#app_container label"),
 				cas = $(true,"#app_container .CaseHead"),
@@ -1902,7 +1917,7 @@
 		<script>
 			(() => {
 				const stor = window.localStorage;
-				uaCode.util.$(false,'#loadstr').innerHTML = `正在加载数据 ...`;
+				uaCode.util.$(false,'#loadstr').innerHTML = '正在加载数据 ...';
 				if (stor.hasOwnProperty(uaData.storKey)) {
 					try {
 						let data = JSON.parse(stor.getItem(uaData.storKey));
