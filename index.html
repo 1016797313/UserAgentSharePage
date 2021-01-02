@@ -1233,7 +1233,8 @@
 								win.style.top = (e.touches[0].clientY - pos[1]) + 'px';
 							}
 							win.style.position = (parseInt(getComputedStyle(win)['right']) < 0 || 
-												  parseInt(getComputedStyle(win)['left']) < 0) ?
+												  parseInt(getComputedStyle(win)['left']) < 0 ||
+												  parseInt(getComputedStyle(win)['bottom']) < 0) ?
 												'fixed' : 'absolute' ;
 						},{ passive: true });
 					});
