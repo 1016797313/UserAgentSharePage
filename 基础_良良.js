@@ -1,7 +1,7 @@
 加入("基础",{
 	std: {
 		名称: "标准",
-		内容: `Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.51 Mobile Safari/537.36`
+		内容: `Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.68 Mobile Safari/537.36`
 	},
 	short: {
 		名称: "标准短",
