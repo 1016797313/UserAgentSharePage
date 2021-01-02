@@ -110,7 +110,7 @@
 				-webkit-box-shadow: 0 0 10px dodgerblue;
 				        box-shadow: 0 0 10px dodgerblue;
 				-webkit-backdrop-filter: blur(10px);
-				backdrop-filter: blur(10px);
+				        backdrop-filter: blur(10px);
 			}
 			#classBox,.classBox {
 				padding: 3px;
@@ -300,6 +300,9 @@
 				font-weight:bold;
 				padding:3px 1em;
 				margin:0 2px;
+			}
+			input[type=button]:focus {
+				background-color:#4e92d0;
 			}
 			input[type=button]:hover {
 				background-color:#1e62d0;
@@ -509,6 +512,9 @@
 			.win .close:hover {
 				background-color: rgba(140,0,0,0.6);
 			}
+			.win .close:focus {
+				background-color: rgba(255,128,128,0.6);
+			}
 			@-webkit-keyframes load-finish {
 				0% {
 					opacity: 100%;
@@ -672,11 +678,11 @@
 			<div class="setHead"><p>生成模式</p></div>
 			<div id="modeopt">
 				<div>
-					<label for="gen">
+					<label for="gen" tabindex="0" onkeydown="uaCode.util.check()">
 						<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked>
 						<span class="new-style new-radio"></span>生成
 					</label>
-					<label for="add">
+					<label for="add" tabindex="0" onkeydown="uaCode.util.check()">
 						<input id="add" type="radio" name="mode" value="add" class="orig-box">
 						<span class="new-style new-radio"></span>追加
 					</label>
@@ -734,15 +740,15 @@
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
 			<div id="addtype">
-				<label>
+				<label tabindex="0" onkeydown="uaCode.util.check()">
 					<input id="Raapp" type="radio" name="atype" value="aapp" class="orig-box" onchange="uaCode.aform.switchCard()" checked>
 					<span class="new-style new-radio"></span>APP
 				</label>
-				<label>
+				<label tabindex="0" onkeydown="uaCode.util.check()">
 					<input id="Rqapp" type="radio" name="atype" value="qapp" class="orig-box" onchange="uaCode.aform.switchCard()">
 					<span class="new-style new-radio"></span>快应用
 				</label>
-				<label>
+				<label tabindex="0" onkeydown="uaCode.util.check()">
 					<input id="Ratag" type="radio" name="atype" value="atag" class="orig-box" onchange="uaCode.aform.switchCard()">
 					<span class="new-style new-radio"></span>标签
 				</label>
@@ -762,26 +768,26 @@
 					</label>
 					<div id="apre">
 						<p>前置</p>
-						<label>
+						<label tabindex="0" onkeydown="uaCode.util.check()">
 							<input id="apret" type="radio" name="apre" value="true" class="orig-box" onchange="uaCode.aform.switchBoth()">
 							<span class="new-style new-radio"></span>是
 						</label>
-						<label>
+						<label tabindex="0" onkeydown="uaCode.util.check()">
 							<input id="apref" type="radio" name="apre" value="false" class="orig-box" onchange="uaCode.aform.switchBoth()" checked>
 							<span class="new-style new-radio"></span>否
 						</label>
-						<label>
+						<label tabindex="0" onkeydown="uaCode.util.check()">
 							<input id="apreb" type="radio" name="apre" value="both" class="orig-box" onchange="uaCode.aform.switchBoth()">
 							<span class="new-style new-radio"></span>前后都有
 						</label>
 					</div>
 					<div id="afol">
 						<p>无缝</p>
-						<label>
+						<label tabindex="0" onkeydown="uaCode.util.check()">
 							<input id="afolt" type="radio" name="afol" value="true" class="orig-box">
 							<span class="new-style new-radio"></span>是
 						</label>
-						<label>
+						<label tabindex="0" onkeydown="uaCode.util.check()">
 							<input id="afolf" type="radio" name="afol" value="false" class="orig-box" checked>
 							<span class="new-style new-radio"></span>否
 						</label>
@@ -961,6 +967,20 @@
 				}
 			}
 			
+			function spaceChecked(e) {
+				if(!e) {
+					e = event;
+				}
+				switch (e.code) {
+					case "Space":
+					case "Enter":
+						e.target.control.checked = true;
+						break;
+					default:
+						return;
+				}
+			}
+			
 			function genUA() {
 				const baseUA = $_("mode").value === "add" ? 
 							$(false,"textarea").value :
@@ -1103,6 +1123,8 @@
 						ofirst = first;
 					}
 					lab.id = app;
+					lab.tabIndex = 0;
+					lab.addEventListener('keydown', (e) => { uaCode.util.check(e); });
 					lab.innerHTML += uaData.apps[app].text;
 					uaData.count[app] = parseClassinItem(lab,app);
 					if (uaData.设置.测试模式) {
@@ -1117,11 +1139,17 @@
 						type: "checkbox",
 						name: "app",
 						value: app,
-						className: "orig-box"
+						className: "orig-box",
+						tabIndex: -1
 					});
 					lab.appendChild(box);
 					lab.appendChild(newBox("check"));
 					cont.appendChild(lab);
+				});
+				cont.addEventListener('keydown',(e) => {
+					if (e.code==="Space") {
+						e.preventDefault();
+					}
 				});
 			}
 			
@@ -1130,6 +1158,8 @@
 					const lab = document.createElement("label"),
 						box = document.createElement("input");
 					lab.id = `L${flag}`;
+					lab.tabIndex = 0;
+					lab.addEventListener('keydown', (e) => { uaCode.util.check(e); });
 					Object.assign(box, {
 						type: "checkbox",
 						name: "flag",
@@ -1151,12 +1181,15 @@
 					const lab = document.createElement("label"),
 						box = document.createElement("input");
 					lab.for = base;
+					lab.tabIndex = 0;
+					lab.addEventListener('keydown', (e) => { uaCode.util.check(e); });
 					Object.assign(box, {
 						type: "radio",
 						name: "base",
 						id: base,
 						value: base,
-						className: "orig-box"
+						className: "orig-box",
+						tabIndex: -1
 					});
 					lab.appendChild(box);
 					lab.appendChild(newBox("radio"));
@@ -1358,6 +1391,8 @@
 							const lab = document.createElement("label"),
 								box = document.createElement("input");
 							lab.id = `${getUpperHead(sbox.id)}${flag}`;
+							lab.tabIndex = 0;
+							lab.addEventListener('keydown', (e) => { uaCode.util.check(e); });
 							Object.assign(box, {
 								type: "checkbox",
 								name: "sflag",
@@ -1832,6 +1867,7 @@
 					unlock: function() {
 						document.onmousemove = null;
 					},
+					check: spaceChecked,
 					toast: toast,
 				},
 				aform: {
