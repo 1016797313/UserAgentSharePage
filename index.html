@@ -688,9 +688,9 @@
 					</label>
 				</div>
 				<div>
-					<input id="openNew" name="openNew" type="button" value="+" onclick="(()=> {const ua=uaCode.util.$(false,'#addui');ua.classList.remove('none');uaCode.activ(ua);})();">
-					<input id="openClass" name="openClass" type="button" value="标签筛选" onclick="(()=> {const ua=uaCode.util.$(false,'#class');ua.classList.remove('none');uaCode.activ(ua);})();">
-					<input id="openUA" name="openUA" type="button" value="打开窗口" onclick="(()=> {const ua=uaCode.util.$(false,'#ua');ua.classList.remove('none');uaCode.activ(ua);})();">
+					<input id="openNew" name="openNew" type="button" value="+" onclick="uaCode.open(uaCode.util.$(false,'#addui'))">
+					<input id="openClass" name="openClass" type="button" value="标签筛选" onclick="uaCode.open(uaCode.util.$(false,'#class'))">
+					<input id="openUA" name="openUA" type="button" value="打开窗口" onclick="uaCode.open(uaCode.util.$(false,'#ua'))">
 				</div>
 			</div>
 		</div>
@@ -1034,8 +1034,7 @@
 					}
 				});
 				$(false,"textarea").value = prefixUA + preFollowUA + baseUA + sufFollowUA + suffixUA;
-				_($(false,"#ua"),true,"none");
-				winActiv($(false,"#ua"));
+				openWin($(false,"#ua"));
 			}
 			
 			function makeFlagDiv(clas,box,chinese,opa) {
@@ -1252,11 +1251,21 @@
 								win.style.left = (e.clientX - pos[0]) + 'px';
 								win.style.top = (e.clientY - pos[1]) + 'px';
 							};
-							drag.removeEventListener('mouseup', uaCode.util.unlock);
-							drag.addEventListener('mouseup', uaCode.util.unlock);
+							document.removeEventListener('mouseup', uaCode.util.unlock);
+							document.addEventListener('mouseup', uaCode.util.unlock);
+						});
+					});
+					wing.forEach( win => {
+						win.addEventListener('mousedown', e => {
+							winActiv(win);
 						});
 					});
 				}
+			}
+			
+			function openWin(win) {
+				_(win,true,"none");
+				winActiv(win);
 			}
 			
 			function filterExec(item,nclass) {
@@ -1861,7 +1870,7 @@
 				load: loadJs,
 				gen: genUA,
 				tagClick: tagClick,
-				activ: winActiv,
+				open: openWin,
 				filter: {
 					app: fltAppUA,
 					sel: fltAppUASelected,
