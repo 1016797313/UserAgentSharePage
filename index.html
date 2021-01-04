@@ -186,7 +186,7 @@
 				        align-items: center;
 			}
 			#app label i {
-				float: right;
+				margin-left: .25em;
 				color: lightgray;
 			}
 			.CaseHead {
@@ -688,9 +688,9 @@
 					</label>
 				</div>
 				<div>
-					<input id="openNew" name="openNew" type="button" value="+" onclick="uaCode.util.$(false,'#addui').classList.remove('none')">
-					<input id="openClass" name="openClass" type="button" value="标签筛选" onclick="uaCode.util.$(false,'#class').classList.remove('none')">
-					<input id="openUA" name="openUA" type="button" value="打开窗口" onclick="uaCode.util.$(false,'#ua').classList.remove('none')">
+					<input id="openNew" name="openNew" type="button" value="+" onclick="(()=> {const ua=uaCode.util.$(false,'#addui');ua.classList.remove('none');uaCode.activ(ua);})();">
+					<input id="openClass" name="openClass" type="button" value="标签筛选" onclick="(()=> {const ua=uaCode.util.$(false,'#class');ua.classList.remove('none');uaCode.activ(ua);})();">
+					<input id="openUA" name="openUA" type="button" value="打开窗口" onclick="(()=> {const ua=uaCode.util.$(false,'#ua');ua.classList.remove('none');uaCode.activ(ua);})();">
 				</div>
 			</div>
 		</div>
@@ -1035,6 +1035,7 @@
 				});
 				$(false,"textarea").value = prefixUA + preFollowUA + baseUA + sufFollowUA + suffixUA;
 				_($(false,"#ua"),true,"none");
+				winActiv($(false,"#ua"));
 			}
 			
 			function makeFlagDiv(clas,box,chinese,opa) {
@@ -1860,6 +1861,7 @@
 				load: loadJs,
 				gen: genUA,
 				tagClick: tagClick,
+				activ: winActiv,
 				filter: {
 					app: fltAppUA,
 					sel: fltAppUASelected,

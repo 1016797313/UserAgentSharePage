@@ -250,13 +250,6 @@ bdAppFAP: {
 	标签: ["百度"],
 	内容: "swan/2.15.0 swan-baiduboxapp/11.19.0.11 baiduboxapp/11.19.0.11 (Baidu; P1 9)"
 },
-bdApp: {
-	名称: "百度 APP",
-	前置: "不是",
-	无缝: "不是",
-	标签: ["百度"],
-	内容: "T7/11.12 baiduboxapp/11.12.0.10 (Baidu; P1 9)"
-},
 bdlite: {
 	名称: "百度极速版",
 	前置: "不是",
