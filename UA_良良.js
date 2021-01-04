@@ -255,7 +255,7 @@ bdlite: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["百度"],
-	内容: "lite baiduboxapp/4.11.0.10 (Baidu; P1 9)"
+	内容: "lite baiduboxapp/3.2.5.10 (Baidu; P1 9)"
 },
 ttyuns: {
 	名称: "天天云搜",
@@ -2104,5 +2104,12 @@ tblite: {
 	无缝: "不是",
 	标签: ["阿里"],
 	内容: "AliApp(TB/4.12.1) TTID/212200@htao_android_4.12.1 1080X1920"
+},
+bdApp: {
+	名称: "百度 APP",
+	前置: "不是",
+	无缝: "不是",
+	标签: ["百度"],
+	内容: "T7/12.7 baiduboxapp/12.7.0.10 (Baidu; P1 9)"
 },
 });
