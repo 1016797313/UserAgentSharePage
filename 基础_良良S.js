@@ -20,11 +20,11 @@
 		内容: `Mozilla/5.0 (Linux; U; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014)`
 	},
 	ucbs: {
-		名称: "Android 10 , 阿里 UCBS 3.22 (69)",
+		名称: "Android 10 , 阿里 UCBS 3.22",
 		内容: `Mozilla/5.0 (Linux; U; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 UWS/3.22.1.58 Mobile Safari/537.36 UCBS/3.21.0.175_200831203602`
 	},
 	tbs: {
-		名称: "Android 10 , 腾讯 TBS 4.5 (77)",
+		名称: "Android 10 , 腾讯 TBS 4.5",
 		内容: `Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045434 Mobile Safari/537.36`
 	},
     wchrome: {
@@ -68,15 +68,15 @@
 		内容: "Mozilla/5.0 (Mobile; LYF/F300B/LYF-F300B-001-01-15-130718-I;Android; rv:48.0) Gecko/48 Firefox/48 KAIOS/2.5"
 	},
     bdt7: {
-		名称: "Android 10 , 百度 T7 4.5 (76)",
+		名称: "Android 10 , 百度 T7 12.7",
 		内容: "Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/76.0.3809.89 Mobile Safari/537.36 T7/12.7"
 	},
     bdt7: {
-		名称: "Android 10 , 微信 XWeb 2692 (78)",
+		名称: "Android 10 , 微信 XWeb 2692",
 		内容: "Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/78.0.3904.62 XWEB/2692 Mobile Safari/537.36"
 	},
     awp: {
-		名称: "Android 10 , 搜狗 AWP 2.0 (68)",
+		名称: "Android 10 , 搜狗 AWP 2.0",
 		内容: "Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/68.0.3440.106 Mobile Safari/537.36 AWP/2.0"
 	},
     afox: {
