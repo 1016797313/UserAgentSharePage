@@ -429,14 +429,6 @@
 				border: none;
 				padding: 0 2px 2px;
 			}
-			#arrow {
-				width: 0;
-				height: 0;
-				border: 5px solid;
-				border-color: black transparent transparent transparent;
-				margin-left: 12px;
-				margin-top: .55em;
-			}
 			@-webkit-keyframes toast {
 				0% {
 					opacity: 0%;
@@ -681,7 +673,6 @@
 		<div id="base">
 			<div class="setHead"><p>基础 UA</p></div>
 			<div id="baseopt">
-				<div id="arrow"></div>
 				<select id="basesel"></select>
 			</div>
 		</div>
@@ -1189,12 +1180,13 @@
 			
 			function makeBaseSelect() {
 				Object.keys(uaData.base).forEach( base => {
-					const opt = document.createElement("option");
+					const opt = document.createElement("option"),
+					      sel = $(false,"#basesel");
 					opt.value = base;
 					opt.innerHTML = uaData.base[base].text;
-					$(false,"#basesel").appendChild(opt);
-					if ($(false,"#basesel").length===uaData.设置.基础默认) {
-						$(false,"#basesel").value = base;
+					sel.appendChild(opt);
+					if (sel.length===uaData.设置.基础默认) {
+						sel.value = base;
 					}
 				});
 			}
