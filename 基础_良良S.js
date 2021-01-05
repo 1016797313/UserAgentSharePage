@@ -9,7 +9,7 @@
 	},
     baidu: {
 		名称: "百度页面优化 UA",
-		内容: "Mozilla/5.0 (iPhone; CPU iPhone OS 13_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Mobile/15E148 Safari/604.1 mission baiduboxapp/3.2.5.10 SearchCraft/3.7.0"
+		内容: "Mozilla/5.0 (iPhone; CPU iPhone OS 13_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Mobile/15E148 Safari/604.1 mission baiduboxapp/3.2.5.10"
 	},
 	std: {
 		名称: "Android 10 , WebView 88",

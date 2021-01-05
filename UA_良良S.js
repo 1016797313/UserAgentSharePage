@@ -2112,11 +2112,4 @@ bdApp: {
 	标签: ["百度"],
 	内容: "T7/12.7 baiduboxapp/12.7.0.10 (Baidu; P1 9)"
 },
-bdOpt: {
-	名称: "百度家替代方案",
-	前置: "不是",
-	无缝: "不是",
-	标签: ["百度"],
-	内容: "Mozilla/5.0 (iPhone; CPU iPhone OS 13_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Mobile/15E148 Safari/604.1 mission baiduboxapp/3.2.5.10"
-},
 });
