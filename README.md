@@ -93,26 +93,21 @@ APP 列表右侧是导航条，
 
 #### 标准 UA
 下面是标准的 WebView UA 的例子:
-```
-Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv)
- AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49
- Mobile Safari/537.36
-```
+
+> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36
 
 有些 APP 使用一种精简版的 UA，这里称作 "短 UA" (标准短):
-```
-Mozilla/5.0 (Linux; U; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014)
-```
+
+> Mozilla/5.0 (Linux; U; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014)
 
 大部分的 APP 的 UA 都是以这两种格式作为基础的 。
 
 #### 快应用
 快应用 UA 格式如下:
-```
-hap/1.6/xiaomi com.miui.hybrid/1.6.0.3 cn.cmcc.quickapp/1.1.7
- ({"packageName":"com.miui.quickappCenter","type":"url","extra":
-{"scene":"recommend"}})
 
+> hap/1.6/xiaomi com.miui.hybrid/1.6.0.3 cn.cmcc.quickapp/1.1.7 ({"packageName":"com.miui.quickappCenter","type":"url","extra":{"scene":"recommend"}})
+
+```
 # 其中:
 hap/1.6/xiaomi com.miui.hybrid/1.6.0.3 # 平台，这里是小米的平台。
 cn.cmcc.quickapp/1.1.7                 # 应用，中国移动。
@@ -129,42 +124,22 @@ com.miui.quickappCenter                # 来自，来源是小米快应用中心
 #### "名称"
 APP 的显示名称 。
 #### "前置" 和 "无缝"
-举例:
-```
-# 这个关键字是前置的
+> 举例:
+**这个关键字是前置的**
+> Test/1.0 Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36
+**这个关键字不是前置的**
+> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36 Test/1.0
+**所以下面这个 "前后都有"**
+> Test/1.0 Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36 Test/2.0
+**这个是无缝的**
+> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36Test/1.0
+**所以下面这个是前置和无缝的**
+> Test/1.0Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36
 
-Test/1.0 Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv)
- AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49
- Mobile Safari/537.36
-
-# 这个关键字不是前置的
-
-Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv)
- AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49
- Mobile Safari/537.36 Test/1.0
-
-# 所以下面这个 "前后都有"
-
-Test/1.0 Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv)
- AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49
- Mobile Safari/537.36 Test/2.0
-
-# 这个是无缝的
-
-Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv)
- AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49
- Mobile Safari/537.36Test/1.0
-
-# 所以下面这个是前置和无缝的
-
-Test/1.0Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv)
- AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49
- Mobile Safari/537.36
-```
 
 拼接时 ，会按如下顺序拼接关键字 :
 
-_[前置]_ _[前置 无缝][前置无缝]_**基础**_[无缝][无 缝]_ _[普通]_
+> _[前置]_ _[前置 无缝][前置无缝]_**基础**_[无缝][无 缝]_ _[普通]_
 #### 关键字
 填写除了基础部分以外的部分 (有用的部分) ，例如上面的 Test/1.0
 
