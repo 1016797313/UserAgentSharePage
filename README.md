@@ -83,7 +83,7 @@ APP 列表右侧是导航条，
 下面是标准的 WebView UA 的例子:
 > Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36
 
-有些 APP 使用一种精简版的 UA，这里称作 "短 UA" (标准短):
+有些 APP 使用一种精简版的 UA，这里称作 "短 UA" :
 > Mozilla/5.0 (Linux; U; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014)
 
 大部分的 APP 的 UA 都是以这两种格式作为基础的 。
