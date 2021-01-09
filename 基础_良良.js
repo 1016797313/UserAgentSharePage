@@ -7,9 +7,9 @@
 		名称: "短 UA",
 		内容: `Mozilla/5.0 (Linux; U; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014)`
 	},
-	ucbs: {
-		名称: "UCBS",
-		内容: `Mozilla/5.0 (Linux; U; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/69.0.3497.100 UWS/3.22.1.58 Mobile Safari/537.36 UCBS/3.21.0.175_200831203602`
+	wp: {
+		名称: "WP",
+		内容: `Mozilla/5.0 (Windows Phone 10.0; Android 4.2.1; Microsoft; Lumia 950) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Mobile Safari/537.36 Edge/14.14263`
 	},
 	tbs: {
 		名称: "TBS",

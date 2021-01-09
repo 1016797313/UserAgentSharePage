@@ -22,7 +22,7 @@
 				},
 				storKey:"userAgentData",
 				设置:{
-					代码版本:"5.0 Beta 8",
+					代码版本:"5.0 Beta 9",
 					基础默认:1,
 					数字记号:"#",
 					标签筛选开启:"#00ad46",
@@ -592,6 +592,32 @@
 				width: -moz-available;
 			}
 			
+			#issues {
+				margin: 0 3px;
+				background-color: cornflowerblue;
+				border-radius: 5px;
+				color: white;
+				overflow-y: scroll;
+				max-height: 8em;
+			}
+
+			.issue {
+				margin: 2px .5em;
+				padding: 5px;
+				font-size: .85em;
+				font-weight: bold;
+				border: solid rgba(255,255,255,0.5);
+				border-width: 0;
+				border-top-width: 1px;
+			}
+			
+			#issueHead {
+				border: none;
+				padding: 0 5px;
+				font-size: .75em;
+				font-weight: normal;
+			}
+
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
 					padding: 3px 0;
@@ -635,7 +661,7 @@
 					padding: 3px .5em;
 				}
 				textarea {
-					height: 78%;
+					height: 10em;
 					width: 97%;
 				}
 				#ua {
@@ -643,7 +669,6 @@
 					top: 6em;
 					left: auto;
 					margin-left: -5em;
-					height: 20em;
 				}
 				#class {
 					width: 24em;
@@ -717,7 +742,8 @@
 				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
 			</div>
 			<label for="useragent" class="none">UA 编辑框</label>
-			<textarea id="useragent" placeholder="你想要的在这儿 ^_^"></textarea>
+			<textarea id="useragent" placeholder="你想要的在这儿 ^_^" oninput="uaCode.check()"></textarea>
+			<div id="issues"></div>
 			<div id="action2">
 				<input id="clearUA" name="clearUA" type="button" value="清空" onclick="(()=>{uaCode.util.$(false,'#useragent').value = '';})();">
 				<input id="copy" name="copy" type="button" value="复制" onclick="(()=>{uaCode.util.$(false,'#useragent').select();document.execCommand('copy');})();">
@@ -1034,7 +1060,53 @@
 					}
 				});
 				$(false,"textarea").value = prefixUA + preFollowUA + baseUA + sufFollowUA + suffixUA;
+				issuesCheck();
 				openWin($(false,"#ua"));
+			}
+			
+			function makeIssue(issue,head) {
+				let p = document.createElement('p');
+				p.className = "issue";
+				if (head) { p.id = 'issueHead'; }
+				p.innerHTML = issue;
+				$(false,'#issues').appendChild(p);
+			}
+			
+			function cleanIssue() {
+				$(true,'.issue').forEach( i => {
+					$(false,'#issues').removeChild(i);
+				});
+			}
+			
+			function issuesCheck() {
+				const ua = $(false,"textarea").value,
+					issue = [
+								[ // #1 百度 页面 确认框
+									( ua.includes('baiduboxapp/') && (
+									/Android[^\s\)]* +[^\s\)]*\)+?/u.test(ua) ||
+									( /(?<=baiduboxapp\/)\d+/u.exec(ua)===null ||
+									/(?<=baiduboxapp\/)\d+/u.exec(ua) >= 4 ))),
+									'此 UA 可能会导致 百度部分页面 加载时弹出 确认/取消 对话框'
+								],[ // #2 城通 下载按钮 失效
+									ua.includes('baidu'),
+									'此 UA 可能会导致大部分 城通网盘 下载按钮 失效'
+								],[ // #3 iPhone 下载 APP 跳到 AppStore
+									( ua.includes('iPhone') && ua.includes('AppleWebKit') ),
+									'此 UA 可能会导致 百度搜索 下载 APP 跳转到苹果的 AppStore'
+								],[ // #4 腾讯视频 页面 确认框
+									( ua.includes('Android') && ua.includes('qqnews') ),
+									'此 UA 可能会导致 腾讯视频播放页面 加载时弹出 确认/取消 对话框'
+								]
+							];
+				let count = 0;
+				issue.forEach( i => {
+					if (i[0]) { count++; };
+				});
+				cleanIssue();
+				if (count>0) { makeIssue(`检测到 ${count} 个问题 :`,true); };
+				issue.forEach( i => {
+					if (i[0]) { makeIssue(i[1],false); };
+				});
 			}
 			
 			function makeFlagDiv(clas,box,chinese,opa) {
@@ -1219,7 +1291,7 @@
 				if (touch) {
 					wing.forEach( win => {
 						win.addEventListener('touchstart', e => {
-							if (e.target.nodeName!=="TEXTAREA") {
+							if (e.target.nodeName!=="TEXTAREA"&&!$(false,'#issues').contains(e.target)) {
 								pos = [
 								(e.touches[0].clientX - win.offsetLeft),
 								(e.touches[0].clientY - win.offsetTop)
@@ -1228,7 +1300,7 @@
 							winActiv(win);
 						},{ passive: true });
 						win.addEventListener('touchmove', e => {
-							if (e.target.nodeName!=="TEXTAREA") {
+							if (e.target.nodeName!=="TEXTAREA"&&!$(false,'#issues').contains(e.target)) {
 								win.style.left = (e.touches[0].clientX - pos[0]) + 'px';
 								win.style.top = (e.touches[0].clientY - pos[1]) + 'px';
 							}
@@ -1871,6 +1943,7 @@
 				gen: genUA,
 				tagClick: tagClick,
 				open: openWin,
+				check: issuesCheck,
 				filter: {
 					app: fltAppUA,
 					sel: fltAppUASelected,
