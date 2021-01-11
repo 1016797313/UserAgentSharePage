@@ -2034,6 +2034,10 @@
 		</script>
 		<script src="数据列表.js"></script>
 		<script>
+			window.onerror = function(e,a,l) {
+				alert(`错误: ${e}\n地址: ${a}\n行数: ${l}`);
+			}
+
 			uaData.jslist.forEach( js => {
 				uaCode.load(js);
 			});
