@@ -2100,10 +2100,12 @@ window.onload = () => {
 	};
 	emitter.subscribe('fingerLand', (data) => {
 		var content = data.innerHTML, indicator = document.querySelector('div.indicator');
-		indicator.classList.remove("none");
-		indicator.innerHTML = content;
-		indicator.style.opacity = '1';
-		indicator.style.top = data.getBoundingClientRect().top + 'px';
+		if (indicator) {
+			indicator.classList.remove("none");
+			indicator.innerHTML = content;
+			indicator.style.opacity = '1';
+			indicator.style.top = data.getBoundingClientRect().top + 'px';
+		}
 	});
 	emitter.subscribe('fingerLand', (elem) => {
 	if (elem.innerHTML.length == 1) {
