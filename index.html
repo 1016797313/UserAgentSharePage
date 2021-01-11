@@ -2112,16 +2112,18 @@ window.onload = () => {
 		}
 	});
 	emitter.subscribe('fingerLand', (elem) => {
-	if (elem.innerHTML.length == 1) {
-			var content = elem.innerHTML, scrolledElem = document.querySelector(`div#app_container > div[id="i${content}"]`);
-			scrolledElem.scrollIntoView();
+		if (elem) {
+			if (elem.innerHTML.length == 1) {
+				var content = elem.innerHTML, scrolledElem = document.querySelector(`div#app_container > div[id="i${content}"]`);
+				scrolledElem.scrollIntoView();
+			}
 		}
-	})
+	});
 	emitter.subscribe('fingerOff', () => {
 		var indicator = document.querySelector('div.indicator');
 		indicator.style.opacity = '0';
 		setTimeout("document.querySelector('div.indicator').classList.add('none')",500);
-	})
+	});
 
 	function IndexSidebar(options) {
 		this.init(options);
