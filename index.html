@@ -2099,12 +2099,16 @@ window.onload = () => {
 		}
 	};
 	emitter.subscribe('fingerLand', (data) => {
-		var content = data.innerHTML, indicator = document.querySelector('div.indicator');
-		if (indicator) {
+		var indicator = document.querySelector('div.indicator');
+		if (data) {
+			var content = data.innerHTML;
 			indicator.classList.remove("none");
 			indicator.innerHTML = content;
 			indicator.style.opacity = '1';
 			indicator.style.top = data.getBoundingClientRect().top + 'px';
+		} else {
+			indicator.style.opacity = '0';
+			setTimeout("document.querySelector('div.indicator').classList.add('none')",500);
 		}
 	});
 	emitter.subscribe('fingerLand', (elem) => {
