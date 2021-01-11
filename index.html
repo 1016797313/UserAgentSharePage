@@ -1176,9 +1176,10 @@
 					issue = [
 								[ // #1 百度 页面 确认框
 									( ua.includes('baiduboxapp/') && (
-									/Android[^\s\)]* +[^\s\)]*\)+?/u.test(ua) ||
-									( /(?<=baiduboxapp\/)\d+/u.exec(ua)===null ||
-									/(?<=baiduboxapp\/)\d+/u.exec(ua) >= 4 ))),
+									/Android[^\s\)]* +[^\s\)]*\)+?/u.test(ua) || (
+									/baiduboxapp\/\d*/.exec(ua)[0].replace('baiduboxapp/','')===''
+									|| /baiduboxapp\/\d*/.exec(ua)[0].replace('baiduboxapp/','')>=4
+									))),
 									'此 UA 可能会导致 百度部分页面 加载时弹出 确认/取消 对话框'
 								],[ // #2 城通 下载按钮 失效
 									ua.includes('baidu'),
