@@ -1959,17 +1959,6 @@
 				toast('清空啦');
 			}
 			
-			function loadJs(js) {
-				let script=document.createElement('script');
-				script.async = false;
-				script.src = js;
-				script.onerror = e => {
-					uaCode.util.toast(js + " 加载失败");
-					window.stop();
-				}
-				document.querySelector("head").appendChild(script);
-			}
-			
 			function init(touch){
 				$(false,'#loadstr').innerHTML = '正在构建 ...';
 				lsb_initOption();
@@ -1995,7 +1984,6 @@
 
 			return {
 				init: init,
-				load: loadJs,
 				gen: genUA,
 				tagClick: tagClick,
 				open: openWin,
@@ -2037,10 +2025,18 @@
 			window.onerror = function(e,a,l) {
 				alert(`错误: ${e}\n地址: ${a}\n行数: ${l}`);
 			}
-
+			alert(uaData.jslist);
 			uaData.jslist.forEach( js => {
-				uaCode.load(js);
+				let script=document.createElement('script');
+				script.async = false;
+				script.src = js;
+// 				script.onerror = e => {
+// 					uaCode.util.toast(js + " 加载失败");
+// 					window.stop();
+// 				}
+				document.querySelector("head").appendChild(script);
 			});
+			alert(uaData.jslist);
 		</script>
 		<script>
 			(() => {
@@ -2063,6 +2059,7 @@
 					}
 				}
 			})();
+			alert(uaData.apps);
 		</script>
 		<script>
 window.onload = () => {
