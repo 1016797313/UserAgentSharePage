@@ -23,7 +23,7 @@
 以上，还望大家帮助测试 ，多提意见和建议 ，多谢 。
 
 这个页面使用了 GitHub @YueminHu 的 indexSidebar 控件 [GitHub](https://github.com/YueminHu/indexSidebar) ，在此表示感谢 。  
-文末和网页代码里包含了此控件使用的 MIT 许可证原文 。
+文末和 LICENSE 文件里包含了此控件使用的 MIT 许可证原文 。
 
 ## 帮助
 ### 使用
