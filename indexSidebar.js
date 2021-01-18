@@ -40,7 +40,7 @@
 		setTimeout("document.querySelector('div.indicator').classList.add('none')",500);
 	});
 
-	function IndexSidebar(options) {
+	window.IndexSidebar = function IndexSidebar(options) {
 		this.init(options);
 	};
 	IndexSidebar.prototype = {
@@ -138,7 +138,4 @@
 			emitter.trigger('fingerOff')
 		}
 	}
-	window.indexSidebar1 = new IndexSidebar({
-		mounted: document.querySelector('#app')
-	});
 })();

@@ -16,6 +16,7 @@
 				tagfind:{},
 				index:"",
 				jslist:[],
+				touch:"ontouchend" in document,
 				stor:{
 					apps:{},
 					flag:{}
@@ -562,13 +563,11 @@
 				margin: 2px 0;
 				padding: 0 5px;
 			}
-
 			#tkey {
 				padding: 0;
 				border: none;
 				height: 100%;
 			}
-
 			#tkds {
 				width: 80%;
 				border-radius: 20px;
@@ -578,18 +577,15 @@
 				border: 1px solid transparent;
 				padding: 0 6px;
 			}
-
 			#tkds > span {
 				display: block;
 				overflow: hidden;
 				height: 100%;
 			}
-
 			#stordata {
 				width: -webkit-fill-available;
 				width: -moz-available;
 			}
-			
 			#issues {
 				margin: 0 3px;
 				background-color: cornflowerblue;
@@ -598,7 +594,6 @@
 				overflow-y: scroll;
 				max-height: 8em;
 			}
-
 			.issue {
 				margin: 2px .5em;
 				padding: 5px;
@@ -608,14 +603,12 @@
 				border-width: 0;
 				border-top-width: 1px;
 			}
-			
 			#issueHead {
 				border: none;
 				padding: 0 5px;
 				font-size: .75em;
 				font-weight: normal;
 			}
-
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
 					padding: 3px 0;
@@ -680,16 +673,20 @@
 					margin-left: 5em;
 				}
 			}
-			/*@media (prefers-color-scheme: dark) {
+			@media (prefers-color-scheme: dark) {
 				body {
 					-webkit-filter: hue-rotate(180deg) invert(1);
-					filter: hue-rotate(180deg) invert(1);
+							filter: hue-rotate(180deg) invert(1);
 					background-color: black;
 				}
 				#version {
 					color: black;
 				}
-			}*/
+				.win {
+					-webkit-backdrop-filter: none;
+							backdrop-filter: none;
+				}
+			}
 		</style>
 	</head>
 	<body>
@@ -1116,14 +1113,14 @@
 				return flag;
 			}
 			
-			function makeHeadandLink(first,touch) {
+			function makeHeadandLink(first) {
 				const head = document.createElement("div");
 				Object.assign(head,{
 					id: `i${first}`,
 					innerHTML: first,
 					className: "CaseHead"
 				});
-				if(!touch) {
+				if(!uaData.touch) {
 					const jump = document.createElement("a");
 					Object.assign(jump,{
 						href: `#i${first}`,
@@ -1180,7 +1177,7 @@
 				return box;
 			}
 			
-			function makeItem(touch) {
+			function makeItem() {
 				let ofirst = "Z",cont = $(false,"#app_container");
 				Object.keys(uaData.apps).sort().forEach( app => {
 					uaData.text[app] = uaData.apps[app].text;
@@ -1188,7 +1185,7 @@
 						box = document.createElement("input"),
 						first = getUpperHead(app);
 					if (first!==ofirst) {
-						cont.appendChild(makeHeadandLink(first,touch));
+						cont.appendChild(makeHeadandLink(first));
 						ofirst = first;
 					}
 					lab.id = app;
@@ -1220,6 +1217,11 @@
 						e.preventDefault();
 					}
 				});
+				if (uaData.touch) {
+					uaData.indexSidebar1 = new IndexSidebar({
+						mounted: document.querySelector('#app')
+					});
+				};
 			}
 			
 			function makeFlaginBox() {
@@ -1280,12 +1282,12 @@
 				awin.style.zIndex = wing.length + 1;
 			}
 			
-			function dndWin(touch) {
+			function dndWin() {
 				let wing = $(true,".win");
 				wing.forEach( (win,i) => {
 					win.style.zIndex = i + 2;
 				});
-				if (touch) {
+				if (uaData.touch) {
 					wing.forEach( win => {
 						win.addEventListener('touchstart', e => {
 							if (e.target.nodeName!=="TEXTAREA"&&!$(false,'#issues').contains(e.target)) {
@@ -1900,14 +1902,14 @@
 				toast('清空啦');
 			}
 			
-			function init(touch){
+			function init(){
 				$(false,'#loadstr').innerHTML = '正在构建 ...';
 				lsb_initOption();
-				makeItem(touch);
+				makeItem();
 				makeFlaginBox();
 				aform_makeFlaginBox();
 				makeBaseRadio();
-				dndWin(touch);
+				dndWin();
 				$(false,'#loadstr').innerHTML = '正在初始化 ...';
 				$(false,"#Raapp").checked = true;
 				$(false,"#stordata").value = '';
@@ -2016,12 +2018,17 @@
 						});
 						break;
 					case "数据":
-						uaData.jslist = obj;
+						obj.forEach( js => { uaData.jslist.push(js); });
 						break;
 				}
 			}
 		</script>
 		<script src="数据列表.js"></script>
+		<script>
+		if (uaData.touch) {
+			加入("数据",['indexSidebar.js']);
+		}
+		</script>
 		<script>
 			uaData.jslist.forEach( js => {
 				let script=document.createElement('script');
@@ -2058,15 +2065,10 @@
 		</script>
 		<script>
 			window.onload = () => {
-				if ("ontouchend" in document) {
-					uaCode.init(true);
-					let script=document.createElement('script');
-					script.src = 'indexSidebar.js';
-					document.querySelector("head").appendChild(script);
-				} else {
+				if (!uaData.touch) {
 					document.querySelector("#ajump").classList.remove("none");
-					uaCode.init(false);
 				}
+				uaCode.init();
 			}
 		</script>
 	</body>
