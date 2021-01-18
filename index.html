@@ -2065,9 +2065,7 @@
 		</script>
 		<script>
 			window.onload = () => {
-				if (!uaData.touch) {
-					document.querySelector("#ajump").classList.remove("none");
-				}
+				uaCode.util._(uaCode.util.$(false,'#ajump'),!uaData.touch,'none');
 				uaCode.init();
 			}
 		</script>
