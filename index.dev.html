@@ -1302,10 +1302,11 @@
 				} else {
 					sel.addEventListener('change', e => {
 						const id = e.target.value,devsel = document.querySelector("#devsel");
-						if (uaData.base[id].type==="blank") {
-							devsel.style.display = "none";
+						if (uaData.base[id].type==="blank"||uaData.base[id].type==="pc") {
 							devsel.value = "mi10prq";
+							devsel.style.display = "none";
 						} else {
+							devsel.value = "mi10prq";
 							devsel.style.display = "block";
 						}
 						if (uaData.base[id].type==="wv") {
