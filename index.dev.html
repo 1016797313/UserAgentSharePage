@@ -1036,7 +1036,7 @@
 			}
 			
 			function genUA() {
-				const device = uaData.device[document.querySelector("#devsel").value],
+				const device = document.querySelector("#devsel").value ? uaData.device[document.querySelector("#devsel").value] : uaData.device.mi10prq,
 					midSpace = /.+\s.+/u;
 				let baseUA = $_("mode").value === "add" ? 
 							$(false,"textarea").value :
@@ -1334,6 +1334,7 @@
 				document.querySelector("#baseopt").appendChild(
 					makeOptions(Object.keys(uaData.device).sort(),"device","desp","devsel")
 				);
+				document.querySelector("#devsel").value = "mi10prq";
 			}
 			
 			function winActiv(awin) {
