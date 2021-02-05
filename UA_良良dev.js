@@ -465,7 +465,7 @@ xMiAi: {
 	名称: "小爱",
 	前置: "不是",
 	无缝: "不是",
-	标签: ["小米"],
+	标签: ["小米","完整"],
 	内容: "hap/1.5/xiaomi com.miui.voiceassist/1.5.2.0 com.application.demo/2.2.35 (Unknown)"
 },
 xMivideo: {
@@ -1004,7 +1004,7 @@ qSZS: {
 	名称: "骑士助手",
 	前置: "不是",
 	无缝: "不是",
-	标签: [],
+	标签: ["完整"],
 	内容: "Mozilla%2F5.0+%28Linux%3B+Android+9%3B+Mi+Note+3+Build%2FPKQ1.181007.001%3B+wv%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Chrome%2F81.0.4044.66+Mobile+Safari%2F537.36+867527035322985+mgcsdk%2F3.6.0+mgcframework%2F3.0.0"
 },
 wifikey: {
@@ -2117,7 +2117,7 @@ bdOpt: {
 	名称: "百度家替代方案",
 	前置: "不是",
 	无缝: "不是",
-	标签: ["百度"],
+	标签: ["百度","完整"],
 	内容: "Mozilla/5.0 (Android;) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari/604.1 mission baiduboxapp/3.2.5.10 SearchCraft/3.7.0"
 },
 whatsapp: {
