@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="theme-color" content="#2b75c4">
+		<title>Useragent 生成</title>
+		<script>
+			const uaData = {
+				base:{},
+				device:{},
+				apps:{},
+				flag:{},
+				count:{},
+				text:{},
+				tagtext:{},
+				tagfind:{},
+				index:"",
+				jslist:[],
+				touch:"ontouchend" in document,
+				stor:{
+					apps:{},
+					flag:{}
+				},
+				storKey:"userAgentData",
+				设置:{
+					代码版本:"5.1 Test 1",
+					数字记号:"#",
+					标签筛选开启:"#00ad46",
+					数据未保存:"orange",
+					输入框检查:[
+					"lightgray", // 未检查
+					"green",     // 检查成功
+					"orange",    // 检查失败
+					"red",       // 数据为空
+					],
+					测试模式:false,
+					前置记号:"^",
+					无缝记号:"~",
+				}
+			};
+		</script>
+		<style>
+			:focus {
+				outline: none;
+			}
+			body {
+				font-size: 16px;
+			}
+			textarea {
+				color: black;
+				font-family: monospace;
+				border: 1px solid lightgray;
+				border-radius: 10px;
+				padding: 5px;
+				display: block;
+			}
+			body > div {
+				margin: 0 .5em;
+			}
+			.none,
+			.sel_none,
+			.tag_none {
+				display: none !important;
+			}
+			p {
+				margin: 1px;
+			}
+			a {
+				text-decoration: none;
+				color: black;
+				font-family: monospace;
+				margin: 0 1px;
+				font-size: .7em;
+				width: .5em;
+				height: 1.1em;
+				line-height: 1.1em;
+				font-weight: 600;
+			}
+			noscript {
+				color: lightgray;
+				text-align: center;
+				z-index: 10;
+				font-size: 4em;
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background-color: white;
+				font-weight: bold;
+				margin: 0;
+			}
+			#base,#mode,#app {
+				border: 1px solid lightgray;
+				border-radius: 10px;
+				overflow: hidden;
+				display: -webkit-box;
+				display: flex;
+			}
+			#base,#searchbox,#app {
+				margin-bottom: 4px;
+			}
+			.win {
+				font-size: 1em;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: rgba(160,210,255,0.6);
+				margin: 0;
+				-webkit-box-shadow: 0 0 10px dodgerblue;
+				        box-shadow: 0 0 10px dodgerblue;
+				-webkit-backdrop-filter: blur(10px);
+				        backdrop-filter: blur(10px);
+			}
+			#classBox,.classBox {
+				padding: 3px;
+				border-radius: 10px;
+			}
+			#classBox .flag,
+			.classBox .sflag {
+				padding: 0 4px;
+				margin: 0 2px;
+			}
+			#classBox input,
+			.classBox input {
+				display: none;
+			}
+			.setHead {
+				background: lightgray;
+				font-size: .75em;
+				display: -webkit-box;
+				display: flex;
+				-webkit-box-pack: center;
+				        justify-content: center;
+				-webkit-box-align: center;
+				        align-items: center;
+				width: 6.5em;
+			}
+			#ajump {
+				display: -webkit-box;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				        flex-flow: column;
+				-webkit-box-pack: justify;
+				        justify-content: space-between;
+				width: 7px;
+				background-color: lightgray;
+				margin: 0;
+				padding: 3px;
+			}
+			#baseopt,#modeopt {
+				line-height: 22px;
+				width: 100%;
+			}
+			#baseopt {
+				display: grid;
+				grid-template-columns: repeat(2, auto);
+			}
+			#baseopt > select {
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				     appearance: none;
+				border: none;
+				text-align: center;
+			}
+			#modeopt {
+				display: -webkit-box;
+				display: flex;
+				-webkit-box-pack: justify;
+				        justify-content: space-between;
+			}
+			#modeopt > div {
+				display: -webkit-box;
+				display: flex;
+			}
+			#base label,
+			#mode label,
+			#classBox label,
+			.classBox label,
+			#tclsbox {
+				display: -webkit-inline-box;
+				display: inline-flex;
+			}
+			#app label {
+				margin-left: .5em;
+				display: -webkit-box;
+				display: flex;
+				-webkit-box-align: center;
+				        align-items: center;
+			}
+			#app label i {
+				margin-left: .25em;
+				color: lightgray;
+			}
+			.CaseHead {
+				font-size: .75em;
+				font-weight: bold;
+				background: darkgray;
+				padding-left: 5px;
+			}
+			.sideBar {
+				width: 15px;
+				background-color: lightgray;
+				padding: 3px;
+			}
+			div.sideBar > div {
+				text-align: center;
+				font-size: .5em;
+				height: 1.6em;
+				line-height: 1.6em;
+			}
+			div.sideBar > div:last-of-type {
+				position: absolute;
+				width: 1.5em;
+				height: 1.5em;
+				line-height: 1.5em;
+				text-align: center;
+				-webkit-transform: translate3d(-1.5em, 0, 0);
+				        transform: translate3d(-1.5em, 0, 0);
+				font-size:2em;
+				opacity:0;
+				-webkit-transition: opacity .3s ease, top .1s linear;
+				-o-transition: opacity .3s ease, top .1s linear;
+				transition: opacity .3s ease, top .1s linear;
+				color:#eee;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius:100%;
+			}
+			#app_container {
+				overflow-y: scroll;
+				height: calc(1.5em * 14.5);
+				width: 100%;
+			}
+			#action,#action2,#action3,#addbtn,.savebtn {
+				text-align: center;
+				display: -webkit-box;
+				display: flex;
+				-webkit-box-pack: justify;
+				        justify-content: space-between;
+			}
+			#action {
+				margin: 0 .5em;
+			}
+			.orig-box {
+				display: none;
+			}
+			.new-style {
+				background-color:white;
+				border:1px solid rgba(0,0,0,0.15);
+				border-radius:100%;
+				width:16px;
+				height:16px;
+				line-height:16px;
+			}
+			.new-radio.new-style {
+				margin: 2px;
+				display:-webkit-box;
+				display:flex;
+			}
+			.orig-box:checked + .new-style.new-radio:after {
+				-webkit-transform:scale(.8);
+				        transform:scale(.8);
+			}
+			.new-check.new-style {
+				margin: 3px 3px 1px auto;
+				border-radius:0;
+				display:inline-block;
+			}
+			.orig-box:checked + .new-style {
+				border: 1px solid #2b75c4;
+			}
+			.orig-box:checked + .new-style:after {
+				background-color:#2b75c4;
+				border-radius:100%;
+				content:"";
+				height:12px;
+				width:12px;
+				display: -webkit-box;
+				display: flex;
+				margin: auto;
+				    align-self: center;
+			}
+			.orig-box:checked + .new-check.new-style::after {
+				width: 5px;
+				height: 9px;
+				border-color: #2b75c4;
+				border-style: solid;
+				border-width: 0 3px 3px 0;
+				border-radius: 0;
+				-webkit-transform: rotate(45deg);
+				        transform: rotate(45deg);
+				background-color: transparent;
+			}
+			input[type=checkbox] {
+				float: right;
+			}
+			input[type=button] {
+				background-color:#2b75c4;
+				border-radius:6px;
+				border:1px solid transparent;
+				color:#ffffff;
+				font-size:.75em;
+				font-weight:bold;
+				padding:3px 1em;
+				margin:0 2px;
+			}
+			input[type=button]:focus {
+				background-color:#4e92d0;
+			}
+			input[type=button]:hover {
+				background-color:#1e62d0;
+			}
+			#searchbox {
+				position: relative;
+			}
+			#search {
+				border: 1px solid lightgray;
+				color: black;
+				width: calc(100% - 1.1em);
+				font-family: monospace;
+				border-radius: 20px;
+				padding: 0 6px;
+				display: block;
+			}
+			#version {
+				font-size: .5em;
+				color: lightgray;
+				float: right;
+			}
+			#nulltext {
+				font-size: 2em;
+				color: lightgray;
+				margin: auto;
+				width: 10em;
+				text-align: center;
+			}
+			#nulltext {
+				line-height: calc(1.5em * 7.25);
+			}
+			.flag {
+				font-size: .75em;
+				border-radius: 5px;
+				margin: 0 2px;
+				padding: 1px 5px;
+				vertical-align: 2px;
+				-webkit-user-select: none;
+				   -moz-user-select: none;
+				        user-select: none;
+			}
+			#addtype {
+				text-align: center;
+				margin: auto;
+				font-size: .9em;
+			}
+			.atab > *,
+			#addbtn,
+			#addsave > *,
+			#action2 > *,
+			#action3 > *,
+			#classBox,
+			#useragent {
+				margin: 3px;
+			}
+			.classPart > * {
+				margin: 3px 0;
+			}
+			.atab > label,
+			#addsave > label,
+			.classPart > label {
+				display: -webkit-box;
+				display: flex;
+			}
+			#addtype > label,
+			.atab > div > label {
+				display: -webkit-inline-box;
+				display: inline-flex;
+				vertical-align: middle;
+				line-height: 1.25em;
+			}
+			.atab > label b,
+			#addsave label b,
+			.classPart > label b,
+			.atab div p,
+			#addsave div p {
+				width: 20%;
+				min-width:5em;
+				margin: 0 .25em;
+				font-size: .9em;
+			}
+			.classPart > label b {
+				margin: 0 .45em 0 calc(.25em - 3px);
+			}
+			.atab > label input,
+			#addsave > label input,
+			.classPart > label input {
+				border: 1px solid transparent;
+				color: black;
+				padding: 0 6px;
+				display: block;
+				width: 80%;
+				min-width: 14em;
+				border-radius: 20px;
+			}
+			.atab div p,
+			#addsave div p {
+				display: inline-block;
+				font-weight: bold;
+			}
+			#addui {
+				padding: 0;
+				width: -webkit-min-content;
+				width: -moz-min-content;
+				width: min-content;
+			}
+			#openNew {
+				width: auto;
+				padding: 0 5px !important;
+				font-size: 16px;
+			}
+			.msel {
+				color: white;
+				background: #2b75c4;
+				width: 80%;
+				min-width: 14em;
+				border-radius: 20px;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				     appearance: none;
+				border: none;
+				padding: 0 8px 2px;
+			}
+			@-webkit-keyframes toast {
+				0% {
+					opacity: 0%;
+				}
+				35% {
+					opacity: 100%;
+				}
+				85% {
+					opacity: 100%;
+				}
+				100% {
+					opacity: 0%;
+				}
+			}
+			@keyframes toast {
+				0% {
+					opacity: 0%;
+				}
+				35% {
+					opacity: 100%;
+				}
+				85% {
+					opacity: 100%;
+				}
+				100% {
+					opacity: 0%;
+				}
+			}
+			#toast {
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 10%;
+				width: -webkit-max-content;
+				width: -moz-max-content;
+				width: max-content;
+				margin: 0 auto;
+				display: none;
+				border-radius: 20px;
+				padding: .5em 1em;
+				font-size: .75em;
+				font-weight: bold;
+				background-color: rgba(0,0,0,0.8);
+				color: white;
+				text-align: center;
+				z-index: 10;
+			}
+			.toasting {
+				display: block !important;
+				-webkit-animation: toast 3s;
+				        animation: toast 3s;
+			}
+			.savebtn input {
+				width: 28%;
+			}
+			.titlebar {
+				width: 100%;
+				display: -webkit-box;
+				display: flex;
+				color: black;
+				font-size: .75em;
+				font-weight: bold;
+			}
+			.title {
+				padding: 3px 7px;
+				width: 100%;
+				background-color: transparent;
+				-webkit-user-select: none;
+				   -moz-user-select: none;
+				        user-select: none;
+			}
+			.win .close {
+				background-color: rgba(255,0,0,0.6);
+				font-size: 1em;
+				border-radius: 0;
+				border: 0;
+				margin: 0;
+				width: -webkit-max-content;
+				width: -moz-max-content;
+				width: max-content;
+			}
+			.win .close:hover {
+				background-color: rgba(140,0,0,0.6);
+			}
+			.win .close:focus {
+				background-color: rgba(255,128,128,0.6);
+			}
+			@-webkit-keyframes load-finish {
+				0% {
+					opacity: 100%;
+				}
+				100% {
+					opacity: 0%;
+				}
+			}
+			@keyframes load-finish {
+				0% {
+					opacity: 100%;
+				}
+				100% {
+					opacity: 0%;
+				}
+			}
+			.finish {
+				-webkit-animation: load-finish 1s;
+				        animation: load-finish 1s;
+			}
+			#load {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 9;
+				background-color: white;
+				opacity: 100%;
+				margin: 0;
+			}
+			#loadstr,#browstr {
+				max-width: 80%;
+				margin: 0 auto;
+				margin-top: 1em;
+				font-size: 1.5em;
+				font-weight: bold;
+				text-align: center;
+				color: lightgray;
+			}
+			#browstr {
+				margin-top: .5em;
+				font-size: 1.25em;
+			}
+			#tclsbox {
+				float: right;
+				margin: 2px 0;
+				padding: 0 5px;
+			}
+			#tkey {
+				padding: 0;
+				border: none;
+				height: 100%;
+			}
+			#tkds {
+				width: 80%;
+				border-radius: 20px;
+				font-size: 13.3333px;
+				min-width: 14em;
+				background: white;
+				border: 1px solid transparent;
+				padding: 0 6px;
+			}
+			#tkds > span {
+				display: block;
+				overflow: hidden;
+				height: 100%;
+			}
+			#stordata {
+				width: -webkit-fill-available;
+				width: -moz-available;
+			}
+			#issues {
+				margin: 0 3px;
+				background-color: cornflowerblue;
+				border-radius: 5px;
+				color: white;
+				overflow-y: scroll;
+				max-height: 8em;
+			}
+			.issue {
+				margin: 2px .5em;
+				padding: 5px;
+				font-size: .85em;
+				font-weight: bold;
+				border: solid rgba(255,255,255,0.5);
+				border-width: 0;
+				border-top-width: 1px;
+			}
+			#issueHead {
+				border: none;
+				padding: 0 5px;
+				font-size: .75em;
+				font-weight: normal;
+			}
+			@media only screen and (min-width: 360px) {
+				#baseopt,#modeopt {
+					padding: 3px 0;
+				}
+				#modeopt input[type=button] {
+					padding: 2px 3px;
+				}
+				textarea {
+					height: 146px;
+					width: 94%;
+				}
+				#ua {
+					width: 80%;
+					top: 40%;
+					left: 8.5%;
+				}
+				#class {
+					width: 65%;
+				}
+				#addui, #class {
+					top:10px;
+					left:10px;
+				}
+				#stordata {
+					height: 80px;
+				}
+				#baseopt > select {
+					margin: 0 2px;
+				}
+			}
+			@media only screen and (min-width: 600px) {
+				body {
+					width: 500px;
+					margin: 10px auto;
+				}
+				#baseopt {
+					padding: 6px;
+					line-height: 19px;
+				}
+				#modeopt {
+					padding-left: 6px
+				}
+				#modeopt input[type=button] {
+					padding: 3px .5em;
+				}
+				textarea {
+					height: 10em;
+					width: 97%;
+				}
+				#ua {
+					width: 40em;
+					top: 6em;
+					left: auto;
+					margin-left: -5em;
+				}
+				#class {
+					width: 24em;
+					top: 5px;
+					left: auto;
+					margin-left: 4em;
+				}
+				#addui {
+					left: auto;
+					top: 4em;
+					margin-left: 5em;
+				}
+				#baseopt > select {
+					margin: 0 5px;
+				}
+			}
+			@media (prefers-color-scheme: dark) {
+				body {
+					-webkit-filter: hue-rotate(180deg) invert(1);
+							filter: hue-rotate(180deg) invert(1);
+					background-color: black;
+				}
+				#version {
+					color: black;
+				}
+				.win {
+					-webkit-backdrop-filter: none;
+							backdrop-filter: none;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="base">
+			<div class="setHead"><p>基础 UA</p></div>
+			<div id="baseopt"></div>
+		</div>
+		<div id="mode">
+			<div class="setHead"><p>生成模式</p></div>
+			<div id="modeopt">
+				<div>
+					<label for="gen" tabindex="0" onkeydown="uaCode.util.check()">
+						<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked>
+						<span class="new-style new-radio"></span>生成
+					</label>
+					<label for="add" tabindex="0" onkeydown="uaCode.util.check()">
+						<input id="add" type="radio" name="mode" value="add" class="orig-box">
+						<span class="new-style new-radio"></span>追加
+					</label>
+				</div>
+				<div>
+					<input id="openNew" name="openNew" type="button" value="+" onclick="uaCode.open(uaCode.util.$(false,'#addui'))">
+					<input id="openClass" name="openClass" type="button" value="标签筛选" onclick="uaCode.open(uaCode.util.$(false,'#class'))">
+					<input id="openUA" name="openUA" type="button" value="打开窗口" onclick="uaCode.open(uaCode.util.$(false,'#ua'))">
+				</div>
+			</div>
+		</div>
+		<div id="searchbox">
+			<p id="version"></p>
+			<label for="search" class="none">在此输入搜索 APP ...</label>
+			<input id="search" name="search" type="text" placeholder="在此输入搜索 APP ..." oninput="uaCode.filter.app(this.value)">
+		</div>
+		<div id="app">
+			<div id="app_container">
+				<p id="nulltext" class="none">什么都没找到 T_T</p>
+			</div>
+			<p id="ajump" class="none"></p>
+		</div>
+		<div id="action">
+			<input type="button" value="帮助" onclick="(()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'})();">
+			<input id="clear" name="clear" type="button" value="清空选择" onclick="uaCode.util.$_('app').forEach( check => { check.checked = false; })">
+			<input id="shows" name="shows" type="button" value="列出已选" onclick="uaCode.filter.sel(this)">
+			<input id="start" name="start" type="button" value="生成 UA" onclick="uaCode.gen()">
+		</div>
+		<div id="ua" class="none win">
+			<div class="titlebar">
+				<div class="title drag">UA 窗口</div>
+				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
+			</div>
+			<label for="useragent" class="none">UA 编辑框</label>
+			<textarea id="useragent" placeholder="你想要的在这儿 ^_^" oninput="uaCode.check()"></textarea>
+			<div id="issues"></div>
+			<div id="action2">
+				<input id="clearUA" name="clearUA" type="button" value="清空" onclick="(()=>{uaCode.util.$(false,'#useragent').value = '';})();">
+				<input id="copy" name="copy" type="button" value="复制" onclick="(()=>{uaCode.util.$(false,'#useragent').select();document.execCommand('copy');})();">
+			</div>
+		</div>
+		<div id="class" class="none win">
+			<div class="titlebar">
+				<div class="title drag">标签筛选</div>
+				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
+			</div>
+			<div id="classBox"></div>
+			<div id="action3">
+				<input id="restoreClass" type="button" value="恢复" onclick="(()=>{uaCode.util.$(true,'#classBox input:not(:checked)').forEach( box => { box.checked = true; uaCode.tagClick(box.parentNode.id,true);});})();">
+				<input id="revertClass" type="button" value="反选" onclick="(()=>{uaCode.util.$(true,'#classBox input').forEach( box => { box.checked = (box.checked===true) ? false : true; uaCode.tagClick(box.parentNode.id,true);});})();">
+			</div>
+		</div>
+		<div id="addui" class="none win">
+			<div class="titlebar">
+				<div class="title drag">添加项目</div>
+				<input class="close" type="button" value="关闭" onclick="this.parentNode.parentNode.classList.add('none')">
+			</div>
+			<div id="addtype">
+				<label tabindex="0" onkeydown="uaCode.util.check()">
+					<input id="Raapp" type="radio" name="atype" value="aapp" class="orig-box" onchange="uaCode.aform.switchCard()" checked>
+					<span class="new-style new-radio"></span>APP
+				</label>
+				<label tabindex="0" onkeydown="uaCode.util.check()">
+					<input id="Rqapp" type="radio" name="atype" value="qapp" class="orig-box" onchange="uaCode.aform.switchCard()">
+					<span class="new-style new-radio"></span>快应用
+				</label>
+				<label tabindex="0" onkeydown="uaCode.util.check()">
+					<input id="Ratag" type="radio" name="atype" value="atag" class="orig-box" onchange="uaCode.aform.switchCard()">
+					<span class="new-style new-radio"></span>标签
+				</label>
+			</div>
+			<div id="addtable">
+				<div id="aappt" class="atab">
+					<label id="akeyl"><b>标识</b>
+						<input id="akey" type="text" name="aapp" placeholder="首字母对应名称拼音首字母" oninput="uaCode.aform.check(false)"/>
+					</label>
+					<label id="asell" class="none"><b>标识</b>
+						<select id="asel" class="msel" onchange="uaCode.aform.modify()">
+							<option selected hidden disabled value="">请选择要修改的项目...</option>
+						</select>
+					</label>
+					<label><b>名称</b>
+						<input id="atext" type="text" name="aapp">
+					</label>
+					<div id="apre">
+						<p>前置</p>
+						<label tabindex="0" onkeydown="uaCode.util.check()">
+							<input id="apret" type="radio" name="apre" value="true" class="orig-box" onchange="uaCode.aform.switchBoth()">
+							<span class="new-style new-radio"></span>是
+						</label>
+						<label tabindex="0" onkeydown="uaCode.util.check()">
+							<input id="apref" type="radio" name="apre" value="false" class="orig-box" onchange="uaCode.aform.switchBoth()" checked>
+							<span class="new-style new-radio"></span>否
+						</label>
+						<label tabindex="0" onkeydown="uaCode.util.check()">
+							<input id="apreb" type="radio" name="apre" value="both" class="orig-box" onchange="uaCode.aform.switchBoth()">
+							<span class="new-style new-radio"></span>前后都有
+						</label>
+					</div>
+					<div id="afol">
+						<p>无缝</p>
+						<label tabindex="0" onkeydown="uaCode.util.check()">
+							<input id="afolt" type="radio" name="afol" value="true" class="orig-box">
+							<span class="new-style new-radio"></span>是
+						</label>
+						<label tabindex="0" onkeydown="uaCode.util.check()">
+							<input id="afolf" type="radio" name="afol" value="false" class="orig-box" checked>
+							<span class="new-style new-radio"></span>否
+						</label>
+					</div>
+					<label class="acont1"><b>关键字</b>
+						<input id="acont1" type="text" name="acont1"/>
+					</label>
+					<label class="acont2 none"><b>前置关键字</b>
+						<input id="acont2a" type="text" name="acont2"/>
+					</label>
+					<label class="acont2 none"><b>后置关键字</b>
+						<input id="acont2b" type="text" name="acont2"/>
+					</label>
+					<div id="acls">
+						<div id="aclsbox" class="classBox"></div>
+						<div id="aclsboxt" class="classPart">
+							<label id="aclsboxl" class="none"><b>自定义标签</b>
+								<input id="athirdt" type="text" name="athird"/>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div id="qappt" class="atab none">
+					<label id="qkeyl"><b>标识</b>
+						<input id="qkey" type="text" name="qapp" placeholder="首字母对应名称拼音首字母" oninput="uaCode.aform.check(false)"/>
+					</label>
+					<label id="qsell" class="none"><b>标识</b>
+						<select id="qsel" class="msel" onchange="uaCode.aform.modify()">
+							<option selected hidden disabled value="">请选择要修改的项目...</option>
+						</select>
+					</label>
+					<label><b>名称</b>
+						<input id="qtext" type="text" name="qapp"/>
+					</label>
+					<label><b>平台</b>
+						<input id="qcont1" type="text" name="qcont"/>
+					</label>
+					<label><b>来自</b>
+						<input id="qcont2" type="text" name="qcont"/>
+					</label>
+					<label><b>应用</b>
+						<input id="qcont3" type="text" name="qcont"/>
+					</label>
+					<div id="qcls">
+						<div id="qclsbox" class="classBox"></div>
+						<div id="qclsboxt" class="classPart">
+							<label id="qclsboxl" class="none"><b>自定义标签</b>
+								<input id="qthirdt" type="text" name="qthird"/>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div id="atagt" class="atab none">
+					<label id="tkeyl"><b>标识</b>
+						<div id="tkds">
+							<div id="tclsbox" class="flag"></div>
+							<span>
+								<input id="tkey" type="text" name="atag" placeholder="数字和英文字母" oninput="uaCode.aform.check(false)"/>
+							</span>
+						</div>
+					</label>
+					<label id="tsell" class="none"><b>标识</b>
+						<select id="tsel" class="msel" onchange="uaCode.aform.modify()">
+							<option selected hidden disabled value="">请选择要修改的项目...</option>
+						</select>
+					</label>
+					<label><b>名称</b>
+						<input id="ttext" type="text" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
+					</label>
+					<label><b>背景</b>
+						<input id="tbgc" type="color" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
+					</label>
+					<label><b>文字</b>
+						<input id="tfgc" type="color" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
+					</label>
+				</div>
+			</div>
+			<div id="addbtn">
+				<input id="aok" name="aok" type="button" value="加入" onclick="uaCode.aform.add()">
+				<input id="aclear" name="aclear" type="button" value="清空表单" onclick="uaCode.aform.clear()">
+				<input id="anew" name="anew" type="button" value="管理" onclick="uaCode.aform.switchModify()">
+				<input id="adel" name="adel" type="button" value="删除" onclick="uaCode.aform.del()">
+			</div>
+			<div id="addsave">
+				<label for="stordata" class="none">复制到这里就可以导入啦</label>
+				<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
+				<div class="savebtn">
+					<input id="ssave" name="ssave" type="button" value="保存数据" onclick="uaCode.lsb.save()">
+					<input id="scopy" name="scopy" type="button" value="复制内容" onclick="(()=>{uaCode.util.$(false,'#stordata').select();document.execCommand('copy');})();">
+					<input id="cleartext" name="cleartext" type="button" value="清空内容" onclick="(()=>{uaCode.util.$(false,'#stordata').value = '';})();">
+				</div>
+				<div class="savebtn">
+					<input id="simp" name="simp" type="button" value="导入数据" onclick="uaCode.lsb.import()">
+					<input id="sexp" name="sexp" type="button" value="导出数据" onclick="uaCode.lsb.export()">
+					<input id="sdel" name="sdel" type="button" value="清空存储" onclick="uaCode.lsb.clear()">
+				</div>
+			</div>
+		</div>
+		<div id="toast" onanimationend="this.classList.remove('toasting')"></div>
+		<div id="load" onanimationend="this.classList.add('none')">
+			<p id="loadstr">正在加载...</p>
+			<p id="browstr">
+				这个页面至少需要:<br>
+				Chrome 51<br>
+				Edge 79<br>
+				Firefox 52<br>
+				Safari 11<br>
+				Opera 38<br>
+				不支持 Internet Explorer !
+			</p>
+		</div>
+		<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
+		<script>
+		const uaCode = (() => {
+			let lab,cas,lah,ntx,loc,pos=[0,0];
+			function $(all,sel) {
+				return (all) ? document.querySelectorAll(sel) : document.querySelector(sel);
+			}
+			
+			function $_(name) {
+				const list = $(true,`input[name="${name}"]:checked`);
+				return list.length === 1 && list[0].type === "radio" ? list[0] : list;
+			}
+			
+			function _(ele,del,nclass) {
+				if (del) {
+					ele.classList.remove(nclass);
+				} else {
+					ele.classList.add(nclass);
+				}
+			}
+			
+			function getUpperHead(word) {
+				const temp = word.slice(0,1).toUpperCase();
+				return /^[A-Z]$/u.test(temp) ? temp : uaData.设置.数字记号;
+			}
+			
+			function wvU(str,dev) {
+				return str.replace(/%wv#/g,`${dev.type}; ${dev.string}; wv`)
+						.replace(/%u#/g,`${dev.type}; U; ${dev.string}`)
+						.replace(/%p#/g,`${dev.type}; ${dev.string}`)
+						.replace(/%ven#/g,dev.vendor)
+						.replace(/%venu#/g,dev.vendor.toUpperCase())
+						.replace(/%modal#/g,dev.modal)
+						.replace(/%modap#/g,dev.modal.replace(/\ /g,"+"))
+						.replace(/%modav#/g,dev.modal.replace(/\ /g,"_"))
+						.replace(/%modan#/g,dev.modal.replace(/\ /g,""))
+						.replace(/%modar#/g,encodeURIComponent(dev.modal))
+						.replace(/%aver#/g,dev.aver[0])
+						.replace(/%kver#/g,dev.aver[1])
+						.replace(/%cpc#/g,"AppleWebKit/%wkv# (KHTML, like Gecko)")
+						.replace(/%mz#/g,"Mozilla/5.0")
+						.replace(/%sf#/g,"Safari/%wkv#")
+						.replace(/%wkv#/g,dev.wkver);
+			}
+			
+			function scanAll() {
+				let found = 0;
+				lah.forEach( ele => {
+					if (window.getComputedStyle(ele).display!=="none") {
+						found += 1;
+					}
+				});
+				return found;
+			}
+			
+			function scanForHead() {
+				cas.forEach( ele => {
+					let found = 0;
+					lab.forEach( la => {
+						if (getUpperHead(la.id) === ele.innerHTML && window.getComputedStyle(la).display !== "none") {
+							found += 1;
+						}
+					});
+					_(ele,found>=1,"none");
+				});
+			}
+			
+			function tagConv(clas,fro,to) {
+				if (clas.slice(0,1)==="_") {
+					return (to) ? clas.slice(1) : "third" ;
+				} else if (fro===to) {
+					return clas;
+				} else {
+					return (fro) ? uaData.tagfind[clas] : uaData.flag[clas][0];
+				}
+			}
+			
+			function toast(text) {
+				if (!window.via||typeof window.via.toast!=="function") {
+					const toast = $(false,"#toast");
+					toast.innerHTML = text;
+					toast.className = "toasting";
+				} else {
+					window.via.toast(text);
+				}
+			}
+			
+			function spaceChecked(e) {
+				if(!e) {
+					e = event;
+				}
+				switch (e.code) {
+					case "Space":
+					case "Enter":
+						e.target.control.checked = true;
+						break;
+					default:
+						return;
+				}
+			}
+			
+			function genUA() {
+				const device = uaData.device[document.querySelector("#devsel").value],
+					midSpace = /.+\s.+/u;
+				let baseUA = $_("mode").value === "add" ? 
+							$(false,"textarea").value :
+							wvU(uaData.base[document.querySelector("#basesel").value].content,device),
+					prefixUA = "",
+					preFollowUA = "",
+					suffixUA = " ",
+					sufFollowUA = "";
+				$_("app").forEach( app => {
+					const appo = uaData.apps[app.value];
+					if (typeof appo.content === "object") {
+						if (appo.content.qBasic!==undefined) {
+							appo.content = `${appo.content.qBasic} ${appo.content.qString} (${JSON.stringify({
+								packageName: appo.content.qFrom,
+								type: "url",
+								extra: {
+									scene: "recommend"
+								}
+							})})`;
+						}
+					} else {
+						appo.content = wvU(appo.content,device);
+					}
+					let sum = 0, bl = (appo.followed) ? '' : ' ' ;
+					if (appo.prefix) { sum += 4; }
+					if (appo.followed) { sum += 2; }
+					if (appo.content instanceof Array) {
+						sum = 8;
+					} else {
+						if (midSpace.test(appo.content)) { sum += 1; }
+					}
+					before = ( sum >= 2 && sum <= 5 ) ? true : false ;
+					function builder(orig,str,before) {
+						return (before) ? str + orig : orig + str;
+					}
+					switch (sum) {
+						case 2:
+							sufFollowUA = builder(sufFollowUA,appo.content + bl,before);
+							break;
+						case 6:
+							preFollowUA = builder(preFollowUA,appo.content + bl,before);
+							break;
+						case 8:
+							prefixUA = builder(prefixUA,wvU(appo.content[0],device),false);
+							suffixUA = builder(suffixUA,wvU(appo.content[1],device),true);
+							break;
+						default:
+							if (sum >= 4) {
+								prefixUA = builder(prefixUA,appo.content + bl,before);
+							} else {
+								suffixUA = builder(suffixUA,appo.content + bl,before);
+							};
+					}
+				});
+				if (document.querySelector("#basesel").value==="win7net") { suffixUA += ")"; }
+				$(false,"textarea").value = prefixUA + preFollowUA + baseUA + sufFollowUA + suffixUA;
+				issuesCheck();
+				openWin($(false,"#ua"));
+			}
+			
+			function makeIssue(issue,head) {
+				let p = document.createElement('p');
+				p.className = "issue";
+				if (head) { p.id = 'issueHead'; }
+				p.innerHTML = issue;
+				$(false,'#issues').appendChild(p);
+			}
+			
+			function cleanIssue() {
+				$(true,'.issue').forEach( i => {
+					$(false,'#issues').removeChild(i);
+				});
+			}
+			
+			function issuesCheck() {
+				const ua = $(false,"textarea").value,
+					issue = [
+								[ // #1 百度 页面 确认框
+									( ua.includes('baiduboxapp/') && (
+									/Android[^\s\)]* +[^\)]*\)+?/u.test(ua) || ( ver = /baiduboxapp\/\d*/.exec(ua)[0].replace('baiduboxapp/',''),
+									ver === '' || ver >= 4 ))),
+									'此 UA 可能会导致 百度部分页面 加载时弹出 确认/取消 对话框'
+								],[ // #2 城通 下载按钮 失效
+									ua.includes('baidu'),
+									'此 UA 可能会导致大部分 城通网盘 下载按钮 失效'
+								],[ // #3 iPhone 下载 APP 跳到 AppStore
+									( ua.includes('iPhone') && ua.includes('AppleWebKit') ),
+									'此 UA 可能会导致 百度搜索 下载 APP 跳转到苹果的 AppStore'
+								],[ // #4 腾讯视频 页面 确认框
+									( ua.includes('Android') && ua.includes('qqnews') ),
+									'此 UA 可能会导致 腾讯视频播放页面 加载时弹出 确认/取消 对话框'
+								]
+							];
+				let count = 0;
+				issue.forEach( i => {
+					if (i[0]) { count++; };
+				});
+				cleanIssue();
+				if (count>0) { makeIssue(`检测到 ${count} 个问题 :`,true); };
+				issue.forEach( i => {
+					if (i[0]) { makeIssue(i[1],false); };
+				});
+			}
+			
+			function makeFlagDiv(clas,box,chinese,opa) {
+				const flag = document.createElement("div");
+				flag.className = "flag";
+				flag.innerHTML = tagConv(clas,chinese,true);
+				clas = tagConv(clas,chinese,false);
+				if (!box) { _(flag,false,`T${clas}`); }
+				flag.style.cssText = `background-color:${uaData.flag[clas][1]};color:${uaData.flag[clas][2]};opacity:${opa}`;
+				return flag;
+			}
+			
+			function makeHeadandLink(first) {
+				const head = document.createElement("div");
+				Object.assign(head,{
+					id: `i${first}`,
+					innerHTML: first,
+					className: "CaseHead"
+				});
+				if(!uaData.touch) {
+					const jump = document.createElement("a");
+					Object.assign(jump,{
+						href: `#i${first}`,
+						innerHTML: first
+					});
+					$(false,"#ajump").appendChild(jump);
+				} else {
+					uaData.index += first;
+				}
+				return head;
+			}
+			
+			function pushTagText(cls,app) {
+				if (uaData.tagtext[cls]===undefined) { uaData.tagtext[cls] = []; }
+				uaData.tagtext[cls].push(app);
+			}
+			
+			function parseClassinItem(lab,app) {
+				let count = 0;
+				if (uaData.apps[app].class.length===0) {
+					pushTagText("no_tag",app);
+					lab.className = "no_tag";
+					return 1;
+				} else {
+					uaData.apps[app].class.forEach( cls => {
+						if (cls.slice(0,1)==="_" || uaData.tagfind[cls]!==undefined) {
+							count += 1;
+							lab.appendChild(makeFlagDiv(cls,false,true,1));
+							if (cls.slice(0,1)==="_") {
+								cls = "third";
+							} else {
+								cls = uaData.tagfind[cls];
+							}
+							pushTagText(cls,app);
+							_(lab,false,cls);
+						} else {
+							toast(`项目 "${app}" 被指定了不存在的标签 "${cls}" ...`);
+							uaData.stor.apps[app].class.splice(
+								uaData.stor.apps[app].class.findIndex( v => {
+									return v === cls;
+								}),1
+							);
+							loc.setItem(uaData.storKey,JSON.stringify(uaData.stor));
+							location.reload();
+						}
+					});
+					return count;
+				}
+			}
+			
+			function newBox(type) {
+				const box = document.createElement("span");
+				box.className = `new-style new-${type}`;
+				return box;
+			}
+			
+			function makeItem() {
+				let ofirst = "Z",cont = $(false,"#app_container");
+				Object.keys(uaData.apps).sort().forEach( app => {
+					uaData.text[app] = uaData.apps[app].text;
+					const lab = document.createElement("label"),
+						box = document.createElement("input"),
+						first = getUpperHead(app);
+					if (first!==ofirst) {
+						cont.appendChild(makeHeadandLink(first));
+						ofirst = first;
+					}
+					lab.id = app;
+					lab.tabIndex = 0;
+					lab.addEventListener('keydown', (e) => { uaCode.util.check(e); });
+					lab.innerHTML += uaData.apps[app].text;
+					uaData.count[app] = parseClassinItem(lab,app);
+					if (uaData.设置.测试模式) {
+						const idi = document.createElement("i");
+						let id = app;
+						if (uaData.apps[app].followed) { id = uaData.设置.无缝记号 + id; }
+						if (uaData.apps[app].prefix) { id = uaData.设置.前置记号 + id; }
+						idi.innerHTML = id;
+						lab.appendChild(idi);
+					}
+					Object.assign(box, {
+						type: "checkbox",
+						name: "app",
+						value: app,
+						className: "orig-box",
+						tabIndex: -1
+					});
+					lab.appendChild(box);
+					lab.appendChild(newBox("check"));
+					cont.appendChild(lab);
+				});
+				cont.addEventListener('keydown',(e) => {
+					if (e.code==="Space") {
+						e.preventDefault();
+					}
+				});
+				if (uaData.touch) {
+					uaData.indexSidebar1 = new IndexSidebar({
+						mounted: document.querySelector('#app')
+					});
+				};
+			}
+			
+			function makeFlaginBox() {
+				Object.keys(uaData.flag).forEach( flag => {
+					const lab = document.createElement("label"),
+						box = document.createElement("input");
+					lab.id = `L${flag}`;
+					lab.tabIndex = 0;
+					lab.addEventListener('keydown', (e) => { uaCode.util.check(e); });
+					Object.assign(box, {
+						type: "checkbox",
+						name: "flag",
+						id: `B${flag}`,
+						value: flag,
+						checked: true
+					});
+					box.addEventListener('change', e => {
+						uaCode.tagClick(e.target.parentNode.id,true);
+					});
+					lab.appendChild(box);
+					lab.appendChild(makeFlagDiv(flag,true,false,1));
+					$(false,"#classBox").appendChild(lab);
+				});
+			}
+			
+			function makeOptions(data,datatype,datadesp,id) {
+				const sel = document.createElement("select");
+				let opt;
+				sel.id = id;
+				if (datatype==="device") {
+					sel.addEventListener('change', e => {
+						const id = e.target.value,basesel = document.querySelector("#basesel");
+						if (uaData.device[id].base==="std") {
+							if (basesel.value.type!=="wv") {
+								basesel.value = "std";
+							}
+						} else {
+							basesel.value = uaData.device[id].base;
+						}
+					});
+				} else {
+					sel.addEventListener('change', e => {
+						const id = e.target.value,devsel = document.querySelector("#devsel");
+						if (uaData.base[id].type==="blank") {
+							devsel.style.display = "none";
+							devsel.value = "m10prq";
+						} else {
+							devsel.style.display = "block";
+						}
+						if (uaData.base[id].type==="wv") {
+							if (uaData.device[devsel.value].base!=="std") {
+								devsel.value = "mi10prq";
+							}
+						} else {
+							devsel.value = uaData.base[id].dev;
+						}
+					});
+				}
+				data.forEach( key => {
+					opt = document.createElement("option");
+					Object.assign(opt, {id: key, value: key, textContent:uaData[datatype][key][datadesp]});
+					sel.appendChild(opt);
+				});
+				return sel;
+			}
+			
+			function makeBaseOption() {
+				document.querySelector("#baseopt").appendChild(
+					makeOptions(Object.keys(uaData.base),"base","text","basesel")
+				);
+				document.querySelector("#baseopt").appendChild(
+					makeOptions(Object.keys(uaData.device).sort(),"device","desp","devsel")
+				);
+			}
+			
+			function winActiv(awin) {
+				let wing = $(true,".win");
+				wing.forEach( (win,i) => {
+					if (win.style.zIndex>awin.style.zIndex) {
+						win.style.zIndex--;
+					}
+				});
+				awin.style.zIndex = wing.length + 1;
+			}
+			
+			function dndWin() {
+				let wing = $(true,".win");
+				wing.forEach( (win,i) => {
+					win.style.zIndex = i + 2;
+				});
+				if (uaData.touch) {
+					wing.forEach( win => {
+						win.addEventListener('touchstart', e => {
+							if (e.target.nodeName!=="TEXTAREA"&&!$(false,'#issues').contains(e.target)) {
+								pos = [
+								(e.touches[0].clientX - win.offsetLeft),
+								(e.touches[0].clientY - win.offsetTop)
+								];
+							}
+							winActiv(win);
+						},{ passive: true });
+						win.addEventListener('touchmove', e => {
+							if (e.target.nodeName!=="TEXTAREA"&&!$(false,'#issues').contains(e.target)) {
+								win.style.left = (e.touches[0].clientX - pos[0]) + 'px';
+								win.style.top = (e.touches[0].clientY - pos[1]) + 'px';
+							}
+							win.style.position = (parseInt(getComputedStyle(win)['right']) < 0 || 
+												  parseInt(getComputedStyle(win)['left']) < 0 ||
+												  parseInt(getComputedStyle(win)['bottom']) < 0) ?
+												'fixed' : 'absolute' ;
+						},{ passive: true });
+					});
+				} else {
+					$(true,".drag").forEach( drag => {
+						let win = drag.parentNode.parentNode;
+						drag.addEventListener('mousedown', e => {
+							pos = [
+							(e.clientX - win.offsetLeft),
+							(e.clientY - win.offsetTop)
+							];
+							winActiv(win);
+							document.onmousemove = e => {
+								win.style.left = (e.clientX - pos[0]) + 'px';
+								win.style.top = (e.clientY - pos[1]) + 'px';
+							};
+							document.removeEventListener('mouseup', uaCode.util.unlock);
+							document.addEventListener('mouseup', uaCode.util.unlock);
+						});
+					});
+					wing.forEach( win => {
+						win.addEventListener('mousedown', e => {
+							winActiv(win);
+						});
+					});
+				}
+			}
+			
+			function openWin(win) {
+				_(win,true,"none");
+				winActiv(win);
+			}
+			
+			function filterExec(item,nclass) {
+				let found = 0;
+				lab.forEach( ele => {
+					found = 0;
+					item.forEach( val => { found += val===ele.id ? 1 : 0; });
+					_(ele,found>=1,nclass);
+				});
+				scanForHead();
+				_(ntx,scanAll()===0,"none");
+			}
+			
+			function filterResume(nclass) {
+				lah.forEach( ele => { _(ele,true,nclass); });
+				scanForHead();
+				if (scanAll()!==0) { _(ntx,false,"none"); }
+			}
+			
+			function fltAppUA(word) {
+				if (word==="") {
+					filterResume("none");
+				} else {
+					const item = Object.keys(uaData.text).filter(obj => uaData.text[obj].toLowerCase().includes(word.toLowerCase()));
+					filterExec(item,"none");
+				}
+			}
+			
+			function fltAppUASelected(btn) {
+				if (btn.value==="列出已选") {
+					const item = [];
+					$_("app").forEach( ele => item.push(ele.value));
+					filterExec(item,"sel_none");
+					btn.value = "列出全部";
+				} else {
+					filterResume("sel_none");
+					btn.value = "列出已选";
+				}
+			}
+			
+			function fltAppUATag(clas,selected) {
+				$(true,`.T${clas}`).forEach( tag => {
+					if (selected) {
+						_(tag,true,"none");
+					} else {
+						_(tag,false,"none");
+					}
+				});
+				if (uaData.tagtext[clas]!==undefined) {
+					uaData.tagtext[clas].forEach( id => {
+						if (selected) {
+							uaData.count[id]++;
+						} else {
+							uaData.count[id]--;
+						}
+					});
+				}
+				const item = Object.keys(uaData.count).filter(obj => uaData.count[obj]!==0);
+				filterExec(item,"tag_none");
+			}
+			
+			function tagClick(id,flt) {
+				const box = $(false,`#${id} input`);
+					flag = $(false,`#${id} .flag`);
+				flag.style.opacity = (box.checked) ? 1 : .5;
+				if (flt) {
+					fltAppUATag(id.slice(1),box.checked);
+					$(false,'#openClass').style.backgroundColor = ($(true,'#classBox input:not(:checked)').length===0) ? '' : uaData.设置.标签筛选开启;
+				}
+			}
+			
+			/* "添加" 窗口表单 相关 */
+			
+			function aform_tType(type) {
+				switch (type) {
+					case "aapp":
+						return "a";
+						break;
+					case "qapp":
+						return "q";
+						break;
+					case "atag":
+						return "t";
+						break;
+				}
+			}
+			
+			function aform_switchModify() {
+				const type = aform_tType($_("atype").value),
+					sel = $(false,`#${type}sell`),
+					key = $(false,`#${type}keyl`),
+					btn = $(false,'#anew'),
+					ok = $(false,'#aok');
+				if (btn.value==="管理") {
+					_(key,false,"none");
+					_(sel,true,"none");
+					btn.value = "添加";
+					ok.value = "确定";
+				} else {
+					_(key,true,"none");
+					_(sel,false,"none");
+					btn.value = "管理";
+					ok.value = "加入";
+				}
+			}
+			
+			function aform_switchCard() {
+				const val = $_("atype").value;
+				$(true,".atab").forEach( tab => {
+					if (tab.id===`${val}t`) {
+						_(tab,true,"none");
+						$(false,'#anew').value = "添加";
+						aform_switchModify();
+					} else {
+						_(tab,false,"none");
+					}
+				});
+			}
+			
+			function aform_switchBoth() {
+				const val = $_("apre").value,
+				      both = $(true,".acont2"),
+				      sing = $(false,".acont1");
+				if (val==="both") {
+					both.forEach( input => { _(input,true,"none"); });
+					_(sing,false,"none");
+				} else {
+					both.forEach( input => { _(input,false,"none"); });
+					_(sing,true,"none");
+				}
+			}
+			
+			function aform_makeFlaginBox() {
+				$(true,".classBox").forEach( sbox => {
+					Object.keys(uaData.flag).forEach( flag => {
+						if (flag!=="qapp" && flag!=="no_tag") {
+							const lab = document.createElement("label"),
+								box = document.createElement("input");
+							lab.id = `${getUpperHead(sbox.id)}${flag}`;
+							lab.tabIndex = 0;
+							lab.addEventListener('keydown', (e) => { uaCode.util.check(e); });
+							Object.assign(box, {
+								type: "checkbox",
+								name: "sflag",
+								id: `${sbox.id.slice(0,1)}${flag}`,
+								value: flag,
+								checked: false
+							});
+							if (flag==="third") {
+								box.addEventListener('change', e => {
+									uaCode.tagClick(e.target.parentNode.id,false);
+									if (box.checked) {
+										_($(false,`#${sbox.id}l`),true,"none");
+									} else {
+										_($(false,`#${sbox.id}l`),false,"none");
+									}
+								});
+							} else {
+								box.addEventListener('change', e => {
+									uaCode.tagClick(e.target.parentNode.id,false);
+								});
+							}
+							lab.appendChild(box);
+							lab.appendChild(makeFlagDiv(flag,true,false,0.5));
+							sbox.appendChild(lab);
+						}
+					});
+				});
+			}
+			
+			function aform_updateFlagPreview() {
+				const box = $(false,'#tclsbox'),
+					txt = $(false,'#ttext').value,
+					bgc = $(false,'#tbgc').value,
+					fgc = $(false,'#tfgc').value;
+				if (txt!=="") {
+					box.innerHTML = txt;
+					_(box,true,"none");
+				} else {
+					_(box,false,"none");
+				}
+				box.style.cssText = `background-color:${bgc};color:${fgc}`;
+			}
+			
+			function aform_Clear() {
+				$(true,'#addtable input[type="text"]').forEach( i => {
+					i.value = "";
+					i.style.borderColor = uaData.设置.输入框检查[0];
+				});
+				$(false,'#tkds').style.borderColor = uaData.设置.输入框检查[0];
+				$(true,".classBox input").forEach( c => { c.checked = false; });
+				$(true,".classBox .flag").forEach( f => { f.style.opacity = .5; });
+				$(true,".classPart label").forEach( t => { _(t,false,"none"); });
+				$(true,'#apref,#afolf').forEach( r => { r.checked = true; });
+				$(true,'.msel').forEach( s => { s.value = ""; });
+				$(false,'#tbgc').value = '#000000';
+				$(false,'#tfgc').value = '#ffffff';
+				aform_updateFlagPreview();
+				aform_switchBoth();
+			}
+			
+			function aform_Check(type) {
+				let a = true;
+				$(true,`#${type}t input[type="text"]`).forEach( i => {
+					i.style.borderColor = uaData.设置.输入框检查[0];
+					if (getComputedStyle(i).display!=="none" &&
+						getComputedStyle(i.parentNode).display!=="none" && 
+						i.value==="") {
+						if (i.id==="tkey") {
+							$(false,'#tkds').style.borderColor = uaData.设置.输入框检查[3];
+						} else {
+							i.style.borderColor = uaData.设置.输入框检查[3];
+						}
+						a = false;
+					}
+				});
+				return (a && $(false,'#anew').value==="管理") ? aform_KeyCheck(true) : a ;
+			}
+			
+			function aform_KeyCheck(toast) {
+				const type = aform_tType($_('atype').value), test = /^\w+$/u;
+				let inp = $(false,`#${type}key`), key = inp.value,
+					bor = (type==="t") ? $(false,'#tkds') : inp;
+				if (!test.test(key)) {
+					bor.style.borderColor = uaData.设置.输入框检查[2];
+					if(toast){ uaCode.util.toast('输入错误'); }
+					return false;
+				}
+				switch (type) {
+					case "t":
+						if (key in uaData.flag||key in uaData.stor.flag) {
+							bor.style.borderColor = uaData.设置.输入框检查[2];
+							if(toast){ uaCode.util.toast('标识重复'); }
+							return false;
+						} else if (key.slice(0,1)==="_") {
+							bor.style.borderColor = uaData.设置.输入框检查[2];
+							if(toast){ uaCode.util.toast('"_" 开头用于自定义标签'); }
+							return false;
+						}
+						break;
+					default:
+						if (key in uaData.apps||key in uaData.stor.apps) {
+							bor.style.borderColor = uaData.设置.输入框检查[2];
+							if(toast){ uaCode.util.toast('标识重复'); }
+							return false;
+						}
+						break;
+				}
+				if (key==="") {
+					bor.style.borderColor = uaData.设置.输入框检查[0];
+					return false;
+				} else {
+					bor.style.borderColor = uaData.设置.输入框检查[1];
+					return true;
+				}
+			}
+			
+			function aform_Add() {
+				const atyp = $_("atype").value;
+				let key,name,pre,nfol,cont,obj,flag,typr,opt;
+				function convBool(val) { return (val==="true") ? true : false ; }
+				if (!aform_Check(atyp)) { return; }
+				typr = aform_tType(atyp);
+				key = ($(false,'#anew').value==="管理") ?
+					$(false,`#${typr}key`).value :
+					$(false,`#${typr}sel`).value ;
+				if (key==="" && $(false,'#anew').value==="添加") {
+					toast("请选择需要修改的项目");
+					return;
+				}
+				switch (typr) {
+					case "a":
+						cont = ($_("apre").value!=="both") ?  
+							$(false,"#acont1").value : [
+							$(false,"#acont2a").value,
+							$(false,"#acont2b").value ];
+						break;
+					case "q":
+						cont = {
+							qBasic: $(false,"#qcont1").value,
+							qFrom: $(false,"#qcont2").value,
+							qString: $(false,"#qcont3").value,
+						};
+						break;
+				}
+				if (atyp==="atag") {
+					obj = [
+						$(false,'#ttext').value,
+						$(false,'#tbgc').value,
+						$(false,'#tfgc').value
+					]
+					Object.assign(uaData.stor.flag, { [`${key}`]: obj });
+				} else {
+					obj = {
+						text: $(false,`#${typr}text`).value,
+						prefix: (atyp==="qapp"||$_("apre").value==="both") ? false :
+								convBool($_("apre").value),
+						followed: (atyp==="qapp") ? false : convBool($_("afol").value),
+						content: (atyp==="qapp") ? {
+							平台:cont.qBasic,
+							来自:cont.qFrom,
+							应用:cont.qString
+						} : cont,
+						class: (atyp!=="qapp") ? [] : ["快应用"]
+					}
+					
+					$_("sflag").forEach( inp => {
+						if(inp.id.slice(1)==="third") {
+							obj.class.push("_" + $(false,`#${typr}thirdt`).value);
+						} else {
+							obj.class.push(tagConv(inp.id.slice(1),false,true));
+						}
+					});
+					Object.assign(uaData.stor.apps, {
+						[`${key}`]: {
+							名称: obj.text,
+							前置: (obj.prefix) ? "是" : "不是",
+							无缝: (obj.followed) ? "是" : "不是",
+							标签: obj.class,
+							内容: obj.content
+						}
+					});
+				}
+				if ($(false,'#anew').value==="管理") {
+					opt = document.createElement('option');
+					if (atyp==="atag") {
+						opt.value = key; opt.innerHTML = `${obj[0]} (${key})`;
+					} else {
+						opt.value = key; opt.innerHTML = `${obj.text} (${key})`;
+					}
+					$(false,`#${typr}sel`).appendChild(opt);
+					aform_Clear();
+				} else {
+					opt = $(false,`#${typr}sel option[value="${key}"]`);
+					if (atyp==="atag") {
+						opt.innerHTML = `${obj[0]} (${key})`;
+					} else {
+						opt.innerHTML = `${obj.text} (${key})`;
+					}
+					aform_Clear();
+				}
+				$(false,'#ssave').style.backgroundColor = uaData.设置.数据未保存;
+				if ($(false,'#aok').value==="加入") {
+					toast('加入成功');
+				} else {
+					toast('修改成功');
+				}
+			}
+			
+			function aform_Modify() {
+				const type = aform_tType($_("atype").value),
+					item = $(false,`#${type}sel`).value;
+				let obj,cobj,cont,ccls = [];
+				switch (type) {
+					case "t" :
+						obj = uaData.stor.flag[item];
+						break;
+					default:
+						cobj = uaData.stor.apps[item];
+						if (typeof cobj["内容"] === "object") {
+							if (cobj["内容"] instanceof Array) {
+								cont = [cobj["内容"][0],cobj["内容"][1]];
+							} else {
+								cont = {
+									qBasic: cobj["内容"]["平台"],
+									qFrom: cobj["内容"]["来自"],
+									qString: cobj["内容"]["应用"]
+								}
+							}
+						} else {
+							cont = cobj["内容"];
+						}
+						cobj["标签"].forEach( ct => {
+							ccls.push((ct.slice(0,1)==="_") ? ct : uaData.tagfind[ct]);
+						});
+						obj = {
+							text: cobj["名称"],
+							prefix: (cobj["前置"]==="是") ? true : false,
+							followed: (cobj["无缝"]==="是") ? true : false,
+							class: ccls,
+							content: cont
+						}
+						break;
+				}
+				
+				function resetClass(type) {
+					$(true,`#${type}clsbox input`).forEach( c => { c.checked = false; });
+					$(true,`#${type}clsbox .flag`).forEach( f => { f.style.opacity = .5; });
+					_($(false,`#${type}clsboxl`),false,"none");
+				}
+				
+				function tagSelect(id) {
+					const box = $(false,`#${id} input`);
+						flag = $(false,`#${id} .flag`);
+					box.checked = true;
+					flag.style.opacity = 1;
+				}
+				
+				switch (type) {
+					case "a" :
+						$(false,"#atext").value = obj.text;
+						if (obj.content instanceof Array) {
+							$(false,"#apreb").checked = true;
+							aform_switchBoth();
+							$(false,"#acont2a").value = obj.content[0];
+							$(false,"#acont2b").value = obj.content[1];
+						} else {
+							if (obj.prefix) {
+								$(false,"#apret").checked = true;
+							} else {
+								$(false,"#apref").checked = true;
+							}
+							aform_switchBoth();
+							$(false,"#acont1").value = obj.content;
+						}
+						if (obj.followed) {
+							$(false,"#afolt").checked = true;
+						} else {
+							$(false,"#afolf").checked = true;
+						}
+						resetClass(type);
+						obj.class.forEach( cls => {
+							if (cls.slice(0,1)==="_") {
+								tagSelect("Athird");
+								_($(false,"#aclsboxl"),true,"none");
+								$(false,"#athirdt").value = cls.slice(1);
+							} else {
+								tagSelect(`A${cls}`);
+							}
+						});
+						break;
+					case "q" :
+						$(false,"#qtext").value = obj.text;
+						$(false,"#qcont1").value = obj.content.qBasic;
+						$(false,"#qcont2").value = obj.content.qFrom;
+						$(false,"#qcont3").value = obj.content.qString;
+						resetClass(type);
+						obj.class.forEach( cls => {
+							if (cls!=="qapp") {
+								if (cls.slice(0,1)==="_") {
+									tagSelect("Qthird");
+									_($(false,"#qclsboxl"),true,"none");
+									$(false,"#qthirdt").value = cls.slice(1);
+								} else {
+									tagSelect(`Q${cls}`);
+								}
+							}
+						});
+						break;
+					case "t" :
+						$(false,"#ttext").value = obj[0];
+						$(false,"#tbgc").value = obj[1];
+						$(false,"#tfgc").value = obj[2];
+						aform_updateFlagPreview();
+						break;
+				}
+			}
+			
+			function aform_Delete() {
+				const type = aform_tType($_("atype").value),
+					sel = $(false,`#${type}sel`),
+					val = sel.value,
+					opt = $(false,`#${type}sel option[value="${val}"]`);
+				if ($(false,'#anew').value==="添加") {
+					if (val!=="") {
+						switch (type) {
+							case "t" :
+								delete uaData.stor.flag[val];
+								break;
+							default:
+								delete uaData.stor.apps[val];
+								break;
+						}
+						sel.removeChild(opt);
+						aform_Clear();
+						$(false,'#ssave').style.backgroundColor = uaData.设置.数据未保存;
+						toast('删除成功');
+					} else {
+						toast('没有选择项目');
+					}
+				} else {
+					toast('只能在管理模式下删除项目');
+				}
+			}
+		
+			/* localStorage 相关 */
+			
+			function lsb_initOption() {
+				if (Object.keys(uaData.stor).length!==0) {
+					if (uaData.stor.apps) {
+						Object.keys(uaData.stor.apps).forEach( app => {
+							let sel, opt = document.createElement('option');
+							sel = (uaData.stor.apps[app].内容.来自) ?
+								$(false,'#qsel') : $(false,'#asel');
+							opt.value = app; opt.innerHTML = `${uaData.stor.apps[app].内容} (${app})`;
+							sel.appendChild(opt);
+						});
+					}
+					if (uaData.stor.flag) {
+						Object.keys(uaData.stor.flag).forEach( tag => {
+							let sel = $(false,'#tsel'), opt = document.createElement('option');
+							opt.value = tag; opt.innerHTML = `${uaData.stor.flag[tag][0]} (${tag})`;
+							sel.appendChild(opt);
+						});
+					}
+				}
+			}
+			
+			function lsb_save() {
+				if (Object.keys(uaData.stor.apps).length!==0 ||
+					Object.keys(uaData.stor.flag).length!==0) {
+					loc.setItem(uaData.storKey,JSON.stringify(uaData.stor));
+					$(false,'#ssave').style.backgroundColor = '';
+					toast('保存成功，下次刷新生效');
+				} else {
+					toast('没有自定义数据');
+				}
+			}
+
+			function lsb_export() {
+				if (loc.hasOwnProperty(uaData.storKey)) {
+					$(false,"#stordata").value = loc.getItem(uaData.storKey);
+				} else {
+					toast('没有自定义数据');
+				}
+			}
+			
+			function lsb_import() {
+				let err = 0;
+				if ($(false,"#stordata").value!=="") {
+					try {
+						const data = JSON.parse($(false,"#stordata").value);
+						if (loc.hasOwnProperty(uaData.storKey)) {
+							let odata = JSON.parse(loc.getItem(uaData.storKey));
+							Object.keys(data).forEach( k => {
+								if (odata[k]) {
+									Object.assign(odata[k],data[k]);
+								} else {
+									odata[k] = data[k];
+								}
+							});
+							loc.setItem(uaData.storKey,JSON.stringify(odata));
+						} else {
+							loc.setItem(uaData.storKey,JSON.stringify(data));
+						}
+						$(false,"#stordata").value = "";
+					} catch(e) {
+						err = 1;
+						if (e instanceof SyntaxError) {
+							toast('导入失败:格式不正确');
+						} else {
+							toast('导入失败');
+						}
+					}
+					if (err===0) { toast('导入成功'); }
+				} else {
+					toast('没有输入数据');
+				}
+			}
+			
+			function lsb_clear() {
+			loc.removeItem(uaData.storKey);
+				toast('清空啦');
+			}
+			
+			function init(){
+				$(false,'#loadstr').innerHTML = '正在构建 ...';
+				lsb_initOption();
+				makeItem();
+				makeFlaginBox();
+				aform_makeFlaginBox();
+				makeBaseOption();
+				dndWin();
+				$(false,'#loadstr').innerHTML = '正在初始化 ...';
+				$(false,"#Raapp").checked = true;
+				$(false,"#stordata").value = '';
+				aform_Clear();
+				$(false,"#search").value = '';
+				$(false,"#version").innerHTML = `版本:${uaData.设置.代码版本} 总数:${Object.keys(uaData.apps).length}`;
+				$(false,'#loadstr').innerHTML = '加载完成';
+				_($(false,"#load"),false,"finish");
+				lab = $(true,"#app_container label"),
+				cas = $(true,"#app_container .CaseHead"),
+				lah = $(true,"#app_container > label,.CaseHead"),
+				ntx = $(false,"#nulltext");
+				loc = window.localStorage;
+			};
+
+			return {
+				init: init,
+				gen: genUA,
+				tagClick: tagClick,
+				open: openWin,
+				check: issuesCheck,
+				filter: {
+					app: fltAppUA,
+					sel: fltAppUASelected,
+				},
+				util: {
+					_: _,
+					$: $,
+					$_: $_,
+					unlock: function() {
+						document.onmousemove = null;
+					},
+					check: spaceChecked,
+					toast: toast,
+				},
+				aform: {
+					switchBoth: aform_switchBoth,
+					switchCard: aform_switchCard,
+					updateFlagPreview: aform_updateFlagPreview,
+					add: aform_Add,
+					clear: aform_Clear,
+					del: aform_Delete,
+					check: aform_KeyCheck,
+					switchModify: aform_switchModify,
+					modify: aform_Modify,
+				},
+				lsb: {
+					save: lsb_save,
+					clear: lsb_clear,
+					import: lsb_import,
+					export: lsb_export,
+				}
+			}
+		})();
+		</script>
+		<script>
+			window.onerror = function(e,a,l) {
+				alert(`错误: ${e}\n地址: ${a}\n行数: ${l}`);
+			}
+
+			function 加入(box,obj) {
+				switch (box) {
+					case "标签":
+						Object.assign(uaData.flag,obj);
+						Object.keys(obj).forEach( key => {
+							uaData.tagfind[obj[key][0]] = key;
+						});
+						break;
+					case "APP":
+						Object.keys(obj).forEach( key => {
+							let cont;
+							if (typeof obj[key]["内容"] === "object") {
+								if (obj[key]["内容"] instanceof Array) {
+									cont = [obj[key]["内容"][0],obj[key]["内容"][1]];
+								} else {
+									cont = {
+										qBasic: obj[key]["内容"]["平台"],
+										qFrom: obj[key]["内容"]["来自"],
+										qString: obj[key]["内容"]["应用"]
+									}
+								}
+							} else {
+								cont = obj[key]["内容"];
+							}
+							Object.assign(uaData.apps,{
+								[key]: {
+									text: obj[key]["名称"],
+									prefix: (obj[key]["前置"]==="是") ? true : false,
+									followed: (obj[key]["无缝"]==="是") ? true : false,
+									class: obj[key]["标签"],
+									content: cont
+								}
+							});
+						});
+						break;
+					case "基础":
+						Object.keys(obj).forEach( key => {
+							if (key!=="默认项") {
+								Object.assign(uaData.base,{
+									[key]: {
+										text: obj[key]["名称"],
+										content: obj[key]["内容"]
+									}
+								});
+							}
+						});
+						break;
+					case "数据":
+						obj.forEach( js => { uaData.jslist.push(js); });
+						break;
+				}
+			}
+		</script>
+		<script src="数据列表dev.js"></script>
+		<script>
+		if (uaData.touch) {
+			加入("数据",['indexSidebar.js']);
+		}
+		</script>
+		<script>
+			uaData.jslist.forEach( js => {
+				let script=document.createElement('script');
+				script.async = false;
+				script.src = js;
+				script.onerror = e => {
+					uaCode.util.toast(js + " 加载失败");
+					window.stop();
+				}
+				document.querySelector("head").appendChild(script);
+			});
+		</script>
+		<script>
+			(() => {
+				const stor = window.localStorage;
+				uaCode.util.$(false,'#loadstr').innerHTML = '正在加载数据 ...';
+				if (stor.hasOwnProperty(uaData.storKey)) {
+					try {
+						let data = JSON.parse(stor.getItem(uaData.storKey));
+						if (data.apps) {
+							Object.assign(uaData.stor.apps,data.apps);
+							加入("APP",data.apps);
+						}
+						if (data.flag) {
+							Object.assign(uaData.stor.flag,data.flag);
+							加入("标签",data.flag);
+						}
+					} catch(e) {
+						alert(`存储数据异常，将会被清空...\n 内容:${stor.getItem(uaData.storKey)}`);
+						stor.removeItem(uaData.storKey);
+					}
+				}
+			})();
+		</script>
+		<script>
+			window.onload = () => {
+				uaCode.util._(uaCode.util.$(false,'#ajump'),!uaData.touch,'none');
+				uaCode.init();
+			}
+		</script>
+	</body>
+</html>
