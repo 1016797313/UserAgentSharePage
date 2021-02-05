@@ -155,15 +155,17 @@
 				width: 100%;
 			}
 			#baseopt {
-				display: grid;
-				grid-template-columns: repeat(2, auto);
+				display: flex;
+				justify-content: space-around;
 			}
 			#baseopt > select {
 				-webkit-appearance: none;
 				-moz-appearance: none;
 				     appearance: none;
 				border: none;
+				width: 100%;
 				text-align: center;
+				text-align-last: center;
 			}
 			#modeopt {
 				display: -webkit-box;
@@ -1301,7 +1303,7 @@
 						const id = e.target.value,devsel = document.querySelector("#devsel");
 						if (uaData.base[id].type==="blank") {
 							devsel.style.display = "none";
-							devsel.value = "m10prq";
+							devsel.value = "mi10prq";
 						} else {
 							devsel.style.display = "block";
 						}
