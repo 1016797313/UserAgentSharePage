@@ -231,12 +231,12 @@ Object.assign(uaData.base,{
 	ttwv: {
 		text: "头条",
 		type: "wv",
-		context: "%mz# (%wv#) %cpc# Version/4.0 Chrome/75.0.3770.156 Mobile %sf#  TTWebView/0751130008003"
+		content: "%mz# (%wv#) %cpc# Version/4.0 Chrome/75.0.3770.156 Mobile %sf#  TTWebView/0751130008003"
 	},
 	xwalk: {
 		text: "Crosswalk",
 		type: "wv",
-		context: "%mz# (%wv#) %cpc# Version/4.0 Crosswalk/23.53.589.4 Chrome/53.0.2785.143 Mobile %sf#"
+		content: "%mz# (%wv#) %cpc# Version/4.0 Crosswalk/23.53.589.4 Chrome/53.0.2785.143 Mobile %sf#"
 	},
 	macchr: {
 		text: "mac Chr",
