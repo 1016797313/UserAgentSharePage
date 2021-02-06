@@ -180,7 +180,7 @@ Object.assign(uaData.base,{
 	bbos: {
 		text: "黑莓",
 		type: "bbos",
-		dev: "bbz3010",
+		dev: "bbrz3010",
 		content: "%mz#  (%p#) %cpc# Version/%kver# Mobile %sf#"
 	},
 	btos: {
