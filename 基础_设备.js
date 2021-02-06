@@ -139,6 +139,16 @@ Object.assign(uaData.device,{
 		wkver: "533.4",
 		aver: [3,5.2]
 	},
+	amzk449: {
+		desp: "Kindle 449",
+		base: "kindle",
+		type: "X11",
+		string: "Linux armv7l like Android; zh-cn",
+		vendor: "Amazon",
+		modal: "Kindle 449",
+		wkver: "533.2+",
+		aver: ["3.0+","5.0"]
+	},
 });
 Object.assign(uaData.base,{
 	std: {
@@ -237,6 +247,12 @@ Object.assign(uaData.base,{
 		text: "Crosswalk",
 		type: "wv",
 		content: "%mz# (%wv#) %cpc# Version/4.0 Crosswalk/23.53.589.4 Chrome/53.0.2785.143 Mobile %sf#"
+	},
+	kindle: {
+		text: "Kindle",
+		type: "kindle",
+		dev:"amzk449",
+		content: "%mz# (%u#) %cpc# Version/%kver# %sf# Kindle/%aver#"
 	},
 	macchr: {
 		text: "mac Chr",
