@@ -147,7 +147,7 @@ Object.assign(uaData.device,{
 		vendor: "Amazon",
 		modal: "Kindle 449",
 		wkver: "533.2+",
-		aver: ["3.0+","5.0"]
+		aver: ["3.0+","5.0"] // [kindle] Kindle 系统版本 / Version 字段
 	},
 });
 Object.assign(uaData.base,{
@@ -179,13 +179,13 @@ Object.assign(uaData.base,{
 	},
 	bbos: {
 		text: "黑莓",
-		type: "bb",
+		type: "bbos",
 		dev: "bbz3010",
 		content: "%mz#  (%p#) %cpc# Version/%kver# Mobile %sf#"
 	},
 	btos: {
 		text: "黑莓平板",
-		type: "bb",
+		type: "btos",
 		dev: "bbpbt21",
 		content: "%mz#  (%u#) %cpc# Version/%kver# %sf#"
 	},
@@ -241,7 +241,7 @@ Object.assign(uaData.base,{
 	ttwv: {
 		text: "头条",
 		type: "wv",
-		content: "%mz# (%wv#) %cpc# Version/4.0 Chrome/75.0.3770.156 Mobile %sf#  TTWebView/0751130008003"
+		content: "%mz# (%wv#) %cpc# Version/4.0 Chrome/75.0.3770.156 Mobile %sf# TTWebView/0751130008003"
 	},
 	xwalk: {
 		text: "Crosswalk",
@@ -253,6 +253,12 @@ Object.assign(uaData.base,{
 		type: "kindle",
 		dev:"amzk449",
 		content: "%mz# (%u#) %cpc# Version/%kver# %sf# Kindle/%aver#"
+	},
+	slik: {
+		text: "Amazon Silk",
+		type: "silk",
+		dev: "amzkfh89k",
+		content: `%mz# (%u#) %cpc# Silk/%kver# like Chrome/44.0.2403.63 Mobile %sf# Silk-Accelerated=true`
 	},
 	macchr: {
 		text: "mac Chr",

@@ -7,7 +7,7 @@ Object.assign(uaData.device,{
 		vendor:"Samsung",
 		modal:"SM-N900T",
 		wkver:"534.30",
-		aver:[4.3,18]
+		aver:[4.3,18] // [std] Android 版本 / SDK 级别
 	},
 	sssgn9n: {
 		desp:"三星 Galaxy Note 9 | 7",
@@ -37,7 +37,7 @@ Object.assign(uaData.device,{
 		vendor:"Apple",
 		modal:"iPad 4",
 		wkver:"604.1.34",
-		aver:[11,"15A5341f"]
+		aver:[11,"15A5341f"] // [ios] iOS 版本 / iOS Build
 	},
 	aplipdpr11: {
 		desp:"iPad Pro | iOS 11.4",
@@ -70,14 +70,24 @@ Object.assign(uaData.device,{
 		aver: [11,"15A372"]
 	},
 	amzkfhdj: {
-		desp: "Kindle Fire HDX | 4.2.2",
-		base: "std",
+		desp: "Kindle Fire HDX",
+		base: "silk",
 		type: "Linux",
 		string: "KFAPWI Build/JDQ39",
 		vendor: "Amazon",
 		modal: "KFAPWI",
 		wkver: "535.19",
-		aver: [4.2,17]
+		aver: [4.2,3.13] // [silk] Android 版本 / Silk 浏览器版本
+	},
+	amzkfh89k: {
+		desp: "Kindle Fire HD 8.9",
+		base: "silk",
+		type: "Linux",
+		string: "Android %aver#; KFTHWI Build/KTU84M",
+		vendor: "Amazon",
+		modal: "KFTHWI",
+		wkver: "537.36",
+		aver: ["4.4.3","44.1.54"]
 	},
 	lgeopml70k: {
 		desp:"LG L70 | 4.4.2",
@@ -97,7 +107,7 @@ Object.assign(uaData.device,{
 		vendor:"Microsoft",
 		modal:"Lumia 550",
 		wkver:"537.36",
-		aver:[10,14.14263]
+		aver:[10,14.14263] // [wpedge] Windows Phone 版本 / Edge 内核版本
 	},
 	msflm95010: {
 		desp:"Lumia 950 | WP 10",
@@ -177,7 +187,7 @@ Object.assign(uaData.device,{
 		vendor:"Blackberry",
 		modal:"Z30",
 		wkver:"537.10+",
-		aver:[10,"10.0.9.2372"]
+		aver:[10,"10.0.9.2372"] // [bbos] [btos] BBOS 系统版本 / 详细系统版本
 	},
 	bbpbt21: {
 		desp:"黑莓 PlayBook | BB Tab 2.1",
@@ -257,7 +267,7 @@ Object.assign(uaData.device,{
 		vendor:"Nokia",
 		modal:"N9",
 		wkver:"534.13",
-		aver:[0,"8.5.0"]
+		aver:[0,"8.5.0"] // [mgo] 0 / MeeGo 系统版本
 	},
 	apliph47: {
 		desp: "iPhone 4 | iOS 7.1.2",
@@ -277,7 +287,7 @@ Object.assign(uaData.device,{
 		vendor:"Nokia",
 		modal:"8110",
 		wkver:"48.0",
-		aver:[2.5,48.0]
+		aver:[2.5,48.0] // [kai] KaiOS 系统版本 / Firefox 版本
 	},
 	jio2kai: {
 		desp:"JioPhone 2 | Kai 2.5",

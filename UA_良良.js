@@ -269,7 +269,7 @@ tycha: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "FromTYCAndroidClient(appVersion/Android 11.10.1,appDevice/Xiaomi_QAQ_Mi Note 3)"
+	内容: "FromTYCAndroidClient(appVersion/Android 11.10.1,appDevice/Google_QAQ_Google Pixel 3 XL)"
 },
 txmap: {
 	名称: "腾讯地图",
@@ -339,14 +339,14 @@ hykbgame: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "Androidkb/1.5.5.002(android;Mi Note 3;9;1080x1920;WIFI);@4399_sykb_android_activity@"
+	内容: "Androidkb/1.5.5.002(android;Google Pixel 3 XL;9;1080x1920;WIFI);@4399_sykb_android_activity@"
 },
 xlnews: {
 	名称: "新浪新闻",
 	前置: "不是",
 	无缝: "是",
 	标签: ["新浪"],
-	内容: "; Xiaomi-Mi Note 3__sinanews__7.30.0__android__9__490; Xiaomi-Mi Note 3__sinanews__7.30.0__android__9__490; env__online"
+	内容: "; Google-Google Pixel 3 XL__sinanews__7.30.0__android__9__490; Google-Google Pixel 3 XL__sinanews__7.30.0__android__9__490; env__online"
 },
 douban: {
 	名称: "豆瓣",
@@ -374,7 +374,7 @@ bdbk: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["百度"],
-	内容: "BaiduBaikeApp/3.0.8/paramers={\"scheme\":\" BaiduBaikeApp\",\"version\":\"3.0.8\",\"os\":\"android\",\"channel_id\":\"1000744a\",\"os_version\":\"9\",\"os_model\":\"Mi Note 3\"}"
+	内容: "BaiduBaikeApp/3.0.8/paramers={\"scheme\":\" BaiduBaikeApp\",\"version\":\"3.0.8\",\"os\":\"android\",\"channel_id\":\"1000744a\",\"os_version\":\"9\",\"os_model\":\"Google Pixel 3 XL\"}"
 },
 bdwenku: {
 	名称: "百度文库",
@@ -458,7 +458,7 @@ xMimusic: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["小米"],
-	内容: "MiuiMusic/9 (Linux; U; Android 9; Mi Note 3 Build/PKQ1.181007.001)"
+	内容: "MiuiMusic/9 (Linux; U; Android 9; Google Pixel 3 XL Build/PKQ1.181007.001)"
 },
 xMiAi: {
 	名称: "小爱",
@@ -486,7 +486,7 @@ acfun: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "ACVideoCore/6.16.0.863(Xiaomi;Mi Note 3;9)"
+	内容: "ACVideoCore/6.16.0.863(Google;Google Pixel 3 XL;9)"
 },
 kuaidzye: {
 	名称: "快对作业",
@@ -500,14 +500,14 @@ bczhan: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "bcz_app_android/6030500 android_version/9 device_name/Mi Note 3 - Xiaomi"
+	内容: "bcz_app_android/6030500 android_version/9 device_name/Google Pixel 3 XL - Google"
 },
 bczhandict: {
 	名称: "百词斩词典",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "bcz_dict_app_android/1001304 android_version/9 device_name/Mi Note 3 - Xiaomi"
+	内容: "bcz_dict_app_android/1001304 android_version/9 device_name/Google Pixel 3 XL - Google"
 },
 ucnews: {
 	名称: "UC 头条",
@@ -640,7 +640,7 @@ kkanmh: {
 	前置: "是",
 	无缝: "是",
 	标签: [],
-	内容: "Kuaikan/5.63.1/563001(Android;9;Mi Note 3;kuaikan16;WIFI;1920*1080)+"
+	内容: "Kuaikan/5.63.1/563001(Android;9;Google Pixel 3 XL;kuaikan16;WIFI;1920*1080)+"
 },
 shmh: {
 	名称: "神漫画",
@@ -668,7 +668,7 @@ dongm: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "nApps (Android 9; Mi Note 3; dongman; 2.3.9;VersionCode:230900)"
+	内容: "nApps (Android 9; Google Pixel 3 XL; dongman; 2.3.9;VersionCode:230900)"
 },
 kuman: {
 	名称: "酷漫",
@@ -752,7 +752,7 @@ wynews: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["网易"],
-	内容: "NewsApp/58.0 Android/9 NewsAppLite/2.1.0 (Xiaomi/Mi Note 3) netease_news_android"
+	内容: "NewsApp/58.0 Android/9 NewsAppLite/2.1.0 (Google/Google Pixel 3 XL) netease_news_android"
 },
 jrtt: {
 	名称: "今日头条",
@@ -780,14 +780,14 @@ blbl2: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "BiliDroid/2.4.0 os/android model/Mi Note 3 mobi_app/android_i build/2040100 channel/master innerVer/2040120 osVer/9 network/2"
+	内容: "BiliDroid/2.4.0 os/android model/Google Pixel 3 XL mobi_app/android_i build/2040100 channel/master innerVer/2040120 osVer/9 network/2"
 },
 kuan: {
 	名称: "酷安",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " (#Build; OPPO; OPPO R11 Plus; R11Plus_11_C.19; 9) +CoolMarket/11.0-beta6"
+	内容: " (#Build; GOOGLE; Google Pixel 3 XL; R11Plus_11_C.19; 9) +CoolMarket/11.0-beta6"
 },
 kuanvn: {
 	名称: "酷安 VN",
@@ -906,14 +906,14 @@ mayuncode: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "Git@OSC.NET/v1.6.3(2020032000)_163/Android/9/Mi Note 3"
+	内容: "Git@OSC.NET/v1.6.3(2020032000)_163/Android/9/Google Pixel 3 XL"
 },
 "weib4g": {
 	名称: "微博 4G 版",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["新浪"],
-	内容: "Weibo (Xiaomi-Mi Note 3__weibo__9.9.3__android__android9)AndroidWeibo_G3/1.0"
+	内容: "Weibo (Google-Google Pixel 3 XL__weibo__9.9.3__android__android9)AndroidWeibo_G3/1.0"
 },
 yunrli: {
 	名称: "云日历",
@@ -997,21 +997,21 @@ nicon: {
 	前置: "是",
 	无缝: "不是",
 	标签: [],
-	内容: "Niconico/1.0 (Linux; U; Android 9; ja-jp; nicoandroid Mi Note 3) Version/5.31.0 "
+	内容: "Niconico/1.0 (Linux; U; Android 9; ja-jp; nicoandroid Google Pixel 3 XL) Version/5.31.0 "
 },
 qSZS: {
 	名称: "骑士助手",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "Mozilla%2F5.0+%28Linux%3B+Android+9%3B+Mi+Note+3+Build%2FPKQ1.181007.001%3B+wv%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Chrome%2F81.0.4044.66+Mobile+Safari%2F537.36+867527035322985+mgcsdk%2F3.6.0+mgcframework%2F3.0.0"
+	内容: "Mozilla%2F5.0+%28Linux%3B+Android+9%3B+Google+Pixel+3+XL+Build%2FPKQ1.181007.001%3B+wv%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Chrome%2F81.0.4044.66+Mobile+Safari%2F537.36+867527035322985+mgcsdk%2F3.6.0+mgcframework%2F3.0.0"
 },
 wifikey: {
 	名称: "WiFi 钥匙",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " wfkey/com.wifi.key/5.8.5/1 (Android 9; XiaomiMi Note 3) tx u/0"
+	内容: " wfkey/com.wifi.key/5.8.5/1 (Android 9; GoogleGoogle Pixel 3 XL) tx u/0"
 },
 "360clean": {
 	名称: "360 清理大师",
@@ -1060,14 +1060,14 @@ weibtt: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["新浪"],
-	内容: "Weiboheadlines(Xiaomi-Mi Note 3__weiboheadlines__3.0.1__android__android9"
+	内容: "Weiboheadlines(Google-Google Pixel 3 XL__weiboheadlines__3.0.1__android__android9"
 },
 weibtrdp: {
 	名称: "微博第三方通用",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["_③ 微博"],
-	内容: "Mi Note 3_9_WeiboIntlAndroid_540"
+	内容: "Google Pixel 3 XL_9_WeiboIntlAndroid_540"
 },
 weico: {
 	名称: "weico",
@@ -1081,7 +1081,7 @@ weibSpeed: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["新浪"],
-	内容: " Weibo (Xiaomi-Mi Note 3__weibo__10.3.3__android__android9) WeiboLite/1.0 WeiboMini/1.0"
+	内容: " Weibo (Google-Google Pixel 3 XL__weibo__10.3.3__android__android9) WeiboLite/1.0 WeiboMini/1.0"
 },
 tiebaSpeed: {
 	名称: "贴吧极速版",
@@ -1137,7 +1137,7 @@ momoword: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: ", AndroidVer: 28, pkg: com.maimemo.android.momo, model: Mi Note 3, pkgVer: 525, pkgVerName: 3.7.15"
+	内容: ", AndroidVer: 28, pkg: com.maimemo.android.momo, model: Google Pixel 3 XL, pkgVer: 525, pkgVerName: 3.7.15"
 },
 yixg: {
 	名称: "译学馆",
@@ -1151,7 +1151,7 @@ czbbs: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "BBS Client/0.1.0 (Android; Mi Note 3; unkown)"
+	内容: "BBS Client/0.1.0 (Android; Google Pixel 3 XL; unkown)"
 },
 huafclub: {
 	名称: "花粉俱乐部",
@@ -1179,14 +1179,14 @@ mzubbs: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["新浪"],
-	内容: " Weibo (Xiaomi-Mi Note 3__weibo__10.4.0__android__android9)"
+	内容: " Weibo (Google-Google Pixel 3 XL__weibo__10.4.0__android__android9)"
 },
 xlmail: {
 	名称: "新浪邮箱",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["新浪"],
-	内容: " SinaMailClient SinaMail/1.6.5 (Xiaomi Mi Note 3; Android 9 release)"
+	内容: " SinaMailClient SinaMail/1.6.5 (Google Google Pixel 3 XL; Android 9 release)"
 },
 zhuan: {
 	名称: "转转",
@@ -1207,7 +1207,7 @@ zhlwork: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "Mi Note 3(Android/9) (com.zhaopin.social/7.9.51) Weex/0.28.0 1080x1920"
+	内容: "Google Pixel 3 XL(Android/9) (com.zhaopin.social/7.9.51) Weex/0.28.0 1080x1920"
 },
 zhchrobot: {
 	名称: "智齿客服",
@@ -1228,7 +1228,7 @@ baix: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "com.quanleimu.activity/9.7.6;Xiaomi;Xiaomi;Mi+Note+3;9;1080x1920;"
+	内容: "com.quanleimu.activity/9.7.6;Google;Google;Google+Pixel+3+XL;9;1080x1920;"
 },
 jrreb: {
 	名称: "今日热榜",
@@ -1284,14 +1284,14 @@ xfyuj: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " APP/com.iflytek.vflynote;4.4.1274 SYS/Android;28 SDI/5be100beb8ad51bb3be1a20c270a32992891c238 FM/Xiaomi;Mi+Note+3 NE/wifi;46011 Lang/zh_CN CLV/1 SDK/"
+	内容: " APP/com.iflytek.vflynote;4.4.1274 SYS/Android;28 SDI/5be100beb8ad51bb3be1a20c270a32992891c238 FM/Google;Google+Pixel+3+XL NE/wifi;46011 Lang/zh_CN CLV/1 SDK/"
 },
 lychwke: {
 	名称: "荔枝微课",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " APP/com.lizhiweike;4.23.1 SYS/Android;28 SDI/5be100beb8ad51bb3be1a20c270a32992891c238 FM/Xiaomi;Mi+Note+3 NE/wifi;46011 Lang/zh_CN CLV/20190409 SDK/SHARESDK;30501 DC/1"
+	内容: " APP/com.lizhiweike;4.23.1 SYS/Android;28 SDI/00000000000000000000000000000000000000 FM/Google;Google+Pixel+3+XL NE/wifi;46011 Lang/zh_CN CLV/20190409 SDK/SHARESDK;30501 DC/1"
 },
 zhihu: {
 	名称: "知乎",
@@ -1319,7 +1319,7 @@ oluplay: {
 	前置: "不是",
 	无缝: "是",
 	标签: [],
-	内容: "/eusoft_eudic_en_android/7.2.1/941a533cbbaaf582//play/"
+	内容: "/eusoft_eudic_en_android/7.2.1/0000000000000000//play/"
 },
 quanlS: {
 	名称: "全历史",
@@ -1333,14 +1333,14 @@ blblcomic: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " BiliComic/21500004 mobi_app/android_comic channel/bilicomic Buvid/XY9752C9FA2AD864674DB89F75455DDDE5A20 internal_version/21500004"
+	内容: " BiliComic/21500004 mobi_app/android_comic channel/bilicomic Buvid/XY00000000000000000000000000000000000 internal_version/21500004"
 },
 xhS: {
 	名称: "小红书",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " Resolution/1080*1920 Build/6400138 Device/(Xiaomi;Mi Note 3) discover/6.40.0 NetType/WiFi"
+	内容: " Resolution/1080*1920 Build/6400138 Device/(Google;Google Pixel 3 XL) discover/6.40.0 NetType/WiFi"
 },
 wymail: {
 	名称: "网易邮箱",
@@ -1354,28 +1354,28 @@ bdread: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["百度"],
-	内容: " -HadesCore- 1080_1920_6.0.7.1_9_OPPO R11 Plus_com.baidu.yuedu_1.0.1"
+	内容: " -HadesCore- 1080_1920_6.0.7.1_9_Google Pixel 3 XL_com.baidu.yuedu_1.0.1"
 },
 bdreadPro: {
 	名称: "百度阅读 Pro",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["百度"],
-	内容: " -HadesCore- 1080_1920_0.9.0.0_9_OPPO R11 Plus_com.baidu.yuedupro_1.0.1"
+	内容: " -HadesCore- 1080_1920_0.9.0.0_9_Google Pixel 3 XL_com.baidu.yuedupro_1.0.1"
 },
 zhshxq: {
 	名称: "知识星球",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["TBS"],
-	内容: "xiaomiquan/4.14.2 Android/Phone/9 Xiaomi_Mi_Note_3"
+	内容: "xiaomiquan/4.14.2 Android/Phone/9 Google_Google_Pixel_3_XL"
 },
 smZdm: {
 	名称: "什么值得买",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "{{ smzdm_android_V9.7.0 rv:625 (OPPO R11 Plus;Android9;zh) jsbv_1.0.0 webv_2.0 smzdmapp }}"
+	内容: "{{ smzdm_android_V9.7.0 rv:625 (Google Pixel 3 XL;Android9;zh) jsbv_1.0.0 webv_2.0 smzdmapp }}"
 },
 alimail: {
 	名称: "阿里邮箱",
@@ -1431,7 +1431,7 @@ jygame: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " cn.ninegame.gamemanager/2244; NineGameClient/android ve/7.1.4.4 si/e09d08f2-acfd-43fe-b226-67208bca9dc7 ch/WM_7120 ss/1080x1920 ut/XpUatyYq5kMDAMmtm6vNXmqu nt/wifi"
+	内容: " cn.ninegame.gamemanager/2244; NineGameClient/android ve/7.1.4.4 si/22222222-5555-6666-5555-333333333333 ch/WM_7120 ss/1080x1920 ut/xxxxxxxxxxxxxxxxxxxxxxxx nt/wifi"
 },
 yoyoqfk: {
 	名称: "有妖气反馈",
@@ -1473,7 +1473,7 @@ jumei: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " jumei/8.705 com.jm.android.jumei env/pub jmowlid/31ca8f3b569f4e338efefe2bc7fd945b/"
+	内容: " jumei/8.705 com.jm.android.jumei env/pub jmowlid/00000000000000000000000000000000/"
 },
 kuaijj: {
 	名称: "快剪辑",
@@ -1501,7 +1501,7 @@ zybang: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " homework_vc/654 homework_vcname/12.8.0 homework_cuid/AD14454CD515B3A79451EB361B1B893C|0 homework_token/1_XPXQH3c5HRPtFHkSwi3sCCURmT25QfxM homework_channel/huawei"
+	内容: " homework_vc/654 homework_vcname/12.8.0 homework_cuid/00000000000000000000000000000000|0 homework_token/1_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX homework_channel/huawei"
 },
 youdiao: {
 	名称: "有调",
@@ -1564,14 +1564,14 @@ cctapi: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "HJApp%201.0/android/OPPO%20R11%20Plus/e76f985005e71550806830b/9/com.hujiang.cctalk/7.7.1.3061/qq/"
+	内容: "HJApp%201.0/android/GOOGLE%20R11%20Plus/00000000000000000000000/9/com.hujiang.cctalk/7.7.1.3061/qq/"
 },
 juejapi: {
 	名称: "掘金 API",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " OPPO/OPPO R11 Plus Android/9 Juejin/Android/5.9.3"
+	内容: " GOOGLE/Google Pixel 3 XL Android/9 Juejin/Android/5.9.3"
 },
 juej: {
 	名称: "掘金",
@@ -1613,14 +1613,14 @@ wycomic: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["网易"],
-	内容: " NeteaseComic/5.4.2.504200 NetType/WIFI NEJSBridge/6 Mid/1150317016"
+	内容: " NeteaseComic/5.4.2.504200 NetType/WIFI NEJSBridge/6 Mid/1000000000"
 },
 wyreader: {
 	名称: "网易蜗牛读书",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["网易"],
-	内容: "NeteaseSnailReader/1.9.9 NetType/WIFI (mjy0mzg0mtyyodq4otgzctywojixojaxojyxomyxojdkcwflywrhmdzhmtlintdhzwyjm2rlytu4odq3mty5mzrkyw  0  0;yingyongbao) NEJSBridge/2.0.0"
+	内容: "NeteaseSnailReader/1.9.9 NetType/WIFI (000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  0;yingyongbao) NEJSBridge/2.0.0"
 },
 wypay: {
 	名称: "网易支付",
@@ -1634,7 +1634,7 @@ bczread: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " bcz_app_android_ireading/2010400 android_version/9 device_name/OPPOR11Plus-OPPO channel/ireading"
+	内容: " bcz_app_android_ireading/2010400 android_version/9 device_name/GOOGLER11Plus-GOOGLE channel/ireading"
 },
 ydaotrans: {
 	名称: "有道翻译官",
@@ -1669,7 +1669,7 @@ shihuo: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " Android 9 OPPO CPU_ABI armeabi-v7a CPU_ABI2 armeabi HARDWARE qcom MODEL OPPO R11 Plus network/WIFI shihuo/6.15.0 sc(f351d3540db30453,myapp) vf_dv_id[2020052612520220bb58cd05e27cceede81ef3b09c012f012ffb24bce97fe9]"
+	内容: " Android 9 GOOGLE CPU_ABI armeabi-v7a CPU_ABI2 armeabi HARDWARE qcom MODEL Google Pixel 3 XL network/WIFI shihuo/6.15.0 sc(0000000000000000,myapp) vf_dv_id[00000000000000000000000000000000000000000000000000000000000000]"
 },
 bukam: {
 	名称: "布卡漫画",
@@ -1683,28 +1683,28 @@ mrfra: {
 	前置: "不是",
 	无缝: "是",
 	标签: [],
-	内容: ";/eusoft_ting_fr_android/9.1.3/aeada06a19b57aef///"
+	内容: ";/eusoft_ting_fr_android/9.1.3/0000000000000000///"
 },
 mrdeu: {
 	名称: "每日德语听力",
 	前置: "不是",
 	无缝: "是",
 	标签: [],
-	内容: ";/eusoft_ting_de_android/9.1.3/aeada06a19b57aef///"
+	内容: ";/eusoft_ting_de_android/9.1.3/0000000000000000///"
 },
 mresp: {
 	名称: "每日西语听力",
 	前置: "不是",
 	无缝: "是",
 	标签: [],
-	内容: ";/eusoft_ting_es_android/9.1.3/aeada06a19b57aef///"
+	内容: ";/eusoft_ting_es_android/9.1.3/0000000000000000///"
 },
 mreng: {
 	名称: "每日英语听力",
 	前置: "不是",
 	无缝: "是",
 	标签: [],
-	内容: ";/eusoft_ting_en_android/9.1.3/aeada06a19b57aef///"
+	内容: ";/eusoft_ting_en_android/9.1.3/0000000000000000///"
 },
 huxiu: {
 	名称: "虎嗅",
@@ -1718,7 +1718,7 @@ kaiyan: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "EYEPETIZER/6030022 (Redmi K30 5G;android;10;zh_CN;android;6.3.2;cn-bj;yingyongbao;3776ec505afa251e4f0d241c57688c28;LTE;1080*2175) "
+	内容: "EYEPETIZER/6030022 (Google Pixel 3 XL;android;10;zh_CN;android;6.3.2;cn-bj;yingyongbao;00000000000000000000000000000000;LTE;1080*2175) "
 },
 letvv: {
 	名称: "乐视视频",
@@ -1739,7 +1739,7 @@ sqxS: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["阿里"],
-	内容: "AliApp(shuqi_android/11.1.5.113) TTID/src1029 Shuqi (Xiaomi-Redmi K30 5G__shuqi__11.1.5.113__1029) AliApp(SQREADER/11.1.5.113)"
+	内容: "AliApp(shuqi_android/11.1.5.113) TTID/src1029 Shuqi (Google-Google Pixel 3 XL__shuqi__11.1.5.113__1029) AliApp(SQREADER/11.1.5.113)"
 },
 tmgenie: {
 	名称: "天猫精灵",
@@ -1809,7 +1809,7 @@ sohuv: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["搜狐"],
-	内容: "com.sohu.sohuvideo/8002003 (Linux; U; Android 10; zh_CN; Redmi K30 5G; Build/QKQ1.191222.002)"
+	内容: "com.sohu.sohuvideo/8002003 (Linux; U; Android 10; zh_CN; Google Pixel 3 XL; Build/QKQ1.191222.002)"
 },
 sohuvb: {
 	名称: "搜狐视频 (2)",
@@ -1837,14 +1837,14 @@ xysoti: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "Solar/10.9.0 (RedmiRedmi K30 5G; Android 10; Scale/2.75)"
+	内容: "Solar/10.9.0 (RedmiGoogle Pixel 3 XL; Android 10; Scale/2.75)"
 },
 hxinkf: {
 	名称: "环信客服",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "Easemob-Android V1.2.1(Xiaomi Redmi K30 5G; Android 10/29)"
+	内容: "Easemob-Android V1.2.1(Google Google Pixel 3 XL; Android 10/29)"
 },
 wpso: {
 	名称: "WPS Office",
@@ -1886,21 +1886,21 @@ kuwom: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "22BB7A85A0D389F490742BDFDC2D2379Redmi K30 5Gcn.kuwo.player-9.3.3.2202004071592390125669103439c73400c200f98f1"
+	内容: "22BB7A85A0D389F490742BDFDC2D2379Google Pixel 3 XLcn.kuwo.player-9.3.3.2200000000000000000000000000000000000000000"
 },
 bdpan: {
 	名称: "百度网盘",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["百度"],
-	内容: "netdisk;10.1.44;Redmi+K30+5G;android-android;10;JSbridge4.4.0"
+	内容: "netdisk;10.1.44;Google+Pixel+3+XL;android-android;10;JSbridge4.4.0"
 },
 jgyun: {
 	名称: "坚果云",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "NutstoreApp-Android-10-Redmi K30 5G-4.20.3360"
+	内容: "NutstoreApp-Android-10-Google Pixel 3 XL-4.20.3360"
 },
 anqyp: {
 	名称: "安全云盘",
@@ -1914,7 +1914,7 @@ xClvx: {
 	前置: "不是",
 	无缝: "是",
 	标签: ["短 UA"],
-	内容: "_CtripAPP_Android_8.26.2_eb64_Ctrip_CtripWireless_8.26.2_cDevice=Redmi K30 5G_cSize=w1080*h2175__v=826.002_os=Android_osv=10_m=Redmi K30 5G_brand=Redmi_vg=0_SOAHTTP"
+	内容: "_CtripAPP_Android_8.26.2_eb64_Ctrip_CtripWireless_8.26.2_cDevice=Google Pixel 3 XL_cSize=w1080*h2175__v=826.002_os=Android_osv=10_m=Google Pixel 3 XL_brand=Google_vg=0_SOAHTTP"
 },
 huya: {
 	名称: "虎牙",
@@ -2096,7 +2096,7 @@ zggSyh: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: ["ICBCAndroidBSNew F-WAPB 6.0.1.1.0 fullversion:601100 newversion:6.0.1.1.0","9 OPPO R11 Plus 6E4734502897B4293988F9D793DCEB6C3D2FAC9E WIFI BSComponentVersion:6.1"]
+	内容: ["ICBCAndroidBSNew F-WAPB 6.0.1.1.0 fullversion:601100 newversion:6.0.1.1.0","9 Google Pixel 3 XL 0000000000000000000000000000000000000000 WIFI BSComponentVersion:6.1"]
 },
 tblite: {
 	名称: "淘宝 Lite",
