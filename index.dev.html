@@ -1128,6 +1128,9 @@
 								],[ // #4 腾讯视频 页面 确认框
 									( ua.includes('Android') && ua.includes('qqnews') ),
 									'此 UA 可能会导致 腾讯视频播放页面 加载时弹出 确认/取消 对话框'
+								],[ // #5 蓝奏云 mtt: 确认框
+									( /\(.*Android.*\)/.test(ua) && ( /MQQBrowser\/\d*/.exec(ua)[0].replace('MQQBrowser/','') >= 5 )),
+									'此 UA 可能会导致 蓝奏云部分页面 加载广告时弹出 确认/取消 对话框'
 								]
 							];
 				let count = 0;
