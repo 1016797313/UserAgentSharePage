@@ -980,7 +980,7 @@
 			
 			function toast(text) {
 				if (!window.webmx && window.mbrowser) {
-					window.mbrowser.showToast('你好😄');
+					window.mbrowser.showToast(text);
 				} else if (!window.alook && !window.webmx && !window._obj && window.via) {
 					window.via.toast(text);
 				} else if (window._obj) {
