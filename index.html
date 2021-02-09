@@ -979,12 +979,22 @@
 			}
 			
 			function toast(text) {
-				if (!window.via||typeof window.via.toast!=="function") {
+				if (!window.webmx && window.mbrowser) {
+					window.mbrowser.showToast('你好😄');
+				} else if (!window.alook && !window.webmx && !window._obj && window.via) {
+					window.via.toast(text);
+				} else if (window._obj) {
+					window._obj.toast(text);
+				} else if (window.H5EXT) {
+					window.H5EXT.cmd(99,text);
+				} else if (window.meta) {
+					window.meta.toast(text,3,null);
+				} else if (window.mx_browser_obj) {
+					window.mx_browser_obj.showtip(text);
+				} else {
 					const toast = $(false,"#toast");
 					toast.innerHTML = text;
 					toast.className = "toasting";
-				} else {
-					window.via.toast(text);
 				}
 			}
 			
