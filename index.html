@@ -1104,7 +1104,7 @@
 									( /\(.*Android.*\)/.test(ua) && ua.includes('MQQBrowser/') &&  ( ver = /MQQBrowser\/\d*/.exec(ua)[0].replace('MQQBrowser/',''), ver >= 5 )),
 									'此 UA 可能会导致 蓝奏云部分页面 加载广告时弹出 确认/取消 对话框'
 								],[ // #6 淘宝 windvine 确认框
-									( ua.includes('Android') && ( /WindVane\/\d+\.\d+\.\d+/.test(ua) && ( ver = /WindVane\/\d+/.exec(ua)[0].replace('WindVane/',''), ver >= 1 )),
+									( ua.includes('Android') && /WindVane\/\d+\.\d+\.\d+/.test(ua) && ( ver = /WindVane\/\d+/.exec(ua)[0].replace('WindVane/',''), ver >= 1 )),
 									'此 UA 可能会导致 淘宝部分页面 加载时弹出 确认/取消 对话框'
 								]
 							];
