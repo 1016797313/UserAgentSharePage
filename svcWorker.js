@@ -8,6 +8,7 @@ var data = [
 	["S","./爬虫_良良.js",21010715],
 	["T","./indexSidebar.js",2],
 	["O","../favicon.ico",2],
+	["D","./",21021918],
 ];
 
 self.addEventListener('install', function(event) {
