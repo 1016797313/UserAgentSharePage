@@ -15,7 +15,7 @@ self.addEventListener('install', function(event) {
 		caches.open(`${d[0]}_${d[2]}`).then( cache => {
 			return cache.add('./' + d[1]);
 		});
-	});
+	})
   );
 });
 
@@ -31,7 +31,7 @@ self.addEventListener('activate', function(event) {
 			});
         });
       );
-    });
+    })
   );
 });
 
