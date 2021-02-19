@@ -25,7 +25,7 @@ self.addEventListener('activate', function(event) {
       return Promise.all(
         cacheNames.map( cacheName => {
 			data.map( d => {
-				if (cacheName.slice(0,1) == d[0]) && (parseInt(cacheName.slice(2)) < d[2]) {
+				if (cacheName.slice(0,1) == d[0] && parseInt(cacheName.slice(2)) < d[2]) {
 					return caches.delete(cacheName);
 				}
 			});
