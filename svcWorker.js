@@ -7,9 +7,8 @@ var data = [
 	["Q","快应用_良良.js",20102715],
 	["S","爬虫_良良.js",21010715],
 	["T","indexSidebar.js",2],
-],
+];
 
-// 缓存
 self.addEventListener('install', function(event) {
   event.waitUntil(
 	data.forEach( d => {
