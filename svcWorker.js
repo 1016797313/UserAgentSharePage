@@ -38,7 +38,7 @@ self.addEventListener('activate', function(event) {
 self.addEventListener('fetch', function(event) {
   event.respondWith(caches.match(event.request).catch( () => {
     return fetch(event.request);
-  }).then( response => {
+  }).then( function(response) => {
 	data.map ( d => {
 		if ('.' + /\/+\w+\.+\w+$/.exec(event.request.url) == d[1]) {
 			caches.open(`${d[0]}_${d[2]}`).then( cache => {
@@ -47,5 +47,7 @@ self.addEventListener('fetch', function(event) {
 		}
 	});
     return response.clone();
+  }).catch(function() {
+    return caches.match(event.request);
   }));
 });
