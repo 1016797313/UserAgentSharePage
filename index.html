@@ -991,6 +991,8 @@
 					window.meta.toast(text,3,null);
 				} else if (window.mx_browser_obj) {
 					window.mx_browser_obj.showtip(text);
+				} else if (window.JSInterface) {
+					window.JSInterface.syslog(text);
 				} else {
 					const toast = $(false,"#toast");
 					toast.innerHTML = text;
