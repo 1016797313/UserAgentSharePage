@@ -80,14 +80,14 @@ jdapp: {
 	前置: "是",
 	无缝: "是",
 	标签: ["TBS"],
-	内容: "jdapp;android;9.3.1;"
+	内容: "jdapp;android;9.4.4;appBuild/87076;eufv/1;"
 },
 jdjxapp: {
 	名称: "京喜",
 	前置: "是",
 	无缝: "是",
 	标签: ["TBS"],
-	内容: "jdpingou;android;3.16.0;9;appBuild/14448;"
+	内容: "jdpingou;android;3.16.0;appBuild/14448;"
 },
 ppgx: {
 	名称: "皮皮搞笑",
@@ -206,7 +206,7 @@ pdd: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "phh_android_version/4.91.0"
+	内容: " phh_android_version/5.51.0"
 },
 zol: {
 	名称: "中关村",
@@ -787,7 +787,7 @@ kuan: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " (#Build; GOOGLE; Google Pixel 3 XL; R11Plus_11_C.19; 9) +CoolMarket/11.0-beta6"
+	内容: " (#Build; GOOGLE; Google Pixel 3 XL; QPP5.190530.014; 10) +CoolMarket/11.0.3-beta1-2103041-universal"
 },
 kuanvn: {
 	名称: "酷安 VN",
@@ -1977,14 +1977,14 @@ qqapp: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["腾讯"],
-	内容: "V1_AND_SQ_8.5.0_1596_YYB_D QQ/8.5.0.5025 NetType/WIFI WebP/0.3.0 Pixel/1080 StatusBarHeight/80 SimpleUISwitch/1 QQTheme/2920 InMagicWin/0"
+	内容: "V1_AND_SQ_8.5.5_1630_YYB_DA_8050500 QQ/8.5.5.5105 NetType/WIFI WebP/0.3.0 Pixel/1080 StatusBarHeight/80 SimpleUISwitch/1 QQTheme/2920 InMagicWin/0"
 },
 weixin: {
 	名称: "微信",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["腾讯"],
-	内容: "MMWEBID/4268 MicroMessenger/7.0.21.1800(0x27001539) Process/toolsmp WeChat/arm64 NetType/WIFI Language/zh_CN ABI/arm64"
+	内容: "MMWEBID/4268 MicroMessenger/8.0.1.1841(0x2800015A) Process/toolsmp WeChat/arm64 Weixin NetType/WIFI Language/zh_CN ABI/arm64"
 },
 jiandanss: {
 	名称: "简单搜索",
@@ -2005,7 +2005,7 @@ tmapp: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["阿里"],
-	内容: "AliApp(TM/9.16.0) TTID/206200@tmall_android_9.16.0 T-UA=android_9.16.0_1080x1920_206200 TMANDROID/206200@tmall_android_9.16.0,UT4Aplus/0.2.16"
+	内容: "AliApp(TM/10.1.0) TTID/206200@tmall_android_10.1.0 T-UA=android_10.1.0_1080x1920_206200 TMANDROID/206200@tmall_android_10.1.0,UT4Aplus/0.2.16"
 },
 alibaba: {
 	名称: "阿里巴巴",
@@ -2132,5 +2132,12 @@ wxreadkindle: {
 	无缝: "不是",
 	标签: ["腾讯"],
 	内容: "Version/5.0 Kindle/3.0+"
+},
+zhifubao: {
+	名称: "支付宝",
+	前置: "不是",
+	无缝: "不是",
+	标签: ["阿里"],
+	内容: "AlipayDefined(nt:WIFI,ws:360|0|3.0,ac:sp) AliApp(AP/10.2.15.9500) AlipayClient/10.2.15.9500"
 },
 });
