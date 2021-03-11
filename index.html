@@ -1237,7 +1237,9 @@
 					uaData.indexSidebar1 = new IndexSidebar({
 						mounted: document.querySelector('#app')
 					});
-				};
+				} else {
+					_($(false,'#ajump'),true,'none');
+				}
 			}
 			
 			function makeFlaginBox() {
@@ -2075,11 +2077,8 @@
 			})();
 		</script>
 		<script>
-			window.onload = () => {
-				uaCode.util._(uaCode.util.$(false,'#ajump'),!uaData.touch,'none');
-				uaCode.init();
-			}
-			if ('serviceWorker' in navigator) {
+			window.onload = uaCode.init;
+			if ('serviceWorker' in navigator && window.location.href.slice(0,5)==="https") {
 				navigator.serviceWorker.register('svcWorker.js');
 			}
 		</script>
