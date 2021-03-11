@@ -6,7 +6,7 @@
 		<meta name="theme-color" content="#2b75c4">
 		<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; block-all-mixed-content;">
 		<title>Useragent 生成</title>
-		<script nonce='2b75c401'>
+		<script>
 			const uaData = {
 				base:{},
 				apps:{},
@@ -725,7 +725,7 @@
 			<p id="ajump" class="none"></p>
 		</div>
 		<div id="action">
-			<button onclick="(()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'})();">帮助</button>
+			<button onclick="(()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'})()">帮助</button>
 			<button onclick="uaCode.util.$_('app').forEach( check => { check.checked = false; })">清空选择</button>
 			<button onclick="uaCode.filter.sel(this)">列出已选</button>
 			<button onclick="uaCode.gen()">生成 UA</button>
@@ -739,8 +739,8 @@
 			<textarea id="useragent" placeholder="你想要的在这儿 ^_^" oninput="uaCode.check()"></textarea>
 			<div id="issues"></div>
 			<div id="action2">
-				<button onclick="(()=>{uaCode.util.$(false,'#useragent').value = '';})();">清空</button>
-				<button onclick="(()=>{uaCode.util.$(false,'#useragent').select();document.execCommand('copy');})();">复制</button>
+				<button onclick="(()=>{uaCode.util.$(false,'#useragent').value = '';})()">清空</button>
+				<button onclick="(()=>{uaCode.util.$(false,'#useragent').select();document.execCommand('copy');})()">复制</button>
 			</div>
 		</div>
 		<div id="class" class="none win">
@@ -750,8 +750,8 @@
 			</div>
 			<div id="classBox"></div>
 			<div id="action3">
-				<button onclick="(()=>{uaCode.util.$(true,'#classBox input:not(:checked)').forEach( box => { box.checked = true; uaCode.tagClick(box.parentNode.id,true);});})();">恢复</button>
-				<button onclick="(()=>{uaCode.util.$(true,'#classBox input').forEach( box => { box.checked = (box.checked===true) ? false : true; uaCode.tagClick(box.parentNode.id,true);});})();">反选</button>
+				<button onclick="(()=>{uaCode.util.$(true,'#classBox input:not(:checked)').forEach( box => { box.checked = true; uaCode.tagClick(box.parentNode.id,true);});})()">恢复</button>
+				<button onclick="(()=>{uaCode.util.$(true,'#classBox input').forEach( box => { box.checked = (box.checked===true) ? false : true; uaCode.tagClick(box.parentNode.id,true);});})()">反选</button>
 			</div>
 		</div>
 		<div id="addui" class="none win">
@@ -896,8 +896,8 @@
 				<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
 				<div class="savebtn">
 					<button id="ssave" onclick="uaCode.lsb.save()">保存数据</button>
-					<button onclick="(()=>{uaCode.util.$(false,'#stordata').select();document.execCommand('copy');})();">复制内容</button>
-					<button onclick="(()=>{uaCode.util.$(false,'#stordata').value = '';})();">清空内容</button>
+					<button onclick="(()=>{uaCode.util.$(false,'#stordata').select();document.execCommand('copy');})()">复制内容</button>
+					<button onclick="(()=>{uaCode.util.$(false,'#stordata').value = '';})()">清空内容</button>
 				</div>
 				<div class="savebtn">
 					<button onclick="uaCode.lsb.import()">导入数据</button>
@@ -920,7 +920,7 @@
 			</p>
 		</div>
 		<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
-		<script nonce='2b75c402'>
+		<script>
 		const uaCode = (() => {
 			let lab,cas,lah,ntx,loc,pos=[0,0];
 			function $(all,sel) {
@@ -1238,6 +1238,8 @@
 					uaData.indexSidebar1 = new IndexSidebar({
 						mounted: document.querySelector('#app')
 					});
+				} else {
+					_($(false,'#ajump'),true,'none');
 				};
 			}
 			
@@ -1982,7 +1984,7 @@
 			}
 		})();
 		</script>
-		<script nonce='2b75c403'>
+		<script>
 			window.onerror = function(e,a,l) {
 				alert(`错误: ${e}\n地址: ${a}\n行数: ${l}`);
 			}
@@ -2041,7 +2043,7 @@
 			}
 		</script>
 		<script src="数据列表.js"></script>
-		<script nonce='2b75c404'>
+		<script>
 			uaData.jslist.forEach( js => {
 				let script=document.createElement('script');
 				script.async = false;
@@ -2053,7 +2055,7 @@
 				document.querySelector("head").appendChild(script);
 			});
 		</script>
-		<script nonce='2b75c405'>
+		<script>
 			(() => {
 				const stor = window.localStorage;
 				uaCode.util.$(false,'#loadstr').innerHTML = '正在加载数据 ...';
@@ -2075,11 +2077,8 @@
 				}
 			})();
 		</script>
-		<script nonce='2b75c406'>
-			window.onload = () => {
-				uaCode.util._(uaCode.util.$(false,'#ajump'),!uaData.touch,'none');
-				uaCode.init();
-			}
+		<script>
+			window.onload =	uaCode.init;
 		</script>
 	</body>
 </html>
