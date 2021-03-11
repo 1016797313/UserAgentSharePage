@@ -4,8 +4,9 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="theme-color" content="#2b75c4">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; block-all-mixed-content;">
 		<title>Useragent 生成</title>
-		<script>
+		<script nonce='2b75c401'>
 			const uaData = {
 				base:{},
 				apps:{},
@@ -919,7 +920,7 @@
 			</p>
 		</div>
 		<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
-		<script>
+		<script nonce='2b75c402'>
 		const uaCode = (() => {
 			let lab,cas,lah,ntx,loc,pos=[0,0];
 			function $(all,sel) {
@@ -1981,7 +1982,7 @@
 			}
 		})();
 		</script>
-		<script>
+		<script nonce='2b75c403'>
 			window.onerror = function(e,a,l) {
 				alert(`错误: ${e}\n地址: ${a}\n行数: ${l}`);
 			}
@@ -2040,7 +2041,7 @@
 			}
 		</script>
 		<script src="数据列表.js"></script>
-		<script>
+		<script nonce='2b75c404'>
 			uaData.jslist.forEach( js => {
 				let script=document.createElement('script');
 				script.async = false;
@@ -2052,7 +2053,7 @@
 				document.querySelector("head").appendChild(script);
 			});
 		</script>
-		<script>
+		<script nonce='2b75c405'>
 			(() => {
 				const stor = window.localStorage;
 				uaCode.util.$(false,'#loadstr').innerHTML = '正在加载数据 ...';
@@ -2074,7 +2075,7 @@
 				}
 			})();
 		</script>
-		<script>
+		<script nonce='2b75c406'>
 			window.onload = () => {
 				uaCode.util._(uaCode.util.$(false,'#ajump'),!uaData.touch,'none');
 				uaCode.init();

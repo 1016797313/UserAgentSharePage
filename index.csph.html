@@ -4,8 +4,9 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="theme-color" content="#2b75c4">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-2b75c401' 'nonce-2b75c402' 'nonce-2b75c403' 'nonce-2b75c404' 'nonce-2b75c405' 'nonce-2b75c406' 'sha256-4nwlhdi/1vtOhVz02bmOeH5xJrsbW395eAF2/mlvlYE=' 'sha256-9+V06OHP07MIGYAxW0wxvAZ5wXfYk51CuirmkcVfNPo=' 'sha256-/g2om731T1jdB4Da6yE2dtqA2iVTokZXQOVXAW36wp4=' 'sha256-zSXnuI9Cv3va6Kv0tEzoOctworetHte6RIy13PQ2wmI=' 'sha256-hDpiWopk/eZxU7zwhcVaBbLy6m1MTEJVWG/hk3Qjbd4=' 'sha256-aFeFxy0misrCsJIrErxcjtTlFWCyttVW0oEmR9OdIA4=' 'sha256-BgfVJoRgv2WEz3of5BzTgtLsoxoT+H0O2nf7Fft35KU=' 'sha256-GSjyOuMEsZIpSMyhmACiNmjWh9Adr/lQx5R2aMjgZEk=' 'sha256-j6kD6rVpJnf8whM3DzVqG24+MSMsx+veRVNFeerFHy8=' 'sha256-9pCkIUCXvmFEEvqAtRUT+RhZ7pgRmuMySK95j//p+mI=' 'sha256-m8C/RR6zQTwch4q6l2VYQCV0iNHI8iODHTem/XYwR4E=' 'sha256-fEV/ON1v77ZbosNfE6p5/7nzQDRUNajqls6hkW4ge0o=' 'sha256-vtV5+ymQ/ZCSAVnQGvX//0fBNtMBL0IK/4E92Fu9cMQ=' 'sha256-um9YuQKKfkgXfPkmzj8aSKNnIsoA70CNTqOzuO69Lls=' 'sha256-iPiznCX/oFeH2+xL1XAG90vvbv9yPkGjMbH0+U7bHd4=' 'sha256-4nwlhdi/1vtOhVz02bmOeH5xJrsbW395eAF2/mlvlYE=' 'sha256-86GITZNbliY5l+16kubiq3fYPJ2TpcLimZROvdQQFg4=' 'sha256-kBQ0eai/e+/GEpfSYn1/jFUYhE5ePywEAdOHIqJ+4W8=' 'sha256-K91omxc6rxSPrrbTxqpj8rRApcCDkXM2epj0BVsPIGM=' 'sha256-7R7yH4fvKO6TIaQzwlzRaxIwQMhRkUge4us0S/mZSbU=' 'sha256-hg4+wJkWN2pEzj9FpexQr7unIZAuMblCAjbGVGMghs0=' 'sha256-tgdLenElkioslwjdGjG85/qJzdTZPJkCs69kKJlmOnM=' 'sha256-CChn2zULXNSNU+TW7aBtSnSV8Kk3PEX6nsBkDs21Dcs=' 'sha256-ZNvE9yiz6b90Lq53hac7Ctwv+pQcxUBfORrDtCnCFxA=' 'sha256-+oN4nUZXGyWNYRxOX4sKtIUM5Qvb650SieVOvRoMbbg=' 'sha256-9DVjBYJTC9xtj4Hd+dVHNLO5v6RyBQ80CtUgR+QtJGs=' 'sha256-osfMTmOly04jJFWqCfXz0tq0gS5X+rhz84qGIFPc7vg=' 'sha256-Tsrs8J7ooe5dz0nzxji42/JmBcMsqhr/jhH8qygjO5U=' 'sha256-qPZl3YTcG6MhReMfssJZd8yZFH6geS2tYyw7d7X+HGI=' 'sha256-Iu2ZmEVsSmLvYCAVRagYsXpoaSD9P4CNFAnulnmEHC8=' 'sha256-jmp40ot0C5JX7dM6Ik3vCirY17vKLsu8876sA+4q0Wc=' 'sha256-wo8P4zMjOEzwRmaz/1dbygWNYyPDW4zaKKyWuCc1Ots=' 'sha256-5RXAICeQ/iKPGprgNEEC7iQodEvg6V4p8rQBnQbfS3I='; style-src 'self' 'unsafe-inline'; block-all-mixed-content;">
 		<title>Useragent 生成</title>
-		<script>
+		<script nonce='2b75c401'>
 			const uaData = {
 				base:{},
 				apps:{},
@@ -696,26 +697,26 @@
 			<div class="setHead"><p>生成模式</p></div>
 			<div id="modeopt">
 				<div>
-					<label for="gen" tabindex="0" onkeydown="uaCode.util.check()">
+					<label for="gen" tabindex="0" onkeydown="uaCode.util.check()"> <!--vlYE=-->
 						<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked>
 						<span class="new-style new-radio"></span>生成
 					</label>
-					<label for="add" tabindex="0" onkeydown="uaCode.util.check()">
+					<label for="add" tabindex="0" onkeydown="uaCode.util.check()"> <!--vlYE=-->
 						<input id="add" type="radio" name="mode" value="add" class="orig-box">
 						<span class="new-style new-radio"></span>追加
 					</label>
 				</div>
 				<div>
-					<button id="openNew" onclick="uaCode.open(uaCode.util.$(false,'#addui'))">+</button>
-					<button id="openClass" onclick="uaCode.open(uaCode.util.$(false,'#class'))">标签筛选</button>
-					<button onclick="uaCode.open(uaCode.util.$(false,'#ua'))">打开窗口</button>
+					<button id="openNew" onclick="uaCode.open(uaCode.util.$(false,'#addui'))">+</button> <!--fNPo=-->
+					<button id="openClass" onclick="uaCode.open(uaCode.util.$(false,'#class'))">标签筛选</button> <!--6wp4=-->
+					<button onclick="uaCode.open(uaCode.util.$(false,'#ua'))">打开窗口</button> <!--2wmI=-->
 				</div>
 			</div>
 		</div>
 		<div id="searchbox">
 			<p id="version"></p>
 			<label for="search" class="none">在此输入搜索 APP ...</label>
-			<input id="search" name="search" type="text" placeholder="在此输入搜索 APP ..." oninput="uaCode.filter.app(this.value)">
+			<input id="search" name="search" type="text" placeholder="在此输入搜索 APP ..." oninput="uaCode.filter.app(this.value)"> <!--jbd4=-->
 		</div>
 		<div id="app">
 			<div id="app_container">
@@ -724,50 +725,50 @@
 			<p id="ajump" class="none"></p>
 		</div>
 		<div id="action">
-			<button onclick="(()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'})();">帮助</button>
-			<button onclick="uaCode.util.$_('app').forEach( check => { check.checked = false; })">清空选择</button>
-			<button onclick="uaCode.filter.sel(this)">列出已选</button>
-			<button onclick="uaCode.gen()">生成 UA</button>
+			<button onclick="(()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'})();">帮助</button> <!--dIA4=-->
+			<button onclick="uaCode.util.$_('app').forEach( check => { check.checked = false; })">清空选择</button> <!--35KU=-->
+			<button onclick="uaCode.filter.sel(this)">列出已选</button> <!--gZEK=-->
+			<button onclick="uaCode.gen()">生成 UA</button> <!--FHy8=-->
 		</div>
 		<div id="ua" class="none win">
 			<div class="titlebar">
 				<div class="title drag">UA 窗口</div>
-				<button class="close" onclick="this.parentNode.parentNode.classList.add('none')">关闭</button>
+				<button class="close" onclick="this.parentNode.parentNode.classList.add('none')">关闭</button> <!--p+mI=-->
 			</div>
 			<label for="useragent" class="none">UA 编辑框</label>
-			<textarea id="useragent" placeholder="你想要的在这儿 ^_^" oninput="uaCode.check()"></textarea>
+			<textarea id="useragent" placeholder="你想要的在这儿 ^_^" oninput="uaCode.check()"></textarea> <!--wR4E=-->
 			<div id="issues"></div>
 			<div id="action2">
-				<button onclick="(()=>{uaCode.util.$(false,'#useragent').value = '';})();">清空</button>
-				<button onclick="(()=>{uaCode.util.$(false,'#useragent').select();document.execCommand('copy');})();">复制</button>
+				<button onclick="(()=>{uaCode.util.$(false,'#useragent').value = '';})();">清空</button> <!--ge0o=-->
+				<button onclick="(()=>{uaCode.util.$(false,'#useragent').select();document.execCommand('copy');})();">复制</button> <!--9cMQ=-->
 			</div>
 		</div>
 		<div id="class" class="none win">
 			<div class="titlebar">
 				<div class="title drag">标签筛选</div>
-				<button class="close" onclick="this.parentNode.parentNode.classList.add('none')">关闭</button>
+				<button class="close" onclick="this.parentNode.parentNode.classList.add('none')">关闭</button> <!--p+mI=-->
 			</div>
 			<div id="classBox"></div>
 			<div id="action3">
-				<button onclick="(()=>{uaCode.util.$(true,'#classBox input:not(:checked)').forEach( box => { box.checked = true; uaCode.tagClick(box.parentNode.id,true);});})();">恢复</button>
-				<button onclick="(()=>{uaCode.util.$(true,'#classBox input').forEach( box => { box.checked = (box.checked===true) ? false : true; uaCode.tagClick(box.parentNode.id,true);});})();">反选</button>
+				<button onclick="(()=>{uaCode.util.$(true,'#classBox input:not(:checked)').forEach( box => { box.checked = true; uaCode.tagClick(box.parentNode.id,true);});})();">恢复</button> <!--9Lls=-->
+				<button onclick="(()=>{uaCode.util.$(true,'#classBox input').forEach( box => { box.checked = (box.checked===true) ? false : true; uaCode.tagClick(box.parentNode.id,true);});})();">反选</button> <!--bHd4=-->
 			</div>
 		</div>
 		<div id="addui" class="none win">
 			<div class="titlebar">
 				<div class="title drag">添加项目</div>
-				<button class="close" onclick="this.parentNode.parentNode.classList.add('none')">关闭</button>
+				<button class="close" onclick="this.parentNode.parentNode.classList.add('none')">关闭</button> <!--p+mI=-->
 			</div>
 			<div id="addtype">
-				<label tabindex="0" onkeydown="uaCode.util.check()">
+				<label tabindex="0" onkeydown="uaCode.util.check()"> <!--vlYE=-->
 					<input id="Raapp" type="radio" name="atype" value="aapp" class="orig-box" onchange="uaCode.aform.switchCard()" checked>
 					<span class="new-style new-radio"></span>APP
 				</label>
-				<label tabindex="0" onkeydown="uaCode.util.check()">
+				<label tabindex="0" onkeydown="uaCode.util.check()"> <!--vlYE=-->
 					<input id="Rqapp" type="radio" name="atype" value="qapp" class="orig-box" onchange="uaCode.aform.switchCard()">
 					<span class="new-style new-radio"></span>快应用
 				</label>
-				<label tabindex="0" onkeydown="uaCode.util.check()">
+				<label tabindex="0" onkeydown="uaCode.util.check()"> <!--vlYE=-->
 					<input id="Ratag" type="radio" name="atype" value="atag" class="orig-box" onchange="uaCode.aform.switchCard()">
 					<span class="new-style new-radio"></span>标签
 				</label>
@@ -919,7 +920,7 @@
 			</p>
 		</div>
 		<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
-		<script>
+		<script nonce='2b75c402'>
 		const uaCode = (() => {
 			let lab,cas,lah,ntx,loc,pos=[0,0];
 			function $(all,sel) {
@@ -1981,7 +1982,7 @@
 			}
 		})();
 		</script>
-		<script>
+		<script nonce='2b75c403'>
 			window.onerror = function(e,a,l) {
 				alert(`错误: ${e}\n地址: ${a}\n行数: ${l}`);
 			}
@@ -2040,7 +2041,7 @@
 			}
 		</script>
 		<script src="数据列表.js"></script>
-		<script>
+		<script nonce='2b75c404'>
 			uaData.jslist.forEach( js => {
 				let script=document.createElement('script');
 				script.async = false;
@@ -2052,7 +2053,7 @@
 				document.querySelector("head").appendChild(script);
 			});
 		</script>
-		<script>
+		<script nonce='2b75c405'>
 			(() => {
 				const stor = window.localStorage;
 				uaCode.util.$(false,'#loadstr').innerHTML = '正在加载数据 ...';
@@ -2074,7 +2075,7 @@
 				}
 			})();
 		</script>
-		<script>
+		<script nonce='2b75c406'>
 			window.onload = () => {
 				uaCode.util._(uaCode.util.$(false,'#ajump'),!uaData.touch,'none');
 				uaCode.init();

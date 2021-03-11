@@ -1,3 +1,6 @@
+if (uaData.touch) {
+	加入("数据",['indexSidebar.js']);
+}
 加入("数据",[
 "基础_良良.js",
 "UA_良良.js",
