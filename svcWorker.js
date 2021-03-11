@@ -9,6 +9,7 @@ var data = [
   ["T","./indexSidebar.js",2],
   ["O","../favicon.ico",2],
   ["D","./",21031120],
+  ["Z","./index_card.html",21031123],
 ];
 
 self.addEventListener('install', function(event) {
