@@ -51,9 +51,7 @@ self.addEventListener('fetch', function(event) {
 	  });
 	  return response.clone();
 	} else {
-	  let cached = caches.match(event.request);
-	  console.log(cached);
-	  return (cached) ? cached : unCachedBypass(event.request);
+	  return unCachedBypass(event.request);
 	}
   }));
 });
