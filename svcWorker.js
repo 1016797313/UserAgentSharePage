@@ -38,6 +38,7 @@ self.addEventListener('activate', function(event) {
 });
 
 function unCachedBypass(req) {
+	console.log(req);
 	let url = req.clone();
 	return fetch(url).then( function(resp) {
 		return resp;
