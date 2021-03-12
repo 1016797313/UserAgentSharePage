@@ -51,13 +51,10 @@ self.addEventListener('fetch', function(event) {
       });
       return response.clone();
 	}
-	return function(){
-		fetch(event.request).then(
-			return response.clone()
-		);
-	}
+	return response.clone();
   }).catch( e => {
 	console.log(e);
     return caches.match(event.request);
   }));
 });
+
