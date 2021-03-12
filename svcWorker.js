@@ -51,7 +51,7 @@ self.addEventListener('fetch', function(event) {
       });
       return response.clone();
 	}
-	return () => {
+	return function(){
 		fetch(event.request).then(
 			return response.clone()
 		);
