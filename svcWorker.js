@@ -9,7 +9,6 @@ var data = [
   ["T","./indexSidebar.js",2],
   ["O","../favicon.ico",2],
   ["D","./",21031120],
-  ["Z","./index_card.html",21031124],
 ];
 
 self.addEventListener('install', function(event) {
@@ -39,9 +38,11 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
+  console.log(event);
   event.respondWith(caches.match(event.request).catch( () => {
     return fetch(event.request);
   }).then( response => {
+	console.log(response);
     data.map ( d => {
       if ('.' + /\/+\w+\.+\w+$/.exec(event.request.url) == d[1]) {
         caches.open(`${d[0]}_${d[2]}`).then( cache => {
@@ -50,7 +51,8 @@ self.addEventListener('fetch', function(event) {
       }
     });
     return response.clone();
-  }).catch(function() {
+  }).catch( e => {
+	console.log(e);
     return caches.match(event.request);
   }));
 });

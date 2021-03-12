@@ -34,7 +34,7 @@
 					"orange",    // 检查失败
 					"red",       // 数据为空
 					],
-					测试模式:false,
+					测试模式:true,
 					前置记号:"^",
 					无缝记号:"~",
 				}
@@ -122,9 +122,14 @@
 				border-radius: 10px;
 			}
 			#classBox .flag,
-			.classBox .sflag {
+			.classBox .flag {
 				padding: 0 4px;
 				margin: 0 2px;
+				box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
+			}
+			#app .flag {
+				margin: 1.5px 2px;
+				box-shadow: 0 0 3px white inset;
 			}
 			#classBox input,
 			.classBox input {
@@ -192,12 +197,14 @@
 				display: -webkit-box;
 				display: flex;
 				color: #2b75c4;
-				-webkit-box-align: center;
-				        align-items: center;
+				-webkit-box-align: end;
+				        align-items: end;
 			}
 			#app label i {
 				margin-left: .25em;
 				color: #2b75c4;
+				opacity: .5;
+				font-family: monospace;
 			}
 			.CaseHead {
 				font-size: .75em;
@@ -335,7 +342,9 @@
 				margin: 5px .5em;
 			}
 			#search {
-				width: calc(100% - 1.1em);
+				width: 100%;
+				box-shadow: none;
+				padding: 2px 0;
 			}
 			#version {
 				font-size: .5em;
@@ -355,10 +364,8 @@
 			}
 			.flag {
 				font-size: .75em;
-				box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
-				margin: 0 2px;
+				font-weight: bold;
 				padding: 1px 5px;
-				vertical-align: 2px;
 				-webkit-user-select: none;
 				   -moz-user-select: none;
 				        user-select: none;
