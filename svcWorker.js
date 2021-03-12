@@ -38,9 +38,7 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  console.log(event);
   event.respondWith(caches.match(event.request).then( response => {
-	console.log(response);
 	if (response!==undefined) {
 	  data.map ( d => {
 	    if ('.' + /\/+\w+\.+\w+$/.exec(event.request.url) == d[1]) {
@@ -57,7 +55,6 @@ self.addEventListener('fetch', function(event) {
 });
 
 function unCachedBypass(req) {
-	console.log(req);
 	let url = req.clone();
 	return fetch(url).then( function(resp) {
 		return resp;
