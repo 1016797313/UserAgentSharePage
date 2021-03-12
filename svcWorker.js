@@ -49,17 +49,18 @@ self.addEventListener('fetch', function(event) {
   console.log(event);
   event.respondWith(caches.match(event.request).then( response => {
 	console.log(response);
-	data.map ( d => {
-	  if ('.' + /\/+\w+\.+\w+$/.exec(event.request.url) == d[1]) {
-		caches.open(`${d[0]}_${d[2]}`).then( cache => {
-		  cache.put(event.request, response);
-		});
-	  }
-	});
-	return response.clone();
-  }).catch( e => {
-	console.log(e);
-	let cache = caches.match(event.request);
-	return (cache) ? cache : unCachedBypass(event.request);
+	if (response) {
+	  data.map ( d => {
+	    if ('.' + /\/+\w+\.+\w+$/.exec(event.request.url) == d[1]) {
+		  caches.open(`${d[0]}_${d[2]}`).then( cache => {
+		    cache.put(event.request, response);
+		  });
+	    }
+	  });
+	  return response.clone();
+	} else {
+	  let cached = caches.match(event.request);
+	  return (cached) ? cached : unCachedBypass(event.request);
+	}
   }));
 });
