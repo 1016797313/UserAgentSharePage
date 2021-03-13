@@ -50,7 +50,7 @@
 				--input-check-err: orange;
 				--input-check-null: red;
 				--data-need-save: orange;
-				--tag-filtered: #ad0046;
+				--tag-filtered: #00ad46;
 				--shadow-big: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
 				--shadow-small: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 3px 1px rgba(0,0,0,0.12);
 			}
@@ -61,6 +61,7 @@
 			textarea {
 				background-color: var(--theme-color-d);
 				color: var(--theme-color-a);
+				caret-color: var(--theme-color-a);
 				font-family: monospace;
 				border: 1px solid var(--theme-color-e);
 				padding: 5px;
@@ -117,6 +118,7 @@
 			#app {
 				margin-bottom: 8px;
 				background: var(--theme-color-b);
+				box-shadow: var(--shadow-big);
 			}
 			.win {
 				font-size: 1em;
@@ -266,9 +268,6 @@
 				-webkit-box-pack: justify;
 				        justify-content: space-between;
 			}
-			#action {
-				margin: 0 .5em;
-			}
 			.orig-box {
 				display: none;
 			}
@@ -331,6 +330,7 @@
 				border-bottom: 1px solid var(--input-check-ready);
 				background-color:transparent;
 				color: var(--theme-color-a);
+				caret-color: var(--theme-color-a);
 				font-family: monospace;
 				padding: 2px 6px;
 				display: block;
@@ -341,6 +341,10 @@
 			::-webkit-input-placeholder {
 				color: var(--theme-color-a);
 				opacity: .5;
+			}
+			::selection {
+				background-color:var(--theme-color-a);
+				color:var(--theme-color-c);
 			}
 			button {
 				background-color:var(--theme-color-a);
@@ -397,7 +401,7 @@
 			#action3 > *,
 			#classBox,
 			#useragent {
-				margin: 3px;
+				margin: 3px 4px;
 			}
 			.classPart > * {
 				margin: 3px 0;
@@ -717,6 +721,7 @@
 					--theme-color-d: #353535;
 					--theme-color-e: transparent;
 					--theme-color-f: black;
+					--data-need-save: orangered;
 					--shadow-big: 0 0 5px 3px rgba(40,120,200,0.5);
 					--shadow-small: none;
 				}
@@ -744,7 +749,6 @@
 						</label>
 					</div>
 					<div>
-						<button id="openNew" onclick="uaCode.open(uaCode.util.$(false,'#addui'))">+</button>
 						<button id="openClass" onclick="uaCode.open(uaCode.util.$(false,'#class'))">标签筛选</button>
 						<button onclick="uaCode.open(uaCode.util.$(false,'#ua'))">打开窗口</button>
 					</div>
@@ -764,6 +768,7 @@
 		<div id="action">
 			<button onclick="(()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'})()">帮助</button>
 			<button onclick="uaCode.util.$_('app').forEach( check => { check.checked = false; })">清空选择</button>
+			<button id="openNew" onclick="uaCode.open(uaCode.util.$(false,'#addui'))">+</button>
 			<button onclick="uaCode.filter.sel(this)">列出已选</button>
 			<button onclick="uaCode.gen()">生成 UA</button>
 		</div>

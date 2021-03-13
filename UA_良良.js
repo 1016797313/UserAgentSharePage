@@ -1979,7 +1979,7 @@ qqapp: {
 	标签: ["腾讯"],
 	内容: "V1_AND_SQ_8.5.5_1630_YYB_DA_8050500 QQ/8.5.5.5105 NetType/WIFI WebP/0.3.0 Pixel/1080 StatusBarHeight/80 SimpleUISwitch/1 QQTheme/2920 InMagicWin/0"
 },
-weixin: {
+wxapp: {
 	名称: "微信",
 	前置: "不是",
 	无缝: "不是",
