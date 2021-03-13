@@ -40,10 +40,12 @@
 				--theme-color-a: #2b75c4;
 				--theme-color-b: white;
 				--theme-color-c: white; /* 反色前景色 */
-				--theme-color-d: white; /* 选框 文本框 背景色 */
+				--theme-color-d: transparent; /* 选框 文本框 背景色 */
+				--theme-color-e: lightgray; /* 选框 边框颜色 */
+				--theme-color-f: white; /* 页面背景色 */
 				--theme-color-close: red;
 				--theme-color-close-text: white;
-				--input-check-ready: #2b75c4;
+				--input-check-ready: lightgray;
 				--input-check-ok: green;
 				--input-check-err: orange;
 				--input-check-null: red;
@@ -54,14 +56,18 @@
 			}
 			body {
 				font-size: 16px;
+				background-color: var(--theme-color-f);
 			}
 			textarea {
 				background-color: var(--theme-color-d);
 				color: var(--theme-color-a);
 				font-family: monospace;
-				border: 1px solid var(--theme-color-a);
+				border: 1px solid var(--theme-color-e);
 				padding: 5px;
 				display: block;
+			}
+			textarea:focus {
+				border-color: var(--theme-color-a);
 			}
 			body > div {
 				margin: 0 .5em;
@@ -103,13 +109,10 @@
 				overflow: hidden;
 				display: -webkit-box;
 				display: flex;
-				box-shadow: var(--shadow-big);
 			}
-			#base {
-				margin-bottom: -1px;
-			}
-			#mode {
+			#option {
 				margin-bottom: 4px;
+				box-shadow: var(--shadow-big);
 			}
 			#app {
 				margin-bottom: 8px;
@@ -134,7 +137,6 @@
 			.classBox .flag {
 				padding: 0 4px;
 				margin: 0 2px;
-				transition: opacity .25s;
 				box-shadow: var(--shadow-small);
 			}
 			#app .flag {
@@ -195,8 +197,7 @@
 				display: -webkit-box;
 				display: flex;
 			}
-			#base label,
-			#mode label,
+			#option label,
 			#classBox label,
 			.classBox label,
 			#tclsbox {
@@ -273,8 +274,7 @@
 			}
 			.new-style {
 				background-color:var(--theme-color-d);
-				transition:background-color .25s;
-				border: 1px solid var(--theme-color-a);
+				border: 1px solid var(--theme-color-e);
 				border-radius:100%;
 				width:16px;
 				height:16px;
@@ -299,6 +299,7 @@
 			}
 			.orig-box:checked + .new-style {
 				background-color: var(--theme-color-a);
+				border-color: var(--theme-color-a);
 			}
 			.orig-box:checked + .new-style:after {
 				background-color:var(--theme-color-c);
@@ -327,12 +328,15 @@
 			}
 			input[type=text] {
 				border: none;
-				border-bottom: 1px solid transparent;
+				border-bottom: 1px solid var(--input-check-ready);
 				background-color:transparent;
 				color: var(--theme-color-a);
 				font-family: monospace;
 				padding: 2px 6px;
 				display: block;
+			}
+			input[type=text]:focus {
+				border-color: var(--theme-color-a);
 			}
 			::-webkit-input-placeholder {
 				color: var(--theme-color-a);
@@ -346,7 +350,7 @@
 				font-weight:bold;
 				padding:3px 1em;
 				margin:0 2px;
-				box-shadow:var(--shadow-big);
+				box-shadow:var(--shadow-small);
 			}
 			#searchbox {
 				position: relative;
@@ -604,8 +608,11 @@
 				min-width: 14em;
 				background: var(--theme-color-b);
 				border: none;
-				border-bottom: 1px solid transparent;
+				border-bottom: 1px solid var(--input-check-ready);
 				padding: 2px 6px;
+			}
+			#tkds:focus-within {
+				border-color: var(--theme-color-a);
 			}
 			#tkds > span {
 				display: block;
@@ -703,14 +710,13 @@
 				}
 			}
 			@media (prefers-color-scheme: dark) {
-				body {
-					background-color: black;
-				}
 				:root {
 					--theme-color-a: #2b75c4;
 					--theme-color-b: #282828;
 					--theme-color-c: lightgray;
 					--theme-color-d: #353535;
+					--theme-color-e: transparent;
+					--theme-color-f: black;
 					--shadow-big: 0 0 5px 3px rgba(40,120,200,0.5);
 					--shadow-small: none;
 				}
@@ -719,27 +725,29 @@
 	</head>
 	<body>
 		<p id="version"></p>
-		<div id="base">
-			<div class="setHead"><p>基础 UA</p></div>
-			<div id="baseopt"></div>
-		</div>
-		<div id="mode">
-			<div class="setHead"><p>生成模式</p></div>
-			<div id="modeopt">
-				<div>
-					<label for="gen" tabindex="0" onkeydown="uaCode.util.check()">
-						<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked>
-						<span class="new-style new-radio"></span>生成
-					</label>
-					<label for="add" tabindex="0" onkeydown="uaCode.util.check()">
-						<input id="add" type="radio" name="mode" value="add" class="orig-box">
-						<span class="new-style new-radio"></span>追加
-					</label>
-				</div>
-				<div>
-					<button id="openNew" onclick="uaCode.open(uaCode.util.$(false,'#addui'))">+</button>
-					<button id="openClass" onclick="uaCode.open(uaCode.util.$(false,'#class'))">标签筛选</button>
-					<button onclick="uaCode.open(uaCode.util.$(false,'#ua'))">打开窗口</button>
+		<div id="option">
+			<div id="base">
+				<div class="setHead"><p>基础 UA</p></div>
+				<div id="baseopt"></div>
+			</div>
+			<div id="mode">
+				<div class="setHead"><p>生成模式</p></div>
+				<div id="modeopt">
+					<div>
+						<label for="gen" tabindex="0" onkeydown="uaCode.util.check()">
+							<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked>
+							<span class="new-style new-radio"></span>生成
+						</label>
+						<label for="add" tabindex="0" onkeydown="uaCode.util.check()">
+							<input id="add" type="radio" name="mode" value="add" class="orig-box">
+							<span class="new-style new-radio"></span>追加
+						</label>
+					</div>
+					<div>
+						<button id="openNew" onclick="uaCode.open(uaCode.util.$(false,'#addui'))">+</button>
+						<button id="openClass" onclick="uaCode.open(uaCode.util.$(false,'#class'))">标签筛选</button>
+						<button onclick="uaCode.open(uaCode.util.$(false,'#ua'))">打开窗口</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -940,11 +948,11 @@
 			<p id="loadstr">正在加载...</p>
 			<p id="browstr">
 				这个页面至少需要:<br>
-				Chrome 51<br>
+				Chrome 60<br>
 				Edge 79<br>
 				Firefox 52<br>
 				Safari 11<br>
-				Opera 38<br>
+				Opera 47<br>
 				不支持 Internet Explorer !
 			</p>
 		</div>
@@ -1576,9 +1584,9 @@
 			function aform_Clear() {
 				$(true,'#addtable input[type="text"]').forEach( i => {
 					i.value = "";
-					i.style.borderColor = __('input-check-ready');
+					i.style.removeProperty('border-color');
 				});
-				$(false,'#tkds').style.borderColor = __('input-check-ready');
+				$(false,'#tkds').style.removeProperty('border-color');;
 				$(true,".classBox input").forEach( c => { c.checked = false; });
 				$(true,".classBox .flag").forEach( f => { f.style.opacity = .5; });
 				$(true,".classPart label").forEach( t => { _(t,false,"none"); });
@@ -1593,7 +1601,7 @@
 			function aform_Check(type) {
 				let a = true;
 				$(true,`#${type}t input[type="text"]`).forEach( i => {
-					i.style.borderColor = __('input-check-ready');
+					i.style.removeProperty('border-color');;
 					if (getComputedStyle(i).display!=="none" &&
 						getComputedStyle(i.parentNode).display!=="none" && 
 						i.value==="") {
@@ -1624,7 +1632,7 @@
 					return false;
 				}
 				if (key==="") {
-					bor.style.borderColor = __('input-check-ready');
+					bor.style.removeProperty('border-color');;
 					return false;
 				} else if (!test.test(key)) {
 					bor.style.borderColor = __('input-check-err');
@@ -2067,21 +2075,27 @@
 		</script>
 		<script src="数据列表.js"></script>
 		<script>
-			uaData.jslist.forEach( js => {
-				let script=document.createElement('script');
-				script.async = false;
-				script.src = js;
-				script.onerror = e => {
-					uaCode.util.toast(js + " 加载失败");
-					window.stop();
-				}
-				document.querySelector("head").appendChild(script);
-			});
-		</script>
-		<script>
-			(() => {
+			let uaDataLoading = new Promise( (resolve,reject) => {
+				uaCode.util.$(false,'#loadstr').innerHTML = (uaData.jslist.length===0) ?
+					'数据列表加载失败 !' : '正在加载基本数据 ...';
+				uaData.jslist.forEach( js => {
+					let script=document.createElement('script');
+					script.async = false;
+					script.src = js;
+					script.onerror = e => {
+						uaCode.util.$(false,'#loadstr').innerHTML = '数据加载失败 !';
+						uaCode.util.toast(js + " 加载失败");
+						window.stop();
+					};
+					script.onload = e => {
+						uaData.jslist.splice(uaData.jslist.findIndex( v => v === js ),1);
+						if (uaData.jslist.length===0) { resolve(); }
+					}
+					document.querySelector("head").appendChild(script);
+				});
+			}).then( () => {
 				const stor = window.localStorage;
-				uaCode.util.$(false,'#loadstr').innerHTML = '正在加载数据 ...';
+				uaCode.util.$(false,'#loadstr').innerHTML = '正在加载自定义数据 ...';
 				if (stor.hasOwnProperty(uaData.storKey)) {
 					try {
 						let data = JSON.parse(stor.getItem(uaData.storKey));
@@ -2098,10 +2112,8 @@
 						stor.removeItem(uaData.storKey);
 					}
 				}
-			})();
-		</script>
-		<script>
-			window.onload = uaCode.init;
+			}
+		).then(uaCode.init);
 // 			if ('serviceWorker' in navigator && window.location.href.slice(0,5)==="https") {
 // 				navigator.serviceWorker.register('svcWorker.js');
 // 			}
