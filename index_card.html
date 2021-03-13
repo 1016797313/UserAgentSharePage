@@ -26,14 +26,6 @@
 					代码版本:"5.0 Beta 10",
 					基础默认:1,
 					数字记号:"#",
-					标签筛选开启:"#00ad46",
-					数据未保存:"orange",
-					输入框检查:[
-					"lightgray", // 未检查
-					"green",     // 检查成功
-					"orange",    // 检查失败
-					"red",       // 数据为空
-					],
 					测试模式:false,
 					前置记号:"^",
 					无缝记号:"~",
@@ -44,16 +36,32 @@
 			:focus {
 				outline: none;
 			}
+			:root {
+				--theme-color-a: #2b75c4;
+				--theme-color-b: white;
+				--theme-color-c: white; /* 反色前景色 */
+				--theme-color-d: white; /* 选框 文本框 背景色 */
+				--theme-color-close: red;
+				--theme-color-close-text: white;
+				--input-check-ready: lightgray;
+				--input-check-ok: green;
+				--input-check-err: orange;
+				--input-check-null: red;
+				--data-need-save: orange;
+				--tag-filtered: #ad0046;
+				--shadow-big: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
+				--shadow-small: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 3px 1px rgba(0,0,0,0.12);
+			}
 			body {
 				font-size: 16px;
 			}
 			textarea {
-				color: #2b75c4;
+				background-color: var(--theme-color-d);
+				color: var(--theme-color-a);
 				font-family: monospace;
-				border: 1px solid transparent;
+				border: 1px solid var(--theme-color-a);
 				padding: 5px;
 				display: block;
-				box-shadow: 0 0 5px 0 rgba(0,0,0,0.14) inset;
 			}
 			body > div {
 				margin: 0 .5em;
@@ -68,7 +76,7 @@
 			}
 			a {
 				text-decoration: none;
-				color: black;
+				color: var(--theme-color-c);
 				font-family: monospace;
 				margin: 0 1px;
 				font-size: .7em;
@@ -87,7 +95,7 @@
 				position: absolute;
 				top: 0;
 				left: 0;
-				background-color: white;
+				background-color: var(--theme-color-b);
 				font-weight: bold;
 				margin: 0;
 			}
@@ -95,7 +103,7 @@
 				overflow: hidden;
 				display: -webkit-box;
 				display: flex;
-				box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
+				box-shadow: var(--shadow-big);
 			}
 			#base {
 				margin-bottom: -1px;
@@ -105,17 +113,18 @@
 			}
 			#app {
 				margin-bottom: 8px;
+				background: var(--theme-color-b);
 			}
 			.win {
 				font-size: 1em;
 				position: absolute;
 				top: 0;
 				left: 0;
-				background: white;
+				background: var(--theme-color-b);
 				margin: 0;
 				padding-bottom: 2px;
-				-webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
-				        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
+				-webkit-box-shadow: var(--shadow-big);
+				        box-shadow: var(--shadow-big);
 			}
 			#classBox,.classBox {
 				padding: 3px;
@@ -125,11 +134,12 @@
 			.classBox .flag {
 				padding: 0 4px;
 				margin: 0 2px;
-				box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
+				transition: opacity .25s;
+				box-shadow: var(--shadow-small);
 			}
 			#app .flag {
 				margin: 1.5px 2px;
-				box-shadow: 0 0 3px white inset;
+				box-shadow: var(--shadow-small);
 				line-height: 1.5em;
 			}
 			#classBox input,
@@ -137,8 +147,8 @@
 				display: none;
 			}
 			.setHead {
-				background: #2b75c4;
-				color: white;
+				background: var(--theme-color-a);
+				color: var(--theme-color-c);
 				font-size: 12px;
 				display: -webkit-box;
 				display: flex;
@@ -157,15 +167,15 @@
 				-webkit-box-pack: justify;
 				        justify-content: space-between;
 				width: 7px;
-				background-color: lightgray;
 				margin: 0;
 				padding: 3px;
+				background: var(--theme-color-a);
 			}
 			#baseopt,#modeopt {
 				line-height: 22px;
 				width: 100%;
-				background: white;
-				color: #2b75c4;
+				background: var(--theme-color-b);
+				color: var(--theme-color-a);
 				font-size: 13px;
 			}
 			#baseopt {
@@ -197,28 +207,28 @@
 				margin-left: .5em;
 				display: -webkit-box;
 				display: flex;
-				color: #2b75c4;
+				color: var(--theme-color-a);
 				-webkit-box-align: end;
 				        align-items: flex-end;
 			}
 			#app label i {
 				margin-left: .25em;
-				color: #2b75c4;
+				color: var(--theme-color-a);
 				opacity: .5;
 				font-family: monospace;
 			}
 			.CaseHead {
 				font-size: .75em;
 				font-weight: bold;
-				background: #2b75c4;
-				color: white;
+				background: var(--theme-color-a);
+				color: var(--theme-color-c);
 				padding-left: 5px;
 			}
 			.sideBar {
 				width: 15px;
 				padding: 3px;
-				background: #2b75c4;
-				color: white;
+				background: var(--theme-color-a);
+				color: var(--theme-color-c);
 			}
 			div.sideBar > div {
 				text-align: center;
@@ -239,8 +249,8 @@
 				-webkit-transition: opacity .3s ease, top .1s linear;
 				-o-transition: opacity .3s ease, top .1s linear;
 				transition: opacity .3s ease, top .1s linear;
-				color:#eee;
-				background-color: #2b75c4;
+				color:var(--theme-color-c);
+				background-color: var(--theme-color-a);
 				border-radius:100%;
 			}
 			#app_container {
@@ -262,8 +272,9 @@
 				display: none;
 			}
 			.new-style {
-				background-color:white;
-				border:1px solid rgba(0,0,0,0.15);
+				background-color:var(--theme-color-d);
+				transition:background-color .25s;
+				border: 1px solid var(--theme-color-a);
 				border-radius:100%;
 				width:16px;
 				height:16px;
@@ -287,10 +298,10 @@
 				display:inline-block;
 			}
 			.orig-box:checked + .new-style {
-				border: 1px solid #2b75c4;
+				background-color: var(--theme-color-a);
 			}
 			.orig-box:checked + .new-style:after {
-				background-color:#2b75c4;
+				background-color:var(--theme-color-c);
 				border-radius:100%;
 				content:"";
 				height:9px;
@@ -301,9 +312,9 @@
 				align-self: center;
 			}
 			.orig-box:checked + .new-check.new-style::after {
+				border-color:var(--theme-color-c);
 				width: 5px;
 				height: 9px;
-				border-color: #2b75c4;
 				border-style: solid;
 				border-width: 0 3px 3px 0;
 				border-radius: 0;
@@ -315,28 +326,26 @@
 				float: right;
 			}
 			input[type=text] {
-				box-shadow: 0 0 3px 0 rgba(0,0,0,0.14) inset;
-				border: 1px solid transparent;
-				color: #2b75c4;
+				border: none;
+				border-bottom: 1px solid transparent;
+				background-color:transparent;
+				color: var(--theme-color-a);
 				font-family: monospace;
 				padding: 2px 6px;
 				display: block;
 			}
+			input[type=text]::-webkit-input-placeholder {
+				color: var(--theme-color-a);
+			}
 			button {
-				background-color:#2b75c4;
+				background-color:var(--theme-color-a);
 				border:1px solid transparent;
-				color:#ffffff;
+				color:var(--theme-color-c);
 				font-size:.75em;
 				font-weight:bold;
 				padding:3px 1em;
 				margin:0 2px;
-				box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
-			}
-			button:focus {
-				background-color:#4e92d0;
-			}
-			button:hover {
-				background-color:#1e62d0;
+				box-shadow:var(--shadow-big);
 			}
 			#searchbox {
 				position: relative;
@@ -344,12 +353,12 @@
 			}
 			#search {
 				width: 100%;
-				box-shadow: none;
 				padding: 2px 0;
+				border: 1px solid transparent;
 			}
 			#version {
 				font-size: .5em;
-				color: #2b75c4;
+				color: var(--theme-color-a);
 				text-align: right;
 				margin: 2px 1em;
 			}
@@ -400,7 +409,7 @@
 				display: inline-flex;
 				vertical-align: middle;
 				line-height: 1.25em;
-				color: #2b75c4;
+				color: var(--theme-color-a);
 			}
 			.atab > label b,
 			#addsave label b,
@@ -411,7 +420,7 @@
 				min-width:5em;
 				margin: 2px .25em;
 				font-size: .9em;
-				color: #2b75c4;
+				color: var(--theme-color-a);
 			}
 			.classPart > label b {
 				margin: 0 .45em 0 calc(.25em - 3px);
@@ -438,16 +447,16 @@
 				font-size: 16px;
 			}
 			.msel {
-				color: white;
-				background: #2b75c4;
+				color: var(--theme-color-c);
+				background: var(--theme-color-a);
 				width: 80%;
 				min-width: 14em;
-				border-radius: 20px;
 				-webkit-appearance: none;
 				-moz-appearance: none;
 				     appearance: none;
 				border: none;
-				padding: 0 8px 2px;
+				padding: 0 2px 2px;
+				box-shadow:var(--shadow-big);
 			}
 			@-webkit-keyframes toast {
 				0% {
@@ -491,8 +500,8 @@
 				padding: .5em 1em;
 				font-size: .75em;
 				font-weight: bold;
-				background-color: #2b75c4;
-				color: white;
+				background-color: var(--theme-color-a);
+				color: var(--theme-color-c);
 				text-align: center;
 				z-index: 10;
 			}
@@ -508,8 +517,8 @@
 				width: 100%;
 				display: -webkit-box;
 				display: flex;
-				background: #2b75c4;
-				color: white;
+				background: var(--theme-color-a);
+				color: var(--theme-color-c);
 				font-size: .75em;
 				font-weight: bold;
 			}
@@ -522,19 +531,14 @@
 				        user-select: none;
 			}
 			.win .close {
-				background-color: red;
+				background-color: var(--theme-color-close);
+				color: var(--theme-color-close-text);
 				font-size: 1em;
 				border-radius: 0;
 				border: 0;
 				margin: 0;
 				width: 5em;
 				box-shadow: none;
-			}
-			.win .close:hover {
-				background-color: darkred;
-			}
-			.win .close:focus {
-				background-color: rgba(255,128,128,1);
 			}
 			@-webkit-keyframes load-finish {
 				0% {
@@ -563,7 +567,7 @@
 				top: 0;
 				left: 0;
 				z-index: 9;
-				background-color: white;
+				background-color: var(--theme-color-b);
 				opacity: 100%;
 				margin: 0;
 			}
@@ -590,17 +594,17 @@
 				border: none;
 				height: 100%;
 				box-shadow: none;
-				color: #2b75c4;
+				color: var(--theme-color-a);
 				font-family: monospace;
 			}
 			#tkds {
 				width: 80%;
 				font-size: 13.3333px;
 				min-width: 14em;
-				background: white;
-				border: 1px solid transparent;
+				background: var(--theme-color-b);
+				border: none;
+				border-bottom: 1px solid transparent;
 				padding: 2px 6px;
-				box-shadow: 0 0 3px 0 rgba(0,0,0,0.14) inset;
 			}
 			#tkds > span {
 				display: block;
@@ -613,9 +617,8 @@
 			}
 			#issues {
 				margin: 0 3px;
-				background-color: cornflowerblue;
-				border-radius: 5px;
-				color: white;
+				background-color: var(--theme-color-a);
+				color: var(--theme-color-c);
 				overflow-y: scroll;
 				max-height: 8em;
 			}
@@ -697,22 +700,21 @@
 					top: 4em;
 					margin-left: 5em;
 				}
-			}/*
+			}
 			@media (prefers-color-scheme: dark) {
 				body {
-					-webkit-filter: hue-rotate(180deg) invert(1);
-							filter: hue-rotate(180deg) invert(1);
 					background-color: black;
 				}
-				#version,#baseopt,#modeopt,#search {
-					color: black;
+				:root {
+					--theme-color-a: #2b75c4;
+					--theme-color-b: #282828;
+					--theme-color-c: lightgray;
+					--theme-color-d: #353535;
+					--input-check-ready: #2b75c4;
+					--shadow-big: 0 0 5px 3px rgba(40,120,200,0.5);
+					--shadow-small: none;
 				}
-				
-				.win {
-					-webkit-backdrop-filter: none;
-							backdrop-filter: none;
-				}
-			}*/
+			}
 		</style>
 	</head>
 	<body>
@@ -965,6 +967,10 @@
 				} else {
 					ele.classList.add(nclass);
 				}
+			}
+			
+			function __(prop) {
+				return getComputedStyle(document.documentElement).getPropertyValue('--' + prop);
 			}
 			
 			function getUpperHead(word) {
@@ -1450,7 +1456,7 @@
 				flag.style.opacity = (box.checked) ? 1 : .5;
 				if (flt) {
 					fltAppUATag(id.slice(1),box.checked);
-					$(false,'#openClass').style.backgroundColor = ($(true,'#classBox input:not(:checked)').length===0) ? '' : uaData.设置.标签筛选开启;
+					$(false,'#openClass').style.backgroundColor = ($(true,'#classBox input:not(:checked)').length===0) ? '' : __('tag-filtered');
 				}
 			}
 			
@@ -1570,9 +1576,9 @@
 			function aform_Clear() {
 				$(true,'#addtable input[type="text"]').forEach( i => {
 					i.value = "";
-					i.style.borderColor = uaData.设置.输入框检查[0];
+					i.style.borderColor = __('input-check-ready');
 				});
-				$(false,'#tkds').style.borderColor = uaData.设置.输入框检查[0];
+				$(false,'#tkds').style.borderColor = __('input-check-ready');
 				$(true,".classBox input").forEach( c => { c.checked = false; });
 				$(true,".classBox .flag").forEach( f => { f.style.opacity = .5; });
 				$(true,".classPart label").forEach( t => { _(t,false,"none"); });
@@ -1587,14 +1593,14 @@
 			function aform_Check(type) {
 				let a = true;
 				$(true,`#${type}t input[type="text"]`).forEach( i => {
-					i.style.borderColor = uaData.设置.输入框检查[0];
+					i.style.borderColor = __('input-check-ready');
 					if (getComputedStyle(i).display!=="none" &&
 						getComputedStyle(i.parentNode).display!=="none" && 
 						i.value==="") {
 						if (i.id==="tkey") {
-							$(false,'#tkds').style.borderColor = uaData.设置.输入框检查[3];
+							$(false,'#tkds').style.borderColor = __('input-check-null');
 						} else {
-							i.style.borderColor = uaData.设置.输入框检查[3];
+							i.style.borderColor = __('input-check-null');
 						}
 						a = false;
 					}
@@ -1605,37 +1611,27 @@
 			function aform_KeyCheck(toast) {
 				const type = aform_tType($_('atype').value), test = /^\w+$/u;
 				let inp = $(false,`#${type}key`), key = inp.value,
-					bor = (type==="t") ? $(false,'#tkds') : inp;
-				if (!test.test(key)) {
-					bor.style.borderColor = uaData.设置.输入框检查[2];
-					if(toast){ uaCode.util.toast('输入错误'); }
+					bor = (type==="t") ? $(false,'#tkds') : inp,
+					src = (type==="t") ? 'flag' : 'apps';
+				if (type==='t' && key.slice(0,1)==="_") {
+					bor.style.borderColor = __('input-check-err');
+					if(toast){ uaCode.util.toast('"_" 开头用于自定义标签'); }
 					return false;
 				}
-				switch (type) {
-					case "t":
-						if (key in uaData.flag||key in uaData.stor.flag) {
-							bor.style.borderColor = uaData.设置.输入框检查[2];
-							if(toast){ uaCode.util.toast('标识重复'); }
-							return false;
-						} else if (key.slice(0,1)==="_") {
-							bor.style.borderColor = uaData.设置.输入框检查[2];
-							if(toast){ uaCode.util.toast('"_" 开头用于自定义标签'); }
-							return false;
-						}
-						break;
-					default:
-						if (key in uaData.apps||key in uaData.stor.apps) {
-							bor.style.borderColor = uaData.设置.输入框检查[2];
-							if(toast){ uaCode.util.toast('标识重复'); }
-							return false;
-						}
-						break;
+				if (key in uaData[src]||key in uaData.stor[src]) {
+					bor.style.borderColor = __('input-check-err');
+					if(toast){ uaCode.util.toast('标识重复'); }
+					return false;
 				}
 				if (key==="") {
-					bor.style.borderColor = uaData.设置.输入框检查[0];
+					bor.style.borderColor = __('input-check-ready');
+					return false;
+				} else if (!test.test(key)) {
+					bor.style.borderColor = __('input-check-err');
+					if(toast){ uaCode.util.toast('输入错误'); }
 					return false;
 				} else {
-					bor.style.borderColor = uaData.设置.输入框检查[1];
+					bor.style.borderColor = __('input-check-ok');
 					return true;
 				}
 			}
@@ -1724,7 +1720,7 @@
 					}
 					aform_Clear();
 				}
-				$(false,'#ssave').style.backgroundColor = uaData.设置.数据未保存;
+				$(false,'#ssave').style.backgroundColor = __('data-need-save');
 				if ($(false,'#aok').innerHTML==="加入") {
 					toast('加入成功');
 				} else {
@@ -1858,7 +1854,7 @@
 						}
 						sel.removeChild(opt);
 						aform_Clear();
-						$(false,'#ssave').style.backgroundColor = uaData.设置.数据未保存;
+						$(false,'#ssave').style.backgroundColor = __('data-need-save');
 						toast('删除成功');
 					} else {
 						toast('没有选择项目');
