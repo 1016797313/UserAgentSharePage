@@ -698,19 +698,16 @@
 				#ua {
 					width: 40em;
 					top: 6em;
-					left: auto;
-					margin-left: -5em;
+					left: 35%;
 				}
 				#class {
 					width: 24em;
 					top: 5px;
-					left: auto;
-					margin-left: 4em;
+					left: 45%;
 				}
 				#addui {
-					left: auto;
+					left: 40%;
 					top: 4em;
-					margin-left: 5em;
 				}
 			}
 			@media (prefers-color-scheme: dark) {
@@ -774,7 +771,7 @@
 		</div>
 		<div id="ua" class="none win">
 			<div class="titlebar">
-				<div class="title drag">UA 窗口</div>
+				<div class="title">UA 窗口</div>
 				<button class="close" onclick="this.parentNode.parentNode.classList.add('none')">关闭</button>
 			</div>
 			<label for="useragent" class="none">UA 编辑框</label>
@@ -787,7 +784,7 @@
 		</div>
 		<div id="class" class="none win">
 			<div class="titlebar">
-				<div class="title drag">标签筛选</div>
+				<div class="title">标签筛选</div>
 				<button class="close" onclick="this.parentNode.parentNode.classList.add('none')">关闭</button>
 			</div>
 			<div id="classBox"></div>
@@ -798,7 +795,7 @@
 		</div>
 		<div id="addui" class="none win">
 			<div class="titlebar">
-				<div class="title drag">添加项目</div>
+				<div class="title">添加项目</div>
 				<button class="close" onclick="this.parentNode.parentNode.classList.add('none')">关闭</button>
 			</div>
 			<div id="addtype">
@@ -1212,19 +1209,13 @@
 						if (cls.slice(0,1)==="_" || uaData.tagfind[cls]!==undefined) {
 							count += 1;
 							lab.appendChild(makeFlagDiv(cls,false,true,1));
-							if (cls.slice(0,1)==="_") {
-								cls = "third";
-							} else {
-								cls = uaData.tagfind[cls];
-							}
+							cls = tagConv(cls,true,false);
 							pushTagText(cls,app);
 							_(lab,false,cls);
 						} else {
 							toast(`项目 "${app}" 被指定了不存在的标签 "${cls}" ...`);
 							uaData.stor.apps[app].class.splice(
-								uaData.stor.apps[app].class.findIndex( v => {
-									return v === cls;
-								}),1
+								uaData.stor.apps[app].class.findIndex( v => v === cls ),1
 							);
 							loc.setItem(uaData.storKey,JSON.stringify(uaData.stor));
 							location.reload();
@@ -1247,14 +1238,12 @@
 					const lab = document.createElement("label"),
 						box = document.createElement("input"),
 						first = getUpperHead(app);
-					if (first!==ofirst) {
-						cont.appendChild(makeHeadandLink(first));
-						ofirst = first;
-					}
-					lab.id = app;
-					lab.tabIndex = 0;
-					lab.addEventListener('keydown', (e) => { uaCode.util.check(e); });
-					lab.innerHTML += uaData.apps[app].text;
+					Object.assign(lab, {
+						id: app,
+						tabIndex: 0,
+						innerHTML: uaData.apps[app].text
+					});
+					lab.addEventListener('keydown', e => uaCode.util.check(e));
 					uaData.count[app] = parseClassinItem(lab,app);
 					if (uaData.设置.测试模式) {
 						const idi = document.createElement("i");
@@ -1273,6 +1262,10 @@
 					});
 					lab.appendChild(box);
 					lab.appendChild(newBox("check"));
+					if (first!==ofirst) {
+						cont.appendChild(makeHeadandLink(first));
+						ofirst = first;
+					}
 					cont.appendChild(lab);
 				});
 				cont.addEventListener('keydown',(e) => {
@@ -1295,7 +1288,7 @@
 						box = document.createElement("input");
 					lab.id = `L${flag}`;
 					lab.tabIndex = 0;
-					lab.addEventListener('keydown', (e) => { uaCode.util.check(e); });
+					lab.addEventListener('keydown', e => uaCode.util.check(e));
 					Object.assign(box, {
 						type: "checkbox",
 						name: "flag",
@@ -1303,9 +1296,7 @@
 						value: flag,
 						checked: true
 					});
-					box.addEventListener('change', e => {
-						uaCode.tagClick(e.target.parentNode.id,true);
-					});
+					box.addEventListener('change', e => uaCode.tagClick(e.target.parentNode.id,true));
 					lab.appendChild(box);
 					lab.appendChild(makeFlagDiv(flag,true,false,1));
 					$(false,"#classBox").appendChild(lab);
@@ -1368,32 +1359,29 @@
 								win.style.left = (e.touches[0].clientX - pos[0]) + 'px';
 								win.style.top = (e.touches[0].clientY - pos[1]) + 'px';
 							}
-							win.style.position = (parseInt(getComputedStyle(win)['right']) < 0 || 
-												  parseInt(getComputedStyle(win)['left']) < 0 ||
-												  parseInt(getComputedStyle(win)['bottom']) < 0) ?
-												'fixed' : 'absolute' ;
+							win.style.position = (
+								parseInt(getComputedStyle(win)['right']) < 0 || 
+								parseInt(getComputedStyle(win)['left']) < 0 ||
+								parseInt(getComputedStyle(win)['bottom']) < 0) ?
+							'fixed' : 'absolute' ;
 						},{ passive: true });
 					});
 				} else {
-					$(true,".drag").forEach( drag => {
-						let win = drag.parentNode.parentNode;
-						drag.addEventListener('mousedown', e => {
+					wing.forEach( win => {
+						win.addEventListener('mousedown', e => {
 							pos = [
 							(e.clientX - win.offsetLeft),
 							(e.clientY - win.offsetTop)
 							];
 							winActiv(win);
 							document.onmousemove = e => {
-								win.style.left = (e.clientX - pos[0]) + 'px';
-								win.style.top = (e.clientY - pos[1]) + 'px';
+								if(e.target.nodeName!=="TEXTAREA"&&e.target.type!=="text") {
+									win.style.left = (e.clientX - pos[0]) + 'px';
+									win.style.top = (e.clientY - pos[1]) + 'px';
+								};
 							};
 							document.removeEventListener('mouseup', uaCode.util.unlock);
 							document.addEventListener('mouseup', uaCode.util.unlock);
-						});
-					});
-					wing.forEach( win => {
-						win.addEventListener('mousedown', e => {
-							winActiv(win);
 						});
 					});
 				}
@@ -1577,12 +1565,8 @@
 					txt = $(false,'#ttext').value,
 					bgc = $(false,'#tbgc').value,
 					fgc = $(false,'#tfgc').value;
-				if (txt!=="") {
-					box.innerHTML = txt;
-					_(box,true,"none");
-				} else {
-					_(box,false,"none");
-				}
+				box.innerHTML = txt;
+				_(box,txt==="","none");
 				box.style.cssText = `background-color:${bgc};color:${fgc}`;
 			}
 			
