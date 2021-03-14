@@ -33,6 +33,13 @@
 			};
 		</script>
 		<style>
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 3 years and not edge <= 78
+*/
+
 			:focus {
 				outline: none;
 			}
@@ -108,7 +115,6 @@
 			}
 			#base,#mode,#app {
 				overflow: hidden;
-				display: -webkit-box;
 				display: flex;
 			}
 			#option {
@@ -128,8 +134,7 @@
 				background: var(--theme-color-b);
 				margin: 0;
 				padding-bottom: 2px;
-				-webkit-box-shadow: var(--shadow-big);
-				        box-shadow: var(--shadow-big);
+				box-shadow: var(--shadow-big);
 			}
 			#classBox,.classBox {
 				padding: 3px;
@@ -154,22 +159,15 @@
 				background: var(--theme-color-a);
 				color: var(--theme-color-c);
 				font-size: 12px;
-				display: -webkit-box;
 				display: flex;
-				-webkit-box-pack: center;
-				        justify-content: center;
-				-webkit-box-align: center;
-				        align-items: center;
+				justify-content: center;
+				align-items: center;
 				width: 8.5em;
 			}
 			#ajump {
-				display: -webkit-box;
 				display: flex;
-				-webkit-box-orient: vertical;
-				-webkit-box-direction: normal;
-				        flex-flow: column;
-				-webkit-box-pack: justify;
-				        justify-content: space-between;
+				flex-flow: column;
+				justify-content: space-between;
 				width: 7px;
 				margin: 0;
 				padding: 3px;
@@ -190,29 +188,23 @@
 				grid-template-rows: repeat(2, max-content);
 			}
 			#modeopt {
-				display: -webkit-box;
 				display: flex;
-				-webkit-box-pack: justify;
-				        justify-content: space-between;
+				justify-content: space-between;
 			}
 			#modeopt > div {
-				display: -webkit-box;
 				display: flex;
 			}
 			#option label,
 			#classBox label,
 			.classBox label,
 			#tclsbox {
-				display: -webkit-inline-box;
 				display: inline-flex;
 			}
 			#app label {
 				margin-left: .5em;
-				display: -webkit-box;
 				display: flex;
 				color: var(--theme-color-a);
-				-webkit-box-align: end;
-				        align-items: flex-end;
+				align-items: flex-end;
 			}
 			#app label i {
 				margin-left: .25em;
@@ -245,12 +237,9 @@
 				height: 1.5em;
 				line-height: 1.5em;
 				text-align: center;
-				-webkit-transform: translate3d(-1.5em, 0, 0);
-				        transform: translate3d(-1.5em, 0, 0);
+				transform: translate3d(-1.5em, 0, 0);
 				font-size:2em;
 				opacity:0;
-				-webkit-transition: opacity .3s ease, top .1s linear;
-				-o-transition: opacity .3s ease, top .1s linear;
 				transition: opacity .3s ease, top .1s linear;
 				color:var(--theme-color-c);
 				background-color: var(--theme-color-a);
@@ -263,10 +252,8 @@
 			}
 			#action,#action2,#action3,#addbtn,.savebtn {
 				text-align: center;
-				display: -webkit-box;
 				display: flex;
-				-webkit-box-pack: justify;
-				        justify-content: space-between;
+				justify-content: space-between;
 			}
 			.orig-box {
 				display: none;
@@ -281,15 +268,13 @@
 			}
 			.new-radio.new-style {
 				margin: 4px;
-				display:-webkit-box;
 				display:flex;
 				width:13px;
 				height:13px;
 				line-height:13px;
 			}
 			.orig-box:checked + .new-style.new-radio:after {
-				-webkit-transform:scale(.8);
-				        transform:scale(.8);
+				transform:scale(.8);
 			}
 			.new-check.new-style {
 				margin: 3px 3px 1px auto;
@@ -306,7 +291,6 @@
 				content:"";
 				height:9px;
 				width:9px;
-				display: -webkit-box;
 				display: flex;
 				margin: auto;
 				align-self: center;
@@ -318,8 +302,7 @@
 				border-style: solid;
 				border-width: 0 3px 3px 0;
 				border-radius: 0;
-				-webkit-transform: rotate(45deg);
-				        transform: rotate(45deg);
+				transform: rotate(45deg);
 				background-color: transparent;
 			}
 			input[type=checkbox] {
@@ -341,6 +324,10 @@
 			::-webkit-input-placeholder {
 				color: var(--theme-color-a);
 				opacity: .5;
+			}
+			::-moz-selection {
+				background-color:var(--theme-color-a);
+				color:var(--theme-color-c);
 			}
 			::selection {
 				background-color:var(--theme-color-a);
@@ -409,12 +396,10 @@
 			.atab > label,
 			#addsave > label,
 			.classPart > label {
-				display: -webkit-box;
 				display: flex;
 			}
 			#addtype > label,
 			.atab > div > label {
-				display: -webkit-inline-box;
 				display: inline-flex;
 				vertical-align: middle;
 				line-height: 1.25em;
@@ -467,20 +452,6 @@
 				padding: 0 2px 2px;
 				box-shadow:var(--shadow-big);
 			}
-			@-webkit-keyframes toast {
-				0% {
-					opacity: 0%;
-				}
-				35% {
-					opacity: 100%;
-				}
-				85% {
-					opacity: 100%;
-				}
-				100% {
-					opacity: 0%;
-				}
-			}
 			@keyframes toast {
 				0% {
 					opacity: 0%;
@@ -516,15 +487,13 @@
 			}
 			.toasting {
 				display: block !important;
-				-webkit-animation: toast 3s;
-				        animation: toast 3s;
+				animation: toast 3s;
 			}
 			.savebtn button {
 				width: 28%;
 			}
 			.titlebar {
 				width: 100%;
-				display: -webkit-box;
 				display: flex;
 				background: var(--theme-color-a);
 				color: var(--theme-color-c);
@@ -549,14 +518,6 @@
 				width: 5em;
 				box-shadow: none;
 			}
-			@-webkit-keyframes load-finish {
-				0% {
-					opacity: 100%;
-				}
-				100% {
-					opacity: 0%;
-				}
-			}
 			@keyframes load-finish {
 				0% {
 					opacity: 100%;
@@ -566,8 +527,7 @@
 				}
 			}
 			.finish {
-				-webkit-animation: load-finish 1s;
-				        animation: load-finish 1s;
+				animation: load-finish 1s;
 			}
 			#load {
 				width: 100%;
