@@ -596,9 +596,8 @@
 			#tclsbox {
 				float: right;
 				margin: 2px 0;
-				padding: 0 5px;
 			}
-			#tkey {
+			#ttext {
 				padding: 0;
 				border: none;
 				height: 100%;
@@ -718,6 +717,7 @@
 					--theme-color-d: #353535;
 					--theme-color-e: transparent;
 					--theme-color-f: black;
+					--input-check-ready: #353535;
 					--data-need-save: orangered;
 					--shadow-big: 0 0 5px 3px rgba(40,120,200,0.5);
 					--shadow-small: none;
@@ -901,12 +901,7 @@
 				</div>
 				<div id="atagt" class="atab none">
 					<label id="tkeyl"><b>标识</b>
-						<div id="tkds">
-							<div id="tclsbox" class="flag"></div>
-							<span>
-								<input id="tkey" type="text" name="atag" placeholder="数字和英文字母" oninput="uaCode.aform.check(false)"/>
-							</span>
-						</div>
+						<input id="tkey" type="text" name="atag" placeholder="数字和英文字母" oninput="uaCode.aform.check(false)"/>
 					</label>
 					<label id="tsell" class="none"><b>标识</b>
 						<select id="tsel" class="msel" onchange="uaCode.aform.modify()">
@@ -914,7 +909,12 @@
 						</select>
 					</label>
 					<label><b>名称</b>
-						<input id="ttext" type="text" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
+						<div id="tkds">
+							<div id="tclsbox" class="flag"></div>
+							<span>
+							<input id="ttext" type="text" name="atag" oninput="uaCode.aform.updateFlagPreview()"/>
+							</span>
+						</div>
 					</label>
 					<label><b>背景</b>
 						<input id="tbgc" type="color" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
@@ -1346,7 +1346,9 @@
 				if (uaData.touch) {
 					wing.forEach( win => {
 						win.addEventListener('touchstart', e => {
-							if (e.target.nodeName!=="TEXTAREA"&&!$(false,'#issues').contains(e.target)) {
+							if (e.target.nodeName!=="TEXTAREA" &&
+								e.target.type!=="text" &&
+								!$(false,'#issues').contains(e.target)) {
 								pos = [
 								(e.touches[0].clientX - win.offsetLeft),
 								(e.touches[0].clientY - win.offsetTop)
@@ -1566,7 +1568,7 @@
 					bgc = $(false,'#tbgc').value,
 					fgc = $(false,'#tfgc').value;
 				box.innerHTML = txt;
-				_(box,txt==="","none");
+				_(box,txt!=="","none");
 				box.style.cssText = `background-color:${bgc};color:${fgc}`;
 			}
 			
@@ -1588,17 +1590,13 @@
 			}
 			
 			function aform_Check(type) {
-				let a = true,t = false;
+				let a = true;
 				$(true,`#${type}t input[type="text"]`).forEach( i => {
-					if (i===$(false,'#tkey')) {
-						t = getComputedStyle($(false,'#tkeyl')).display==="none" ?
-							true : false;
-					};
 					i.style.removeProperty('border-color');
 					if (getComputedStyle(i).display!=="none" &&
-						getComputedStyle(i.parentNode).display!=="none" && !t &&
+						getComputedStyle(i.parentNode).display!=="none" &&
 						i.value==="") {
-						if (i.id==="tkey") {
+						if (i.id==="ttext") {
 							$(false,'#tkds').style.borderColor = __('input-check-null');
 						} else {
 							i.style.borderColor = __('input-check-null');
@@ -1611,8 +1609,7 @@
 			
 			function aform_KeyCheck(toast) {
 				const type = aform_tType($_('atype').value), test = /^\w+$/u;
-				let inp = $(false,`#${type}key`), key = inp.value,
-					bor = (type==="t") ? $(false,'#tkds') : inp,
+				let inp = $(false,`#${type}key`), key = inp.value, bor = inp,
 					src = (type==="t") ? 'flag' : 'apps';
 				if (type==='t' && key.slice(0,1)==="_") {
 					bor.style.borderColor = __('input-check-err');
