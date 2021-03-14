@@ -1,5 +1,5 @@
 加入("标签",{
-	pc: ["电脑","darkblue","white"],
+	pc: ["电脑","#00008B","#FFFFFF"],
 });
 加入("APP",{
 dingpc: {

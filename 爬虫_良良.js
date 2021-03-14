@@ -1,5 +1,5 @@
 加入("标签",{
-	spider: ["爬虫","#bed342","black"],
+	spider: ["爬虫","#BED432","#000000"],
 });
 加入("APP",{
 bdspider: {

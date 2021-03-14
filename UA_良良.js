@@ -1,22 +1,22 @@
 加入("标签",{
-	baidu: ["百度","#2932E1","white"],
-	ali: ["阿里","#F50","white"],
-	tencent: ["腾讯","#0052D9","white"],
-	tt: ["头条","#3960AC","white"],
-	netease: ["网易","#D72F1F","white"],
-	sina: ["新浪","#F52324","white"],
-	mi: ["小米","#F57923","white"],
-	google: ["谷歌","#4285F4","white"],
-	qihoo: ["360","#4BC01A","white"],
-	huawei: ["华为","#C10007","white"],
-	meizu: ["魅族","#008CFF","white"],
-	sohu: ["搜狐","#FDD000","black"],
+	baidu: ["百度","#2932E1","#FFFFFF"],
+	ali: ["阿里","#F50","#FFFFFF"],
+	tencent: ["腾讯","#0052D9","#FFFFFF"],
+	tt: ["头条","#3960AC","#FFFFFF"],
+	netease: ["网易","#D72F1F","#FFFFFF"],
+	sina: ["新浪","#F52324","#FFFFFF"],
+	mi: ["小米","#F57923","#FFFFFF"],
+	google: ["谷歌","#4285F4","#FFFFFF"],
+	qihoo: ["360","#4BC01A","#FFFFFF"],
+	huawei: ["华为","#C10007","#FFFFFF"],
+	meizu: ["魅族","#008CFF","#FFFFFF"],
+	sohu: ["搜狐","#FDD000","#000000"],
 
-	tbs: ["TBS","black","white"],
-	short: ["短 UA","gray","white"],
+	tbs: ["TBS","#000000","#FFFFFF"],
+	short: ["短 UA","#808080","#FFFFFF"],
 
-	third: ["自定义","slateblue","white"],
-	no_tag: ["无标签","white","black"]
+	third: ["自定义","#6A5ACD","#FFFFFF"],
+	no_tag: ["无标签","#FFFFFF","#000000"]
 });
 加入("APP",{
 aiqiyi: {

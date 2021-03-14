@@ -1,5 +1,5 @@
 加入("标签",{
-	qapp: ["快应用","#2DB27F","white"],
+	qapp: ["快应用","#2DB27F","#FFFFFF"],
 });
 加入("APP",{
 "weib0qap": {
