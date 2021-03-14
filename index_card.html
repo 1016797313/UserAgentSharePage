@@ -23,7 +23,7 @@
 				},
 				storKey:"userAgentData",
 				设置:{
-					代码版本:"5.0 Beta 10",
+					代码版本:"1.1 Alpha",
 					基础默认:1,
 					数字记号:"#",
 					测试模式:false,
@@ -1588,11 +1588,15 @@
 			}
 			
 			function aform_Check(type) {
-				let a = true;
+				let a = true,t = false;
 				$(true,`#${type}t input[type="text"]`).forEach( i => {
-					i.style.removeProperty('border-color');;
+					if (i===$(false,'#tkey')) {
+						t = getComputedStyle($(false,'#tkeyl')).display==="none" ?
+							true : false;
+					};
+					i.style.removeProperty('border-color');
 					if (getComputedStyle(i).display!=="none" &&
-						getComputedStyle(i.parentNode).display!=="none" && 
+						getComputedStyle(i.parentNode).display!=="none" && !t &&
 						i.value==="") {
 						if (i.id==="tkey") {
 							$(false,'#tkds').style.borderColor = __('input-check-null');
@@ -1635,7 +1639,7 @@
 			
 			function aform_Add() {
 				const atyp = $_("atype").value;
-				let key,name,pre,nfol,cont,obj,flag,typr,opt;
+				let key,name,pre,nfol,cont,obj,flag,typr;
 				function convBool(val) { return (val==="true") ? true : false ; }
 				if (!aform_Check(atyp)) { return; }
 				typr = aform_tType(atyp);
@@ -1700,21 +1704,15 @@
 					});
 				}
 				if ($(false,'#anew').innerHTML==="管理") {
-					opt = document.createElement('option');
-					if (atyp==="atag") {
-						opt.value = key; opt.innerHTML = `${obj[0]} (${key})`;
-					} else {
-						opt.value = key; opt.innerHTML = `${obj.text} (${key})`;
-					}
-					$(false,`#${typr}sel`).appendChild(opt);
+					$(false,`#${typr}sel`).insertBefore(
+						new Option((atyp==="atag") ?
+							`${obj[0]} (${key})` : `${obj.text} (${key})`,
+						key), $(false,`#${typr}sel`)[1]
+					);
 					aform_Clear();
 				} else {
-					opt = $(false,`#${typr}sel option[value="${key}"]`);
-					if (atyp==="atag") {
-						opt.innerHTML = `${obj[0]} (${key})`;
-					} else {
-						opt.innerHTML = `${obj.text} (${key})`;
-					}
+					$(false,`#${typr}sel option[value="${key}"]`).innerHTML = (atyp==="atag") ?
+						`${obj[0]} (${key})` :`${obj.text} (${key})`;
 					aform_Clear();
 				}
 				$(false,'#ssave').style.backgroundColor = __('data-need-save');
@@ -1728,50 +1726,65 @@
 			function aform_Modify() {
 				const type = aform_tType($_("atype").value),
 					item = $(false,`#${type}sel`).value;
-				let obj,cobj,cont,ccls = [];
+				let obj,cobj,cont,ccls = [],chk;
 				switch (type) {
 					case "t" :
-						obj = uaData.stor.flag[item];
+						obj = (uaData.stor.flag[item]) ? uaData.stor.flag[item] : uaData.flag[item];
 						break;
 					default:
-						cobj = uaData.stor.apps[item];
-						if (typeof cobj["内容"] === "object") {
-							if (cobj["内容"] instanceof Array) {
-								cont = [cobj["内容"][0],cobj["内容"][1]];
-							} else {
-								cont = {
-									qBasic: cobj["内容"]["平台"],
-									qFrom: cobj["内容"]["来自"],
-									qString: cobj["内容"]["应用"]
+						if (uaData.stor.apps[item]) {
+							cobj = uaData.stor.apps[item];
+							if (typeof cobj["内容"] === "object") {
+								if (cobj["内容"] instanceof Array) {
+									cont = [cobj["内容"][0],cobj["内容"][1]];
+								} else {
+									cont = {
+										qBasic: cobj["内容"]["平台"],
+										qFrom: cobj["内容"]["来自"],
+										qString: cobj["内容"]["应用"]
+									}
 								}
+							} else {
+								cont = cobj["内容"];
+							}
+							cobj["标签"].forEach( ct => {
+								ccls.push((ct.slice(0,1)==="_") ? ct : uaData.tagfind[ct]);
+							});
+							obj = {
+								text: cobj["名称"],
+								prefix: (cobj["前置"]==="是") ? true : false,
+								followed: (cobj["无缝"]==="是") ? true : false,
+								class: ccls,
+								content: cont
 							}
 						} else {
-							cont = cobj["内容"];
-						}
-						cobj["标签"].forEach( ct => {
-							ccls.push((ct.slice(0,1)==="_") ? ct : uaData.tagfind[ct]);
-						});
-						obj = {
-							text: cobj["名称"],
-							prefix: (cobj["前置"]==="是") ? true : false,
-							followed: (cobj["无缝"]==="是") ? true : false,
-							class: ccls,
-							content: cont
+							obj = uaData.apps[item];
 						}
 						break;
-				}
-				
-				function resetClass(type) {
-					$(true,`#${type}clsbox input`).forEach( c => { c.checked = false; });
-					$(true,`#${type}clsbox .flag`).forEach( f => { f.style.opacity = .5; });
-					_($(false,`#${type}clsboxl`),false,"none");
 				}
 				
 				function tagSelect(id) {
-					const box = $(false,`#${id} input`);
+					let box = $(false,`#${id} input`),
 						flag = $(false,`#${id} .flag`);
 					box.checked = true;
 					flag.style.opacity = 1;
+				}
+				
+				function clsSet(obj,type) {
+					$(true,`#${type}clsbox input`).forEach( c => { c.checked = false; });
+					$(true,`#${type}clsbox .flag`).forEach( f => { f.style.opacity = .5; });
+					_($(false,`#${type}clsboxl`),false,"none");
+					obj.class.forEach( cls => {
+						if (cls!=="qapp") {
+							if (cls.slice(0,1)==="_") {
+								tagSelect(`${type.toUpperCase()}third`);
+								_($(false,`#${type}clsboxl`),true,"none");
+								$(false,`#${type}qthirdt`).value = cls.slice(1);
+							} else {
+								tagSelect(type.toUpperCase()+cls);
+							}
+						}
+					});
 				}
 				
 				switch (type) {
@@ -1783,47 +1796,21 @@
 							$(false,"#acont2a").value = obj.content[0];
 							$(false,"#acont2b").value = obj.content[1];
 						} else {
-							if (obj.prefix) {
-								$(false,"#apret").checked = true;
-							} else {
-								$(false,"#apref").checked = true;
-							}
+							chk = (obj.prefix) ? $(false,"#apret") : $(false,"#apref");
+							chk.checked = true;
 							aform_switchBoth();
 							$(false,"#acont1").value = obj.content;
 						}
-						if (obj.followed) {
-							$(false,"#afolt").checked = true;
-						} else {
-							$(false,"#afolf").checked = true;
-						}
-						resetClass(type);
-						obj.class.forEach( cls => {
-							if (cls.slice(0,1)==="_") {
-								tagSelect("Athird");
-								_($(false,"#aclsboxl"),true,"none");
-								$(false,"#athirdt").value = cls.slice(1);
-							} else {
-								tagSelect(`A${cls}`);
-							}
-						});
+						chk = (obj.followed) ? $(false,"#afolt") : $(false,"#afolf");
+						chk.checked = true;
+						clsSet(obj,type);
 						break;
 					case "q" :
 						$(false,"#qtext").value = obj.text;
 						$(false,"#qcont1").value = obj.content.qBasic;
 						$(false,"#qcont2").value = obj.content.qFrom;
 						$(false,"#qcont3").value = obj.content.qString;
-						resetClass(type);
-						obj.class.forEach( cls => {
-							if (cls!=="qapp") {
-								if (cls.slice(0,1)==="_") {
-									tagSelect("Qthird");
-									_($(false,"#qclsboxl"),true,"none");
-									$(false,"#qthirdt").value = cls.slice(1);
-								} else {
-									tagSelect(`Q${cls}`);
-								}
-							}
-						});
+						clsSet(obj,type);
 						break;
 					case "t" :
 						$(false,"#ttext").value = obj[0];
@@ -1835,24 +1822,29 @@
 			}
 			
 			function aform_Delete() {
-				const type = aform_tType($_("atype").value),
+				let type = aform_tType($_("atype").value),
 					sel = $(false,`#${type}sel`),
 					val = sel.value,
-					opt = $(false,`#${type}sel option[value="${val}"]`);
+					opt = $(false,`#${type}sel option[value="${val}"]`),
+					item = (type==='t') ? uaData.stor.flag[val] : uaData.stor.apps[val];
 				if ($(false,'#anew').innerHTML==="添加") {
 					if (val!=="") {
-						switch (type) {
-							case "t" :
-								delete uaData.stor.flag[val];
-								break;
-							default:
-								delete uaData.stor.apps[val];
-								break;
+						if (item) {
+							switch (type) {
+								case "t" :
+									delete uaData.stor.flag[val];
+									break;
+								default:
+									delete uaData.stor.apps[val];
+									break;
+							}
+							sel.removeChild(opt);
+							aform_Clear();
+							$(false,'#ssave').style.backgroundColor = __('data-need-save');
+							toast('删除成功');
+						} else {
+							toast('不能删除原始项目');
 						}
-						sel.removeChild(opt);
-						aform_Clear();
-						$(false,'#ssave').style.backgroundColor = __('data-need-save');
-						toast('删除成功');
 					} else {
 						toast('没有选择项目');
 					}
@@ -1864,24 +1856,35 @@
 			/* localStorage 相关 */
 			
 			function lsb_initOption() {
+				let sel;
 				if (Object.keys(uaData.stor).length!==0) {
 					if (uaData.stor.apps) {
 						Object.keys(uaData.stor.apps).forEach( app => {
-							let sel, opt = document.createElement('option');
 							sel = (uaData.stor.apps[app].内容.来自) ?
 								$(false,'#qsel') : $(false,'#asel');
-							opt.value = app; opt.innerHTML = `${uaData.stor.apps[app].内容} (${app})`;
-							sel.appendChild(opt);
+							sel.appendChild(new Option(`${uaData.stor.apps[app].名称} (${app})`,app));
 						});
 					}
 					if (uaData.stor.flag) {
 						Object.keys(uaData.stor.flag).forEach( tag => {
-							let sel = $(false,'#tsel'), opt = document.createElement('option');
-							opt.value = tag; opt.innerHTML = `${uaData.stor.flag[tag][0]} (${tag})`;
-							sel.appendChild(opt);
+							$(false,'#tsel').appendChild(
+								new Option(`${uaData.stor.flag[tag][0]} (${tag})`,tag));
 						});
 					}
 				}
+				Object.keys(uaData.apps).forEach( app => {
+					if (!uaData.stor.apps[app]) {
+						sel = (uaData.apps[app].content.from) ?
+							$(false,'#qsel') : $(false,'#asel');
+						sel.appendChild(new Option(`* ${uaData.apps[app].text} (${app})`,app));
+					}
+				});
+				Object.keys(uaData.flag).forEach( tag => {
+					if (!uaData.stor.flag[tag]) {
+						$(false,'#tsel').appendChild(
+							new Option(`* ${uaData.flag[tag][0]} (${tag})`,tag));
+					}
+				});
 			}
 			
 			function lsb_save() {
