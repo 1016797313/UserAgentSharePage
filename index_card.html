@@ -1759,13 +1759,20 @@
 							}
 						} else {
 							obj = uaData.apps[item];
+							obj.class.forEach( ct => {
+								ccls.push((ct.slice(0,1)==="_") ? ct : uaData.tagfind[ct]);
+							});
+							obj.class = ccls;
 						}
 						break;
 				}
 				
+				console.log(obj);
+				
 				function tagSelect(id) {
 					let box = $(false,`#${id} input`),
 						flag = $(false,`#${id} .flag`);
+					console.log(`id:${id}`)
 					box.checked = true;
 					flag.style.opacity = 1;
 				}
@@ -1781,7 +1788,7 @@
 								_($(false,`#${type}clsboxl`),true,"none");
 								$(false,`#${type}qthirdt`).value = cls.slice(1);
 							} else {
-								tagSelect(type.toUpperCase()+cls);
+								tagSelect(`${type.toUpperCase()}${cls}`);
 							}
 						}
 					});
@@ -1874,7 +1881,7 @@
 				}
 				Object.keys(uaData.apps).forEach( app => {
 					if (!uaData.stor.apps[app]) {
-						sel = (uaData.apps[app].content.from) ?
+						sel = (uaData.apps[app].content.qFrom) ?
 							$(false,'#qsel') : $(false,'#asel');
 						sel.appendChild(new Option(`* ${uaData.apps[app].text} (${app})`,app));
 					}

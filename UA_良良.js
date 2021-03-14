@@ -1,6 +1,6 @@
 加入("标签",{
 	baidu: ["百度","#2932E1","#FFFFFF"],
-	ali: ["阿里","#F50","#FFFFFF"],
+	ali: ["阿里","#FF5500","#FFFFFF"],
 	tencent: ["腾讯","#0052D9","#FFFFFF"],
 	tt: ["头条","#3960AC","#FFFFFF"],
 	netease: ["网易","#D72F1F","#FFFFFF"],
