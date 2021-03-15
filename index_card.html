@@ -1640,7 +1640,7 @@
 							来自:cont.qFrom,
 							应用:cont.qString
 						} : cont,
-						class: (atyp!=="qapp") ? [] : ["快应用"]
+						class: []
 					}
 					
 					$_("sflag").forEach( inp => {
@@ -1650,6 +1650,11 @@
 							obj.class.push(tagConv(inp.id.slice(1),false,true));
 						}
 					});
+					
+					if (atyp==="qapp") {
+						obj.class.push("快应用");
+					}
+					
 					Object.assign(uaData.stor.apps, {
 						[`${key}`]: {
 							名称: obj.text,
@@ -1740,7 +1745,7 @@
 							if (cls.slice(0,1)==="_") {
 								tagSelect(`${type.toUpperCase()}third`);
 								_($(false,`#${type}clsboxl`),true,"none");
-								$(false,`#${type}qthirdt`).value = cls.slice(1);
+								$(false,`#${type}thirdt`).value = cls.slice(1);
 							} else {
 								tagSelect(`${type.toUpperCase()}${cls}`);
 							}
@@ -1817,19 +1822,29 @@
 			/* localStorage 相关 */
 			
 			function lsb_initOption() {
-				let sel;
+				let sel,opt;
 				if (Object.keys(uaData.stor).length!==0) {
 					if (uaData.stor.apps) {
 						Object.keys(uaData.stor.apps).forEach( app => {
+							opt = new Option(`${uaData.stor.apps[app].名称} (${app})`,app);
 							sel = (uaData.stor.apps[app].内容.来自) ?
 								$(false,'#qsel') : $(false,'#asel');
-							sel.appendChild(new Option(`${uaData.stor.apps[app].名称} (${app})`,app));
+							if (sel.length===1) {
+								sel.appendChild(opt);
+							} else {
+								sel.insertBefore(opt,sel[1]);
+							}
 						});
 					}
 					if (uaData.stor.flag) {
 						Object.keys(uaData.stor.flag).forEach( tag => {
-							$(false,'#tsel').appendChild(
-								new Option(`${uaData.stor.flag[tag][0]} (${tag})`,tag));
+							opt = new Option(`${uaData.stor.flag[tag][0]} (${tag})`,tag);
+							sel = $(false,'#tsel');
+							if (sel.length===1) {
+								sel.appendChild(opt);
+							} else {
+								sel.insertBefore(opt,sel[1]);
+							}
 						});
 					}
 				}
@@ -1919,6 +1934,12 @@
 				aform_Clear();
 				$(false,"#search").value = '';
 				$(false,"#version").innerHTML = `版本:${uaData.设置.代码版本} 总数:${Object.keys(uaData.apps).length}`;
+				if (window.location.host.match(/\w+\.\w+$/)==='gitee.io') {
+					$(false,"#version").innerHTML += ' <i>由 Gitee 提供代码和网页托管服务</i>';
+					$(false,"#version").onclick = () => {
+						window.location.href='https://gitee.com/lemon399/user-agent-share-page';
+					}
+				}
 				$(false,'#loadstr').innerHTML = '加载完成';
 				_($(false,"#load"),false,"finish");
 				lab = $(true,"#app_container label"),
