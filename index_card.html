@@ -1918,7 +1918,7 @@
 				aform_Clear();
 				$(false,"#search").value = '';
 				$(false,"#version").innerHTML = `版本:${uaData.设置.代码版本} 总数:${Object.keys(uaData.apps).length}`;
-				if (window.location.host.match(/\w+\.\w+$/)==='gitee.io') {
+				if (window.location.host.match(/\w+\.\w+$/)[0]==='gitee.io') {
 					$(false,"#version").innerHTML += ' <i>由 Gitee 提供代码和网页托管服务</i>';
 					$(false,"#version").onclick = () => {
 						window.location.href='https://gitee.com/lemon399/user-agent-share-page';
