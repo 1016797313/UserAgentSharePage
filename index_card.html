@@ -750,7 +750,7 @@
 			<div id="classBox"></div>
 			<div id="action3">
 				<button onclick="(()=>{uaCode.util.$(true,'#classBox input:not(:checked)').forEach( box => { box.checked = true; uaCode.tagClick(box.parentNode.id,true);});})()">恢复</button>
-				<button onclick="(()=>{uaCode.util.$(true,'#classBox input').forEach( box => { box.checked = (box.checked===true) ? false : true; uaCode.tagClick(box.parentNode.id,true);});})()">反选</button>
+				<button onclick="(()=>{uaCode.util.$(true,'#classBox input').forEach( box => { box.checked = (!box.checked); uaCode.tagClick(box.parentNode.id,true);});})()">反选</button>
 			</div>
 		</div>
 		<div id="addui" class="none win">
@@ -1009,7 +1009,7 @@
 				switch (e.code) {
 					case "Space":
 					case "Enter":
-						e.target.control.checked = true;
+						e.target.control.click();
 						break;
 					default:
 						return;
@@ -1446,6 +1446,7 @@
 					btn.innerHTML = "管理";
 					ok.innerHTML = "加入";
 				}
+				aform_Clear();
 			}
 			
 			function aform_switchCard() {
@@ -1918,7 +1919,7 @@
 				aform_Clear();
 				$(false,"#search").value = '';
 				$(false,"#version").innerHTML = `版本:${uaData.设置.代码版本} 总数:${Object.keys(uaData.apps).length}`;
-				if (window.location.host.match(/\w+\.\w+$/)[0]==='gitee.io') {
+				if (window.location.host.match('gitee.io')) {
 					$(false,"#version").innerHTML += ' <i>由 Gitee 提供代码和网页托管服务</i>';
 					$(false,"#version").onclick = () => {
 						window.location.href='https://gitee.com/lemon399/user-agent-share-page';
