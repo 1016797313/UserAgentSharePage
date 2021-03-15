@@ -446,8 +446,8 @@
 				width: 80%;
 				min-width: 14em;
 				-webkit-appearance: none;
-				-moz-appearance: none;
-				     appearance: none;
+				   -moz-appearance: none;
+				        appearance: none;
 				border: none;
 				padding: 0 2px 2px;
 				box-shadow:var(--shadow-big);
@@ -739,7 +739,7 @@
 			<div id="issues"></div>
 			<div id="action2">
 				<button onclick="(()=>{uaCode.util.$(false,'#useragent').value = '';})()">清空</button>
-				<button onclick="(()=>{uaCode.util.$(false,'#useragent').select();document.execCommand('copy');})()">复制</button>
+				<button onclick="(uaCode.util.$(false,'#useragent').select(),document.execCommand('copy'))">复制</button>
 			</div>
 		</div>
 		<div id="class" class="none win">
@@ -895,13 +895,13 @@
 				<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
 				<div class="savebtn">
 					<button id="ssave" onclick="uaCode.lsb.save()">保存数据</button>
-					<button onclick="(()=>{uaCode.util.$(false,'#stordata').select();document.execCommand('copy');})()">复制内容</button>
+					<button onclick="(uaCode.util.$(false,'#stordata').select(),document.execCommand('copy'))">复制内容</button>
 					<button onclick="(()=>{uaCode.util.$(false,'#stordata').value = '';})()">清空内容</button>
 				</div>
 				<div class="savebtn">
 					<button onclick="uaCode.lsb.import()">导入数据</button>
 					<button onclick="uaCode.lsb.export()">导出数据</button>
-					<button onclick="uaCode.lsb.clear()">清空存储</button>
+					<button onclick="(window.localStorage.removeItem(uaData.storKey),uaCode.util.toast('清空啦'))">清空存储</button>
 				</div>
 			</div>
 		</div>
@@ -1783,7 +1783,7 @@
 					opt = $(false,`#${type}sel option[value="${val}"]`),
 					item = (type==='t') ? uaData.stor.flag[val] : uaData.stor.apps[val];
 				if ($(false,'#anew').innerHTML==="添加") {
-					if (val!=="") {
+					if (val) {
 						if (item) {
 							switch (type) {
 								case "t" :
@@ -1904,11 +1904,6 @@
 				}
 			}
 			
-			function lsb_clear() {
-			loc.removeItem(uaData.storKey);
-				toast('清空啦');
-			}
-			
 			function init(){
 				$(false,'#loadstr').innerHTML = '正在构建 ...';
 				lsb_initOption();
@@ -1971,7 +1966,6 @@
 				},
 				lsb: {
 					save: lsb_save,
-					clear: lsb_clear,
 					import: lsb_import,
 					export: lsb_export,
 				}
