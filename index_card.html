@@ -706,8 +706,8 @@
 						</label>
 					</div>
 					<div>
-						<button id="openClass" onclick="uaCode.open(uaCode.util.$(false,'#class'))">标签筛选</button>
-						<button onclick="uaCode.open(uaCode.util.$(false,'#ua'))">打开窗口</button>
+						<button id="openClass" onclick="uaCode.open('#class')">标签筛选</button>
+						<button onclick="uaCode.open('#ua')">打开窗口</button>
 					</div>
 				</div>
 			</div>
@@ -725,7 +725,7 @@
 		<div id="action">
 			<button onclick="(()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'})()">帮助</button>
 			<button onclick="uaCode.util.$_('app').forEach( check => { check.checked = false; })">清空选择</button>
-			<button id="openNew" onclick="uaCode.open(uaCode.util.$(false,'#addui'))">+</button>
+			<button id="openNew" onclick="uaCode.open('#addui')">+</button>
 			<button onclick="uaCode.filter.sel(this)">列出已选</button>
 			<button onclick="uaCode.gen()">生成 UA</button>
 		</div>
@@ -962,7 +962,7 @@
 				cas.forEach( ele => {
 					let found = 0;
 					lab.forEach( la => {
-						if (getUpperHead(la.id) === ele.innerHTML && window.getComputedStyle(la).display !== "none") {
+						if (getUpperHead(la.id) === ele.innerHTML && getComputedStyle(la).display !== "none") {
 							found += 1;
 						}
 					});
@@ -1070,21 +1070,15 @@
 				});
 				$(false,"textarea").value = prefixUA + preFollowUA + baseUA + sufFollowUA + suffixUA;
 				issuesCheck();
-				openWin($(false,"#ua"));
+				openWin("#ua");
 			}
 			
 			function makeIssue(issue,head) {
 				let p = document.createElement('p');
 				p.className = "issue";
 				if (head) { p.id = 'issueHead'; }
-				p.innerHTML = issue;
-				$(false,'#issues').appendChild(p);
-			}
-			
-			function cleanIssue() {
-				$(true,'.issue').forEach( i => {
-					$(false,'#issues').removeChild(i);
-				});
+				p.innerHTML = (head) ? `检测到 ${issue} 个问题 :` : issue;
+				return p;
 			}
 			
 			function issuesCheck() {
@@ -1112,15 +1106,18 @@
 									'此 UA 可能会导致 淘宝部分页面 加载时弹出 确认/取消 对话框'
 								]
 							];
-				let count = 0;
+				let count = 0, issues = [];
+				$(false,'#issues').innerHTML = '';
 				issue.forEach( i => {
-					if (i[0]) { count++; };
+					if (i[0]) {
+						count++;
+						issues.push(makeIssue(i[1],false));
+					};
 				});
-				cleanIssue();
-				if (count>0) { makeIssue(`检测到 ${count} 个问题 :`,true); };
-				issue.forEach( i => {
-					if (i[0]) { makeIssue(i[1],false); };
-				});
+				if (count>0) {
+					issues.splice(0,0,makeIssue(count,true));
+					issues.forEach( p => $(false,'#issues').appendChild(p));
+				};
 			}
 			
 			function makeFlagDiv(clas,box,chinese,opa) {
@@ -1351,7 +1348,8 @@
 				}
 			}
 			
-			function openWin(win) {
+			function openWin(id) {
+				let win = $(false,id);
 				_(win,true,"none");
 				winActiv(win);
 			}
@@ -1428,17 +1426,7 @@
 			/* "添加" 窗口表单 相关 */
 			
 			function aform_tType(type) {
-				switch (type) {
-					case "aapp":
-						return "a";
-						break;
-					case "qapp":
-						return "q";
-						break;
-					case "atag":
-						return "t";
-						break;
-				}
+				return (type.slice(1)==="app") ? type.slice(0,1) : "t";
 			}
 			
 			function aform_switchModify() {
