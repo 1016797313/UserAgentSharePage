@@ -1028,7 +1028,7 @@
 				$_("app").forEach( app => {
 					const appo = uaData.apps[app.value];
 					if (typeof appo.content === "object") {
-						if (appo.content.qBasic!==undefined) {
+						if (appo.content.qBasic) {
 							appo.content = `${appo.content.qBasic} ${appo.content.qString} (${JSON.stringify({
 								packageName: appo.content.qFrom,
 								type: "url",
@@ -1154,7 +1154,7 @@
 			}
 			
 			function pushTagText(cls,app) {
-				if (uaData.tagtext[cls]===undefined) { uaData.tagtext[cls] = []; }
+				if (!uaData.tagtext[cls]) { uaData.tagtext[cls] = []; }
 				uaData.tagtext[cls].push(app);
 			}
 			
@@ -1166,7 +1166,7 @@
 					return 1;
 				} else {
 					uaData.apps[app].class.forEach( cls => {
-						if (cls.slice(0,1)==="_" || uaData.tagfind[cls]!==undefined) {
+						if (cls.slice(0,1)==="_" || uaData.tagfind[cls]) {
 							count += 1;
 							lab.appendChild(makeFlagDiv(cls,false,true,1));
 							cls = tagConv(cls,true,false);
@@ -1402,7 +1402,7 @@
 						_(tag,false,"none");
 					}
 				});
-				if (uaData.tagtext[clas]!==undefined) {
+				if (uaData.tagtext[clas]) {
 					uaData.tagtext[clas].forEach( id => {
 						if (selected) {
 							uaData.count[id]++;
@@ -1599,7 +1599,6 @@
 			function aform_Add() {
 				const atyp = $_("atype").value;
 				let key,name,pre,nfol,cont,obj,flag,typr;
-				function convBool(val) { return (val==="true") ? true : false ; }
 				if (!aform_Check(atyp)) { return; }
 				typr = aform_tType(atyp);
 				key = ($(false,'#anew').innerHTML==="管理") ?
@@ -1635,8 +1634,8 @@
 					obj = {
 						text: $(false,`#${typr}text`).value,
 						prefix: (atyp==="qapp"||$_("apre").value==="both") ? false :
-								convBool($_("apre").value),
-						followed: (atyp==="qapp") ? false : convBool($_("afol").value),
+								($_("apre").value==='true'),
+						followed: (atyp==="qapp") ? false : ($_("afol").value==='true'),
 						content: (atyp==="qapp") ? {
 							平台:cont.qBasic,
 							来自:cont.qFrom,
