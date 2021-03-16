@@ -47,11 +47,13 @@
 			:root {
 				--theme-color-a: #2b75c4;
 				--theme-color-b: white;
-				--theme-color-c: white; /* 反色前景色 */
-				--theme-color-d: transparent; /* 选框 文本框 背景色 */
-				--theme-color-e: lightgray; /* 选框 边框颜色 */
-				--theme-color-f: white; /* 页面背景色 */
-				--theme-color-g: yellow; /* 链接聚焦颜色 */
+				--theme-color-c: white;                 /* 反色前景色 */
+				--theme-color-d: transparent;           /* 选框 文本框 背景色 */
+				--theme-color-e: lightgray;             /* 选框 边框颜色 */
+				--theme-color-f: white;                 /* 页面背景色 */
+				--theme-color-g: yellow;                /* 链接聚焦颜色 */
+				--theme-color-h: rgba(130,200,255,0.2); /* 选框 聚焦 背景色*/
+				--theme-color-i: #4e92d0;               /* 按钮 聚焦 背景色*/
 				--theme-color-close: red;
 				--theme-color-close-text: white;
 				--input-check-ready: lightgray;
@@ -62,8 +64,6 @@
 				--tag-filtered: #00ad46;
 				--shadow-big: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
 				--shadow-small: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 3px 1px rgba(0,0,0,0.12);
-				--shadow-focus: 0 0 2px 1px rgba(40,120,200,0.75);
-				--shadow-focus-button: 0 0 3px 2px rgba(40,120,200,0.75);
 			}
 			body {
 				font-size: 16px;
@@ -149,13 +149,14 @@
 			}
 			#classBox label:focus .flag,
 			.classBox label:focus .flag {
-				box-shadow: var(--shadow-focus);
+				border: 1px solid var(--theme-color-a);
 			}
 			#classBox .flag,
 			.classBox .flag {
 				padding: 0 4px;
 				margin: 0 2px;
 				box-shadow: var(--shadow-small);
+				border: 1px solid transparent;
 			}
 			#app .flag {
 				margin: 1.5px 3px;
@@ -270,7 +271,7 @@
 				display: none;
 			}
 			label:focus .new-style {
-				box-shadow: var(--shadow-focus);
+				background-color: var(--theme-color-h);
 			}
 			.new-style {
 				background-color:var(--theme-color-d);
@@ -358,7 +359,7 @@
 				box-shadow:var(--shadow-small);
 			}
 			button:focus {
-				box-shadow: var(--shadow-focus-button);
+				background-color: var(--theme-color-i);
 			}
 			#searchbox {
 				position: relative;
@@ -698,6 +699,7 @@
 					--data-need-save: orangered;
 					--shadow-big: 0 0 5px 3px rgba(40,120,200,0.5);
 					--shadow-small: none;
+					--shadow-focus: 0 0 2px 1px rgba(40,120,200,0.75);
 				}
 			}
 		</style>
