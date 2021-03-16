@@ -4,8 +4,9 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="theme-color" content="#2b75c4">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-2b75c401' 'nonce-2b75c402' 'nonce-2b75c403' 'nonce-2b75c404'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';">
 		<title>Useragent 生成</title>
-		<script>
+		<script nonce='2b75c401'>
 			const uaData = {
 				base:{},
 				apps:{},
@@ -23,7 +24,7 @@
 				},
 				storKey:"userAgentData",
 				设置:{
-					代码版本:"1.1 Alpha",
+					代码版本:"5.1 Alpha",
 					基础默认:1,
 					数字记号:"#",
 					测试模式:false,
@@ -50,6 +51,7 @@
 				--theme-color-d: transparent; /* 选框 文本框 背景色 */
 				--theme-color-e: lightgray; /* 选框 边框颜色 */
 				--theme-color-f: white; /* 页面背景色 */
+				--theme-color-g: yellow; /* 链接聚焦颜色 */
 				--theme-color-close: red;
 				--theme-color-close-text: white;
 				--input-check-ready: lightgray;
@@ -60,6 +62,8 @@
 				--tag-filtered: #00ad46;
 				--shadow-big: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
 				--shadow-small: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 3px 1px rgba(0,0,0,0.12);
+				--shadow-focus: 0 0 2px 1px rgba(40,120,200,0.75);
+				--shadow-focus-button: 0 0 3px 2px rgba(40,120,200,0.75);
 			}
 			body {
 				font-size: 16px;
@@ -98,6 +102,9 @@
 				height: 1.1em;
 				line-height: 1.1em;
 				font-weight: 600;
+			}
+			a:focus, p:focus {
+				color: var(--theme-color-g);
 			}
 			noscript {
 				color: lightgray;
@@ -140,6 +147,10 @@
 				padding: 3px;
 				border-radius: 10px;
 			}
+			#classBox label:focus .flag,
+			.classBox label:focus .flag {
+				box-shadow: var(--shadow-focus);
+			}
 			#classBox .flag,
 			.classBox .flag {
 				padding: 0 4px;
@@ -147,7 +158,7 @@
 				box-shadow: var(--shadow-small);
 			}
 			#app .flag {
-				margin: 1.5px 2px;
+				margin: 1.5px 3px;
 				box-shadow: var(--shadow-small);
 				line-height: 1.5em;
 			}
@@ -258,6 +269,9 @@
 			.orig-box {
 				display: none;
 			}
+			label:focus .new-style {
+				box-shadow: var(--shadow-focus);
+			}
 			.new-style {
 				background-color:var(--theme-color-d);
 				border: 1px solid var(--theme-color-e);
@@ -342,6 +356,9 @@
 				padding:3px 1em;
 				margin:0 2px;
 				box-shadow:var(--shadow-small);
+			}
+			button:focus {
+				box-shadow: var(--shadow-focus-button);
 			}
 			#searchbox {
 				position: relative;
@@ -696,25 +713,25 @@
 				<div class="setHead"><p>生成模式</p></div>
 				<div id="modeopt">
 					<div>
-						<label for="gen" tabindex="0" onkeydown="uaCode.util.check()">
+						<label for="gen" tabindex="0">
 							<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked>
 							<span class="new-style new-radio"></span>生成
 						</label>
-						<label for="add" tabindex="0" onkeydown="uaCode.util.check()">
+						<label for="add" tabindex="0">
 							<input id="add" type="radio" name="mode" value="add" class="orig-box">
 							<span class="new-style new-radio"></span>追加
 						</label>
 					</div>
 					<div>
-						<button id="openClass" onclick="uaCode.open('#class')">标签筛选</button>
-						<button onclick="uaCode.open('#ua')">打开窗口</button>
+						<button id="openClass">标签筛选</button>
+						<button id="openUA">打开窗口</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div id="searchbox">
 			<label for="search" class="none">在此输入搜索 APP ...</label>
-			<input id="search" name="search" type="text" placeholder="在此输入搜索 APP ..." oninput="uaCode.filter.app(this.value)">
+			<input id="search" name="search" type="text" placeholder="在此输入搜索 APP ...">
 		</div>
 		<div id="app">
 			<div id="app_container">
@@ -723,62 +740,62 @@
 			<p id="ajump" class="none"></p>
 		</div>
 		<div id="action">
-			<button onclick="(()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'})()">帮助</button>
-			<button onclick="uaCode.util.$_('app').forEach( check => { check.checked = false; })">清空选择</button>
-			<button id="openNew" onclick="uaCode.open('#addui')">+</button>
-			<button onclick="uaCode.filter.sel(this)">列出已选</button>
-			<button onclick="uaCode.gen()">生成 UA</button>
+			<button id="btnHelp">帮助</button>
+			<button id="btnCSel">清空选择</button>
+			<button id="openNew">+</button>
+			<button id="btnSlst">列出已选</button>
+			<button id="btnGen">生成 UA</button>
 		</div>
 		<div id="ua" class="none win">
 			<div class="titlebar">
 				<div class="title">UA 窗口</div>
-				<button class="close" onclick="this.parentNode.parentNode.classList.add('none')">关闭</button>
+				<button class="close">关闭</button>
 			</div>
 			<label for="useragent" class="none">UA 编辑框</label>
-			<textarea id="useragent" placeholder="你想要的在这儿 ^_^" oninput="uaCode.check()"></textarea>
+			<textarea id="useragent" placeholder="你想要的在这儿 ^_^"></textarea>
 			<div id="issues"></div>
 			<div id="action2">
-				<button onclick="(()=>{uaCode.util.$(false,'#useragent').value = '';})()">清空</button>
-				<button onclick="(uaCode.util.$(false,'#useragent').select(),document.execCommand('copy'))">复制</button>
+				<button id="btnClUA">清空</button>
+				<button id="btnCpUA">复制</button>
 			</div>
 		</div>
 		<div id="class" class="none win">
 			<div class="titlebar">
 				<div class="title">标签筛选</div>
-				<button class="close" onclick="this.parentNode.parentNode.classList.add('none')">关闭</button>
+				<button class="close">关闭</button>
 			</div>
 			<div id="classBox"></div>
 			<div id="action3">
-				<button onclick="(()=>{uaCode.util.$(true,'#classBox input:not(:checked)').forEach( box => { box.checked = true; uaCode.tagClick(box.parentNode.id,true);});})()">恢复</button>
-				<button onclick="(()=>{uaCode.util.$(true,'#classBox input').forEach( box => { box.checked = (!box.checked); uaCode.tagClick(box.parentNode.id,true);});})()">反选</button>
+				<button id="btnTgAl">恢复</button>
+				<button id="btnTgRv">反选</button>
 			</div>
 		</div>
 		<div id="addui" class="none win">
 			<div class="titlebar">
 				<div class="title">添加项目</div>
-				<button class="close" onclick="this.parentNode.parentNode.classList.add('none')">关闭</button>
+				<button class="close">关闭</button>
 			</div>
 			<div id="addtype">
-				<label tabindex="0" onkeydown="uaCode.util.check()">
-					<input id="Raapp" type="radio" name="atype" value="aapp" class="orig-box" onchange="uaCode.aform.switchCard()" checked>
+				<label tabindex="0">
+					<input id="Raapp" type="radio" name="atype" value="aapp" class="orig-box" checked>
 					<span class="new-style new-radio"></span>APP
 				</label>
-				<label tabindex="0" onkeydown="uaCode.util.check()">
-					<input id="Rqapp" type="radio" name="atype" value="qapp" class="orig-box" onchange="uaCode.aform.switchCard()">
+				<label tabindex="0">
+					<input id="Rqapp" type="radio" name="atype" value="qapp" class="orig-box">
 					<span class="new-style new-radio"></span>快应用
 				</label>
-				<label tabindex="0" onkeydown="uaCode.util.check()">
-					<input id="Ratag" type="radio" name="atype" value="atag" class="orig-box" onchange="uaCode.aform.switchCard()">
+				<label tabindex="0">
+					<input id="Ratag" type="radio" name="atype" value="atag" class="orig-box">
 					<span class="new-style new-radio"></span>标签
 				</label>
 			</div>
 			<div id="addtable">
 				<div id="aappt" class="atab">
 					<label id="akeyl"><b>标识</b>
-						<input id="akey" type="text" name="aapp" placeholder="首字母对应名称拼音首字母" oninput="uaCode.aform.check(false)"/>
+						<input id="akey" type="text" name="aapp" class="key" placeholder="首字母对应名称拼音首字母"/>
 					</label>
 					<label id="asell" class="none"><b>标识</b>
-						<select id="asel" class="msel" onchange="uaCode.aform.modify()">
+						<select id="asel" class="msel">
 							<option selected hidden disabled value="">请选择要修改的项目...</option>
 						</select>
 					</label>
@@ -787,26 +804,26 @@
 					</label>
 					<div id="apre">
 						<p>前置</p>
-						<label tabindex="0" onkeydown="uaCode.util.check()">
-							<input id="apret" type="radio" name="apre" value="true" class="orig-box" onchange="uaCode.aform.switchBoth()">
+						<label tabindex="0">
+							<input id="apret" type="radio" name="apre" value="true" class="orig-box">
 							<span class="new-style new-radio"></span>是
 						</label>
-						<label tabindex="0" onkeydown="uaCode.util.check()">
-							<input id="apref" type="radio" name="apre" value="false" class="orig-box" onchange="uaCode.aform.switchBoth()" checked>
+						<label tabindex="0">
+							<input id="apref" type="radio" name="apre" value="false" class="orig-box" checked>
 							<span class="new-style new-radio"></span>否
 						</label>
-						<label tabindex="0" onkeydown="uaCode.util.check()">
-							<input id="apreb" type="radio" name="apre" value="both" class="orig-box" onchange="uaCode.aform.switchBoth()">
+						<label tabindex="0">
+							<input id="apreb" type="radio" name="apre" value="both" class="orig-box">
 							<span class="new-style new-radio"></span>前后都有
 						</label>
 					</div>
 					<div id="afol">
 						<p>无缝</p>
-						<label tabindex="0" onkeydown="uaCode.util.check()">
+						<label tabindex="0">
 							<input id="afolt" type="radio" name="afol" value="true" class="orig-box">
 							<span class="new-style new-radio"></span>是
 						</label>
-						<label tabindex="0" onkeydown="uaCode.util.check()">
+						<label tabindex="0">
 							<input id="afolf" type="radio" name="afol" value="false" class="orig-box" checked>
 							<span class="new-style new-radio"></span>否
 						</label>
@@ -831,10 +848,10 @@
 				</div>
 				<div id="qappt" class="atab none">
 					<label id="qkeyl"><b>标识</b>
-						<input id="qkey" type="text" name="qapp" placeholder="首字母对应名称拼音首字母" oninput="uaCode.aform.check(false)"/>
+						<input id="qkey" type="text" name="qapp" class="key" placeholder="首字母对应名称拼音首字母"/>
 					</label>
 					<label id="qsell" class="none"><b>标识</b>
-						<select id="qsel" class="msel" onchange="uaCode.aform.modify()">
+						<select id="qsel" class="msel">
 							<option selected hidden disabled value="">请选择要修改的项目...</option>
 						</select>
 					</label>
@@ -861,10 +878,10 @@
 				</div>
 				<div id="atagt" class="atab none">
 					<label id="tkeyl"><b>标识</b>
-						<input id="tkey" type="text" name="atag" placeholder="数字和英文字母" oninput="uaCode.aform.check(false)"/>
+						<input id="tkey" type="text" name="atag" class="key" placeholder="数字和英文字母"/>
 					</label>
 					<label id="tsell" class="none"><b>标识</b>
-						<select id="tsel" class="msel" onchange="uaCode.aform.modify()">
+						<select id="tsel" class="msel">
 							<option selected hidden disabled value="">请选择要修改的项目...</option>
 						</select>
 					</label>
@@ -872,41 +889,41 @@
 						<div id="tkds">
 							<div id="tclsbox" class="flag"></div>
 							<span>
-							<input id="ttext" type="text" name="atag" oninput="uaCode.aform.updateFlagPreview()"/>
+							<input id="ttext" type="text" name="atag"/>
 							</span>
 						</div>
 					</label>
 					<label><b>背景</b>
-						<input id="tbgc" type="color" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
+						<input id="tbgc" type="color" name="atag"/>
 					</label>
 					<label><b>文字</b>
-						<input id="tfgc" type="color" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
+						<input id="tfgc" type="color" name="atag"/>
 					</label>
 				</div>
 			</div>
 			<div id="addbtn">
-				<button id="aok" onclick="uaCode.aform.add()">加入</button>
-				<button onclick="uaCode.aform.clear()">清空表单</button>
-				<button id="anew" onclick="uaCode.aform.switchModify()">管理</button>
-				<button onclick="uaCode.aform.del()">删除</button>
+				<button id="aok">加入</button>
+				<button id="aclear">清空表单</button>
+				<button id="anew">管理</button>
+				<button id="adel">删除</button>
 			</div>
 			<div id="addsave">
 				<label for="stordata" class="none">复制到这里就可以导入啦</label>
 				<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
 				<div class="savebtn">
-					<button id="ssave" onclick="uaCode.lsb.save()">保存数据</button>
-					<button onclick="(uaCode.util.$(false,'#stordata').select(),document.execCommand('copy'))">复制内容</button>
-					<button onclick="(()=>{uaCode.util.$(false,'#stordata').value = '';})()">清空内容</button>
+					<button id="ssave">保存数据</button>
+					<button id="scopy">复制内容</button>
+					<button id="sdele">清空内容</button>
 				</div>
 				<div class="savebtn">
-					<button onclick="uaCode.lsb.import()">导入数据</button>
-					<button onclick="uaCode.lsb.export()">导出数据</button>
-					<button onclick="(window.localStorage.removeItem(uaData.storKey),uaCode.util.toast('清空啦'))">清空存储</button>
+					<button id="simp">导入数据</button>
+					<button id="sexp">导出数据</button>
+					<button id="sclr">清空存储</button>
 				</div>
 			</div>
 		</div>
-		<div id="toast" onanimationend="this.classList.remove('toasting')"></div>
-		<div id="load" onanimationend="this.classList.add('none')">
+		<div id="toast"></div>
+		<div id="load">
 			<p id="loadstr">正在加载...</p>
 			<p id="browstr">
 				这个页面至少需要:<br>
@@ -919,7 +936,7 @@
 			</p>
 		</div>
 		<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
-		<script>
+		<script nonce='2b75c402'>
 		const uaCode = (() => {
 			let lab,cas,lah,ntx,loc,pos=[0,0];
 			function $(all,sel) {
@@ -1371,7 +1388,8 @@
 				if (scanAll()!==0) { _(ntx,false,"none"); }
 			}
 			
-			function fltAppUA(word) {
+			function fltAppUA(e) {
+				let word = e.target.value;
 				if (word==="") {
 					filterResume("none");
 				} else {
@@ -1380,7 +1398,8 @@
 				}
 			}
 			
-			function fltAppUASelected(btn) {
+			function fltAppUASelected(e) {
+				let btn = e.target;
 				if (btn.innerHTML==="列出已选") {
 					const item = [];
 					$_("app").forEach( ele => item.push(ele.value));
@@ -1905,8 +1924,47 @@
 				}
 			}
 			
+			function addEvent() {
+				function ee(el,ev,fn) { el.addEventListener(ev,fn); }
+				$(true,'#mode label').forEach( e => ee(e,'keydown', spaceChecked));
+				ee($(false,'#openClass'),'click',openWin.bind(this,'#class'));
+				ee($(false,'#openUA'),'click',openWin.bind(this,'#ua'));
+				ee($(false,'#search'),'input', fltAppUA.bind(this));
+				ee($(false,'#btnHelp'),'click',()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'});
+				ee($(false,'#btnCSel'),'click',()=>{$_('app').forEach( check => { check.checked = false; })});
+				ee($(false,'#openNew'),'click',openWin.bind(this,'#addui'));
+				ee($(false,'#btnSlst'),'click',fltAppUASelected.bind(this));
+				ee($(false,'#btnGen'),'click',genUA);
+				$(true,'.close').forEach( c => ee(c,'click',e => { e.target.parentNode.parentNode.classList.add('none')}));
+				ee($(false,'#useragent'),'input',issuesCheck);
+				ee($(false,'#btnClUA'),'click',()=>{$(false,'#useragent').value = '';});
+				ee($(false,'#btnCpUA'),'click',()=>{$(false,'#useragent').select();document.execCommand('copy');});
+				ee($(false,'#btnTgAl'),'click',()=>{$(true,'#classBox input:not(:checked)').forEach( b => { b.checked = true; tagClick(b.parentNode.id,true);});});
+				ee($(false,'#btnTgRv'),'click',()=>{$(true,'#classBox input').forEach( b => { b.checked = (!b.checked); tagClick(b.parentNode.id,true);});});
+				$(true,'#addtype label').forEach( e => ee(e,'keydown', spaceChecked));
+				$(true,'#addtype input').forEach( e => ee(e,'change', aform_switchCard));
+				$(true,'.key').forEach( e => ee(e,'input',aform_KeyCheck.bind(this,false)));
+				$(true,'.msel').forEach( e => ee(e,'change',aform_Modify));
+				$(true,'#apre label').forEach( e => ee(e,'keydown', spaceChecked));
+				$(true,'#apre input').forEach( e => ee(e,'change', aform_switchBoth));
+				$(true,'#afol label').forEach( e => ee(e,'keydown', spaceChecked));
+				$(true,'#ttext,#tbgc,#tfgc').forEach( e => ee(e,'change', aform_updateFlagPreview));
+				ee($(false,'#aok'),'click',aform_Add);
+				ee($(false,'#aclear'),'click',aform_Clear);
+				ee($(false,'#anew'),'click',aform_switchModify);
+				ee($(false,'#adel'),'click',aform_Delete);
+				ee($(false,'#ssave'),'click',lsb_save);
+				ee($(false,'#scopy'),'click',()=>{$(false,'#stordata').select();document.execCommand('copy');});
+				ee($(false,'#sdele'),'click',()=>{$(false,'#stordata').value = '';});
+				ee($(false,'#simp'),'click',lsb_import);
+				ee($(false,'#sexp'),'click',lsb_export);
+				ee($(false,'#sclr'),'click',()=>{window.localStorage.removeItem(uaData.storKey);toast('清空啦')});
+				ee($(false,'#load'),'animationend',e=>_(e.target,false,'none'));
+			}
+			
 			function init(){
 				$(false,'#loadstr').innerHTML = '正在构建 ...';
+				addEvent();
 				lsb_initOption();
 				makeItem();
 				makeFlaginBox();
@@ -1973,7 +2031,7 @@
 			}
 		})();
 		</script>
-		<script>
+		<script nonce='2b75c403'>
 			window.onerror = function(e,a,l) {
 				alert(`错误: ${e}\n地址: ${a}\n行数: ${l}`);
 			}
@@ -2030,9 +2088,11 @@
 						break;
 				}
 			}
+			
+			document.querySelector('#toast').addEventListener('animationend',e=>e.target.classList.remove('toasting'));
 		</script>
 		<script src="数据列表.js"></script>
-		<script>
+		<script nonce='2b75c404'>
 			let uaDataLoading = new Promise( (resolve,reject) => {
 				uaCode.util.$(false,'#loadstr').innerHTML = (uaData.jslist.length===0) ?
 					'数据列表加载失败 !' : '正在加载基本数据 ...';
