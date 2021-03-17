@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="theme-color" content="#2b75c4">
-		<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-2b75c401' 'nonce-2b75c402' 'nonce-2b75c403' 'nonce-2b75c404'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';">-->
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-2b75c401' 'nonce-2b75c402' 'nonce-2b75c403' 'nonce-2b75c404' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';">
 		<title>Useragent 生成</title>
 		<script nonce='2b75c401'>
 			const uaData = {
@@ -2095,8 +2095,14 @@
 			}
 			
 			document.head.addEventListener("DOMNodeInserted",function(e){
-				if(e.target.id==="via_inject_css_night"){
-					document.getElementById("via_inject_css_night").innerHTML = Object.values(document.getElementById('myStyle').sheet.cssRules).filter(r => r.type===4).filter(r => r.conditionText==="(prefers-color-scheme: dark)")[0].cssRules[0].cssText;
+				let stdDark = Object.values(document.getElementById('myStyle').sheet.cssRules).filter(r => r.type===4).filter(r => r.conditionText==="(prefers-color-scheme: dark)")[0].cssRules[0].cssText;
+				switch(e.target.id) {
+					case "via_inject_css_night":
+					case "x_style_element_id":
+						e.target.innerHTML = stdDark;
+						break;
+					default:
+						return;
 				}
 			});
 			document.querySelector('#toast').addEventListener('animationend',e=>e.target.classList.remove('toasting'));
