@@ -2094,17 +2094,19 @@
 				}
 			}
 			
-			document.head.addEventListener("DOMNodeInserted",function(e){
-				let stdDark = Object.values(document.getElementById('myStyle').sheet.cssRules).filter(r => r.type===4).filter(r => r.conditionText==="(prefers-color-scheme: dark)")[0].cssRules[0].cssText;
-				switch(e.target.id) {
-					case "via_inject_css_night":
-					case "x_style_element_id":
-						e.target.innerHTML = stdDark;
-						break;
-					default:
-						return;
-				}
-			});
+			(()=>{
+				let dark=Object.values(document.getElementById('myStyle').sheet.cssRules).filter(r => r.type===4).filter(r => r.conditionText==="(prefers-color-scheme: dark)")[0].cssRules[0].cssText;
+				document.head.addEventListener("DOMNodeInserted",function(e){
+					if(e.target.id==="via_inject_css_night"){
+						e.target.innerHTML = dark;
+					}
+				});
+				document.documentElement.addEventListener("DOMNodeInserted",function(e){
+					if(e.target.id==="x_style_element_id"){
+						e.target.innerHTML = dark;
+					}
+				});
+			})();
 			document.querySelector('#toast').addEventListener('animationend',e=>e.target.classList.remove('toasting'));
 		</script>
 		<script src="数据列表.js"></script>
