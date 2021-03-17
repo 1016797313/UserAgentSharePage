@@ -33,7 +33,7 @@
 				}
 			};
 		</script>
-		<style>
+		<style id="myStyle">
 /*
 * Prefixed by https://autoprefixer.github.io
 * PostCSS: v7.0.29,
@@ -1096,12 +1096,12 @@
 				let p = document.createElement('p');
 				p.className = "issue";
 				if (head) { p.id = 'issueHead'; }
-				p.innerHTML = (head) ? `检测到 ${issue} 个问题 :` : issue;
+				p.innerHTML = issue;
 				return p;
 			}
 			
 			function issuesCheck() {
-				const ua = $(false,"textarea").value,
+				const ua = $(false,"textarea").value, ibox = $(false,'#issues'),
 					issue = [
 								[ // #1 百度 页面 确认框
 									( ua.includes('baiduboxapp/') && (
@@ -1125,17 +1125,20 @@
 									'此 UA 可能会导致 淘宝部分页面 加载时弹出 确认/取消 对话框'
 								]
 							];
-				let count = 0, issues = [];
+				let count = 0, hasHead = false;
 				$(false,'#issues').innerHTML = '';
 				issue.forEach( i => {
 					if (i[0]) {
 						count++;
-						issues.push(makeIssue(i[1],false));
+						if (!hasHead) {
+							ibox.appendChild(makeIssue('',true));
+							hasHead = true;
+						}
+						ibox.appendChild(makeIssue(i[1],false));
 					};
 				});
 				if (count>0) {
-					issues.splice(0,0,makeIssue(count,true));
-					issues.forEach( p => $(false,'#issues').appendChild(p));
+					$(false,'#issueHead').innerHTML = `检测到 ${count} 个问题 :`
 				};
 			}
 			
@@ -1939,7 +1942,7 @@
 				ee($(false,'#btnGen'),'click',genUA);
 				$(true,'.close').forEach( c => ee(c,'click',e => { e.target.parentNode.parentNode.classList.add('none')}));
 				ee($(false,'#useragent'),'input',issuesCheck);
-				ee($(false,'#btnClUA'),'click',()=>{$(false,'#useragent').value = '';});
+				ee($(false,'#btnClUA'),'click',()=>{$(false,'#useragent').value = '';issuesCheck();});
 				ee($(false,'#btnCpUA'),'click',()=>{$(false,'#useragent').select();document.execCommand('copy');});
 				ee($(false,'#btnTgAl'),'click',()=>{$(true,'#classBox input:not(:checked)').forEach( b => { b.checked = true; tagClick(b.parentNode.id,true);});});
 				ee($(false,'#btnTgRv'),'click',()=>{$(true,'#classBox input').forEach( b => { b.checked = (!b.checked); tagClick(b.parentNode.id,true);});});
@@ -2091,6 +2094,11 @@
 				}
 			}
 			
+			document.head.addEventListener("DOMNodeInserted",function(e){
+				if(e.target.id==="via_inject_css_night"){
+					document.getElementById("via_inject_css_night").innerHTML = Object.values(document.getElementById('myStyle').sheet.cssRules).filter(r => r.type===4).filter(r => r.conditionText==="(prefers-color-scheme: dark)")[0].cssRules[0].cssText;
+				}
+			});
 			document.querySelector('#toast').addEventListener('animationend',e=>e.target.classList.remove('toasting'));
 		</script>
 		<script src="数据列表.js"></script>
