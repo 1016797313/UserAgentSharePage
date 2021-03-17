@@ -4,9 +4,9 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="theme-color" content="#2b75c4">
-		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-2b75c401' 'nonce-2b75c402' 'nonce-2b75c403' 'nonce-2b75c404' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';">
 		<title>Useragent 生成</title>
-		<script nonce='2b75c401'>
+		<script>
 			const uaData = {
 				base:{},
 				apps:{},
@@ -938,7 +938,7 @@
 			</p>
 		</div>
 		<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
-		<script nonce='2b75c402'>
+		<script>
 		const uaCode = (() => {
 			let lab,cas,lah,ntx,loc,pos=[0,0];
 			function $(all,sel) {
@@ -2036,7 +2036,7 @@
 			}
 		})();
 		</script>
-		<script nonce='2b75c403'>
+		<script>
 			window.onerror = function(e,a,l) {
 				alert(`错误: ${e}\n地址: ${a}\n行数: ${l}`);
 			}
@@ -2095,7 +2095,9 @@
 			}
 			
 			(()=>{
-				let dark=Object.values(document.getElementById('myStyle').sheet.cssRules).filter(r => r.type===4).filter(r => r.conditionText==="(prefers-color-scheme: dark)")[0].cssRules[0].cssText,xcss = document.getElementById("x_style_element_id");
+				let dark=Object.values(document.getElementById('myStyle').sheet.cssRules).filter(r => r.type===4).filter(r => r.conditionText==="(prefers-color-scheme: dark)")[0].cssRules[0].cssText,
+				xcss = document.getElementById("x_style_element_id"),
+				ycss = document.getElementById("yj_style_element_id");
 				document.head.addEventListener("DOMNodeInserted",function(e){
 					switch(e.target.id) {
 						case "via_inject_css_night":
@@ -2107,16 +2109,22 @@
 					}
 				});
 				if(xcss){ xcss.innerHTML = dark; }
+				if(ycss){ ycss.innerHTML = dark; }
 				document.documentElement.addEventListener("DOMNodeInserted",function(e){
-					if(e.target.id==="x_style_element_id"){
-						e.target.innerHTML = dark;
+					switch(e.target.id) {
+						case "x_style_element_id":
+						case "yj_style_element_id":
+							e.target.innerHTML = dark;
+							break;
+						default:
+							return;
 					}
 				});
 			})();
 			document.querySelector('#toast').addEventListener('animationend',e=>e.target.classList.remove('toasting'));
 		</script>
 		<script src="数据列表.js"></script>
-		<script nonce='2b75c404'>
+		<script>
 			let uaDataLoading = new Promise( (resolve,reject) => {
 				uaCode.util.$(false,'#loadstr').innerHTML = (uaData.jslist.length===0) ?
 					'数据列表加载失败 !' : '正在加载基本数据 ...';
