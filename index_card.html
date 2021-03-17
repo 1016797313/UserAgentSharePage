@@ -2097,8 +2097,13 @@
 			(()=>{
 				let dark=Object.values(document.getElementById('myStyle').sheet.cssRules).filter(r => r.type===4).filter(r => r.conditionText==="(prefers-color-scheme: dark)")[0].cssRules[0].cssText,xcss = document.getElementById("x_style_element_id");
 				document.head.addEventListener("DOMNodeInserted",function(e){
-					if(e.target.id==="via_inject_css_night"){
-						e.target.innerHTML = dark;
+					switch(e.target.id) {
+						case "via_inject_css_night":
+						case "metaNight":
+							e.target.innerHTML = dark;
+							break;
+						default:
+							return;
 					}
 				});
 				if(xcss){ xcss.innerHTML = dark; }
