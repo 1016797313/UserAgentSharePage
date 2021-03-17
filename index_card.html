@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="theme-color" content="#2b75c4">
-		<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';">-->
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';">
 		<title>Useragent 生成</title>
 		<script>
 			const uaData = {
@@ -1823,7 +1823,7 @@
 							$(false,'#ssave').style.backgroundColor = __('data-need-save');
 							toast('删除成功');
 						} else {
-							toast('不能删除原始项目');
+							toast('不能删除自带项目');
 						}
 					} else {
 						toast('没有选择项目');
@@ -2095,15 +2095,15 @@
 			}
 			
 			(()=>{
-				let dark=Object.values(document.getElementById('myStyle').sheet.cssRules).filter(r => r.type===4).filter(r => r.conditionText==="(prefers-color-scheme: dark)")[0].cssRules[0].cssText,
-				xcss = document.getElementById("x_style_element_id"),
-				ycss = document.getElementById("yj_style_element_id");
+				let dark=Object.values(document.getElementById('myStyle').sheet.cssRules).filter(r => r.type===4 && r.media.mediaText==='(prefers-color-scheme: dark)')[0].cssRules[0].cssText,
+				xcss = document.getElementById("x_style_element_id");
 				document.head.addEventListener("DOMNodeInserted",function(e){
 					switch(e.target.id) {
 						case "via_inject_css_night":
 						case "metaNight":
 						case "360browser_night_mode_style":
 						case "360browser_night_mode_style2":
+						case "mixiaba_css_id":
 							e.target.innerHTML = dark;
 							break;
 						default:
@@ -2111,11 +2111,9 @@
 					}
 				});
 				if(xcss){ xcss.innerHTML = dark; }
-				if(ycss){ ycss.innerHTML = dark; }
 				document.documentElement.addEventListener("DOMNodeInserted",function(e){
 					switch(e.target.id) {
 						case "x_style_element_id":
-						case "yj_style_element_id":
 							e.target.innerHTML = dark;
 							break;
 						default:
