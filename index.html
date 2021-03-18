@@ -14,7 +14,7 @@
 				count:{},
 				text:{},
 				tagtext:{},
-				tagfind:{},
+				tagfind:new Map(),
 				index:"",
 				jslist:[],
 				touch:"ontouchend" in document,
@@ -995,7 +995,7 @@
 				} else if (fro===to) {
 					return clas;
 				} else {
-					return (fro) ? uaData.tagfind[clas] : uaData.flag[clas][0];
+					return (fro) ? uaData.tagfind.get(clas) : uaData.flag[clas][0];
 				}
 			}
 			
@@ -1185,7 +1185,7 @@
 					return 1;
 				} else {
 					uaData.apps[app].class.forEach( cls => {
-						if (cls.slice(0,1)==="_" || uaData.tagfind[cls]) {
+						if (cls.slice(0,1)==="_" || uaData.tagfind.has(cls)) {
 							count += 1;
 							lab.appendChild(makeFlagDiv(cls,false,true,1));
 							cls = tagConv(cls,true,false);
@@ -1222,7 +1222,7 @@
 						tabIndex: 0,
 						innerHTML: uaData.apps[app].text
 					});
-					lab.addEventListener('keydown', e => uaCode.util.check(e));
+					lab.addEventListener('keydown', spaceChecked);
 					uaData.count[app] = parseClassinItem(lab,app);
 					if (uaData.设置.测试模式) {
 						const idi = document.createElement("i");
@@ -1267,7 +1267,7 @@
 						box = document.createElement("input");
 					lab.id = `L${flag}`;
 					lab.tabIndex = 0;
-					lab.addEventListener('keydown', e => uaCode.util.check(e));
+					lab.addEventListener('keydown', spaceChecked);
 					Object.assign(box, {
 						type: "checkbox",
 						name: "flag",
@@ -1275,7 +1275,7 @@
 						value: flag,
 						checked: true
 					});
-					box.addEventListener('change', e => uaCode.tagClick(e.target.parentNode.id,true));
+					box.addEventListener('change', e => tagClick(e.target.parentNode.id,true));
 					lab.appendChild(box);
 					lab.appendChild(makeFlagDiv(flag,true,false,1));
 					$(false,"#classBox").appendChild(lab);
@@ -1288,7 +1288,7 @@
 						box = document.createElement("input");
 					lab.for = base;
 					lab.tabIndex = 0;
-					lab.addEventListener('keydown', (e) => { uaCode.util.check(e); });
+					lab.addEventListener('keydown', spaceChecked);
 					Object.assign(box, {
 						type: "radio",
 						name: "base",
@@ -1318,7 +1318,7 @@
 			}
 			
 			function dndWin() {
-				let wing = $(true,".win");
+				let wing = $(true,".win"), unlock = ()=>{ document.onmousemove = null; };
 				wing.forEach( (win,i) => {
 					win.style.zIndex = i + 2;
 				});
@@ -1363,8 +1363,8 @@
 									win.style.top = (e.clientY - pos[1]) + 'px';
 								};
 							};
-							document.removeEventListener('mouseup', uaCode.util.unlock);
-							document.addEventListener('mouseup', uaCode.util.unlock);
+							document.removeEventListener('mouseup', unlock);
+							document.addEventListener('mouseup', unlock);
 						});
 					});
 				}
@@ -1507,7 +1507,7 @@
 								box = document.createElement("input");
 							lab.id = `${getUpperHead(sbox.id)}${flag}`;
 							lab.tabIndex = 0;
-							lab.addEventListener('keydown', (e) => { uaCode.util.check(e); });
+							lab.addEventListener('keydown', spaceChecked);
 							Object.assign(box, {
 								type: "checkbox",
 								name: "sflag",
@@ -1517,7 +1517,7 @@
 							});
 							if (flag==="third") {
 								box.addEventListener('change', e => {
-									uaCode.tagClick(e.target.parentNode.id,false);
+									tagClick(e.target.parentNode.id,false);
 									if (box.checked) {
 										_($(false,`#${sbox.id}l`),true,"none");
 									} else {
@@ -1526,7 +1526,7 @@
 								});
 							} else {
 								box.addEventListener('change', e => {
-									uaCode.tagClick(e.target.parentNode.id,false);
+									tagClick(e.target.parentNode.id,false);
 								});
 							}
 							lab.appendChild(box);
@@ -1582,18 +1582,18 @@
 				return (a && $(false,'#anew').innerHTML==="管理") ? aform_KeyCheck(true) : a ;
 			}
 			
-			function aform_KeyCheck(toast) {
+			function aform_KeyCheck(show) {
 				const type = aform_tType($_('atype').value), test = /^\w+$/u;
 				let inp = $(false,`#${type}key`), key = inp.value, bor = inp,
 					src = (type==="t") ? 'flag' : 'apps';
 				if (type==='t' && key.slice(0,1)==="_") {
 					bor.style.borderColor = __('input-check-err');
-					if(toast){ uaCode.util.toast('"_" 开头用于自定义标签'); }
+					if(show){ toast('"_" 开头用于自定义标签'); }
 					return false;
 				}
 				if (key in uaData[src]||key in uaData.stor[src]) {
 					bor.style.borderColor = __('input-check-err');
-					if(toast){ uaCode.util.toast('标识重复'); }
+					if(show){ toast('标识重复'); }
 					return false;
 				}
 				if (key==="") {
@@ -1601,7 +1601,7 @@
 					return false;
 				} else if (!test.test(key)) {
 					bor.style.borderColor = __('input-check-err');
-					if(toast){ uaCode.util.toast('输入错误'); }
+					if(show){ toast('输入错误'); }
 					return false;
 				} else {
 					bor.style.borderColor = __('input-check-ok');
@@ -1702,7 +1702,14 @@
 			function aform_Modify() {
 				const type = aform_tType($_("atype").value),
 					item = $(false,`#${type}sel`).value;
-				let obj,cobj,cont,ccls = [],chk;
+				let obj,cobj,cont,chk;
+				function tagParse(tags) {
+					let ccls = [];
+					tags.forEach( ct => {
+						ccls.push((ct.slice(0,1)==="_") ? ct : uaData.tagfind.get(ct));
+					});
+					return ccls;
+				}
 				switch (type) {
 					case "t" :
 						obj = (uaData.stor.flag[item]) ? uaData.stor.flag[item] : uaData.flag[item];
@@ -1723,22 +1730,16 @@
 							} else {
 								cont = cobj["内容"];
 							}
-							cobj["标签"].forEach( ct => {
-								ccls.push((ct.slice(0,1)==="_") ? ct : uaData.tagfind[ct]);
-							});
 							obj = {
 								text: cobj["名称"],
 								prefix: (cobj["前置"]==="是") ? true : false,
 								followed: (cobj["无缝"]==="是") ? true : false,
-								class: ccls,
+								class: tagParse(cobj["标签"]),
 								content: cont
 							}
 						} else {
 							obj = uaData.apps[item];
-							obj.class.forEach( ct => {
-								ccls.push((ct.slice(0,1)==="_") ? ct : uaData.tagfind[ct]);
-							});
-							obj.class = ccls;
+							obj.class = tagParse(obj.class);
 						}
 						break;
 				}
@@ -1999,40 +2000,8 @@
 
 			return {
 				init: init,
-				gen: genUA,
-				tagClick: tagClick,
-				open: openWin,
-				check: issuesCheck,
-				filter: {
-					app: fltAppUA,
-					sel: fltAppUASelected,
-				},
-				util: {
-					_: _,
-					$: $,
-					$_: $_,
-					unlock: function() {
-						document.onmousemove = null;
-					},
-					check: spaceChecked,
-					toast: toast,
-				},
-				aform: {
-					switchBoth: aform_switchBoth,
-					switchCard: aform_switchCard,
-					updateFlagPreview: aform_updateFlagPreview,
-					add: aform_Add,
-					clear: aform_Clear,
-					del: aform_Delete,
-					check: aform_KeyCheck,
-					switchModify: aform_switchModify,
-					modify: aform_Modify,
-				},
-				lsb: {
-					save: lsb_save,
-					import: lsb_import,
-					export: lsb_export,
-				}
+				$: $,
+				toast: toast
 			}
 		})();
 		</script>
@@ -2046,7 +2015,7 @@
 					case "标签":
 						Object.assign(uaData.flag,obj);
 						Object.keys(obj).forEach( key => {
-							uaData.tagfind[obj[key][0]] = key;
+							uaData.tagfind.set(obj[key][0], key);
 						});
 						break;
 					case "APP":
@@ -2126,15 +2095,15 @@
 		<script src="数据列表.js"></script>
 		<script>
 			let uaDataLoading = new Promise( (resolve,reject) => {
-				uaCode.util.$(false,'#loadstr').innerHTML = (uaData.jslist.length===0) ?
+				uaCode.$(false,'#loadstr').innerHTML = (uaData.jslist.length===0) ?
 					'数据列表加载失败 !' : '正在加载基本数据 ...';
 				uaData.jslist.forEach( js => {
 					let script=document.createElement('script');
 					script.async = false;
 					script.src = js;
 					script.onerror = e => {
-						uaCode.util.$(false,'#loadstr').innerHTML = '数据加载失败 !';
-						uaCode.util.toast(js + " 加载失败");
+						uaCode.$(false,'#loadstr').innerHTML = '数据加载失败 !';
+						uaCode.toast(js + " 加载失败");
 						window.stop();
 					};
 					script.onload = e => {
@@ -2145,7 +2114,7 @@
 				});
 			}).then( () => {
 				const stor = window.localStorage;
-				uaCode.util.$(false,'#loadstr').innerHTML = '正在加载自定义数据 ...';
+				uaCode.$(false,'#loadstr').innerHTML = '正在加载自定义数据 ...';
 				if (stor.hasOwnProperty(uaData.storKey)) {
 					try {
 						let data = JSON.parse(stor.getItem(uaData.storKey));
