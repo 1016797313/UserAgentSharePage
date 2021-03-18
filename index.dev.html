@@ -24,7 +24,7 @@
 				},
 				storKey:"userAgentData",
 				设置:{
-					代码版本:"5.1 Test 1",
+					代码版本:"5.0 Beta 9 多设备版本",
 					数字记号:"#",
 					标签筛选开启:"#00ad46",
 					数据未保存:"orange",
@@ -679,9 +679,8 @@
 					margin-left: 4em;
 				}
 				#addui {
-					left: auto;
+					left: 40%;
 					top: 4em;
-					margin-left: 5em;
 				}
 				#baseopt > select {
 					margin: 0 5px;
@@ -754,7 +753,7 @@
 			<textarea id="useragent" placeholder="你想要的在这儿 ^_^" oninput="uaCode.check()"></textarea>
 			<div id="issues"></div>
 			<div id="action2">
-				<input id="clearUA" name="clearUA" type="button" value="清空" onclick="(()=>{uaCode.util.$(false,'#useragent').value = '';})();">
+				<input id="clearUA" name="clearUA" type="button" value="清空" onclick="(()=>{uaCode.util.$(false,'#useragent').value = '';uaCode.check();})();">
 				<input id="copy" name="copy" type="button" value="复制" onclick="(()=>{uaCode.util.$(false,'#useragent').select();document.execCommand('copy');})();">
 			</div>
 		</div>
@@ -1028,7 +1027,7 @@
 				switch (e.code) {
 					case "Space":
 					case "Enter":
-						e.target.control.checked = true;
+						e.target.control.click();
 						break;
 					default:
 						return;
@@ -1048,7 +1047,7 @@
 				$_("app").forEach( app => {
 					const appo = uaData.apps[app.value];
 					if (typeof appo.content === "object") {
-						if (appo.content.qBasic!==undefined) {
+						if (appo.content.qBasic) {
 							appo.content = `${appo.content.qBasic} ${appo.content.qString} (${JSON.stringify({
 								packageName: appo.content.qFrom,
 								type: "url",
@@ -1175,7 +1174,7 @@
 			}
 			
 			function pushTagText(cls,app) {
-				if (uaData.tagtext[cls]===undefined) { uaData.tagtext[cls] = []; }
+				if (!uaData.tagtext[cls]) { uaData.tagtext[cls] = []; }
 				uaData.tagtext[cls].push(app);
 			}
 			
@@ -1190,19 +1189,13 @@
 						if (cls.slice(0,1)==="_" || uaData.tagfind[cls]!==undefined) {
 							count += 1;
 							lab.appendChild(makeFlagDiv(cls,false,true,1));
-							if (cls.slice(0,1)==="_") {
-								cls = "third";
-							} else {
-								cls = uaData.tagfind[cls];
-							}
+							cls = tagConv(cls,true,false);
 							pushTagText(cls,app);
 							_(lab,false,cls);
 						} else {
 							toast(`项目 "${app}" 被指定了不存在的标签 "${cls}" ...`);
 							uaData.stor.apps[app].class.splice(
-								uaData.stor.apps[app].class.findIndex( v => {
-									return v === cls;
-								}),1
+								uaData.stor.apps[app].class.findIndex( v => v === cls ),1
 							);
 							loc.setItem(uaData.storKey,JSON.stringify(uaData.stor));
 							location.reload();
@@ -1453,7 +1446,7 @@
 						_(tag,false,"none");
 					}
 				});
-				if (uaData.tagtext[clas]!==undefined) {
+				if (uaData.tagtext[clas]) {
 					uaData.tagtext[clas].forEach( id => {
 						if (selected) {
 							uaData.count[id]++;
@@ -1509,6 +1502,7 @@
 					btn.value = "管理";
 					ok.value = "加入";
 				}
+				aform_Clear();
 			}
 			
 			function aform_switchCard() {
@@ -2091,7 +2085,7 @@
 				}
 			}
 		</script>
-		<script src="数据列表dev.js"></script>
+		<script src="dev/数据列表dev.js"></script>
 		<script>
 		if (uaData.touch) {
 			加入("数据",['indexSidebar.js']);
