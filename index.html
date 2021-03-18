@@ -634,6 +634,12 @@
 				font-size: .75em;
 				font-weight: normal;
 			}
+			.invilab {
+				display: block;
+				width: 0;
+				height: 0;
+				font-size: 0;
+			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
 					padding: 3px 6px;
@@ -734,14 +740,14 @@
 						</label>
 					</div>
 					<div>
-						<button id="openClass">标签筛选</button>
-						<button id="openUA">打开窗口</button>
+						<button type="button" id="openClass">标签筛选</button>
+						<button type="button" id="openUA">打开窗口</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div id="searchbox">
-			<label for="search" class="none">在此输入搜索 APP ...</label>
+			<label for="search" class="invilab">在此输入搜索 APP ...</label>
 			<input id="search" name="search" type="text" placeholder="在此输入搜索 APP ...">
 		</div>
 		<div id="app">
@@ -751,40 +757,40 @@
 			<p id="ajump" class="none"></p>
 		</div>
 		<div id="action">
-			<button id="btnHelp">帮助</button>
-			<button id="btnCSel">清空选择</button>
-			<button id="openNew">+</button>
-			<button id="btnSlst">列出已选</button>
-			<button id="btnGen">生成 UA</button>
+			<button type="button" id="btnHelp">帮助</button>
+			<button type="button" id="btnCSel">清空选择</button>
+			<button type="button" id="openNew">+</button>
+			<button type="button" id="btnSlst">列出已选</button>
+			<button type="button" id="btnGen">生成 UA</button>
 		</div>
 		<div id="ua" class="none win">
 			<div class="titlebar">
 				<div class="title">UA 窗口</div>
-				<button class="close">关闭</button>
+				<button type="button" class="close">关闭</button>
 			</div>
-			<label for="useragent" class="none">UA 编辑框</label>
+			<label for="useragent" class="invilab">UA 编辑框</label>
 			<textarea id="useragent" placeholder="你想要的在这儿 ^_^"></textarea>
 			<div id="issues"></div>
 			<div id="action2">
-				<button id="btnClUA">清空</button>
-				<button id="btnCpUA">复制</button>
+				<button type="button" id="btnClUA">清空</button>
+				<button type="button" id="btnCpUA">复制</button>
 			</div>
 		</div>
 		<div id="class" class="none win">
 			<div class="titlebar">
 				<div class="title">标签筛选</div>
-				<button class="close">关闭</button>
+				<button type="button" class="close">关闭</button>
 			</div>
 			<div id="classBox"></div>
 			<div id="action3">
-				<button id="btnTgAl">恢复</button>
-				<button id="btnTgRv">反选</button>
+				<button type="button" id="btnTgAl">恢复</button>
+				<button type="button" id="btnTgRv">反选</button>
 			</div>
 		</div>
 		<div id="addui" class="none win">
 			<div class="titlebar">
 				<div class="title">添加项目</div>
-				<button class="close">关闭</button>
+				<button type="button" class="close">关闭</button>
 			</div>
 			<div id="addtype">
 				<label tabindex="0">
@@ -914,23 +920,23 @@
 				</div>
 			</div>
 			<div id="addbtn">
-				<button id="aok">加入</button>
-				<button id="aclear">清空表单</button>
-				<button id="anew">管理</button>
-				<button id="adel">删除</button>
+				<button type="button" id="aok">加入</button>
+				<button type="button" id="aclear">清空表单</button>
+				<button type="button" id="anew">管理</button>
+				<button type="button" id="adel">删除</button>
 			</div>
 			<div id="addsave">
-				<label for="stordata" class="none">复制到这里就可以导入啦</label>
+				<label for="stordata" class="invilab">复制到这里就可以导入啦</label>
 				<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
 				<div class="savebtn">
-					<button id="ssave">保存数据</button>
-					<button id="scopy">复制内容</button>
-					<button id="sdele">清空内容</button>
+					<button type="button" id="ssave">保存数据</button>
+					<button type="button" id="scopy">复制内容</button>
+					<button type="button" id="sdele">清空内容</button>
 				</div>
 				<div class="savebtn">
-					<button id="simp">导入数据</button>
-					<button id="sexp">导出数据</button>
-					<button id="sclr">清空存储</button>
+					<button type="button" id="simp">导入数据</button>
+					<button type="button" id="sexp">导出数据</button>
+					<button type="button" id="sclr">清空存储</button>
 				</div>
 			</div>
 		</div>
