@@ -426,6 +426,7 @@
 			.atab > label b,
 			#addsave label b,
 			.classPart > label b,
+			#ttexl b,
 			.atab div p,
 			#addsave div p {
 				width: 20%;
@@ -574,6 +575,12 @@
 			#tclsbox {
 				float: right;
 				margin: 2px 0;
+			}
+			#ttexd {
+				display: flex;
+			}
+			#ttexl {
+				line-height: normal;
 			}
 			#ttext {
 				padding: 0;
@@ -887,14 +894,15 @@
 							<option selected hidden disabled value="">请选择要修改的项目...</option>
 						</select>
 					</label>
-					<label><b>名称</b>
+					<div id="ttexd">
+						<label for="ttext" id="ttexl"><b>名称</b></label>
 						<div id="tkds">
 							<div id="tclsbox" class="flag"></div>
 							<span>
-							<input id="ttext" type="text" name="atag"/>
+								<input id="ttext" type="text" name="atag"/>
 							</span>
 						</div>
-					</label>
+					</div>
 					<label><b>背景</b>
 						<input id="tbgc" type="color" name="atag"/>
 					</label>
