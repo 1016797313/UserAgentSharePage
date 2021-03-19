@@ -12,7 +12,7 @@
 				apps:{},
 				flag:{},
 				count:{},
-				text:{},
+				text:new Map(),
 				tagtext:{},
 				tagfind:new Map(),
 				index:"",
@@ -27,9 +27,6 @@
 					代码版本:"5.1 Beta 1",
 					基础默认:1,
 					数字记号:"#",
-					测试模式:false,
-					前置记号:"^",
-					无缝记号:"~",
 				}
 			};
 		</script>
@@ -214,12 +211,6 @@
 				color: var(--theme-color-a);
 				align-items: flex-end;
 			}
-			#app label i {
-				margin-left: .25em;
-				color: var(--theme-color-a);
-				opacity: .5;
-				font-family: monospace;
-			}
 			.CaseHead {
 				font-size: .75em;
 				font-weight: bold;
@@ -384,7 +375,6 @@
 			}
 			.flag {
 				font-size: .75em;
-				font-weight: bold;
 				padding: 1px 5px;
 				-webkit-user-select: none;
 				   -moz-user-select: none;
@@ -1159,7 +1149,7 @@
 			}
 			
 			function makeFlagDiv(clas,box,chinese,opa) {
-				const flag = document.createElement("div");
+				const flag = document.createElement("b");
 				flag.className = "flag";
 				flag.innerHTML = tagConv(clas,chinese,true);
 				clas = tagConv(clas,chinese,false);
@@ -1229,7 +1219,7 @@
 			function makeItem() {
 				let ofirst = "Z",cont = $(false,"#app_container");
 				Object.keys(uaData.apps).sort().forEach( app => {
-					uaData.text[app] = uaData.apps[app].text;
+					uaData.text.set(app, uaData.apps[app].text);
 					const lab = document.createElement("label"),
 						box = document.createElement("input"),
 						first = getUpperHead(app);
@@ -1240,14 +1230,6 @@
 					});
 					lab.addEventListener('keydown', spaceChecked);
 					uaData.count[app] = parseClassinItem(lab,app);
-					if (uaData.设置.测试模式) {
-						const idi = document.createElement("i");
-						let id = app;
-						if (uaData.apps[app].followed) { id = uaData.设置.无缝记号 + id; }
-						if (uaData.apps[app].prefix) { id = uaData.设置.前置记号 + id; }
-						idi.innerHTML = id;
-						lab.appendChild(idi);
-					}
 					Object.assign(box, {
 						type: "checkbox",
 						name: "app",
@@ -1414,7 +1396,10 @@
 				if (word==="") {
 					filterResume("none");
 				} else {
-					const item = Object.keys(uaData.text).filter(obj => uaData.text[obj].toLowerCase().includes(word.toLowerCase()));
+					const item = [];
+					for (let [k,v] of uaData.text) {
+						v.toLowerCase().includes(word.toLowerCase()) && item.push(k);
+					}
 					filterExec(item,"none");
 				}
 			}
@@ -1879,14 +1864,14 @@
 						});
 					}
 				}
-				Object.keys(uaData.apps).forEach( app => {
+				Object.keys(uaData.apps).sort().forEach( app => {
 					if (!uaData.stor.apps[app]) {
 						sel = (uaData.apps[app].content.qFrom) ?
 							$(false,'#qsel') : $(false,'#asel');
 						sel.appendChild(new Option(`* ${uaData.apps[app].text} (${app})`,app));
 					}
 				});
-				Object.keys(uaData.flag).forEach( tag => {
+				Object.keys(uaData.flag).sort().forEach( tag => {
 					if (!uaData.stor.flag[tag]) {
 						$(false,'#tsel').appendChild(
 							new Option(`* ${uaData.flag[tag][0]} (${tag})`,tag));
@@ -2110,7 +2095,7 @@
 		</script>
 		<script src="数据列表.js"></script>
 		<script>
-			let uaDataLoading = new Promise( (resolve,reject) => {
+			uaData.load = new Promise( (resolve,reject) => {
 				uaCode.$(false,'#loadstr').innerHTML = (uaData.jslist.length===0) ?
 					'数据列表加载失败 !' : '正在加载基本数据 ...';
 				uaData.jslist.forEach( js => {
