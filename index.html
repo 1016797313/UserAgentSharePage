@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="theme-color" content="#2b75c4">
-		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';">
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="theme-color" content="#2b75c4"/>
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';"/>
 		<title>Useragent 生成</title>
 		<script>
 			const uaData = {
@@ -725,11 +725,11 @@
 				<div id="modeopt">
 					<div>
 						<label for="gen" tabindex="0">
-							<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked>
+							<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked="checked"/>
 							<span class="new-style new-radio"></span>生成
 						</label>
 						<label for="add" tabindex="0">
-							<input id="add" type="radio" name="mode" value="add" class="orig-box">
+							<input id="add" type="radio" name="mode" value="add" class="orig-box"/>
 							<span class="new-style new-radio"></span>追加
 						</label>
 					</div>
@@ -742,7 +742,7 @@
 		</div>
 		<div id="searchbox">
 			<label for="search" class="invilab">在此输入搜索 APP ...</label>
-			<input id="search" name="search" type="text" placeholder="在此输入搜索 APP ...">
+			<input id="search" name="search" type="text" placeholder="在此输入搜索 APP ..."/>
 		</div>
 		<div id="app">
 			<div id="app_container">
@@ -788,15 +788,15 @@
 			</div>
 			<div id="addtype">
 				<label tabindex="0">
-					<input id="Raapp" type="radio" name="atype" value="aapp" class="orig-box" checked>
+					<input id="Raapp" type="radio" name="atype" value="aapp" class="orig-box" checked="checked"/>
 					<span class="new-style new-radio"></span>APP
 				</label>
 				<label tabindex="0">
-					<input id="Rqapp" type="radio" name="atype" value="qapp" class="orig-box">
+					<input id="Rqapp" type="radio" name="atype" value="qapp" class="orig-box"/>
 					<span class="new-style new-radio"></span>快应用
 				</label>
 				<label tabindex="0">
-					<input id="Ratag" type="radio" name="atype" value="atag" class="orig-box">
+					<input id="Ratag" type="radio" name="atype" value="atag" class="orig-box"/>
 					<span class="new-style new-radio"></span>标签
 				</label>
 			</div>
@@ -811,31 +811,31 @@
 						</select>
 					</label>
 					<label><b>名称</b>
-						<input id="atext" type="text" name="aapp">
+						<input id="atext" type="text" name="aapp"/>
 					</label>
 					<div id="apre">
 						<p>前置</p>
 						<label tabindex="0">
-							<input id="apret" type="radio" name="apre" value="true" class="orig-box">
+							<input id="apret" type="radio" name="apre" value="true" class="orig-box"/>
 							<span class="new-style new-radio"></span>是
 						</label>
 						<label tabindex="0">
-							<input id="apref" type="radio" name="apre" value="false" class="orig-box" checked>
+							<input id="apref" type="radio" name="apre" value="false" class="orig-box" checked="checked"/>
 							<span class="new-style new-radio"></span>否
 						</label>
 						<label tabindex="0">
-							<input id="apreb" type="radio" name="apre" value="both" class="orig-box">
+							<input id="apreb" type="radio" name="apre" value="both" class="orig-box"/>
 							<span class="new-style new-radio"></span>前后都有
 						</label>
 					</div>
 					<div id="afol">
 						<p>无缝</p>
 						<label tabindex="0">
-							<input id="afolt" type="radio" name="afol" value="true" class="orig-box">
+							<input id="afolt" type="radio" name="afol" value="true" class="orig-box"/>
 							<span class="new-style new-radio"></span>是
 						</label>
 						<label tabindex="0">
-							<input id="afolf" type="radio" name="afol" value="false" class="orig-box" checked>
+							<input id="afolf" type="radio" name="afol" value="false" class="orig-box" checked="checked"/>
 							<span class="new-style new-radio"></span>否
 						</label>
 					</div>
@@ -938,16 +938,16 @@
 		<div id="load">
 			<p id="loadstr">正在加载...</p>
 			<p id="browstr">
-				这个页面至少需要:<br>
-				Chrome 60<br>
-				Edge 79<br>
-				Firefox 52<br>
-				Safari 11<br>
-				Opera 47<br>
+				这个页面至少需要:<br/>
+				Chrome 60<br/>
+				Edge 79<br/>
+				Firefox 52<br/>
+				Safari 11<br/>
+				Opera 47<br/>
 				不支持 Internet Explorer !
 			</p>
 		</div>
-		<noscript>亲，打开 JavaScript 才能工作哟！</noscript>
+		<noscript><b>亲，打开 JavaScript 才能工作哟！</b></noscript>
 		<script>
 		const uaCode = (() => {
 			let lab,cas,lah,ntx,loc,pos=[0,0];
