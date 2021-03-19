@@ -51,7 +51,7 @@
 				--theme-color-g: yellow;                /* 链接聚焦颜色 */
 				--theme-color-h: rgba(130,200,255,0.2); /* 选框 聚焦 背景色 */
 				--theme-color-i: #3688d0;               /* 按钮 聚焦 背景色 */
-				--theme-color-j: lightgray;             /* 加载屏幕 文字颜色 */
+				--theme-color-j: lightgray;             /* 加载屏幕 空筛选 文字颜色 */
 				--theme-color-close: red;
 				--theme-color-close-text: white;
 				--input-check-ready: lightgray;
@@ -105,7 +105,7 @@
 				color: var(--theme-color-g);
 			}
 			noscript {
-				color: lightgray;
+				color: var(--theme-color-j);
 				text-align: center;
 				z-index: 10;
 				font-size: 4em;
@@ -365,7 +365,7 @@
 			}
 			#nulltext {
 				font-size: 2em;
-				color: lightgray;
+				color: var(--theme-color-j);
 				margin: auto;
 				width: 9em;
 				text-align: center;
