@@ -975,24 +975,24 @@
 			}
 			
 			function scanAll() {
-				let found = 0;
-				lah.forEach( ele => {
+				for (let ele of lah) {
 					if (window.getComputedStyle(ele).display!=="none") {
-						found += 1;
+						return true;
 					}
-				});
-				return found;
+				};
 			}
 			
 			function scanForHead() {
+				let found;
 				cas.forEach( ele => {
-					let found = 0;
-					lab.forEach( la => {
+					found = false;
+					for (let la of lab) {
 						if (getUpperHead(la.id) === ele.innerHTML && getComputedStyle(la).display !== "none") {
-							found += 1;
+							found = true;
+							break;
 						}
-					});
-					_(ele,found>=1,"none");
+					};
+					_(ele,found,"none");
 				});
 			}
 			
@@ -1376,20 +1376,25 @@
 			}
 			
 			function filterExec(item,nclass) {
-				let found = 0;
+				let found;
 				lab.forEach( ele => {
-					found = 0;
-					item.forEach( val => { found += val===ele.id ? 1 : 0; });
-					_(ele,found>=1,nclass);
+					found = false;
+					for (let val of item) {
+						if (val===ele.id) {
+							found = true;
+							break;
+						}
+					}
+					_(ele,found,nclass);
 				});
 				scanForHead();
-				_(ntx,scanAll()===0,"none");
+				_(ntx,!scanAll(),"none");
 			}
 			
 			function filterResume(nclass) {
 				lah.forEach( ele => { _(ele,true,nclass); });
 				scanForHead();
-				if (scanAll()!==0) { _(ntx,false,"none"); }
+				if (scanAll()) { _(ntx,false,"none"); }
 			}
 			
 			function fltAppUA(e) {
@@ -1419,13 +1424,7 @@
 			}
 			
 			function fltAppUATag(clas,selected) {
-				$(true,`.T${clas}`).forEach( tag => {
-					if (selected) {
-						_(tag,true,"none");
-					} else {
-						_(tag,false,"none");
-					}
-				});
+				$(true,`.T${clas}`).forEach( tag => _(tag,selected,"none") );
 				if (uaData.tagtext[clas]) {
 					uaData.tagtext[clas].forEach( id => {
 						if (selected) {
@@ -1493,10 +1492,10 @@
 				      both = $(true,".acont2"),
 				      sing = $(false,".acont1");
 				if (val==="both") {
-					both.forEach( input => { _(input,true,"none"); });
+					both.forEach( input => _(input,true,"none") );
 					_(sing,false,"none");
 				} else {
-					both.forEach( input => { _(input,false,"none"); });
+					both.forEach( input => _(input,false,"none") );
 					_(sing,true,"none");
 				}
 			}
@@ -2016,9 +2015,7 @@
 				switch (box) {
 					case "标签":
 						Object.assign(uaData.flag,obj);
-						Object.keys(obj).forEach( key => {
-							uaData.tagfind.set(obj[key][0], key);
-						});
+						Object.keys(obj).forEach( key => uaData.tagfind.set(obj[key][0], key) );
 						break;
 					case "APP":
 						Object.keys(obj).forEach( key => {
@@ -2060,7 +2057,7 @@
 						});
 						break;
 					case "数据":
-						obj.forEach( js => { uaData.jslist.push(js); });
+						obj.forEach( js => uaData.jslist.push(js) );
 						break;
 				}
 			}
