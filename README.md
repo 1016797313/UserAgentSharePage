@@ -26,11 +26,15 @@
 
 > 无法适配 神奇 浏览器 ，因为其 CSS 注入方式是引用文件，无法对其修改。
 
-> 雨见 浏览器在打开时会弹出 4 个错误，不会影响使用。  
+> 雨见 浏览器在打开时会弹出 5 个错误，不会影响使用。  
 因无法定位问题所在，所以目前无法修复。
 
 > Milk 浏览器在打开时会弹出 1 个错误，不会影响使用。  
-错误来自注入的脚本。无法修复。
+错误来自注入的脚本。无法修复。详细信息:  
+>> Uncaught ReferenceError: copyListener is not defined  
+    at \<anonymous\>:1:38  
+\
+document.removeEventListener('copy', copyListener, true);
 
 以上，还望大家帮助测试 ，多提意见和建议 ，多谢 。
 
