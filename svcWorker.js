@@ -1,5 +1,5 @@
 var data = [
-  ["I","./index.html",21032012],
+  ["I","./index.html",21032013],
   ["L","./数据列表.js",2],
   ["B","./基础_良良.js",21031013],
   ["A","./UA_良良.js",21031416],
@@ -8,7 +8,7 @@ var data = [
   ["S","./爬虫_良良.js",21031415],
   ["T","./indexSidebar.js",2],
   ["O","../favicon.ico",2],
-  ["D","./",21032012],
+  ["D","./",21032013],
 ];
 
 self.addEventListener('install', function(event) {
@@ -45,7 +45,7 @@ self.addEventListener('fetch', function(event) {
 	    if ('.' + /\/+\w+\.+\w+$/.exec(req.url) == d[1]) {
 		  caches.open(`${d[0]}_${d[2]}`).then( cache => {
 			patch = true;
-		    cache.put(req, resp);
+		    cache.put(req,resp);
 		  });
 	    }
 	  });

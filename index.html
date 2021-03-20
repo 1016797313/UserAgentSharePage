@@ -2156,7 +2156,7 @@
 					if (regs.length===1) {
 						caches.keys().then( vers => {
 							vers.filter( ver => ver.slice(0,2)==='D_' || ver.slice(0,2)==='I_' ).map( i => {
-								if (i.slice(2) !== uaData.版本.详细) {
+								if (parseInt(i.slice(2)) !== uaData.版本.详细) {
 									uaCode.toast('更新离线缓存...');
 									caches.delete(i);
 								}
