@@ -38,18 +38,27 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  event.respondWith(caches.match(event.request).then( response => {
-	if (response!==undefined) {
+  let patch;
+  
+  function cacheData(req,resp) {
 	  data.map ( d => {
-	    if ('.' + /\/+\w+\.+\w+$/.exec(event.request.url) == d[1]) {
+	    if ('.' + /\/+\w+\.+\w+$/.exec(req.url) == d[1]) {
 		  caches.open(`${d[0]}_${d[2]}`).then( cache => {
-		    cache.put(event.request, response);
+			patch = true;
+		    cache.put(req, resp);
 		  });
 	    }
 	  });
+  }
+  
+  event.respondWith(caches.match(event.request).then( response => {
+	if (response!==undefined) {
+	  cacheData(event.request, response);
 	  return response.clone();
 	} else {
-	  return unCachedBypass(event.request);
+	  patch = false;
+	  cacheData(event.request, response);
+	  return (patch) ? response.clone() : unCachedBypass(event.request);
 	}
   }));
 });
