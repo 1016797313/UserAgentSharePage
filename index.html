@@ -26,7 +26,7 @@
 				storKey:"userAgentData",
 				版本:{
 					描述:"5.1 Beta 2",
-					详细:21032014,
+					详细:21032021,
 				},
 				设置:{
 					基础默认:1,
@@ -34,17 +34,7 @@
 				}
 			};
 		</script>
-		<style id="myStyle">
-/*
-* Prefixed by https://autoprefixer.github.io
-* PostCSS: v7.0.29,
-* Autoprefixer: v9.7.6
-* Browsers: last 3 years and not edge <= 78
-*/
-
-			:focus {
-				outline: none;
-			}
+		<style id="myLight">
 			:root {
 				--theme-color-a: #2b75c4;
 				--theme-color-b: white;
@@ -66,6 +56,37 @@
 				--tag-filtered: #00ad46;
 				--shadow-big: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
 				--shadow-small: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 3px 1px rgba(0,0,0,0.12);
+			}
+		</style>
+		<style id="myDark">
+			@media (prefers-color-scheme: dark) {
+				:root {
+					--theme-color-a: lightskyblue;
+					--theme-color-b: #2e3952;
+					--theme-color-c: #2b75c4;
+					--theme-color-d: #345077;
+					--theme-color-e: transparent;
+					--theme-color-f: #202327;
+					--theme-color-h: #3e5f8e;
+					--theme-color-i: #6cc3f9;
+					--theme-color-j: #728195;
+					--input-check-ready: #345077;
+					--data-need-save: darksalmon;
+					--tag-filtered: #99ddbb;
+					--shadow-big: 0 0 5px 3px rgba(50,80,120,0.5);
+					--shadow-small: none;
+				}
+			}
+		</style>
+		<style id="myStyle">
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 3 years and not edge <= 78
+*/
+			:focus {
+				outline: none;
 			}
 			body {
 				font-size: 16px;
@@ -704,24 +725,6 @@
 				#addui {
 					left: 40%;
 					top: 4em;
-				}
-			}
-			@media (prefers-color-scheme: dark) {
-				:root {
-					--theme-color-a: lightskyblue;
-					--theme-color-b: #2e3952;
-					--theme-color-c: #2b75c4;
-					--theme-color-d: #345077;
-					--theme-color-e: transparent;
-					--theme-color-f: #202327;
-					--theme-color-h: #3e5f8e;
-					--theme-color-i: #6cc3f9;
-					--theme-color-j: #728195;
-					--input-check-ready: #345077;
-					--data-need-save: darksalmon;
-					--tag-filtered: #99ddbb;
-					--shadow-big: 0 0 5px 3px rgba(50,80,120,0.5);
-					--shadow-small: none;
 				}
 			}
 		</style>
@@ -2076,7 +2079,7 @@
 			}
 			
 			(()=>{
-				let dark=Object.values(document.getElementById('myStyle').sheet.cssRules).filter(r => r.type===4 && r.media.mediaText==='(prefers-color-scheme: dark)')[0].cssRules[0].cssText,
+				let dark = Object.values(document.getElementById('myDark').sheet.cssRules)[0].cssRules[0].cssText,
 				xcss = document.getElementById("x_style_element_id");
 				document.head.addEventListener("DOMNodeInserted",function(e){
 					switch(e.target.id) {
@@ -2162,9 +2165,18 @@
 							})
 						});
 					} else {
-						Object.assign(uaCode.$(false,"#toast"), {
-							innerHTML: '点我可以安装离线缓存...',
-							onclick: () => { navigator.serviceWorker.register('svcWorker.js')},
+						let toast = uaCode.$(false,"#toast");
+						Object.assign(toast, {
+							innerHTML: '点我可以安装离线缓存服务 :)',
+							onclick: () => {
+								navigator.serviceWorker.register('svcWorker.js').then( reg => {
+									toast.innerHTML = '安装成功 ;)';
+									toast.className = "toasting";
+								}).catch( e => {
+									toast.innerHTML = '安装失败 :(';
+									toast.className = "toasting";
+								})
+							},
 							className: "toasting"
 						})
 					}
