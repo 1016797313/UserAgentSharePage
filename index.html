@@ -26,7 +26,7 @@
 				storKey:"userAgentData",
 				版本:{
 					描述:"5.1 Beta 2",
-					详细:21032013,
+					详细:21032014,
 				},
 				设置:{
 					基础默认:1,
@@ -119,7 +119,6 @@
 				top: 0;
 				left: 0;
 				background-color: var(--theme-color-b);
-				font-weight: bold;
 				margin: 0;
 			}
 			#base,#mode,#app {
@@ -2104,7 +2103,7 @@
 				});
 			})();
 			document.querySelector('#toast').addEventListener('animationend',e => {
-				e.onclick = null;
+				e.target.onclick = null;
 				e.target.classList.remove('toasting');
 			});
 			
@@ -2163,9 +2162,11 @@
 							})
 						});
 					} else {
-						uaCode.$(false,"#toast").innerHTML = '点击可以安装离线缓存...'
-						uaCode.$(false,"#toast").onclick = () => { navigator.serviceWorker.register('svcWorker.js')};
-						uaCode.$(false,"#toast").className = "toasting";
+						Object.assign(uaCode.$(false,"#toast"), {
+							innerHTML: '点我可以安装离线缓存...',
+							onclick: () => { navigator.serviceWorker.register('svcWorker.js')},
+							className: "toasting"
+						})
 					}
 				})
 			}
