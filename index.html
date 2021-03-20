@@ -4,6 +4,7 @@
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<meta name="theme-color" content="#2b75c4"/>
+		<meta name="color-scheme" content="light dark">
 		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';"/>
 		<title>Useragent 生成</title>
 		<script>
@@ -23,8 +24,11 @@
 					flag:{}
 				},
 				storKey:"userAgentData",
+				版本:{
+					描述:"5.1 Beta 2",
+					详细:21032011,
+				},
 				设置:{
-					代码版本:"5.1 Beta 1",
 					基础默认:1,
 					数字记号:"#",
 				}
@@ -409,8 +413,18 @@
 				vertical-align: middle;
 				color: var(--theme-color-a);
 			}
-			#addtype > label {
-				line-height: 1.5em;
+			#addtype > label b {
+				border-radius: 2px;
+				font-size: 12px;
+				padding: 2px .5em;
+				margin: 5px 0;
+			}
+			#addtype > label:focus b {
+				background: var(--theme-color-h);
+			}
+			#addtype > label input:checked + b {
+				color: var(--theme-color-c);
+				background: var(--theme-color-a);
 			}
 			.atab > div > label {
 				line-height: 1.35em;
@@ -788,16 +802,13 @@
 			</div>
 			<div id="addtype">
 				<label tabindex="0">
-					<input id="Raapp" type="radio" name="atype" value="aapp" class="orig-box" checked="checked"/>
-					<span class="new-style new-radio"></span>APP
+					<input id="Raapp" type="radio" name="atype" value="aapp" class="orig-box" checked="checked"/><b>APP</b>
 				</label>
 				<label tabindex="0">
-					<input id="Rqapp" type="radio" name="atype" value="qapp" class="orig-box"/>
-					<span class="new-style new-radio"></span>快应用
+					<input id="Rqapp" type="radio" name="atype" value="qapp" class="orig-box"/><b>快应用</b>
 				</label>
 				<label tabindex="0">
-					<input id="Ratag" type="radio" name="atype" value="atag" class="orig-box"/>
-					<span class="new-style new-radio"></span>标签
+					<input id="Ratag" type="radio" name="atype" value="atag" class="orig-box"/><b>标签</b>
 				</label>
 			</div>
 			<div id="addtable">
@@ -1986,7 +1997,7 @@
 				$(false,"#stordata").value = '';
 				aform_Clear();
 				$(false,"#search").value = '';
-				$(false,"#version").innerHTML = `版本:${uaData.设置.代码版本} 总数:${Object.keys(uaData.apps).length}`;
+				$(false,"#version").innerHTML = `版本:${uaData.版本.描述}_${uaData.版本.详细} 总数:${Object.keys(uaData.apps).length}`;
 				if (window.location.host.match('gitee.io')) {
 					$(false,"#version").innerHTML += ' <i>由 Gitee 提供代码和网页托管服务</i>';
 					$(false,"#version").onclick = () => {
@@ -2092,7 +2103,11 @@
 					}
 				});
 			})();
-			document.querySelector('#toast').addEventListener('animationend',e=>e.target.classList.remove('toasting'));
+			document.querySelector('#toast').addEventListener('animationend',e => {
+				e.onclick = null;
+				e.target.classList.remove('toasting');
+			});
+			
 		</script>
 		<script src="数据列表.js"></script>
 		<script>
@@ -2135,9 +2150,26 @@
 				}
 			}
 		).then(uaCode.init);
-		if ('serviceWorker' in navigator && window.location.href.slice(0,5)==="https") {
-			navigator.serviceWorker.register('svcWorker.js');
-		}
+		(()=>{
+			if ('serviceWorker' in navigator && window.location.href.slice(0,5)==="https") {
+				navigator.serviceWorker.getRegistrations().then( regs => {
+					if (regs.length===1) {
+						caches.keys().then( vers => {
+							vers.filter( ver => ver.slice(0,2)==='D_' || ver.slice(0,2)==='I_' ).map( i => {
+								if (i.slice(2) !== uaData.版本.详细) {
+									uaCode.toast('更新离线缓存...');
+									caches.delete(i);
+								}
+							})
+						});
+					} else {
+						$(false,"#toast").innerHTML = '点击可以安装离线缓存...'
+						$(false,"#toast").onclick = navigator.serviceWorker.register('svcWorker.js');
+						toast.className = "toasting";
+					}
+				})
+			}
+		})();
 		</script>
 	</body>
 </html>
