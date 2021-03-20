@@ -2165,7 +2165,7 @@
 					} else {
 						uaCode.$(false,"#toast").innerHTML = '点击可以安装离线缓存...'
 						uaCode.$(false,"#toast").onclick = navigator.serviceWorker.register('svcWorker.js');
-						toast.className = "toasting";
+						uaCode.$(false,"#toast").className = "toasting";
 					}
 				})
 			}
