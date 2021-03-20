@@ -26,7 +26,7 @@
 				storKey:"userAgentData",
 				版本:{
 					描述:"5.1 Beta 2",
-					详细:21032012,
+					详细:21032013,
 				},
 				设置:{
 					基础默认:1,
@@ -2164,7 +2164,7 @@
 						});
 					} else {
 						uaCode.$(false,"#toast").innerHTML = '点击可以安装离线缓存...'
-						uaCode.$(false,"#toast").onclick = navigator.serviceWorker.register('svcWorker.js');
+						uaCode.$(false,"#toast").onclick = () => { navigator.serviceWorker.register('svcWorker.js')};
 						uaCode.$(false,"#toast").className = "toasting";
 					}
 				})
