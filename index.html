@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 3",
-					详细:21032116,
+					详细:21032117,
 				},
 				设置:{
 					基础默认:1,
@@ -107,7 +107,7 @@
 				height: 100px;
 				border: none;
 				font-size: 14px;
-				overflow-y: none;
+				overflow-y: hidden;
 			}
 			textarea:focus {
 				border-color: var(--theme-color-a);
@@ -427,6 +427,7 @@
 			#action2 > *,
 			#action3 > *,
 			#setlayer > *,
+			#swopt > *,
 			#classBox,
 			#useragent {
 				margin: 3px 4px;
@@ -2052,7 +2053,7 @@
 					} else {
 						swer.register('svcWorker.js').then( reg => {
 							if (reg.installing) {
-								swStat.innerHTML = '正在安装';
+								swStat.innerHTML = '正在安装，刷新后生效';
 							} else if (reg.waiting) {
 								swStat.innerHTML = '等待安装';
 							} else if (reg.active) {
