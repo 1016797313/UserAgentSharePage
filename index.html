@@ -24,9 +24,10 @@
 					flag:{}
 				},
 				storKey:"userAgentData",
+				styleKey:"userAgentStyle",
 				版本:{
-					描述:"5.1 Beta 2",
-					详细:21032021,
+					描述:"5.1 Beta 3",
+					详细:21032116,
 				},
 				设置:{
 					基础默认:1,
@@ -38,14 +39,14 @@
 			:root {
 				--theme-color-a: #2b75c4;
 				--theme-color-b: white;
-				--theme-color-c: white;                 /* 反色前景色 */
-				--theme-color-d: transparent;           /* 选框 文本框 背景色 */
-				--theme-color-e: lightgray;             /* 选框 边框颜色 */
-				--theme-color-f: white;                 /* 页面背景色 */
-				--theme-color-g: yellow;                /* 链接聚焦颜色 */
-				--theme-color-h: rgba(130,200,255,0.2); /* 选框 聚焦 背景色 */
-				--theme-color-i: #3688d0;               /* 按钮 聚焦 背景色 */
-				--theme-color-j: lightgray;             /* 加载屏幕 空筛选 文字颜色 */
+				--theme-color-c: white;          /* 反色前景色 */
+				--theme-color-d: transparent;    /* 选框 文本框 背景色 */
+				--theme-color-e: lightgray;      /* 选框 边框颜色 */
+				--theme-color-f: white;          /* 页面背景色 */
+				--theme-color-g: yellow;         /* 链接聚焦颜色 */
+				--theme-color-h: #e6f4ff;        /* 选框 聚焦 背景色 */
+				--theme-color-i: #3688d0;        /* 按钮 聚焦 背景色 */
+				--theme-color-j: lightgray;      /* 加载屏幕 空筛选 文字颜色 */
 				--theme-color-close: red;
 				--theme-color-close-text: white;
 				--input-check-ready: lightgray;
@@ -101,8 +102,18 @@
 				padding: 5px;
 				display: block;
 			}
+			#setlayer textarea {
+				background-color: var(--theme-color-b);
+				height: 100px;
+				border: none;
+				font-size: 14px;
+				overflow-y: none;
+			}
 			textarea:focus {
 				border-color: var(--theme-color-a);
+			}
+			#setlayer textarea:focus {
+				border-color: none;
 			}
 			body > div {
 				margin: 0 .5em;
@@ -415,6 +426,7 @@
 			#addsave > *,
 			#action2 > *,
 			#action3 > *,
+			#setlayer > *,
 			#classBox,
 			#useragent {
 				margin: 3px 4px;
@@ -666,6 +678,27 @@
 				height: 0;
 				font-size: 0;
 			}
+			fieldset {
+				border: 2px solid var(--theme-color-j);
+				width: 85%;
+				min-width: 22em;
+				border-radius: 5px;
+				padding: 5px;
+			}
+			fieldset legend {
+				color: var(--theme-color-j);
+				font-size: 12px;
+				font-weight: bold;
+			}
+			fieldset:focus-within {
+				border: 2px solid var(--theme-color-a);
+			}
+			fieldset:focus-within legend {
+				color: var(--theme-color-a);
+			}
+			#setlayer p {
+				color: var(--theme-color-a);
+			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
 					padding: 3px 6px;
@@ -724,7 +757,7 @@
 				}
 				#addui {
 					left: 40%;
-					top: 4em;
+					top: 1em;
 				}
 			}
 		</style>
@@ -812,7 +845,11 @@
 				<label tabindex="0">
 					<input id="Ratag" type="radio" name="atype" value="atag" class="orig-box"/><b>标签</b>
 				</label>
+				<label tabindex="0">
+					<input id="Rasty" type="radio" name="atype" value="asty" class="orig-box"/><b>设置</b>
+				</label>
 			</div>
+			<div id="addlayer">
 			<div id="addtable">
 				<div id="aappt" class="atab">
 					<label id="akeyl"><b>标识</b>
@@ -944,6 +981,34 @@
 					<button type="button" id="simp">导入数据</button>
 					<button type="button" id="sexp">导出数据</button>
 					<button type="button" id="sclr">清空存储</button>
+				</div>
+			</div>
+			</div>
+			<div id="setlayer" class="none">
+				<fieldset>
+					<legend>亮色主题</legend>
+					<label for="stylight" class="invilab">亮色主题</label>
+					<textarea id="stylight"></textarea>
+				</fieldset>
+				<fieldset>
+					<legend>暗色主题</legend>
+					<label for="stydark" class="invilab">暗色主题</label>
+					<textarea id="stydark"></textarea>
+				</fieldset>
+				<div class="savebtn">
+					<button type="button" id="stysave">保存主题</button>
+					<button type="button" id="styclr">清空主题</button>
+				</div>
+				<div id="swopt" class="none">
+					<fieldset>
+						<legend>离线缓存</legend>
+						<p>服务状态:<span id="swstat"></span></p>
+						<p>缓存文件:<span id="swlen"></span>个</p>
+					</fieldset>
+					<div class="savebtn">
+						<button type="button" id="swclr">删除缓存</button>
+						<button type="button" id="swreg">安装服务</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -1491,16 +1556,20 @@
 			}
 			
 			function aform_switchCard() {
-				const val = $_("atype").value;
-				$(true,".atab").forEach( tab => {
-					if (tab.id===`${val}t`) {
-						_(tab,true,"none");
-						$(false,'#anew').innerHTML = "添加";
-						aform_switchModify();
-					} else {
-						_(tab,false,"none");
-					}
-				});
+				const val = $_("atype").value,set = (val==="asty");
+				_($(false,'#setlayer'),set,"none");
+				_($(false,'#addlayer'),!set,"none");
+				if (!set) {
+					$(true,".atab").forEach( tab => {
+						if (tab.id===`${val}t`) {
+							_(tab,true,"none");
+							$(false,'#anew').innerHTML = "添加";
+							aform_switchModify();
+						} else {
+							_(tab,false,"none");
+						}
+					});
+				}
 			}
 			
 			function aform_switchBoth() {
@@ -1947,6 +2016,58 @@
 				}
 			}
 			
+			function lss_save() {
+				let obj = {}, thm = {
+					light: [
+						Object.values($(false,'#myLight').sheet.cssRules)[0].cssText,
+						$(false,'#stylight').value
+					],
+					dark: [
+						Object.values($(false,'#myDark').sheet.cssRules)[0].cssRules[0].cssText,
+						$(false,'#stydark').value
+					]
+				}
+				Object.keys(thm).forEach( th => {
+					if (thm[th][1]!=='' && thm[th][0]!==thm[th][1]) {
+						Object.assign(obj, { [th]: (th==='dark') ? `@media (prefers-color-scheme: dark) {\n${thm[th][1]}\n}` : thm[th][1] });
+					}
+				})
+				if (obj!=={}) {
+					loc.setItem(uaData.styleKey,JSON.stringify(obj));
+					toast('保存成功，下次刷新生效');
+				} else {
+					toast('内容没修改，不用保存');
+				}
+			}
+			
+			function swOpr() {
+				let swbutton = $(false,'#swreg'),
+				    swStat = uaCode.$(false,"#swstat"),
+				    swer = navigator.serviceWorker;
+				swer.getRegistrations().then( regs => {
+					if (regs.length>=1) {
+						regs[0].unregister();
+						$(false,"#swstat").innerHTML = '未安装';
+						swbutton.innerHTML = '安装服务';
+					} else {
+						swer.register('svcWorker.js').then( reg => {
+							if (reg.installing) {
+								swStat.innerHTML = '正在安装';
+							} else if (reg.waiting) {
+								swStat.innerHTML = '等待安装';
+							} else if (reg.active) {
+								swStat.innerHTML = '已安装';
+							}
+						});
+						swbutton.innerHTML = '卸载服务';
+					}
+				});
+			}
+			
+			function cacheScan() {
+				caches.keys().then( vers => { $(false,"#swlen").innerHTML = vers.length });
+			}
+			
 			function addEvent() {
 				function ee(el,ev,fn) { el.addEventListener(ev,fn); }
 				$(true,'#mode label').forEach( e => ee(e,'keydown', spaceChecked));
@@ -1982,6 +2103,10 @@
 				ee($(false,'#simp'),'click',lsb_import);
 				ee($(false,'#sexp'),'click',lsb_export);
 				ee($(false,'#sclr'),'click',()=>{window.localStorage.removeItem(uaData.storKey);toast('清空啦')});
+				ee($(false,'#stysave'),'click',lss_save);
+				ee($(false,'#styclr'),'click',()=>{window.localStorage.removeItem(uaData.styleKey);toast('清空啦，刷新后恢复默认主题')});
+				ee($(false,'#swreg'),'click',swOpr);
+				ee($(false,'#swclr'),'click',()=>{ caches.keys().then( vers => vers.map( i => caches.delete(i) )); cacheScan()});
 				ee($(false,'#load'),'animationend',e=>_(e.target,false,'none'));
 			}
 			
@@ -2079,6 +2204,39 @@
 			}
 			
 			(()=>{
+				const stor = window.localStorage;
+				let myl = document.getElementById('myLight'),
+					syl = document.getElementById('stylight'),
+					myd = document.getElementById('myDark'),
+					syd = document.getElementById('stydark');
+				syl.value = '';
+				syd.value = '';
+				if(stor.hasOwnProperty(uaData.styleKey)) {
+					try {
+						let data = JSON.parse(stor.getItem(uaData.styleKey));
+						if (data.light) {
+							myl.innerHTML = data.light;
+							syl.value = data.light;
+						} else {
+							syl.value = Object.values(myl.sheet.cssRules)[0].cssText;
+						}
+						if (data.dark) {
+							myd.innerHTML = data.dark;
+							syd.value = data.dark;
+						} else {
+							syd.value = Object.values(myd.sheet.cssRules)[0].cssRules[0].cssText;
+						}
+					} catch(e) {
+						alert(`存储数据异常，将会被清空...\n 内容:${stor.getItem(uaData.styleKey)}`);
+						stor.removeItem(uaData.styleKey);
+					}
+				} else {
+					syl.value = Object.values(myl.sheet.cssRules)[0].cssText;
+					syd.value = Object.values(myd.sheet.cssRules)[0].cssRules[0].cssText;
+				}
+			})();
+			
+			(()=>{
 				let dark = Object.values(document.getElementById('myDark').sheet.cssRules)[0].cssRules[0].cssText,
 				xcss = document.getElementById("x_style_element_id");
 				document.head.addEventListener("DOMNodeInserted",function(e){
@@ -2154,8 +2312,10 @@
 		).then(uaCode.init);
 		(()=>{
 			if ('serviceWorker' in navigator && window.location.href.slice(0,5)==="https") {
+				uaCode.$(false,'#swopt').classList.remove('none');
 				navigator.serviceWorker.getRegistrations().then( regs => {
 					if (regs.length===1) {
+						let swStat = uaCode.$(false,"#swstat");
 						caches.keys().then( vers => {
 							vers.filter( ver => ver.slice(0,2)==='D_' || ver.slice(0,2)==='I_' ).map( i => {
 								if (parseInt(i.slice(2)) !== uaData.版本.详细) {
@@ -2164,22 +2324,19 @@
 								}
 							})
 						});
+						if (regs[0].installing) {
+							swStat.innerHTML = '正在安装';
+						} else if (regs[0].waiting) {
+							swStat.innerHTML = '等待安装';
+						} else if (regs[0].active) {
+							swStat.innerHTML = '已安装';
+						}
+						uaCode.$(false,'#swreg').innerHTML = '卸载服务';
 					} else {
-						let toast = uaCode.$(false,"#toast");
-						Object.assign(toast, {
-							innerHTML: '点我可以安装离线缓存服务 :)',
-							onclick: () => {
-								navigator.serviceWorker.register('svcWorker.js').then( reg => {
-									toast.innerHTML = '安装成功 ;)';
-									toast.className = "toasting";
-								}).catch( e => {
-									toast.innerHTML = '安装失败 :(';
-									toast.className = "toasting";
-								})
-							},
-							className: "toasting"
-						})
+						uaCode.$(false,"#swstat").innerHTML = '未安装';
+						uaCode.$(false,'#swreg').innerHTML = '安装服务';
 					}
+					caches.keys().then( vers => { uaCode.$(false,"#swlen").innerHTML = vers.length });
 				})
 			}
 		})();
