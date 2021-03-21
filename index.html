@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 3",
-					详细:21032117,
+					详细:21032118,
 				},
 				设置:{
 					基础默认:1,
@@ -68,10 +68,16 @@
 					--theme-color-d: #345077;
 					--theme-color-e: transparent;
 					--theme-color-f: #202327;
+					--theme-color-g: yellow;
 					--theme-color-h: #3e5f8e;
 					--theme-color-i: #6cc3f9;
 					--theme-color-j: #728195;
+					--theme-color-close: red;
+					--theme-color-close-text: white;
 					--input-check-ready: #345077;
+					--input-check-ok: green;
+					--input-check-err: orange;
+					--input-check-null: red;
 					--data-need-save: darksalmon;
 					--tag-filtered: #99ddbb;
 					--shadow-big: 0 0 5px 3px rgba(50,80,120,0.5);
@@ -427,12 +433,12 @@
 			#action2 > *,
 			#action3 > *,
 			#setlayer > *,
-			#swopt > *,
 			#classBox,
 			#useragent {
 				margin: 3px 4px;
 			}
-			.classPart > * {
+			.classPart > *,
+			#swopt > * {
 				margin: 3px 0;
 			}
 			.atab > label,
@@ -682,7 +688,6 @@
 			fieldset {
 				border: 2px solid var(--theme-color-j);
 				width: 85%;
-				min-width: 22em;
 				border-radius: 5px;
 				padding: 5px;
 			}
@@ -726,6 +731,9 @@
 				#stordata {
 					height: 80px;
 				}
+				fieldset {
+					min-width: 22em;
+				}
 			}
 			@media only screen and (min-width: 600px) {
 				body {
@@ -759,6 +767,9 @@
 				#addui {
 					left: 40%;
 					top: 1em;
+				}
+				fieldset {
+					min-width: 22em;
 				}
 			}
 		</style>
