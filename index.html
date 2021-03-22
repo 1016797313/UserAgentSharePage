@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 3",
-					详细:21032121,
+					详细:21032213,
 				},
 				设置:{
 					基础默认:1,
@@ -686,7 +686,7 @@
 			}
 			fieldset {
 				border: 2px solid var(--theme-color-j);
-				width: 85%;
+				width: 92%;
 				border-radius: 5px;
 				padding: 5px;
 			}
@@ -695,13 +695,10 @@
 				font-size: 12px;
 				font-weight: bold;
 			}
-			fieldset:focus-within {
+			fieldset:focus-within, #swopt fieldset {
 				border: 2px solid var(--theme-color-a);
 			}
-			fieldset:focus-within legend {
-				color: var(--theme-color-a);
-			}
-			#setlayer p {
+			fieldset:focus-within legend, #swopt legend, #setlayer p {
 				color: var(--theme-color-a);
 			}
 			@media only screen and (min-width: 360px) {
@@ -731,7 +728,7 @@
 					height: 80px;
 				}
 				fieldset {
-					min-width: 19em;
+					min-width: 16.5em;
 				}
 			}
 			@media only screen and (min-width: 600px) {
@@ -768,7 +765,7 @@
 					top: 1em;
 				}
 				fieldset {
-					min-width: 22em;
+					min-width: 23.35em;
 				}
 			}
 		</style>
