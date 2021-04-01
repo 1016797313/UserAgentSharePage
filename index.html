@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 3",
-					详细:21040118,
+					详细:21040119,
 				},
 				设置:{
 					基础默认:1,
@@ -1595,16 +1595,11 @@
 			}
 			
 			function aform_switchBoth() {
-				const val = $_("apre").value,
+				const val = ($_("apre").value==="both"),
 					  both = $(true,".acont2"),
 					  sing = $(false,".acont1");
-				if (val==="both") {
-					both.forEach( input => _(input,true,"none") );
-					_(sing,false,"none");
-				} else {
-					both.forEach( input => _(input,false,"none") );
-					_(sing,true,"none");
-				}
+				both.forEach( input => _(input,val,"none") );
+				_(sing,!val,"none");
 			}
 			
 			function aform_makeFlaginBox() {
@@ -2259,19 +2254,18 @@
 			})();
 			
 			(()=>{
-				let dark = Object.values(document.getElementById('myDark').sheet.cssRules)[0].cssRules[0].cssText, headNight = [
+				let dark = Object.values(document.getElementById('myDark').sheet.cssRules)[0].cssRules[0].cssText, night = [
 					"via_inject_css_night",
 					"metaNight",
 					"360browser_night_mode_style",
 					"360browser_night_mode_style2",
-					"mixiaba_css_id"
-				], bodyNight = [
+					"mixiaba_css_id",
 					"x_style_element_id"
-				], el, observer = new MutationObserver( (mus,obs) => {
+				], observer = new MutationObserver( (mus,obs) => {
 					for (let mu of mus) {
 						if (mu.addedNodes.length>0) {
 							mu.addedNodes.forEach( ad => {
-								if (headNight.concat(bodyNight).includes(ad.id)) {
+								if (night.includes(ad.id)) {
 									ad.innerHTML = dark;
 								}
 							})
@@ -2279,8 +2273,8 @@
 					}
 				}), opt = { childList: true, subtree: false };
 
-				headNight.concat(bodyNight).forEach( id => {
-					el = document.getElementById(id);
+				night.forEach( id => {
+					let el = document.getElementById(id);
 					if (el) el.innerHTML = dark;
 				});
 
