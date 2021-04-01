@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 3",
-					详细:21040117,
+					详细:21040118,
 				},
 				设置:{
 					基础默认:1,
@@ -1134,10 +1134,7 @@
 				}
 			}
 			
-			function spaceChecked(e) {
-				if(!e) {
-					e = event;
-				}
+			function spaceChecked(e = event) {
 				switch (e.code) {
 					case "Space":
 					case "Enter":
@@ -2262,31 +2259,33 @@
 			})();
 			
 			(()=>{
-				let dark = Object.values(document.getElementById('myDark').sheet.cssRules)[0].cssRules[0].cssText,
-				xcss = document.getElementById("x_style_element_id");
-				document.head.addEventListener("DOMNodeInserted",function(e){
-					switch(e.target.id) {
-						case "via_inject_css_night":
-						case "metaNight":
-						case "360browser_night_mode_style":
-						case "360browser_night_mode_style2":
-						case "mixiaba_css_id":
-							e.target.innerHTML = dark;
-							break;
-						default:
-							return;
+				let dark = Object.values(document.getElementById('myDark').sheet.cssRules)[0].cssRules[0].cssText, headNight = [
+					"via_inject_css_night",
+					"metaNight",
+					"360browser_night_mode_style",
+					"360browser_night_mode_style2",
+					"mixiaba_css_id"
+				], bodyNight = [
+					"x_style_element_id"
+				], el, observer = new MutationObserver( (mus,obs) => {
+					for (let mu of mus) {
+						if (mu.addedNodes.length>0) {
+							mu.addedNodes.forEach( ad => {
+								if (headNight.concat(bodyNight).includes(ad.id)) {
+									ad.innerHTML = dark;
+								}
+							})
+						}
 					}
+				}), opt = { childList: true, subtree: false };
+
+				headNight.concat(bodyNight).forEach( id => {
+					el = document.getElementById(id);
+					if (el) el.innerHTML = dark;
 				});
-				if(xcss){ xcss.innerHTML = dark; }
-				document.documentElement.addEventListener("DOMNodeInserted",function(e){
-					switch(e.target.id) {
-						case "x_style_element_id":
-							e.target.innerHTML = dark;
-							break;
-						default:
-							return;
-					}
-				});
+
+				observer.observe(document.documentElement,opt);
+				observer.observe(document.head,opt);
 			})();
 			document.querySelector('#toast').addEventListener('animationend',e => {
 				e.target.onclick = null;
