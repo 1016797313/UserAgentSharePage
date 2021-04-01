@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 3",
-					详细:21032213,
+					详细:21040117,
 				},
 				设置:{
 					基础默认:1,
@@ -39,14 +39,14 @@
 			:root {
 				--theme-color-a: #2b75c4;
 				--theme-color-b: white;
-				--theme-color-c: white;          /* 反色前景色 */
-				--theme-color-d: transparent;    /* 选框 文本框 背景色 */
-				--theme-color-e: lightgray;      /* 选框 边框颜色 */
-				--theme-color-f: white;          /* 页面背景色 */
-				--theme-color-g: yellow;         /* 链接聚焦颜色 */
-				--theme-color-h: #e6f4ff;        /* 选框 聚焦 背景色 */
-				--theme-color-i: #3688d0;        /* 按钮 聚焦 背景色 */
-				--theme-color-j: lightgray;      /* 加载屏幕 空筛选 文字颜色 */
+				--theme-color-c: white;			 /* 反色前景色 */
+				--theme-color-d: transparent;	 /* 选框 文本框 背景色 */
+				--theme-color-e: lightgray;		 /* 选框 边框颜色 */
+				--theme-color-f: white;			 /* 页面背景色 */
+				--theme-color-g: yellow;		 /* 链接聚焦颜色 */
+				--theme-color-h: #e6f4ff;		 /* 选框 聚焦 背景色 */
+				--theme-color-i: #3688d0;		 /* 按钮 聚焦 背景色 */
+				--theme-color-j: lightgray;		 /* 加载屏幕 空筛选 文字颜色 */
 				--theme-color-close: red;
 				--theme-color-close-text: white;
 				--input-check-ready: lightgray;
@@ -419,7 +419,7 @@
 				padding: 1px 5px;
 				-webkit-user-select: none;
 				   -moz-user-select: none;
-				        user-select: none;
+						user-select: none;
 			}
 			#addtype {
 				text-align: center;
@@ -485,7 +485,6 @@
 			#addsave > label input,
 			.classPart > label input {
 				width: 80%;
-				min-width: 17em;
 			}
 			.atab div p,
 			#addsave div p {
@@ -510,7 +509,7 @@
 				min-width: 14em;
 				-webkit-appearance: none;
 				   -moz-appearance: none;
-				        appearance: none;
+						appearance: none;
 				border: none;
 				padding: 0 2px 2px;
 				box-shadow:var(--shadow-big);
@@ -569,7 +568,7 @@
 				background-color: transparent;
 				-webkit-user-select: none;
 				   -moz-user-select: none;
-				        user-select: none;
+						user-select: none;
 			}
 			.win .close {
 				background-color: var(--theme-color-close);
@@ -626,14 +625,14 @@
 			#ttexl {
 				line-height: normal;
 				font-size: .9em;
-                width: 20%;
-                min-width: 5em;
-                margin: 2px .25em;
+				width: 20%;
+				min-width: 5em;
+				margin: 2px .25em;
 			}
 			#ttexl b {
-                font-size: 1em;
-                color: var(--theme-color-a);
-            }
+				font-size: 1em;
+				color: var(--theme-color-a);
+			}
 			#ttext {
 				padding: 0;
 				border: none;
@@ -738,6 +737,11 @@
 				fieldset {
 					min-width: 16.5em;
 				}
+				.atab > label input,
+				#addsave > label input,
+				.classPart > label input {
+					min-width: 14em;
+				}
 			}
 			@media only screen and (min-width: 600px) {
 				body {
@@ -774,6 +778,11 @@
 				}
 				fieldset {
 					min-width: 21.75em;
+				}
+				.atab > label input,
+				#addsave > label input,
+				.classPart > label input {
+					min-width: 17em;
 				}
 			}
 		</style>
@@ -1590,8 +1599,8 @@
 			
 			function aform_switchBoth() {
 				const val = $_("apre").value,
-				      both = $(true,".acont2"),
-				      sing = $(false,".acont1");
+					  both = $(true,".acont2"),
+					  sing = $(false,".acont1");
 				if (val==="both") {
 					both.forEach( input => _(input,true,"none") );
 					_(sing,false,"none");
@@ -2058,8 +2067,8 @@
 			
 			function swOpr() {
 				let swbutton = $(false,'#swreg'),
-				    swStat = uaCode.$(false,"#swstat"),
-				    swer = navigator.serviceWorker;
+					swStat = uaCode.$(false,"#swstat"),
+					swer = navigator.serviceWorker;
 				swer.getRegistrations().then( regs => {
 					if (regs.length>=1) {
 						regs[0].unregister();
