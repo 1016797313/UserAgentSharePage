@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<meta name="theme-color" content="#2b75c4"/>
 		<meta name="color-scheme" content="light dark">
-		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'self'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';"/>
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';"/>
 		<title>Useragent 生成</title>
 		<script>
 			const uaData = {
@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 3",
-					详细:21040119,
+					详细:21040915,
 				},
 				设置:{
 					基础默认:1,
@@ -129,7 +129,7 @@
 				display: none !important;
 			}
 			p {
-				margin: 1px;
+				margin: 0;
 			}
 			a {
 				text-decoration: none;
@@ -391,7 +391,7 @@
 			}
 			#searchbox {
 				position: relative;
-				margin: 5px .5em;
+				margin: 2px .5em;
 			}
 			#search {
 				width: 100%;
@@ -697,15 +697,15 @@
 				border-radius: 5px;
 				padding: 5px;
 			}
-			fieldset legend {
+			fieldset legend, #swopt legend, #swopt.inst p {
 				color: var(--theme-color-j);
 				font-size: 12px;
 				font-weight: bold;
 			}
-			fieldset:focus-within, #swopt fieldset {
+			fieldset:focus-within, #swopt.inst fieldset {
 				border: 2px solid var(--theme-color-a);
 			}
-			fieldset:focus-within legend, #swopt legend, #setlayer p {
+			fieldset:focus-within legend, #swopt.inst legend, #swopt.inst p {
 				color: var(--theme-color-a);
 			}
 			@media only screen and (min-width: 360px) {
@@ -2058,25 +2058,27 @@
 			}
 			
 			function swOpr() {
-				let swbutton = $(false,'#swreg'),
-					swStat = uaCode.$(false,"#swstat"),
+				let btn = $(false,'#swreg'),
+					stat = uaCode.$(false,"#swstat"),
 					swer = navigator.serviceWorker;
 				swer.getRegistrations().then( regs => {
 					if (regs.length>=1) {
 						regs[0].unregister();
+						opt.classList.remove('inst');
 						$(false,"#swstat").innerHTML = '未安装';
-						swbutton.innerHTML = '安装服务';
+						btn.innerHTML = '安装服务';
 					} else {
 						swer.register('svcWorker.js').then( reg => {
 							if (reg.installing) {
-								swStat.innerHTML = '正在安装，刷新后生效';
+								stat.innerHTML = '正在安装，刷新后生效';
 							} else if (reg.waiting) {
-								swStat.innerHTML = '等待安装';
+								stat.innerHTML = '等待安装';
 							} else if (reg.active) {
-								swStat.innerHTML = '已安装';
+								stat.innerHTML = '已安装';
 							}
 						});
-						swbutton.innerHTML = '卸载服务';
+						opt.classList.add('inst');
+						btn.innerHTML = '卸载服务';
 					}
 				});
 			}
@@ -2330,10 +2332,12 @@
 		).then(uaCode.init);
 		(()=>{
 			if ('serviceWorker' in navigator && window.location.href.slice(0,5)==="https") {
-				uaCode.$(false,'#swopt').classList.remove('none');
+				let opt = uaCode.$(false,'#swopt'),
+					stat = uaCode.$(false,"#swstat"),
+					btn = uaCode.$(false,'#swreg');
+				opt.classList.remove('none');
 				navigator.serviceWorker.getRegistrations().then( regs => {
 					if (regs.length===1) {
-						let swStat = uaCode.$(false,"#swstat");
 						caches.keys().then( vers => {
 							vers.filter( ver => ver.slice(0,2)==='D_' || ver.slice(0,2)==='I_' ).map( i => {
 								if (parseInt(i.slice(2)) !== uaData.版本.详细) {
@@ -2343,16 +2347,18 @@
 							})
 						});
 						if (regs[0].installing) {
-							swStat.innerHTML = '正在安装';
+							stat.innerHTML = '正在安装';
 						} else if (regs[0].waiting) {
-							swStat.innerHTML = '等待安装';
+							stat.innerHTML = '等待安装';
 						} else if (regs[0].active) {
-							swStat.innerHTML = '已安装';
+							stat.innerHTML = '已安装';
 						}
-						uaCode.$(false,'#swreg').innerHTML = '卸载服务';
+						opt.classList.add('inst');
+						btn.innerHTML = '卸载服务';
 					} else {
-						uaCode.$(false,"#swstat").innerHTML = '未安装';
-						uaCode.$(false,'#swreg').innerHTML = '安装服务';
+						opt.classList.remove('inst');
+						stat.innerHTML = '未安装';
+						btn.innerHTML = '安装服务';
 					}
 					caches.keys().then( vers => { uaCode.$(false,"#swlen").innerHTML = vers.length });
 				})
