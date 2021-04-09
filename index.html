@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<meta name="theme-color" content="#2b75c4"/>
 		<meta name="color-scheme" content="light dark">
-		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';"/>
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src *; connect-src 'self'; media-src 'none'; object-src 'none'; child-src 'self'; frame-src 'none'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; base-uri 'none';"/>
 		<title>Useragent 生成</title>
 		<script>
 			const uaData = {
@@ -2058,8 +2058,9 @@
 			}
 			
 			function swOpr() {
-				let btn = $(false,'#swreg'),
+				let opt = uaCode.$(false,'#swopt'),
 					stat = uaCode.$(false,"#swstat"),
+					btn = uaCode.$(false,'#swreg');
 					swer = navigator.serviceWorker;
 				swer.getRegistrations().then( regs => {
 					if (regs.length>=1) {
