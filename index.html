@@ -2060,7 +2060,7 @@
 			function swOpr() {
 				let opt = uaCode.$(false,'#swopt'),
 					stat = uaCode.$(false,"#swstat"),
-					btn = uaCode.$(false,'#swreg');
+					btn = uaCode.$(false,'#swreg'),
 					swer = navigator.serviceWorker;
 				swer.getRegistrations().then( regs => {
 					if (regs.length>=1) {
