@@ -295,8 +295,10 @@
 				display: flex;
 				justify-content: space-between;
 				margin: 3px 4px;
-				padding: 3px;
 				box-shadow:var(--shadow-small);
+			}
+			#action {
+				margin: 3px .5em;
 			}
 			.orig-box {
 				display: none;
@@ -381,12 +383,12 @@
 			}
 			button {
 				background-color:var(--theme-color-a);
-				border: 0.5px solid var(--theme-color-i);
-				border-width: 0 1px;
+				border: 1px solid transparent;
 				color:var(--theme-color-c);
 				width: 100%;
 				font-size:.75em;
 				font-weight:bold;
+				padding: 3px;
 			}
 			button:focus {
 				background-color: var(--theme-color-i);
