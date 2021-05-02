@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 4",
-					详细:21050213,
+					详细:21050214,
 				},
 				设置:{
 					基础默认:1,
@@ -1146,7 +1146,7 @@
 				const baseUA = $_("mode").value === "add" ? 
 							$(false,"textarea").value :
 							uaData.base[$_("base").value].content,
-					midSpace = /.+\s.+/u;
+					midSpace = /.+\s.+/u, win = $(false,"#ua");
 				let prefixUA = "",
 					preFollowUA = "",
 					suffixUA = " ",
@@ -1196,7 +1196,8 @@
 				});
 				$(false,"textarea").value = prefixUA + preFollowUA + baseUA + sufFollowUA + suffixUA;
 				issuesCheck();
-				openWin("#ua");
+				_(win,true,"none");
+				winActiv(win);
 			}
 			
 			function makeIssue(issue,head) {
@@ -1471,8 +1472,12 @@
 			
 			function openWin(id) {
 				let win = $(false,id);
-				_(win,true,"none");
-				winActiv(win);
+				if (win.classList.contains('none')) {
+					_(win,true,"none");
+					winActiv(win);
+				} else {
+					_(win,false,"none");
+				}
 			}
 			
 			function filterExec(item,nclass) {
