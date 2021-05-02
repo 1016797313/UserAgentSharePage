@@ -26,8 +26,8 @@
 				storKey:"userAgentData",
 				styleKey:"userAgentStyle",
 				版本:{
-					描述:"5.1 Beta 3",
-					详细:21040915,
+					描述:"5.1 Beta 4",
+					详细:21050213,
 				},
 				设置:{
 					基础默认:1,
@@ -290,10 +290,13 @@
 				height: calc(1.5em * 14.5);
 				width: 100%;
 			}
-			#action,#action2,#action3,#addbtn,.savebtn {
+			.btnGrp {
 				text-align: center;
 				display: flex;
 				justify-content: space-between;
+				margin: 3px 4px;
+				padding: 3px;
+				box-shadow:var(--shadow-small);
 			}
 			.orig-box {
 				display: none;
@@ -378,13 +381,12 @@
 			}
 			button {
 				background-color:var(--theme-color-a);
-				border:1px solid transparent;
+				border: 0.5px solid var(--theme-color-i);
+				border-width: 0 1px;
 				color:var(--theme-color-c);
+				width: 100%;
 				font-size:.75em;
 				font-weight:bold;
-				padding:3px 1em;
-				margin:0 2px;
-				box-shadow:var(--shadow-small);
 			}
 			button:focus {
 				background-color: var(--theme-color-i);
@@ -427,10 +429,7 @@
 				font-size: .9em;
 			}
 			.atab > *,
-			#addbtn,
 			#addsave > *,
-			#action2 > *,
-			#action3 > *,
 			#setlayer > *,
 			#classBox,
 			#useragent {
@@ -497,7 +496,6 @@
 				width: min-content;
 			}
 			#openNew {
-				width: auto;
 				padding: 0 5px !important;
 				font-size: 16px;
 			}
@@ -550,9 +548,6 @@
 			.toasting {
 				display: block !important;
 				animation: toast 3s;
-			}
-			.savebtn button {
-				width: 28%;
 			}
 			.titlebar {
 				width: 100%;
@@ -807,7 +802,7 @@
 							<span class="new-style new-radio"></span>追加
 						</label>
 					</div>
-					<div>
+					<div class="btnGrp">
 						<button type="button" id="openClass">标签筛选</button>
 						<button type="button" id="openUA">打开窗口</button>
 					</div>
@@ -824,7 +819,7 @@
 			</div>
 			<p id="ajump" class="none"></p>
 		</div>
-		<div id="action">
+		<div id="action" class="btnGrp">
 			<button type="button" id="btnHelp">帮助</button>
 			<button type="button" id="btnCSel">清空选择</button>
 			<button type="button" id="openNew">+</button>
@@ -839,7 +834,7 @@
 			<label for="useragent" class="invilab">UA 编辑框</label>
 			<textarea id="useragent" placeholder="你想要的在这儿 ^_^"></textarea>
 			<div id="issues"></div>
-			<div id="action2">
+			<div id="action2" class="btnGrp">
 				<button type="button" id="btnClUA">清空</button>
 				<button type="button" id="btnCpUA">复制</button>
 			</div>
@@ -850,7 +845,7 @@
 				<button type="button" class="close">关闭</button>
 			</div>
 			<div id="classBox"></div>
-			<div id="action3">
+			<div id="action3" class="btnGrp">
 				<button type="button" id="btnTgAl">恢复</button>
 				<button type="button" id="btnTgRv">反选</button>
 			</div>
@@ -988,7 +983,7 @@
 					</label>
 				</div>
 			</div>
-			<div id="addbtn">
+			<div id="addbtn" class="btnGrp">
 				<button type="button" id="aok">加入</button>
 				<button type="button" id="aclear">清空表单</button>
 				<button type="button" id="anew">管理</button>
@@ -997,12 +992,12 @@
 			<div id="addsave">
 				<label for="stordata" class="invilab">复制到这里就可以导入啦</label>
 				<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
-				<div class="savebtn">
+				<div class="savebtn btnGrp">
 					<button type="button" id="ssave">保存数据</button>
 					<button type="button" id="scopy">复制内容</button>
 					<button type="button" id="sdele">清空内容</button>
 				</div>
-				<div class="savebtn">
+				<div class="savebtn btnGrp">
 					<button type="button" id="simp">导入数据</button>
 					<button type="button" id="sexp">导出数据</button>
 					<button type="button" id="sclr">清空存储</button>
@@ -1020,7 +1015,7 @@
 					<label for="stydark" class="invilab">暗色主题</label>
 					<textarea id="stydark"></textarea>
 				</fieldset>
-				<div class="savebtn">
+				<div class="savebtn btnGrp">
 					<button type="button" id="stysave">保存主题</button>
 					<button type="button" id="styclr">清空主题</button>
 				</div>
@@ -1030,7 +1025,7 @@
 						<p>服务状态:<span id="swstat"></span></p>
 						<p>缓存文件:<span id="swlen"></span>个</p>
 					</fieldset>
-					<div class="savebtn">
+					<div class="savebtn btnGrp">
 						<button type="button" id="swclr">删除缓存</button>
 						<button type="button" id="swreg">安装服务</button>
 					</div>
