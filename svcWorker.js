@@ -1,5 +1,5 @@
 var data = [
-  ["I","./index.html",21050817],
+  ["I","./index.html",21050818],
   ["L","./数据列表.js",2],
   ["B","./基础_良良.js",21050817],
   ["A","./UA_良良.js",21031416],
@@ -8,7 +8,7 @@ var data = [
   ["S","./爬虫_良良.js",21031415],
   ["T","./indexSidebar.js",2],
   ["O","../favicon.ico",2],
-  ["D","./",21050817],
+  ["D","./",21050818],
 ];
 
 self.addEventListener('install', function(event) {
@@ -65,7 +65,7 @@ self.addEventListener('fetch', function(event) {
 
 function unCachedBypass(req) {
 	let url = req.clone();
-	return fetch(url).then( function(resp) {
+	return fetch(url).then( resp => {
 		return resp;
 	});
 };

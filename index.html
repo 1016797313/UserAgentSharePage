@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 4",
-					详细:21050817,
+					详细:21050818,
 				},
 				设置:{
 					基础默认:1,
@@ -506,13 +506,11 @@
 				background: var(--theme-color-a);
 				font-weight: bold;
 				width: 80%;
-				min-width: 19.5em;
 				font-size: .9em;
 				-webkit-appearance: none;
 				   -moz-appearance: none;
 						appearance: none;
 				border: none;
-				padding: 0 2px 2px;
 				box-shadow:var(--shadow-big);
 			}
 			@keyframes toast {
@@ -741,6 +739,10 @@
 				.classPart > label input {
 					min-width: 14em;
 				}
+				.msel {
+					min-width: 13.5em;
+					padding: 0 5px;
+				}
 			}
 			@media only screen and (min-width: 600px) {
 				body {
@@ -782,6 +784,10 @@
 				#addsave > label input,
 				.classPart > label input {
 					min-width: 17em;
+				}
+				.msel {
+					min-width: 19.5em;
+					padding: 0 2px 2px;
 				}
 			}
 		</style>
