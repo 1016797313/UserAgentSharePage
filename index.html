@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 4",
-					详细:21050818,
+					详细:21050821,
 				},
 				设置:{
 					基础默认:1,
@@ -1431,9 +1431,7 @@
 			
 			function dndWin() {
 				let wing = $(true,".win"), unlock = () => document.onmousemove = null;
-				wing.forEach( (win,i) => {
-					win.style.zIndex = i + 2;
-				});
+				wing.forEach( (win,i) => win.style.zIndex = i + 2 );
 				if (uaData.touch) {
 					wing.forEach( win => {
 						win.addEventListener('touchstart', e => {
@@ -1701,7 +1699,7 @@
 					return false;
 				}
 				if (key==="") {
-					bor.style.removeProperty('border-color');;
+					bor.style.removeProperty('border-color');
 					return false;
 				} else if (!test.test(key)) {
 					bor.style.borderColor = __('input-check-err');
@@ -1842,12 +1840,12 @@
 								content: cont
 							}
 						} else {
-							obj = uaData.apps[item];
+							obj = JSON.parse(JSON.stringify(uaData.apps[item]));
 							obj.class = tagParse(obj.class);
 						}
 						break;
 				}
-				
+
 				function tagSelect(id) {
 					let box = $(false,`#${id} input`),
 						flag = $(false,`#${id} .flag`);
@@ -2058,14 +2056,14 @@
 			
 			function swOpr() {
 				let opt = uaCode.$(false,'#swopt'),
-					stat = uaCode.$(false,"#swstat"),
+					stat = uaCode.$(false,'#swstat'),
 					btn = uaCode.$(false,'#swreg'),
 					swer = navigator.serviceWorker;
 				swer.getRegistrations().then( regs => {
 					if (regs.length>=1) {
 						regs[0].unregister();
 						opt.classList.remove('inst');
-						$(false,"#swstat").innerHTML = '未安装';
+						stat.innerHTML = '未安装';
 						btn.innerHTML = '安装服务';
 					} else {
 						swer.register('svcWorker.js').then( reg => {
@@ -2333,7 +2331,7 @@
 		(()=>{
 			if ('serviceWorker' in navigator && window.location.href.slice(0,5)==="https") {
 				let opt = uaCode.$(false,'#swopt'),
-					stat = uaCode.$(false,"#swstat"),
+					stat = uaCode.$(false,'#swstat'),
 					btn = uaCode.$(false,'#swreg');
 				opt.classList.remove('none');
 				navigator.serviceWorker.getRegistrations().then( regs => {

@@ -27,7 +27,7 @@
 > 无法适配 神奇 浏览器 ，因为其 CSS 注入方式是引用文件，无法对其修改。
 夜间模式不支持 X5 内核，原因未知。
 
-> 雨见 浏览器在打开时会弹出 5 个错误，不会影响使用。  
+> 雨见 浏览器在打开时会弹出 1 个错误，不会影响使用。
 因无法定位问题所在，所以目前无法修复。
 
 > Milk 浏览器在打开时会弹出 1 个错误，不会影响使用。  
@@ -93,7 +93,7 @@ APP 列表右侧是导航条，
 
 #### 标准 UA
 下面是标准的 WebView UA 的例子:
-> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36
+> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36
 
 有些 APP 使用一种精简版的 UA，这里称作 "短 UA" :
 > Mozilla/5.0 (Linux; U; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014)
@@ -122,15 +122,15 @@ APP 的显示名称 。
 #### "前置" 和 "无缝"
 举例:  
 >**前置:是 无缝:不是**  
-> **Test/1.0** Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36  
+> **Test/1.0** Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36
 **前置:不是 无缝:不是**  
-> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36 **Test/1.0**  
+> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36 **Test/1.0**
 **"前后都有" 无缝:不是**  
-> **Test/1.0** Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36 **Test/2.0**  
+> **Test/1.0** Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36 **Test/2.0**
 **前置:不是 无缝:是**  
-> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36**Test/1.0**  
+> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36**Test/1.0**
 **前置:是 无缝:是**  
-> **Test/1.0**Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.49 Mobile Safari/537.36  
+> **Test/1.0**Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36
 
 拼接时 ，会按如下顺序拼接关键字 :  
 > _[前置]_ _[前置 无缝][前置无缝]_**基础**_[无缝][无 缝]_ _[普通]_
@@ -159,14 +159,14 @@ APP 的显示名称 。
 把数据保存到 "网页存储" (localStorage) ，下次刷新会自动加载数据 。
 > 只有存到这里，刷新以后，才会在 APP 列表里看到 。
 
-你可以导出你的数据与网友们分享 ，也可以导入其他人的数据使用 。
+你可以导出你的数据与其他人分享 ，也可以导入其他人的数据使用 。
 > 导入数据会合并原有数据，原有数据不会消失。(除非数据太多了，会被挤掉 ...
 
 ### 设置
 #### 主题
 
 主题，实际上是一堆 CSS 变量，修改会被保存到 "网页存储" ，并在网页启动时载入。  
-使用的 CSS 变量如下 ，未标注的类型都是 **CSS 色值** :  
+使用的 CSS 变量如下 ，未标注的类型都是 [**CSS color 值**](https://developer.mozilla.org/zh-CN/docs/Web/CSS/color) :
 
 |     变量     |            意义         |
 |-------------|-------------------------|
@@ -182,14 +182,14 @@ APP 的显示名称 。
 | --theme-color-j | 加载屏幕，<br>未打开 Javascript 屏幕，<br>搜索结果为空界面<br>的文字颜色，以及<br>设置页面选框边框颜色 |
 | --theme-color-close | 窗口关闭按钮背景色 |
 | --theme-color-close-text | 窗口关闭按钮文字颜色 |
-| --input-check-ready | 输入框边框线常态颜色 |
+| --input-check-ready | 输入框边框线，常态颜色 |
 | --input-check-ok | 输入框边框线，检查成功颜色 |
 | --input-check-err | 输入框边框线，检查失败颜色 |
 | --input-check-null | 输入框边框线，内容为空颜色 |
 | --data-need-save | "保存数据" 按钮，提示未保存时的背景色 |
-| --tag-filtered | "标签筛选" 按钮，提示已经开启筛选的背景色 |
-| --shadow-big | **box-shadow 格式** 区块，窗口，下拉框 阴影参数 |
-| --shadow-small | **box-shadow 格式** 标签，按钮 阴影参数 |
+| --tag-filtered | "标签筛选" 按钮，提示开启筛选时的背景色 |
+| --shadow-big | [**box-shadow 格式**](https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow) 区块，窗口，下拉框 阴影参数 |
+| --shadow-small | [**box-shadow 格式**](https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow) 标签，按钮组 阴影参数 |
 
 > 主题数据不会校验，如果输入格式错误，导致颜色错乱的，**后果自负**
 
@@ -214,13 +214,12 @@ APP 的显示名称 。
 
 ##### 状态
 
-目前，页面会显示 3 种状态 :   
+目前，页面会显示 4 种状态 :
 **未安装** 表明未安装或者卸载了服务。  
 **已安装** 表明已经安装了服务，并且运行良好。  
-**正在安装** 两种情况:  
+**正在安装** 或 **等待安装** 两种情况:
 1. 刚刚安装，需要刷新才能运行  
 2. 页面有更新，新版服务安装了，但老版服务需要关闭页面才能停止运行。  
-此时也会显示 **正在安装** 。  
 
 ##### 缓存
 
