@@ -122,15 +122,15 @@ APP 的显示名称 。
 #### "前置" 和 "无缝"
 举例:  
 >**前置:是 无缝:不是**  
-> **Test/1.0** Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36
-**前置:不是 无缝:不是**  
-> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36 **Test/1.0**
-**"前后都有" 无缝:不是**  
-> **Test/1.0** Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36 **Test/2.0**
-**前置:不是 无缝:是**  
-> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36**Test/1.0**
-**前置:是 无缝:是**  
-> **Test/1.0**Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36
+> **Test/1.0** Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36  
+>**前置:不是 无缝:不是**  
+> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36 **Test/1.0**  
+>**"前后都有" 无缝:不是**  
+> **Test/1.0** Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36 **Test/2.0**  
+>**前置:不是 无缝:是**  
+> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36**Test/1.0**  
+>**前置:是 无缝:是**  
+> **Test/1.0**Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36  
 
 拼接时 ，会按如下顺序拼接关键字 :  
 > _[前置]_ _[前置 无缝][前置无缝]_**基础**_[无缝][无 缝]_ _[普通]_
@@ -196,8 +196,9 @@ APP 的显示名称 。
 #### 离线缓存
 ##### 介绍
 <details>
-  <summary> ... </summary>
-> 从 5.0 Beta 9 ( 2021 年 2 月 19 日 ) 开始，支持了使用 Service Worker 缓存文件的功能，以便离线使用。  
+  <summary> 🤔 ... </summary>
+  <pre>
+从 5.0 Beta 9 ( 2021 年 2 月 19 日 ) 开始，支持了使用 Service Worker 缓存文件的功能，以便离线使用。  
 当时的设置是，只要浏览器支持，后台就自动安装服务，并缓存文件。  
 但后来发现，某些时候更新缓存有问题 ( 比如新版本上线一周了，浏览器打开还是老版本 ... )  
 并且感觉偷偷摸摸就在用户浏览器安装一个服务终归不是很好 :<   
@@ -206,6 +207,7 @@ APP 的显示名称 。
 后来又考虑到 不想安装服务的用户 每次打开时下面都要闪一次 ，很烦 :<   
 而且早前已经 被安装 但 不需要 的用户， 卸又卸不掉，清又清不了，更烦 :<<<   
 于是乎，5.1 Beta 3 弄了界面。想装就装，不想装就卸，缓存也能清理，舒服了 :)  
+  </pre>
 </details>
 
 离线缓存服务是安装在浏览器里的脚本，负责:
