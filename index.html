@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 4",
-					详细:21050214,
+					详细:21050817,
 				},
 				设置:{
 					基础默认:1,
@@ -363,7 +363,7 @@
 				color: var(--theme-color-a);
 				caret-color: var(--theme-color-a);
 				font-family: monospace;
-				padding: 2px 6px;
+				padding: 0 6px;
 				display: block;
 			}
 			input[type=text]:focus {
@@ -506,7 +506,8 @@
 				background: var(--theme-color-a);
 				font-weight: bold;
 				width: 80%;
-				min-width: 14em;
+				min-width: 19.5em;
+				font-size: .9em;
 				-webkit-appearance: none;
 				   -moz-appearance: none;
 						appearance: none;
@@ -544,6 +545,7 @@
 				font-weight: bold;
 				background-color: var(--theme-color-a);
 				color: var(--theme-color-c);
+				box-shadow: 0 0 5px var(--theme-color-c);
 				text-align: center;
 				z-index: 10;
 			}
@@ -1060,7 +1062,7 @@
 				return list.length === 1 && list[0].type === "radio" ? list[0] : list;
 			}
 			
-			function _(ele,del,nclass) {
+			function _(ele,del,nclass = "none") {
 				if (del) {
 					ele.classList.remove(nclass);
 				} else {
@@ -1095,7 +1097,7 @@
 							break;
 						}
 					};
-					_(ele,found,"none");
+					_(ele,found);
 				});
 			}
 			
@@ -1110,9 +1112,9 @@
 			}
 			
 			function toast(text) {
-				if (!window.webmx && window.mbrowser) {
+				if (window.mbrowser && window.mbrowser.showToast) {
 					window.mbrowser.showToast(text);
-				} else if (!window.alook && !window.webmx && !window._obj && window.via) {
+				} else if (window.via && window.via.toast) {
 					window.via.toast(text);
 				} else if (window._obj) {
 					window._obj.toast(text);
@@ -1120,10 +1122,14 @@
 					window.H5EXT.cmd(99,text);
 				} else if (window.meta) {
 					window.meta.toast(text,3,null);
-				} else if (window.mx_browser_obj) {
+				} else if (window.mx_browser_obj && window.mx_browser_obj.showtip) {
 					window.mx_browser_obj.showtip(text);
-				} else if (window.JSInterface) {
+				} else if (window.JSInterface && window.JSInterface.syslog) {
 					window.JSInterface.syslog(text);
+				} else if (window.plugin) {
+					window.plugin.makeToast(text);
+				} else if (window.mdhtml) {
+					window.mdhtml.mdts(text);
 				} else {
 					const toast = $(false,"#toast");
 					toast.innerHTML = text;
@@ -1196,14 +1202,14 @@
 				});
 				$(false,"textarea").value = prefixUA + preFollowUA + baseUA + sufFollowUA + suffixUA;
 				issuesCheck();
-				_(win,true,"none");
+				_(win,true);
 				winActiv(win);
 			}
 			
 			function makeIssue(issue,head) {
 				let p = document.createElement('p');
 				p.className = "issue";
-				if (head) { p.id = 'issueHead'; }
+				p.id = (head) ? 'issueHead' : '';
 				p.innerHTML = issue;
 				return p;
 			}
@@ -1305,7 +1311,7 @@
 								uaData.stor.apps[app].class.findIndex( v => v === cls ),1
 							);
 							loc.setItem(uaData.storKey,JSON.stringify(uaData.stor));
-							location.reload();
+							window.location.reload();
 						}
 					});
 					return count;
@@ -1357,7 +1363,7 @@
 						mounted: document.querySelector('#app')
 					});
 				} else {
-					_($(false,'#ajump'),true,'none');
+					_($(false,'#ajump'),true);
 				};
 			}
 			
@@ -1418,7 +1424,7 @@
 			}
 			
 			function dndWin() {
-				let wing = $(true,".win"), unlock = ()=>{ document.onmousemove = null; };
+				let wing = $(true,".win"), unlock = () => document.onmousemove = null;
 				wing.forEach( (win,i) => {
 					win.style.zIndex = i + 2;
 				});
@@ -1473,10 +1479,10 @@
 			function openWin(id) {
 				let win = $(false,id);
 				if (win.classList.contains('none')) {
-					_(win,true,"none");
+					_(win,true);
 					winActiv(win);
 				} else {
-					_(win,false,"none");
+					_(win,false);
 				}
 			}
 			
@@ -1493,13 +1499,13 @@
 					_(ele,found,nclass);
 				});
 				scanForHead();
-				_(ntx,!scanAll(),"none");
+				_(ntx,!scanAll());
 			}
 			
 			function filterResume(nclass) {
 				lah.forEach( ele => { _(ele,true,nclass); });
 				scanForHead();
-				if (scanAll()) { _(ntx,false,"none"); }
+				_(ntx,!scanAll());
 			}
 			
 			function fltAppUA(e) {
@@ -1529,7 +1535,7 @@
 			}
 			
 			function fltAppUATag(clas,selected) {
-				$(true,`.T${clas}`).forEach( tag => _(tag,selected,"none") );
+				$(true,`.T${clas}`).forEach( tag => _(tag,selected) );
 				if (uaData.tagtext[clas]) {
 					uaData.tagtext[clas].forEach( id => {
 						if (selected) {
@@ -1564,44 +1570,36 @@
 					sel = $(false,`#${type}sell`),
 					key = $(false,`#${type}keyl`),
 					btn = $(false,'#anew'),
-					ok = $(false,'#aok');
-				if (btn.innerHTML==="管理") {
-					_(key,false,"none");
-					_(sel,true,"none");
-					btn.innerHTML = "添加";
-					ok.innerHTML = "确定";
-				} else {
-					_(key,true,"none");
-					_(sel,false,"none");
-					btn.innerHTML = "管理";
-					ok.innerHTML = "加入";
-				}
+					ok = $(false,'#aok'),
+					mod = (btn.innerHTML==="管理");
+				_(key,!mod);
+				_(sel,mod);
+				btn.innerHTML = (mod) ? "添加" : "管理";
+				ok.innerHTML = (mod) ? "确定" : "加入";
 				aform_Clear();
 			}
 			
 			function aform_switchCard() {
 				const val = $_("atype").value,set = (val==="asty");
-				_($(false,'#setlayer'),set,"none");
-				_($(false,'#addlayer'),!set,"none");
+				_($(false,'#setlayer'),set);
+				_($(false,'#addlayer'),!set);
 				if (!set) {
 					$(true,".atab").forEach( tab => {
 						if (tab.id===`${val}t`) {
-							_(tab,true,"none");
+							_(tab,true);
 							$(false,'#anew').innerHTML = "添加";
 							aform_switchModify();
 						} else {
-							_(tab,false,"none");
+							_(tab,false);
 						}
 					});
 				}
 			}
 			
 			function aform_switchBoth() {
-				const val = ($_("apre").value==="both"),
-					  both = $(true,".acont2"),
-					  sing = $(false,".acont1");
-				both.forEach( input => _(input,val,"none") );
-				_(sing,!val,"none");
+				const val = ($_("apre").value==="both");
+				$(true,".acont2").forEach( input => _(input,val) );
+				_($(false,".acont1"),!val);
 			}
 			
 			function aform_makeFlaginBox() {
@@ -1623,11 +1621,7 @@
 							if (flag==="third") {
 								box.addEventListener('change', e => {
 									tagClick(e.target.parentNode.id,false);
-									if (box.checked) {
-										_($(false,`#${sbox.id}l`),true,"none");
-									} else {
-										_($(false,`#${sbox.id}l`),false,"none");
-									}
+									_($(false,`#${sbox.id}l`),box.checked);
 								});
 							} else {
 								box.addEventListener('change', e => {
@@ -1644,12 +1638,11 @@
 			
 			function aform_updateFlagPreview() {
 				const box = $(false,'#tclsbox'),
-					txt = $(false,'#ttext').value,
-					bgc = $(false,'#tbgc').value,
-					fgc = $(false,'#tfgc').value;
+					txt = $(false,'#ttext').value;
 				box.innerHTML = txt;
-				_(box,txt!=="","none");
-				box.style.cssText = `background-color:${bgc};color:${fgc}`;
+				_(box,txt!=="");
+				box.style.cssText =
+				`background-color:${$(false,'#tbgc').value};color:${$(false,'#tfgc').value}`;
 			}
 			
 			function aform_Clear() {
@@ -1657,10 +1650,10 @@
 					i.value = "";
 					i.style.removeProperty('border-color');
 				});
-				$(false,'#tkds').style.removeProperty('border-color');;
+				$(false,'#tkds').style.removeProperty('border-color');
 				$(true,".classBox input").forEach( c => { c.checked = false; });
 				$(true,".classBox .flag").forEach( f => { f.style.opacity = .5; });
-				$(true,".classPart label").forEach( t => { _(t,false,"none"); });
+				$(true,".classPart label").forEach( t => { _(t,false); });
 				$(true,'#apref,#afolf').forEach( r => { r.checked = true; });
 				$(true,'.msel').forEach( s => { s.value = ""; });
 				$(false,'#tbgc').value = '#000000';
@@ -1859,12 +1852,12 @@
 				function clsSet(obj,type) {
 					$(true,`#${type}clsbox input`).forEach( c => { c.checked = false; });
 					$(true,`#${type}clsbox .flag`).forEach( f => { f.style.opacity = .5; });
-					_($(false,`#${type}clsboxl`),false,"none");
+					_($(false,`#${type}clsboxl`),false);
 					obj.class.forEach( cls => {
 						if (cls!=="qapp") {
 							if (cls.slice(0,1)==="_") {
 								tagSelect(`${type.toUpperCase()}third`);
-								_($(false,`#${type}clsboxl`),true,"none");
+								_($(false,`#${type}clsboxl`),true);
 								$(false,`#${type}thirdt`).value = cls.slice(1);
 							} else {
 								tagSelect(`${type.toUpperCase()}${cls}`);
@@ -2003,7 +1996,6 @@
 			}
 			
 			function lsb_import() {
-				let err = 0;
 				if ($(false,"#stordata").value!=="") {
 					try {
 						const data = JSON.parse($(false,"#stordata").value);
@@ -2021,15 +2013,14 @@
 							loc.setItem(uaData.storKey,JSON.stringify(data));
 						}
 						$(false,"#stordata").value = "";
+						toast('导入成功');
 					} catch(e) {
-						err = 1;
 						if (e instanceof SyntaxError) {
 							toast('导入失败:格式不正确');
 						} else {
-							toast('导入失败');
+							toast(`导入失败:${e}`);
 						}
 					}
-					if (err===0) { toast('导入成功'); }
 				} else {
 					toast('没有输入数据');
 				}
@@ -2129,7 +2120,7 @@
 				ee($(false,'#styclr'),'click',()=>{window.localStorage.removeItem(uaData.styleKey);toast('清空啦，刷新后恢复默认主题')});
 				ee($(false,'#swreg'),'click',swOpr);
 				ee($(false,'#swclr'),'click',()=>{ caches.keys().then( vers => vers.map( i => caches.delete(i) )); cacheScan()});
-				ee($(false,'#load'),'animationend',e=>_(e.target,false,'none'));
+				ee($(false,'#load'),'animationend',e=>_(e.target,false));
 			}
 			
 			function init(){
