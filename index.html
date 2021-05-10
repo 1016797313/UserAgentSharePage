@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 4",
-					详细:21050821,
+					详细:21051014,
 				},
 				设置:{
 					基础默认:1,
@@ -1421,7 +1421,7 @@
 			
 			function winActiv(awin) {
 				let wing = $(true,".win");
-				wing.forEach( (win,i) => {
+				wing.forEach( win => {
 					if (win.style.zIndex>awin.style.zIndex) {
 						win.style.zIndex--;
 					}
@@ -1554,7 +1554,7 @@
 			}
 			
 			function tagClick(id,flt) {
-				const box = $(false,`#${id} input`);
+				const box = $(false,`#${id} input`),
 					flag = $(false,`#${id} .flag`);
 				flag.style.opacity = (box.checked) ? 1 : .5;
 				if (flt) {
@@ -1713,7 +1713,7 @@
 			
 			function aform_Add() {
 				const atyp = $_("atype").value;
-				let key,name,pre,nfol,cont,obj,flag,typr;
+				let key,cont,obj,typr;
 				if (!aform_Check(atyp)) { return; }
 				typr = aform_tType(atyp);
 				key = ($(false,'#anew').innerHTML==="管理") ?
@@ -1984,11 +1984,11 @@
 				if (Object.keys(uaData.stor.apps).length!==0 ||
 					Object.keys(uaData.stor.flag).length!==0) {
 					loc.setItem(uaData.storKey,JSON.stringify(uaData.stor));
-					$(false,'#ssave').style.backgroundColor = '';
-					toast('保存成功，下次刷新生效');
 				} else {
-					toast('没有自定义数据');
+					window.localStorage.removeItem(uaData.storKey);
 				}
+				$(false,'#ssave').style.backgroundColor = '';
+				toast('保存成功，下次刷新生效');
 			}
 
 			function lsb_export() {
