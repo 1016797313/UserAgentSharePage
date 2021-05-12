@@ -584,7 +584,7 @@
 				   -moz-user-select: none;
 						user-select: none;
 			}
-			.win .close,.win .prev,.win .topbutton{
+			.win .titbtn {
 				background-color: var(--theme-color-close);
 				color: var(--theme-color-close-text);
 				font-size: 1em;
@@ -901,8 +901,8 @@
 		<div id="ua" class="none win">
 			<div class="titlebar">
 				<div class="title">UA 窗口</div>
-				<button type="button" class="topbutton">置顶</button>
-				<button type="button" class="close">关闭</button>
+				<button type="button" class="titbtn topbutton">置顶</button>
+				<button type="button" class="titbtn close">关闭</button>
 			</div>
 			<label for="useragent" class="invilab">UA 编辑框</label>
 			<textarea id="useragent" placeholder="你想要的在这儿 ^_^"></textarea>
@@ -915,8 +915,8 @@
 		<div id="class" class="none win">
 			<div class="titlebar">
 				<div class="title">标签筛选</div>
-				<button type="button" class="topbutton">置顶</button>
-				<button type="button" class="close">关闭</button>
+				<button type="button" class="titbtn topbutton">置顶</button>
+				<button type="button" class="titbtn close">关闭</button>
 			</div>
 			<div id="classBox"></div>
 			<div id="action3" class="btnGrp">
@@ -927,8 +927,8 @@
 		<div id="prvui" class="none win">
 			<div class="titlebar">
 				<div class="title">编辑预览</div>
-				<button type="button" class="topbutton">置顶</button>
-				<button type="button" class="close">关闭</button>
+				<button type="button" class="titbtn topbutton">置顶</button>
+				<button type="button" class="titbtn close">关闭</button>
 			</div>
 			<p id="nullprvw">空 *w*</p>
 			<div id="addprvw" class="none"></div>
@@ -936,9 +936,9 @@
 		<div id="addui" class="none win">
 			<div class="titlebar">
 				<div class="title">添加项目</div>
-				<button type="button" class="prev">预览</button>
-				<button type="button" class="topbutton">置顶</button>
-				<button type="button" class="close">关闭</button>
+				<button type="button" class="titbtn prev">预览</button>
+				<button type="button" class="titbtn topbutton">置顶</button>
+				<button type="button" class="titbtn close">关闭</button>
 			</div>
 			<div id="addtype">
 				<label tabindex="0">
