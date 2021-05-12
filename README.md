@@ -155,6 +155,15 @@ APP 的显示名称 。
 修改以后，它们将变为自定义数据。  
 并且以后不会跟随自带数据更新，除非删除修改过的条目。  
 
+### 编辑预览
+点击关闭按钮旁边 "预览" 按钮，可以打开 "编辑预览" 窗口。  
+在添加或修改 UA 条目时，实时显示拼接效果，方便修改关键字。  
+
+编辑预览只在 "APP" 和 "快应用" 有效，标签有自己的预览 (在 "名称" 后面)  
+
+> 在打开 "TBS" "短 UA" "电脑" 标签时，预览中的基础 UA 将会变化。  
+但实际拼接效果，仍要以用户选择的基础 UA 为准。  
+
 #### "保存数据"/"导入"/"导出"/"清空存储"
 把数据保存到 "网页存储" (localStorage) ，下次刷新会自动加载数据 。
 > 只有存到这里，刷新以后，才会在 APP 列表里看到 。
@@ -181,13 +190,17 @@ APP 的显示名称 。
 | --theme-color-i | 按钮点击时的变色 |
 | --theme-color-j | 加载屏幕，<br>未打开 Javascript 屏幕，<br>搜索结果为空界面<br>的文字颜色，以及<br>设置页面选框边框颜色 |
 | --theme-color-close | 窗口关闭按钮背景色 |
-| --theme-color-close-text | 窗口关闭按钮文字颜色 |
+| --theme-color-prev | 窗口预览按钮背景色 |
+| --theme-color-close-text | 窗口标题栏按钮文字颜色 |
 | --input-check-ready | 输入框边框线，常态颜色 |
 | --input-check-ok | 输入框边框线，检查成功颜色 |
 | --input-check-err | 输入框边框线，检查失败颜色 |
 | --input-check-null | 输入框边框线，内容为空颜色 |
 | --data-need-save | "保存数据" 按钮，提示未保存时的背景色 |
 | --tag-filtered | "标签筛选" 按钮，提示开启筛选时的背景色 |
+| --prvw-key | 编辑预览: 关键字颜色，<br>快应用 应用字段 颜色 |
+| --prvw-plat | 编辑预览: 快应用 平台字段 颜色 |
+| --prvw-from | 编辑预览: 快应用 来自字段 颜色 |
 | --shadow-big | [**box-shadow 格式**](https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow) 区块，窗口，下拉框 阴影参数 |
 | --shadow-small | [**box-shadow 格式**](https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow) 标签，按钮组 阴影参数 |
 

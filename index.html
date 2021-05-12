@@ -26,8 +26,8 @@
 				storKey:"userAgentData",
 				styleKey:"userAgentStyle",
 				版本:{
-					描述:"5.1 Beta 4",
-					详细:21051014,
+					描述:"5.1 Beta 5",
+					详细:21051215,
 				},
 				设置:{
 					基础默认:1,
@@ -49,12 +49,16 @@
 				--theme-color-j: lightgray;		 /* 加载屏幕 空筛选 文字颜色 */
 				--theme-color-close: red;
 				--theme-color-close-text: white;
+				--theme-color-prev: orange;
 				--input-check-ready: lightgray;
 				--input-check-ok: green;
 				--input-check-err: orange;
 				--input-check-null: red;
 				--data-need-save: orange;
 				--tag-filtered: #00ad46;
+				--prvw-key: tomato;
+				--prvw-plat: darkviolet;
+				--prvw-from: green;
 				--shadow-big: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
 				--shadow-small: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 3px 1px rgba(0,0,0,0.12);
 			}
@@ -74,12 +78,16 @@
 					--theme-color-j: #728195;
 					--theme-color-close: red;
 					--theme-color-close-text: white;
+					--theme-color-prev: #2b75c4;
 					--input-check-ready: #345077;
 					--input-check-ok: green;
 					--input-check-err: orange;
 					--input-check-null: red;
 					--data-need-save: darksalmon;
 					--tag-filtered: #99ddbb;
+					--prvw-key: yellow;
+					--prvw-plat: pink;
+					--prvw-from: lime;
 					--shadow-big: 0 0 5px 3px rgba(50,80,120,0.5);
 					--shadow-small: none;
 				}
@@ -414,9 +422,14 @@
 				margin: auto;
 				width: 9em;
 				text-align: center;
-			}
-			#nulltext {
 				line-height: calc(1.5em * 7.25);
+			}
+			#nullprvw {
+				font-size: 2em;
+				line-height: 4em;
+				color: var(--theme-color-j);
+				margin: auto;
+				text-align: center;
 			}
 			.flag {
 				font-size: .75em;
@@ -567,7 +580,7 @@
 				   -moz-user-select: none;
 						user-select: none;
 			}
-			.win .close {
+			.win .close,.win .prev{
 				background-color: var(--theme-color-close);
 				color: var(--theme-color-close-text);
 				font-size: 1em;
@@ -576,6 +589,9 @@
 				margin: 0;
 				width: 5em;
 				box-shadow: none;
+			}
+			.win .prev {
+				background-color: var(--theme-color-prev);
 			}
 			@keyframes load-finish {
 				0% {
@@ -614,7 +630,8 @@
 			}
 			#tclsbox {
 				float: right;
-				margin: 2px 0;
+				margin: 3px 0;
+				font-weight: bold;
 			}
 			#ttexd {
 				display: flex;
@@ -659,6 +676,10 @@
 			#stordata {
 				width: -webkit-fill-available;
 				width: -moz-available;
+			}
+			#stordata {
+				height:80px;
+				margin:0 4px;
 			}
 			#issues {
 				margin: 0 3px;
@@ -705,6 +726,30 @@
 			fieldset:focus-within legend, #swopt.inst legend, #swopt.inst p {
 				color: var(--theme-color-a);
 			}
+			#addprvw {
+				height: max-content;
+				padding: 5px;
+				font-size: .9em;
+				font-family: monospace;
+				color: var(--theme-color-a);
+				background: var(--theme-color-h);
+				word-break: break-all;
+			}
+			.basecont {
+				color: var(--theme-color-a);
+			}
+			.keycont,.qapappl {
+				color: var(--prvw-key);
+			}
+			.qapplat {
+				color: var(--prvw-plat);
+			}
+			.qapfrom {
+				color: var(--prvw-from);
+			}
+			#prvui {
+				padding-bottom: 0;
+			}
 			@media only screen and (min-width: 360px) {
 				#baseopt,#modeopt {
 					padding: 3px 6px;
@@ -724,12 +769,14 @@
 				#class {
 					width: 65%;
 				}
+				#prvui {
+					width: 80%;
+					top: 40%;
+					left: 8.5%;
+				}
 				#addui, #class {
 					top:10px;
 					left:10px;
-				}
-				#stordata {
-					height: 80px;
 				}
 				fieldset {
 					min-width: 16.5em;
@@ -776,6 +823,11 @@
 				#addui {
 					left: 40%;
 					top: 1em;
+				}
+				#prvui {
+					left: 35%;
+					top: 18em;
+					width: 24em;
 				}
 				fieldset {
 					min-width: 21.75em;
@@ -860,9 +912,18 @@
 				<button type="button" id="btnTgRv">反选</button>
 			</div>
 		</div>
+		<div id="prvui" class="none win">
+			<div class="titlebar">
+				<div class="title">编辑预览</div>
+				<button type="button" class="close">关闭</button>
+			</div>
+			<p id="nullprvw">空 *w*</p>
+			<div id="addprvw" class="none"></div>
+		</div>
 		<div id="addui" class="none win">
 			<div class="titlebar">
 				<div class="title">添加项目</div>
+				<button type="button" class="prev">预览</button>
 				<button type="button" class="close">关闭</button>
 			</div>
 			<div id="addtype">
@@ -998,7 +1059,7 @@
 				<button type="button" id="aclear">清空表单</button>
 				<button type="button" id="anew">管理</button>
 				<button type="button" id="adel">删除</button>
-			</div>
+			</div>                                                                                                                                                                    
 			<div id="addsave">
 				<label for="stordata" class="invilab">复制到这里就可以导入啦</label>
 				<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
@@ -2085,6 +2146,67 @@
 				caches.keys().then( vers => { $(false,"#swlen").innerHTML = vers.length });
 			}
 			
+			function previewUpdate() {
+				let view = $(false,"#addprvw"), show,
+					type = aform_tType($_("atype").value),
+					spanGen = function(text,cls){
+						let span = document.createElement('span');
+						(cls) && (_(span,!1,cls));
+						span.innerText = text;
+						return span;
+					};
+				(view.childElementCount!==0) && (view.innerHTML='');
+				if (type==='a') {
+					let pre, base, suf;
+					if ($_("apre").value==='both') {
+						pre = $(false,"#acont2a").value;
+						suf = $(false,"#acont2b").value;
+					} else {
+						($_("apre").value==='true') ?
+							pre = $(false,"#acont1").value :
+							suf = $(false,"#acont1").value;
+					}
+					pre = ($_("afol").value!=='true' && pre) ? pre + ' ' : pre;
+					suf = ($_("afol").value!=='true' && suf) ? ' ' + suf : suf;
+					if ($(false,"#atbs").checked) {
+						base = uaData.base.tbs.content;
+					} else if ($(false,"#ashort").checked) {
+						base = uaData.base.short.content;
+					} else if ($(false,"#apc").checked || $(false,"#aspider").checked) {
+						base = '';
+					} else {
+						base = uaData.base.std.content;
+					}
+					(pre) && view.appendChild(spanGen(pre,'keycont'));
+					view.appendChild(spanGen(base,'basecont'));
+					(suf) && view.appendChild(spanGen(suf,'keycont'));
+				} else {
+					view.appendChild(spanGen($(false,"#qcont1").value+' ','qapplat'));
+					view.appendChild(spanGen($(false,"#qcont3").value+' ','qapappl'));
+					view.innerHTML += '({"packageName":"';
+					view.appendChild(spanGen($(false,"#qcont2").value,'qapfrom'));
+					view.innerHTML += '","type":"url","extra":{"scene":"recommend"}})';
+				}
+				if((aform_tType($_("atype").value)==='a' &&
+					$_("apre").value==='both' &&
+					$(false,"#acont2a").value==='' &&
+					$(false,"#acont2b").value==='') || (
+					aform_tType($_("atype").value)==='a' &&
+					$_("apre").value!=='both' &&
+					$(false,"#acont1").value==='') || (
+					aform_tType($_("atype").value)==='q' &&
+					$(false,"#qcont1").value==='' &&
+					$(false,"#qcont2").value==='' &&
+					$(false,"#qcont3").value==='') ||
+					aform_tType($_("atype").value)==='t') {
+						show = false;
+					} else {
+						show = true;
+					}
+				_(view,show);
+				_($(false,"#nullprvw"),!show);
+			}
+			
 			function addEvent() {
 				function ee(el,ev,fn) { el.addEventListener(ev,fn); }
 				$(true,'#mode label').forEach( e => ee(e,'keydown', spaceChecked));
@@ -2097,6 +2219,7 @@
 				ee($(false,'#btnSlst'),'click',fltAppUASelected.bind(this));
 				ee($(false,'#btnGen'),'click',genUA);
 				$(true,'.close').forEach( c => ee(c,'click',e => { e.target.parentNode.parentNode.classList.add('none')}));
+				ee($(false,'.prev'),'click',openWin.bind(this,'#prvui'));
 				ee($(false,'#useragent'),'input',issuesCheck);
 				ee($(false,'#btnClUA'),'click',()=>{$(false,'#useragent').value = '';issuesCheck();});
 				ee($(false,'#btnCpUA'),'click',()=>{$(false,'#useragent').select();document.execCommand('copy');});
@@ -2104,12 +2227,15 @@
 				ee($(false,'#btnTgRv'),'click',()=>{$(true,'#classBox input').forEach( b => { b.checked = (!b.checked); tagClick(b.parentNode.id,true);});});
 				$(true,'#addtype label').forEach( e => ee(e,'keydown', spaceChecked));
 				$(true,'#addtype input').forEach( e => ee(e,'change', aform_switchCard));
+				$(true,'#addtype input').forEach( e => ee(e,'change', previewUpdate));
 				$(true,'.key').forEach( e => ee(e,'input',aform_KeyCheck.bind(this,false)));
 				$(true,'.msel').forEach( e => ee(e,'change',aform_Modify));
+				$(true,'#aappt .msel,#qappt .msel').forEach( e => ee(e,'change',previewUpdate));
 				$(true,'#apre label').forEach( e => ee(e,'keydown', spaceChecked));
 				$(true,'#apre input').forEach( e => ee(e,'change', aform_switchBoth));
 				$(true,'#afol label').forEach( e => ee(e,'keydown', spaceChecked));
-				$(true,'#ttext,#tbgc,#tfgc').forEach( e => ee(e,'change', aform_updateFlagPreview));
+				ee($(false,'#ttext'),'input', aform_updateFlagPreview);
+				$(true,'#tbgc,#tfgc').forEach( e => ee(e,'change', aform_updateFlagPreview));
 				ee($(false,'#aok'),'click',aform_Add);
 				ee($(false,'#aclear'),'click',aform_Clear);
 				ee($(false,'#anew'),'click',aform_switchModify);
@@ -2125,15 +2251,18 @@
 				ee($(false,'#swreg'),'click',swOpr);
 				ee($(false,'#swclr'),'click',()=>{ caches.keys().then( vers => vers.map( i => caches.delete(i) )); cacheScan()});
 				ee($(false,'#load'),'animationend',e=>_(e.target,false));
+				$(true,'#acont1,#acont2a,#acont2b,#qcont1,#qcont2,#qcont3').forEach( e => ee(e,'input',previewUpdate));
+				$(true,'#apre input,#afol input').forEach( e => ee(e,'change', previewUpdate));
+				$(true,'#atbs,#ashort,#apc,#aspider').forEach( e => ee(e,'change',previewUpdate));
 			}
 			
 			function init(){
 				$(false,'#loadstr').innerHTML = '正在构建 ...';
-				addEvent();
 				lsb_initOption();
 				makeItem();
 				makeFlaginBox();
 				aform_makeFlaginBox();
+				addEvent();
 				makeBaseRadio();
 				dndWin();
 				$(false,'#loadstr').innerHTML = '正在初始化 ...';

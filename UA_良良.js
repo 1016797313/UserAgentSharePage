@@ -1605,7 +1605,7 @@ wyopenstudy: {
 	名称: "网易公开课",
 	前置: "不是",
 	无缝: "不是",
-	标签: ["网易",,"TBS"],
+	标签: ["网易","TBS"],
 	内容: " OpenCourse_Android/7.7.1"
 },
 wycomic: {
