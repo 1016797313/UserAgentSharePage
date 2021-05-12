@@ -191,6 +191,8 @@ APP 的显示名称 。
 | --theme-color-j | 加载屏幕，<br>未打开 Javascript 屏幕，<br>搜索结果为空界面<br>的文字颜色，以及<br>设置页面选框边框颜色 |
 | --theme-color-close | 窗口关闭按钮背景色 |
 | --theme-color-prev | 窗口预览按钮背景色 |
+| --theme-color-top | 窗口置顶按钮背景色 |
+| --theme-color-top-enable | 窗口置顶按钮激活时背景色 |
 | --theme-color-close-text | 窗口标题栏按钮文字颜色 |
 | --input-check-ready | 输入框边框线，常态颜色 |
 | --input-check-ok | 输入框边框线，检查成功颜色 |
