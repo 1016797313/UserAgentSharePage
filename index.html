@@ -309,6 +309,9 @@
 				margin: 3px 4px;
 				box-shadow:var(--shadow-small);
 			}
+			.savebtn .btnGrp {
+				margin: 0;
+			}
 			#action {
 				margin: 3px .5em;
 			}
@@ -955,139 +958,141 @@
 				</label>
 			</div>
 			<div id="addlayer">
-			<div id="addtable">
-				<div id="aappt" class="atab">
-					<label id="akeyl"><b>标识</b>
-						<input id="akey" type="text" name="aapp" class="key" placeholder="首字母对应名称拼音首字母"/>
-					</label>
-					<label id="asell" class="none"><b>标识</b>
-						<select id="asel" class="msel">
-							<option selected hidden disabled value="">请选择要修改的项目...</option>
-						</select>
-					</label>
-					<label><b>名称</b>
-						<input id="atext" type="text" name="aapp"/>
-					</label>
-					<div id="apre">
-						<p>前置</p>
-						<label tabindex="0">
-							<input id="apret" type="radio" name="apre" value="true" class="orig-box"/>
-							<span class="new-style new-radio"></span>是
+				<div id="addtable">
+					<div id="aappt" class="atab">
+						<label id="akeyl"><b>标识</b>
+							<input id="akey" type="text" name="aapp" class="key" placeholder="首字母对应名称拼音首字母"/>
 						</label>
-						<label tabindex="0">
-							<input id="apref" type="radio" name="apre" value="false" class="orig-box" checked="checked"/>
-							<span class="new-style new-radio"></span>否
+						<label id="asell" class="none"><b>标识</b>
+							<select id="asel" class="msel">
+								<option selected hidden disabled value="">请选择要修改的项目...</option>
+							</select>
 						</label>
-						<label tabindex="0">
-							<input id="apreb" type="radio" name="apre" value="both" class="orig-box"/>
-							<span class="new-style new-radio"></span>前后都有
+						<label><b>名称</b>
+							<input id="atext" type="text" name="aapp"/>
 						</label>
-					</div>
-					<div id="afol">
-						<p>无缝</p>
-						<label tabindex="0">
-							<input id="afolt" type="radio" name="afol" value="true" class="orig-box"/>
-							<span class="new-style new-radio"></span>是
-						</label>
-						<label tabindex="0">
-							<input id="afolf" type="radio" name="afol" value="false" class="orig-box" checked="checked"/>
-							<span class="new-style new-radio"></span>否
-						</label>
-					</div>
-					<label class="acont1"><b>关键字</b>
-						<input id="acont1" type="text" name="acont1"/>
-					</label>
-					<label class="acont2 none"><b>前置关键字</b>
-						<input id="acont2a" type="text" name="acont2"/>
-					</label>
-					<label class="acont2 none"><b>后置关键字</b>
-						<input id="acont2b" type="text" name="acont2"/>
-					</label>
-					<div id="acls">
-						<div id="aclsbox" class="classBox"></div>
-						<div id="aclsboxt" class="classPart">
-							<label id="aclsboxl" class="none"><b>自定义标签</b>
-								<input id="athirdt" type="text" name="athird"/>
+						<div id="apre">
+							<p>前置</p>
+							<label tabindex="0">
+								<input id="apret" type="radio" name="apre" value="true" class="orig-box"/>
+								<span class="new-style new-radio"></span>是
+							</label>
+							<label tabindex="0">
+								<input id="apref" type="radio" name="apre" value="false" class="orig-box" checked="checked"/>
+								<span class="new-style new-radio"></span>否
+							</label>
+							<label tabindex="0">
+								<input id="apreb" type="radio" name="apre" value="both" class="orig-box"/>
+								<span class="new-style new-radio"></span>前后都有
 							</label>
 						</div>
-					</div>
-				</div>
-				<div id="qappt" class="atab none">
-					<label id="qkeyl"><b>标识</b>
-						<input id="qkey" type="text" name="qapp" class="key" placeholder="首字母对应名称拼音首字母"/>
-					</label>
-					<label id="qsell" class="none"><b>标识</b>
-						<select id="qsel" class="msel">
-							<option selected hidden disabled value="">请选择要修改的项目...</option>
-						</select>
-					</label>
-					<label><b>名称</b>
-						<input id="qtext" type="text" name="qapp"/>
-					</label>
-					<label><b>平台</b>
-						<input id="qcont1" type="text" name="qcont"/>
-					</label>
-					<label><b>来自</b>
-						<input id="qcont2" type="text" name="qcont"/>
-					</label>
-					<label><b>应用</b>
-						<input id="qcont3" type="text" name="qcont"/>
-					</label>
-					<div id="qcls">
-						<div id="qclsbox" class="classBox"></div>
-						<div id="qclsboxt" class="classPart">
-							<label id="qclsboxl" class="none"><b>自定义标签</b>
-								<input id="qthirdt" type="text" name="qthird"/>
+						<div id="afol">
+							<p>无缝</p>
+							<label tabindex="0">
+								<input id="afolt" type="radio" name="afol" value="true" class="orig-box"/>
+								<span class="new-style new-radio"></span>是
+							</label>
+							<label tabindex="0">
+								<input id="afolf" type="radio" name="afol" value="false" class="orig-box" checked="checked"/>
+								<span class="new-style new-radio"></span>否
 							</label>
 						</div>
-					</div>
-				</div>
-				<div id="atagt" class="atab none">
-					<label id="tkeyl"><b>标识</b>
-						<input id="tkey" type="text" name="atag" class="key" placeholder="数字和英文字母"/>
-					</label>
-					<label id="tsell" class="none"><b>标识</b>
-						<select id="tsel" class="msel">
-							<option selected hidden disabled value="">请选择要修改的项目...</option>
-						</select>
-					</label>
-					<div id="ttexd">
-						<label for="ttext" id="ttexl"><b>名称</b></label>
-						<div id="tkds">
-							<div id="tclsbox" class="flag"></div>
-							<span>
-								<input id="ttext" type="text" name="atag"/>
-							</span>
+						<label class="acont1"><b>关键字</b>
+							<input id="acont1" type="text" name="acont1"/>
+						</label>
+						<label class="acont2 none"><b>前置关键字</b>
+							<input id="acont2a" type="text" name="acont2"/>
+						</label>
+						<label class="acont2 none"><b>后置关键字</b>
+							<input id="acont2b" type="text" name="acont2"/>
+						</label>
+						<div id="acls">
+							<div id="aclsbox" class="classBox"></div>
+							<div id="aclsboxt" class="classPart">
+								<label id="aclsboxl" class="none"><b>自定义标签</b>
+									<input id="athirdt" type="text" name="athird"/>
+								</label>
+							</div>
 						</div>
 					</div>
-					<label><b>背景</b>
-						<input id="tbgc" type="color" name="atag"/>
-					</label>
-					<label><b>文字</b>
-						<input id="tfgc" type="color" name="atag"/>
-					</label>
+					<div id="qappt" class="atab none">
+						<label id="qkeyl"><b>标识</b>
+							<input id="qkey" type="text" name="qapp" class="key" placeholder="首字母对应名称拼音首字母"/>
+						</label>
+						<label id="qsell" class="none"><b>标识</b>
+							<select id="qsel" class="msel">
+								<option selected hidden disabled value="">请选择要修改的项目...</option>
+							</select>
+						</label>
+						<label><b>名称</b>
+							<input id="qtext" type="text" name="qapp"/>
+						</label>
+						<label><b>平台</b>
+							<input id="qcont1" type="text" name="qcont"/>
+						</label>
+						<label><b>来自</b>
+							<input id="qcont2" type="text" name="qcont"/>
+						</label>
+						<label><b>应用</b>
+							<input id="qcont3" type="text" name="qcont"/>
+						</label>
+						<div id="qcls">
+							<div id="qclsbox" class="classBox"></div>
+							<div id="qclsboxt" class="classPart">
+								<label id="qclsboxl" class="none"><b>自定义标签</b>
+									<input id="qthirdt" type="text" name="qthird"/>
+								</label>
+							</div>
+						</div>
+					</div>
+					<div id="atagt" class="atab none">
+						<label id="tkeyl"><b>标识</b>
+							<input id="tkey" type="text" name="atag" class="key" placeholder="数字和英文字母"/>
+						</label>
+						<label id="tsell" class="none"><b>标识</b>
+							<select id="tsel" class="msel">
+								<option selected hidden disabled value="">请选择要修改的项目...</option>
+							</select>
+						</label>
+						<div id="ttexd">
+							<label for="ttext" id="ttexl"><b>名称</b></label>
+							<div id="tkds">
+								<div id="tclsbox" class="flag"></div>
+								<span>
+									<input id="ttext" type="text" name="atag"/>
+								</span>
+							</div>
+						</div>
+						<label><b>背景</b>
+							<input id="tbgc" type="color" name="atag"/>
+						</label>
+						<label><b>文字</b>
+							<input id="tfgc" type="color" name="atag"/>
+						</label>
+					</div>
 				</div>
-			</div>
-			<div id="addbtn" class="btnGrp">
-				<button type="button" id="aok">加入</button>
-				<button type="button" id="aclear">清空表单</button>
-				<button type="button" id="anew">管理</button>
-				<button type="button" id="adel">删除</button>
-			</div>                                                                                                                                                                    
-			<div id="addsave">
-				<label for="stordata" class="invilab">复制到这里就可以导入啦</label>
-				<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
-				<div class="savebtn btnGrp">
-					<button type="button" id="ssave">保存数据</button>
-					<button type="button" id="scopy">复制内容</button>
-					<button type="button" id="sdele">清空内容</button>
+				<div id="addbtn" class="btnGrp">
+					<button type="button" id="aok">加入</button>
+					<button type="button" id="aclear">清空表单</button>
+					<button type="button" id="anew">管理</button>
+					<button type="button" id="adel">删除</button>
+				</div>                                                                                                                                                                    
+				<div id="addsave">
+					<label for="stordata" class="invilab">复制到这里就可以导入啦</label>
+					<textarea id="stordata" placeholder="复制到这里就可以导入啦"></textarea>
+					<div class="savebtn">
+						<div class="btnGrp">
+							<button type="button" id="ssave">保存数据</button>
+							<button type="button" id="scopy">复制内容</button>
+							<button type="button" id="sdele">清空内容</button>
+						</div>
+						<div class="btnGrp">
+							<button type="button" id="simp">导入数据</button>
+							<button type="button" id="sexp">导出数据</button>
+							<button type="button" id="sclr">清空存储</button>
+						</div>
+					</div>
 				</div>
-				<div class="savebtn btnGrp">
-					<button type="button" id="simp">导入数据</button>
-					<button type="button" id="sexp">导出数据</button>
-					<button type="button" id="sclr">清空存储</button>
-				</div>
-			</div>
 			</div>
 			<div id="setlayer" class="none">
 				<fieldset>
