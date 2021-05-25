@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 5",
-					详细:21052511,
+					详细:21052523,
 				},
 				设置:{
 					基础默认:1,
@@ -398,12 +398,13 @@
 			}
 			button {
 				background-color:var(--theme-color-a);
-				border: 1px solid transparent;
+				border: none;
 				color:var(--theme-color-c);
 				width: 100%;
 				font-size:.75em;
 				font-weight:bold;
 				padding: 3px;
+				margin:0;
 			}
 			button:focus {
 				background-color: var(--theme-color-i);
@@ -527,9 +528,9 @@
 				font-weight: bold;
 				width: 80%;
 				font-size: .9em;
-				-webkit-appearance: none;
-				   -moz-appearance: none;
-						appearance: none;
+				-webkit-appearance: menulist;
+				   -moz-appearance: menulist;
+						appearance: menulist;
 				border: none;
 				box-shadow:var(--shadow-big);
 			}
