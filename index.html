@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 5",
-					详细:21052612,
+					详细:21052613,
 				},
 				设置:{
 					基础默认:1,
@@ -764,6 +764,14 @@
 			.topwin {
 				z-index: 9 !important;
 			}
+			@media only screen and (max-width: 320px) {
+				#baseopt,#modeopt {
+					padding: 3px 6px;
+				}
+				#modeopt button {
+					padding: 2px;
+				}
+			}
 			@media only screen and (max-width: 640px) {
 				#baseopt,#modeopt {
 					padding: 3px 6px;
@@ -811,11 +819,11 @@
 					margin: 2px auto;
 				}
 				#baseopt {
-					padding: 6px;
+					padding: 5px;
 					line-height: 19px;
 				}
 				#modeopt {
-					padding-left: 6px
+					padding-left: 5px
 				}
 				#modeopt button {
 					padding: 3px .5em;
