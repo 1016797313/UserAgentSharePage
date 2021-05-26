@@ -764,21 +764,23 @@
 			.topwin {
 				z-index: 9 !important;
 			}
-			@media only screen and (max-width: 320px) {
+			@media only screen and (max-width: 330px) {
 				#baseopt,#modeopt {
-					padding: 3px 6px;
+					padding: 3px 1px;
 				}
 				#modeopt button {
 					padding: 2px;
 				}
 			}
-			@media only screen and (max-width: 640px) {
+			@media only screen and (min-width: 331px) and (max-width: 640px) {
 				#baseopt,#modeopt {
 					padding: 3px 6px;
 				}
 				#modeopt button {
 					padding: 2px 3px;
 				}
+			}
+			@media only screen and (max-width: 640px) {
 				textarea {
 					height: 146px;
 					width: 94%;
