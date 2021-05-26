@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 5",
-					详细:21052523,
+					详细:21052610,
 				},
 				设置:{
 					基础默认:1,
@@ -764,7 +764,7 @@
 			.topwin {
 				z-index: 9 !important;
 			}
-			@media only screen and (orientation: portrait) {
+			@media only screen and (max-aspect-ratio: 5/4) {
 				#baseopt,#modeopt {
 					padding: 3px 6px;
 				}
@@ -805,7 +805,7 @@
 					padding: 0 5px;
 				}
 			}
-			@media only screen and (orientation: landscape) {
+			@media only screen and (min-aspect-ratio: 5/4) {
 				body {
 					width: 500px;
 					margin: 2px auto;
