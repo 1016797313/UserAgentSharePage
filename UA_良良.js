@@ -2117,7 +2117,14 @@ bdOpt: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["百度"],
-	内容: "Mozilla/5.0 (Android;) AppleWebKit/605.1.15 (KHTML, like Gecko) Safari/604.1 mission baiduboxapp/3.2.5.10 SearchCraft/3.7.0"
+	内容: "Mozilla/5.0 (Android;) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile Safari/604.1 mission baiduboxapp/3.2.5.10 SearchCraft/3.7.0"
+},
+bdOpt2: {
+	名称: "百度优化方案(2)",
+	前置: "不是",
+	无缝: "不是",
+	标签: ["百度"],
+	内容: "Mozilla/5.0 (Android;lite baiduboxapp) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile Safari/604.1 baiduboxapp/3.2.5.10 SearchCraft/3.7.0"
 },
 whatsapp: {
 	名称: "WhatsApp",
@@ -2139,5 +2146,12 @@ zhifubao: {
 	无缝: "不是",
 	标签: ["阿里"],
 	内容: "AlipayDefined(nt:WIFI,ws:360|0|3.0,ac:sp) AliApp(AP/10.2.15.9500) AlipayClient/10.2.15.9500"
+},
+meituan: {
+	名称: "美团",
+	前置: "不是",
+	无缝: "不是",
+	标签: [],
+	内容: " TitansX/11.39.13 KNB/1.2.0 android/9 mt/com.sankuai.meituan/11.9.403 App/10120/11.9.403 MeituanGroup/11.9.403 EH/8.1.0"
 },
 });

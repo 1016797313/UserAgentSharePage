@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 5",
-					详细:21052613,
+					详细:21052722,
 				},
 				设置:{
 					基础默认:1,
@@ -1316,7 +1316,7 @@
 					issue = [
 								[ // #1 百度 页面 确认框
 									( ua.includes('baiduboxapp/') && (
-									/Android[^\s\)]* +[^\)]*\)+?/u.test(ua) || ( ver = /baiduboxapp\/\d*/.exec(ua)[0].replace('baiduboxapp/',''),
+									(/\(.*Android.*\)/.test(ua) && /Android[^\)]*\)+?/.exec(ua)[0].includes(' ') && !/Android[^\s]+;?[^\s]+[\w]+.*\)+?/u.test(ua)) || ( ver = /baiduboxapp\/\d*/.exec(ua)[0].replace('baiduboxapp/',''),
 									ver === '' || ver >= 4 ))),
 									'此 UA 可能会导致 百度部分页面 加载时弹出 确认/取消 对话框'
 								],[ // #2 城通 下载按钮 失效
@@ -1334,6 +1334,9 @@
 								],[ // #6 淘宝 windvine 确认框
 									( ua.includes('Android') && /WindVane\/\d+\.\d+\.\d+/.test(ua) && ( ver = /WindVane\/\d+/.exec(ua)[0].replace('WindVane/',''), ver >= 1 )),
 									'此 UA 可能会导致 淘宝部分页面 加载时弹出 确认/取消 对话框'
+								],[ // #7 知乎电脑版
+									!ua.includes('Mobile'),
+									'此 UA 可能会导致 知乎 显示电脑版页面'
 								]
 							];
 				let count = 0, hasHead = false;
