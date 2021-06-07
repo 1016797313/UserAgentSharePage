@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 5",
-					详细:21052722,
+					详细:21060714,
 				},
 				设置:{
 					基础默认:1,
@@ -1315,8 +1315,11 @@
 					issue = [
 								[ // #1 百度 页面 确认框
 									( ua.includes('baiduboxapp/') && (
-									(/\(.*Android.*\)/.test(ua) && /Android[^\)]*\)+?/.exec(ua)[0].includes(' ') && !/Android[^\s]+;?[^\s]+[\w]+.*\)+?/u.test(ua)) || ( ver = /baiduboxapp\/\d*/.exec(ua)[0].replace('baiduboxapp/',''),
-									ver === '' || ver >= 4 ))),
+									(/\(.*Android.*\)/.test(ua) &&
+									/Android[^\)]*\)+?/.exec(ua)[0].includes(' ') &&
+									!/Android[^\s]+;?[^\s]+[\w]+.*\)+?/u.test(ua)) ||
+									(!/ (lite|info|pro|mission) baiduboxapp/.test(ua) &&
+									/baiduboxapp\/\d*/.test(ua)))),
 									'此 UA 可能会导致 百度部分页面 加载时弹出 确认/取消 对话框'
 								],[ // #2 城通 下载按钮 失效
 									ua.includes('baidu'),
