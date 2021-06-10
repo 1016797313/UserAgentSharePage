@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 5",
-					详细:21060714,
+					详细:21061011,
 				},
 				设置:{
 					基础默认:1,
@@ -202,6 +202,7 @@
 				padding: 0 4px;
 				margin: 0 2px;
 				box-shadow: var(--shadow-small);
+				transition: opacity .5s;
 			}
 			#app .flag {
 				margin: 1.5px 0 1.5px 3px;
@@ -405,6 +406,7 @@
 				font-weight:bold;
 				padding: 3px;
 				margin:0;
+				transition: background-color .5s;
 			}
 			button:focus {
 				background-color: var(--theme-color-i);
@@ -533,20 +535,6 @@
 				border: none;
 				box-shadow:var(--shadow-big);
 			}
-			@keyframes toast {
-				0% {
-					opacity: 0%;
-				}
-				35% {
-					opacity: 100%;
-				}
-				85% {
-					opacity: 100%;
-				}
-				100% {
-					opacity: 0%;
-				}
-			}
 			#toast {
 				position: absolute;
 				left: 0;
@@ -566,10 +554,8 @@
 				box-shadow: 0 0 5px var(--theme-color-c);
 				text-align: center;
 				z-index: 10;
-			}
-			.toasting {
-				display: block !important;
-				animation: toast 3s;
+				opacity: 0%;
+				transition: opacity .5s;
 			}
 			.titlebar {
 				width: 100%;
@@ -596,23 +582,13 @@
 				margin: 0;
 				width: 5em;
 				box-shadow: none;
+				transition: background-color .5s;
 			}
 			.win .prev {
 				background-color: var(--theme-color-prev);
 			}
 			.win .topbutton {
 				background-color: var(--theme-color-top);
-			}
-			@keyframes load-finish {
-				0% {
-					opacity: 100%;
-				}
-				100% {
-					opacity: 0%;
-				}
-			}
-			.finish {
-				animation: load-finish 1s;
 			}
 			#load {
 				width: 100%;
@@ -624,6 +600,7 @@
 				background-color: var(--theme-color-b);
 				opacity: 100%;
 				margin: 0;
+				transition: opacity 1s;
 			}
 			#loadstr,#browstr {
 				max-width: 80%;
@@ -724,11 +701,13 @@
 				width: 92%;
 				border-radius: 5px;
 				padding: 5px;
+				transition: border-color .5s;
 			}
 			fieldset legend, #swopt legend, #swopt p {
 				color: var(--theme-color-j);
 				font-size: 12px;
 				font-weight: bold;
+				transition: color .5s;
 			}
 			fieldset:focus-within, #swopt.inst fieldset {
 				border: 2px solid var(--theme-color-a);
@@ -1207,7 +1186,7 @@
 				}
 			}
 			
-			function toast(text) {
+			function toast(text,time = 3) {
 				if (window.mbrowser && window.mbrowser.showToast) {
 					window.mbrowser.showToast(text);
 				} else if (window.via && window.via.toast) {
@@ -1217,7 +1196,7 @@
 				} else if (window.H5EXT) {
 					window.H5EXT.cmd(99,text);
 				} else if (window.meta) {
-					window.meta.toast(text,3,null);
+					window.meta.toast(text,time,null);
 				} else if (window.mx_browser_obj && window.mx_browser_obj.showtip) {
 					window.mx_browser_obj.showtip(text);
 				} else if (window.JSInterface && window.JSInterface.syslog) {
@@ -1227,9 +1206,15 @@
 				} else if (window.mdhtml) {
 					window.mdhtml.mdts(text);
 				} else {
-					const toast = $(false,"#toast");
+					const toast = $(false,"#toast"),
+					toast1 = function(){ toast.style.opacity = "100%"; },
+					toast2 = function(){ toast.style.opacity = "0%"; },
+					toast3 = function(){ toast.style.display = "none"; };
 					toast.innerHTML = text;
-					toast.className = "toasting";
+					toast.style.display = "block";
+					setTimeout(toast1,50);
+					setTimeout(toast2,(time - 0.5) * 1000);
+					setTimeout(toast3,time * 1000);
 				}
 			}
 			
@@ -1337,7 +1322,7 @@
 									( ua.includes('Android') && /WindVane\/\d+\.\d+\.\d+/.test(ua) && ( ver = /WindVane\/\d+/.exec(ua)[0].replace('WindVane/',''), ver >= 1 )),
 									'此 UA 可能会导致 淘宝部分页面 加载时弹出 确认/取消 对话框'
 								],[ // #7 知乎电脑版
-									!ua.includes('Mobile'),
+									( ua.includes('Android') && !ua.includes('Mobile') ),
 									'此 UA 可能会导致 知乎 显示电脑版页面'
 								]
 							];
@@ -2293,13 +2278,13 @@
 				ee($(false,'#styclr'),'click',()=>{window.localStorage.removeItem(uaData.styleKey);toast('清空啦，刷新后恢复默认主题')});
 				ee($(false,'#swreg'),'click',swOpr);
 				ee($(false,'#swclr'),'click',()=>{ caches.keys().then( vers => vers.map( i => caches.delete(i) )); cacheScan()});
-				ee($(false,'#load'),'animationend',e=>_(e.target,false));
 				$(true,'#acont1,#acont2a,#acont2b,#qcont1,#qcont2,#qcont3').forEach( e => ee(e,'input',previewUpdate));
 				$(true,'#apre input,#afol input').forEach( e => ee(e,'change', previewUpdate));
 				$(true,'#atbs,#ashort,#apc,#aspider').forEach( e => ee(e,'change',previewUpdate));
 			}
 			
 			function init(){
+				let finish = function(){_($(false,"#load"),false)};
 				$(false,'#loadstr').innerHTML = '正在构建 ...';
 				lsb_initOption();
 				makeItem();
@@ -2321,6 +2306,8 @@
 					}
 				}
 				$(false,'#loadstr').innerHTML = '加载完成';
+				$(false,"#load").style.opacity = '0%';
+				setTimeout(finish,1000);
 				_($(false,"#load"),false,"finish");
 				lab = $(true,"#app_container label"),
 				cas = $(true,"#app_container .CaseHead"),
@@ -2453,11 +2440,6 @@
 				observer.observe(document.documentElement,opt);
 				observer.observe(document.head,opt);
 			})();
-			document.querySelector('#toast').addEventListener('animationend',e => {
-				e.target.onclick = null;
-				e.target.classList.remove('toasting');
-			});
-			
 		</script>
 		<script src="数据列表.js"></script>
 		<script>
