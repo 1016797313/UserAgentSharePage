@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 5",
-					详细:21061011,
+					详细:21061217,
 				},
 				设置:{
 					基础默认:1,
@@ -109,6 +109,7 @@
 			}
 			body {
 				font-size: 16px;
+				font-family: -apple-system, Tahoma, sans;
 				background-color: var(--theme-color-f);
 			}
 			textarea {
@@ -310,8 +311,12 @@
 				margin: 3px 4px;
 				box-shadow:var(--shadow-small);
 			}
-			.savebtn .btnGrp {
+			.savebtn .btnGrp,
+			#modeopt .btnGrp {
 				margin: 0;
+			}
+			#modeopt .btnGrp {
+				box-shadow: none;
 			}
 			#action {
 				margin: 3px .5em;
@@ -323,44 +328,44 @@
 				background-color: var(--theme-color-h);
 			}
 			.new-style {
-				background-color:var(--theme-color-d);
+				background-color: var(--theme-color-d);
 				border: 1px solid var(--theme-color-e);
-				border-radius:100%;
-				width:16px;
-				height:16px;
-				line-height:16px;
+				border-radius: 100%;
+				width: 16px;
+				height: 16px;
+				line-height: 16px;
 			}
 			.new-radio.new-style {
 				margin: 4px;
-				display:flex;
-				width:13px;
-				height:13px;
-				line-height:13px;
+				display: flex;
+				width: 13px;
+				height: 13px;
+				line-height: 13px;
 			}
 			.orig-box:checked + .new-style.new-radio:after {
-				transform:scale(.8);
+				transform: scale(.8);
 			}
 			.new-check.new-style {
 				margin: 2px 3px 2px auto;
-				border-radius:0;
-				display:inline-block;
+				border-radius: 0;
+				display: inline-block;
 			}
 			.orig-box:checked + .new-style {
 				background-color: var(--theme-color-a);
 				border-color: var(--theme-color-a);
 			}
 			.orig-box:checked + .new-style:after {
-				background-color:var(--theme-color-c);
-				border-radius:100%;
-				content:"";
-				height:9px;
-				width:9px;
+				background-color: var(--theme-color-c);
+				border-radius: 100%;
+				content: "";
+				height: 9px;
+				width: 9px;
 				display: flex;
 				margin: auto;
 				align-self: center;
 			}
 			.orig-box:checked + .new-check.new-style::after {
-				border-color:var(--theme-color-c);
+				border-color: var(--theme-color-c);
 				width: 5px;
 				height: 9px;
 				border-style: solid;
@@ -375,12 +380,13 @@
 			input[type=text] {
 				border: none;
 				border-bottom: 1px solid var(--input-check-ready);
-				background-color:transparent;
+				background-color: transparent;
 				color: var(--theme-color-a);
-				caret-color: var(--theme-color-a);
+				caret-color:  var(--theme-color-a);
 				font-family: monospace;
 				padding: 0 6px;
 				display: block;
+				font-size: .75em;
 			}
 			input[type=text]:focus {
 				border-color: var(--theme-color-a);
@@ -390,22 +396,23 @@
 				opacity: .5;
 			}
 			::-moz-selection {
-				background-color:var(--theme-color-a);
-				color:var(--theme-color-c);
+				background-color: var(--theme-color-a);
+				color: var(--theme-color-c);
 			}
 			::selection {
-				background-color:var(--theme-color-a);
-				color:var(--theme-color-c);
+				background-color: var(--theme-color-a);
+				color: var(--theme-color-c);
 			}
 			button {
 				background-color:var(--theme-color-a);
 				border: none;
-				color:var(--theme-color-c);
+				border-radius: 0;
+				color: var(--theme-color-c);
 				width: 100%;
-				font-size:.75em;
-				font-weight:bold;
+				font-size: .75em;
+				font-weight: bold;
 				padding: 3px;
-				margin:0;
+				margin: 0;
 				transition: background-color .5s;
 			}
 			button:focus {
@@ -743,19 +750,13 @@
 				z-index: 9 !important;
 			}
 			@media only screen and (max-width: 330px) {
-				#baseopt,#modeopt {
-					padding: 3px 1px;
-				}
 				#modeopt button {
-					padding: 3px 2px;
+					padding: 3px;
 				}
 			}
 			@media only screen and (min-width: 331px) and (max-width: 640px) {
-				#baseopt,#modeopt {
-					padding: 3px 6px;
-				}
 				#modeopt button {
-					padding: 3px;
+					padding: 3px 4px;
 				}
 			}
 			@media only screen and (max-width: 640px) {
@@ -806,7 +807,7 @@
 					padding-left: 5px
 				}
 				#modeopt button {
-					padding: 3px .5em;
+					padding: 5px .5em;
 				}
 				textarea {
 					height: 10em;
