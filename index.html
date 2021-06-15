@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 5",
-					详细:21061217,
+					详细:21061519,
 				},
 				设置:{
 					基础默认:1,
@@ -2417,16 +2417,28 @@
 				let dark = Object.values(document.getElementById('myDark').sheet.cssRules)[0].cssRules[0].cssText, night = [
 					"via_inject_css_night",
 					"metaNight",
+					"yjbrowser_night_mode_style",
+					"yjbrowser_night_mode_style2",
 					"360browser_night_mode_style",
 					"360browser_night_mode_style2",
 					"mixiaba_css_id",
-					"x_style_element_id"
+					"x_style_element_id",
+					"x_link_element_id",
+					"alook_theme",
+					"miui_mini_night_mode",
+					"preucbrowser_sheet_theme",
+					"bnightThme",
+					"sq_root_css"
 				], observer = new MutationObserver( (mus,obs) => {
 					for (let mu of mus) {
 						if (mu.addedNodes.length>0) {
 							mu.addedNodes.forEach( ad => {
 								if (night.includes(ad.id)) {
-									ad.innerHTML = dark;
+									if (ad.nodeName==='STYLE') {
+										ad.innerHTML = dark;
+									} else if (ad.nodeName==='LINK' && ad.rel==="stylesheet") {
+										ad.href = 'data:text/css,' + dark;
+									}
 								}
 							})
 						}
@@ -2434,8 +2446,14 @@
 				}), opt = { childList: true, subtree: false };
 
 				night.forEach( id => {
-					let el = document.getElementById(id);
-					if (el) el.innerHTML = dark;
+					let ad = document.getElementById(id);
+					if (ad) {
+						if (ad.nodeName==='STYLE') {
+							ad.innerHTML = dark;
+						} else if (ad.nodeName==='LINK' && ad.rel==="stylesheet") {
+							ad.href = 'data:text/css,' + dark;
+						}
+					}
 				});
 
 				observer.observe(document.documentElement,opt);
