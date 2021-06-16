@@ -26,12 +26,13 @@
 				storKey:"userAgentData",
 				styleKey:"userAgentStyle",
 				版本:{
-					描述:"5.1 Beta 5",
-					详细:21061519,
+					描述:"5.1 Beta 6",
+					详细:21061612,
 				},
 				设置:{
 					基础默认:1,
 					数字记号:"#",
+					暗色主题:2,
 				}
 			};
 		</script>
@@ -97,6 +98,7 @@
 				}
 			}
 		</style>
+		<style id="myImportant"></style>
 		<style id="myStyle">
 /*
 * Prefixed by https://autoprefixer.github.io
@@ -2235,6 +2237,14 @@
 				_($(false,"#nullprvw"),!show);
 			}
 			
+			function injSty(ad,dark) {
+				if (ad.nodeName==='STYLE') {
+					ad.innerHTML = dark;
+				} else if (ad.nodeName==='LINK' && ad.rel==="stylesheet") {
+					ad.href = 'data:text/css,' + dark;
+				}
+			}
+			
 			function addEvent() {
 				function ee(el,ev,fn) { el.addEventListener(ev,fn); }
 				$(true,'#mode label').forEach( e => ee(e,'keydown', spaceChecked));
@@ -2286,6 +2296,7 @@
 			
 			function init(){
 				let finish = function(){_($(false,"#load"),false)};
+				if (uaData.设置.基础默认 > Object.keys(uaData.base).length) uaData.设置.基础默认 = 1;
 				$(false,'#loadstr').innerHTML = '正在构建 ...';
 				lsb_initOption();
 				makeItem();
@@ -2320,7 +2331,8 @@
 			return {
 				init: init,
 				$: $,
-				toast: toast
+				toast: toast,
+				inj: injSty
 			}
 		})();
 		</script>
@@ -2379,7 +2391,17 @@
 						break;
 				}
 			}
-			
+			(()=>{
+				let para = new URLSearchParams(location.search), flo;
+				if (parseInt(para.get('base'))>0)
+					uaData.设置.基础默认 = parseInt(para.get('base'));
+				if (parseInt(para.get('dark'))>=0 && parseInt(para.get('dark'))<=2)
+					uaData.设置.暗色主题 = parseInt(para.get('dark'));
+				if (para.get('flag')) {
+					flo = para.get('flag').replace(/[A-Z]+/,'').slice(0,1);
+					if (flo) uaData.设置.数字记号 = flo;
+				}
+			})();
 			(()=>{
 				const stor = window.localStorage;
 				let myl = document.getElementById('myLight'),
@@ -2412,9 +2434,11 @@
 					syd.value = Object.values(myd.sheet.cssRules)[0].cssRules[0].cssText;
 				}
 			})();
-			
 			(()=>{
-				let dark = Object.values(document.getElementById('myDark').sheet.cssRules)[0].cssRules[0].cssText, night = [
+				let dark = (uaData.设置.暗色主题===0) ?
+				Object.values(document.getElementById('myLight').sheet.cssRules)[0].cssText :
+				Object.values(document.getElementById('myDark').sheet.cssRules)[0].cssRules[0].cssText,
+				night = [
 					"via_inject_css_night",
 					"metaNight",
 					"yjbrowser_night_mode_style",
@@ -2433,13 +2457,7 @@
 					for (let mu of mus) {
 						if (mu.addedNodes.length>0) {
 							mu.addedNodes.forEach( ad => {
-								if (night.includes(ad.id)) {
-									if (ad.nodeName==='STYLE') {
-										ad.innerHTML = dark;
-									} else if (ad.nodeName==='LINK' && ad.rel==="stylesheet") {
-										ad.href = 'data:text/css,' + dark;
-									}
-								}
+								if (night.includes(ad.id)) uaCode.injSty(ad,dark);
 							})
 						}
 					}
@@ -2448,13 +2466,12 @@
 				night.forEach( id => {
 					let ad = document.getElementById(id);
 					if (ad) {
-						if (ad.nodeName==='STYLE') {
-							ad.innerHTML = dark;
-						} else if (ad.nodeName==='LINK' && ad.rel==="stylesheet") {
-							ad.href = 'data:text/css,' + dark;
-						}
+						uaCode.injSty(ad,dark);
 					}
 				});
+
+				if (uaData.设置.暗色主题<2)
+				document.querySelector('#myImportant').innerHTML = dark;
 
 				observer.observe(document.documentElement,opt);
 				observer.observe(document.head,opt);
