@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 6",
-					详细:21061620,
+					详细:21061712,
 				},
 				设置:{
 					基础默认:1,
@@ -2241,7 +2241,7 @@
 				if (ad.nodeName==='STYLE') {
 					ad.innerHTML = dark;
 				} else if (ad.nodeName==='LINK' && ad.rel==="stylesheet") {
-					ad.href = 'data:text/css,' + dark;
+					ad.href = 'data:text/css;base64,' + btoa(dark);
 				}
 			}
 			
@@ -2465,9 +2465,7 @@
 
 				night.forEach( id => {
 					let ad = document.getElementById(id);
-					if (ad) {
-						uaCode.injSty(ad,dark);
-					}
+					if (ad) uaCode.injSty(ad,dark);
 				});
 
 				if (uaData.设置.暗色主题<2)
