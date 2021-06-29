@@ -258,7 +258,7 @@ APP 的显示名称 。
 > 注意，清理缓存不会卸载服务，卸载服务也不会清除缓存。
 
 ## 参数
-从 5.1 Beta 6 开始，可使用 URL POST 参数控制一些设置。  
+从 5.1 Beta 6 开始，可使用 URL 参数控制一些设置。  
 例如，https://lemon399.gitee.io/user-agent-share-page/?flag=0&base=7  
 
 <table>

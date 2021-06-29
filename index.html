@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 6",
-					详细:21061712,
+					详细:21062915,
 				},
 				设置:{
 					基础默认:1,
@@ -1309,6 +1309,13 @@
 									(!/ (lite|info|pro|mission) baiduboxapp/.test(ua) &&
 									/baiduboxapp\/\d*/.test(ua)))),
 									'此 UA 可能会导致 百度部分页面 加载时弹出 确认/取消 对话框'
+                                ],[ // #1+ 百度 APP
+                                    ua.includes('baiduboxapp/'),
+                                    '任何使用百度 APP 的 UA，<br>都有可能出现以下情况: <br>\n\
+                                    1. 新闻 / 资讯里的 百家号 文章 无法打开<br>\n\
+                                    2. " Ta 在百度 " 里的动态无法打开<br>\n\
+                                    3. 搜索结果中，笔记 频道内容为空<br>\n\
+                                    4. 搜索结果可能会变得非常少'
 								],[ // #2 城通 下载按钮 失效
 									ua.includes('baidu'),
 									'此 UA 可能会导致大部分 城通网盘 下载按钮 失效'
