@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 6",
-					详细:21062915,
+					详细:21071413,
 				},
 				设置:{
 					基础默认:1,
@@ -36,6 +36,156 @@
 				}
 			};
 		</script>
+	    <style>
+		/* BEGIN normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+}
+main {
+  display: block;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+a {
+  background-color: transparent;
+}
+abbr[title] {
+  border-bottom: none;
+  text-decoration: underline;
+  text-decoration: underline dotted;
+}
+b,
+strong {
+  font-weight: bolder;
+}
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+img {
+  border-style: none;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+button,
+input {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+legend {
+  box-sizing: border-box;
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+}
+progress {
+  vertical-align: baseline;
+}
+textarea {
+  overflow: auto;
+}
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+[type="search"] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+details {
+  display: block;
+}
+summary {
+  display: list-item;
+}
+template {
+  display: none;
+}
+[hidden] {
+  display: none;
+}
+		/* END normalize.css */
+		</style>
 		<style id="myLight">
 			:root {
 				--theme-color-a: #2b75c4;
@@ -202,15 +352,15 @@
 			}
 			#classBox .flag,
 			.classBox .flag {
-				padding: 0 4px;
-				margin: 0 2px;
+				padding: 2px 4px;
+			    margin: 2px;
 				box-shadow: var(--shadow-small);
 				transition: opacity .5s;
 			}
 			#app .flag {
 				margin: 1.5px 0 1.5px 3px;
 				box-shadow: var(--shadow-small);
-				line-height: 1.5em;
+				line-height: 1.25em;
 			}
 			#classBox input,
 			.classBox input {
@@ -263,16 +413,17 @@
 				display: inline-flex;
 			}
 			#app label {
-				margin: 1px 2px 1px .5em;
+				margin: 1px .25em 2px .5em;
 				display: flex;
 				color: var(--theme-color-a);
-				align-items: flex-end;
+				align-items: center;
 			}
 			.CaseHead {
-				font-size: .75em;
+				font-size: 13px;
 				font-weight: bold;
 				background: var(--theme-color-a);
 				color: var(--theme-color-c);
+				padding: 2px 0;
 				padding-left: 5px;
 			}
 			.sideBar {
@@ -302,7 +453,7 @@
 				border-radius:100%;
 			}
 			#app_container {
-				overflow-y: scroll;
+				overflow-y: auto;
 				height: calc(1.5em * 14.5);
 				width: 100%;
 			}
@@ -348,7 +499,7 @@
 				transform: scale(.8);
 			}
 			.new-check.new-style {
-				margin: 2px 3px 2px auto;
+				margin: 3px 3px 0 auto;
 				border-radius: 0;
 				display: inline-block;
 			}
@@ -386,9 +537,9 @@
 				color: var(--theme-color-a);
 				caret-color:  var(--theme-color-a);
 				font-family: monospace;
-				padding: 0 6px;
 				display: block;
 				font-size: .75em;
+				line-height: 1em;
 			}
 			input[type=text]:focus {
 				border-color: var(--theme-color-a);
@@ -413,7 +564,7 @@
 				width: 100%;
 				font-size: .75em;
 				font-weight: bold;
-				padding: 3px;
+				padding: .5em;
 				margin: 0;
 				transition: background-color .5s;
 			}
@@ -433,7 +584,7 @@
 				font-size: .5em;
 				color: var(--theme-color-a);
 				text-align: right;
-				margin: 2px 1em;
+				margin: 5px 1em;
 			}
 			#nulltext {
 				font-size: 2em;
@@ -466,12 +617,13 @@
 			#addsave > *,
 			#setlayer > *,
 			#classBox,
-			#useragent {
+			#useragent,
+			#issues {
 				margin: 3px 4px;
 			}
 			.classPart > *,
 			#swopt > * {
-				margin: 3px 0;
+				margin: 4px 0;
 			}
 			.atab > label,
 			#addsave > label,
@@ -487,7 +639,8 @@
 			#addtype > label b {
 				border-radius: 2px;
 				font-size: 12px;
-				padding: 2px .5em;
+				line-height: 12px;
+				padding: 5px .5em;
 				margin: 5px 0;
 			}
 			#addtype > label:focus b {
@@ -506,8 +659,8 @@
 			.atab div p,
 			#addsave div p {
 				width: 20%;
-				min-width:5em;
-				margin: 2px .25em;
+				min-width: 5em;
+				margin: .25em;
 				font-size: .9em;
 				color: var(--theme-color-a);
 			}
@@ -575,7 +728,8 @@
 				font-weight: bold;
 			}
 			.title {
-				padding: 3px 7px;
+				padding: 0 .5em;
+				line-height: 2em;
 				width: 100%;
 				background-color: transparent;
 				-webkit-user-select: none;
@@ -626,8 +780,9 @@
 			}
 			#tclsbox {
 				float: right;
-				margin: 3px 0;
+				margin: 2px 0;
 				font-weight: bold;
+				line-height: 1.5em;
 			}
 			#ttexd {
 				display: flex;
@@ -648,6 +803,7 @@
 				border: none;
 				width: 80%;
 				height: 100%;
+				font-size: 1rem;
 				box-shadow: none;
 				color: var(--theme-color-a);
 				font-family: monospace;
@@ -659,7 +815,7 @@
 				background: var(--theme-color-b);
 				border: none;
 				border-bottom: 1px solid var(--input-check-ready);
-				padding: 2px 6px;
+				padding: 2px 6px 2px 3px;
 			}
 			#tkds:focus-within {
 				border-color: var(--theme-color-a);
@@ -668,6 +824,10 @@
 				display: block;
 				overflow: hidden;
 				height: 100%;
+			}
+			input[type="color"] {
+				padding: 0;
+				border: 1px solid var(--theme-color-a);
 			}
 			#stordata {
 				width: -webkit-fill-available;
@@ -678,10 +838,9 @@
 				margin:0 4px;
 			}
 			#issues {
-				margin: 0 3px;
 				background-color: var(--theme-color-a);
 				color: var(--theme-color-c);
-				overflow-y: scroll;
+				overflow-y: auto;
 				max-height: 8em;
 			}
 			.issue {
@@ -695,7 +854,7 @@
 			}
 			#issueHead {
 				border: none;
-				padding: 0 5px;
+				padding: 2px 5px;
 				font-size: .75em;
 				font-weight: normal;
 			}
@@ -732,6 +891,7 @@
 				color: var(--theme-color-a);
 				background: var(--theme-color-h);
 				word-break: break-all;
+			    line-height: 1.5em;
 			}
 			.basecont {
 				color: var(--theme-color-a);
@@ -951,7 +1111,7 @@
 			</div>
 			<div id="addlayer">
 				<div id="addtable">
-					<div id="aappt" class="atab">
+					<form id="aappt" class="atab">
 						<label id="akeyl"><b>标识</b>
 							<input id="akey" type="text" name="aapp" class="key" placeholder="首字母对应名称拼音首字母"/>
 						</label>
@@ -1006,8 +1166,8 @@
 								</label>
 							</div>
 						</div>
-					</div>
-					<div id="qappt" class="atab none">
+					</form>
+					<form id="qappt" class="atab none">
 						<label id="qkeyl"><b>标识</b>
 							<input id="qkey" type="text" name="qapp" class="key" placeholder="首字母对应名称拼音首字母"/>
 						</label>
@@ -1036,8 +1196,8 @@
 								</label>
 							</div>
 						</div>
-					</div>
-					<div id="atagt" class="atab none">
+					</form>
+					<form id="atagt" class="atab none">
 						<label id="tkeyl"><b>标识</b>
 							<input id="tkey" type="text" name="atag" class="key" placeholder="数字和英文字母"/>
 						</label>
@@ -1056,12 +1216,12 @@
 							</div>
 						</div>
 						<label><b>背景</b>
-							<input id="tbgc" type="color" name="atag"/>
+							<input id="tbgc" type="color" name="atag" value="#000000"/>
 						</label>
 						<label><b>文字</b>
-							<input id="tfgc" type="color" name="atag"/>
+							<input id="tfgc" type="color" name="atag" value="#ffffff"/>
 						</label>
-					</div>
+					</form>
 				</div>
 				<div id="addbtn" class="btnGrp">
 					<button type="button" id="aok">加入</button>
@@ -1748,18 +1908,12 @@
 			}
 			
 			function aform_Clear() {
-				$(true,'#addtable input[type="text"]').forEach( i => {
-					i.value = "";
+				$(true,'#addtable input[type="text"], #tkds').forEach( i => {
 					i.style.removeProperty('border-color');
 				});
-				$(false,'#tkds').style.removeProperty('border-color');
-				$(true,".classBox input").forEach( c => { c.checked = false; });
-				$(true,".classBox .flag").forEach( f => { f.style.opacity = .5; });
-				$(true,".classPart label").forEach( t => { _(t,false); });
-				$(true,'#apref,#afolf').forEach( r => { r.checked = true; });
-				$(true,'.msel').forEach( s => { s.value = ""; });
-				$(false,'#tbgc').value = '#000000';
-				$(false,'#tfgc').value = '#ffffff';
+ 				$(true,".classBox input").forEach( c => { c.checked = false; });
+ 				$(true,".classBox .flag").forEach( f => { f.style.opacity = .5; });
+				$(true,'#addtable form').forEach( f => f.reset() );
 				aform_updateFlagPreview();
 				aform_switchBoth();
 			}
