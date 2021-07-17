@@ -38,6 +38,25 @@
 > 无法适配 Lit 浏览器，其原理可能是 APP 层面加黑白滤镜。  
 > 无法适配 M 浏览器，其原理可能是 APP 层面将背景改为黑色。  
 
+> Lim 浏览器禁用了 localStorage ，导致无法正常使用。
+( 除非把添加窗口的功能全部禁用 ，目前不打算这么做 )
+
+> 鲨鱼浏览器在打开时会弹出 1 个错误，不会影响使用。  
+错误信息不详细，无法确定发生位置，如下:  
+>> 07-17 11:42:24.065  9461  9461 I chromium: \[INFO:CONSOLE(371)\] "Uncaught RangeError: Maximum call stack size exceeded", source: https://lemon399.gitee.io/user-agent-share-page/ (371)
+
+> 鲨鱼浏览器在打开时会弹出 1 个错误，不会影响使用。  
+错误信息不详细，发生位置均指向第一行 (???)，如下:  
+>> 07-17 12:20:30.503 30290 30290 I chromium: \[INFO:CONSOLE(1)\] "Uncaught TypeError: Cannot read property 'remove' of null", source: https://lemon399.gitee.io/user-agent-share-page/ (1)  
+07-17 12:20:31.911 30290 30290 I chromium: \[INFO:CONSOLE(1)\] "Uncaught TypeError: Cannot read property 'src' of undefined", source: https://lemon399.gitee.io/user-agent-share-page/ (1)
+
+> 欢欢浏览器在打开时会弹出 1 个错误，不会影响使用。  
+错误来自注入的脚本。无法修复。详细信息:  
+>> Uncaught ReferenceError: disableNightMode is not defined  
+    at \<anonymous\>:1:1  
+\
+disableNightMode()
+
 > Milk 浏览器在打开时会弹出 1 个错误，不会影响使用。  
 错误来自注入的脚本。无法修复。详细信息:  
 >> Uncaught ReferenceError: copyListener is not defined  
