@@ -1984,7 +1984,7 @@ wxapp: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["腾讯"],
-	内容: "MMWEBID/4268 MicroMessenger/8.0.6.1900(0x28000637) Process/toolsmp WeChat/arm64 Weixin NetType/WIFI Language/zh_CN ABI/arm64"
+    内容: "MMWEBID/4268 MicroMessenger/8.0.11.1980(0x28000B37) Process/toolsmp WeChat/arm64 Weixin NetType/WIFI Language/zh_CN ABI/arm64"
 },
 jiandanss: {
 	名称: "简单搜索",
