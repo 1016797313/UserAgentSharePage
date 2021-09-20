@@ -26,8 +26,8 @@
 				storKey:"userAgentData",
 				styleKey:"userAgentStyle",
 				版本:{
-					描述:"5.1 Beta 6",
-					详细:21071416,
+					描述:"5.1 Beta 7",
+					详细:21092023,
 				},
 				设置:{
 					基础默认:1,
@@ -256,6 +256,18 @@ template {
 * Autoprefixer: v9.7.6
 * Browsers: last 3 years and not edge <= 78
 */
+            @-webkit-keyframes toast {
+              0% { opacity: 0%; }
+              20% { opacity: 100%; }
+              80% { opacity: 100%; }
+              100% { opacity: 0%; }
+            }
+            @keyframes toast {
+              0% { opacity: 0%; }
+              20% { opacity: 100%; }
+              80% { opacity: 100%; }
+              100% { opacity: 0%; }
+            }
 			:focus {
 				outline: none;
 			}
@@ -355,6 +367,7 @@ template {
 				padding: 2px 4px;
 				margin: 2px;
 				box-shadow: var(--shadow-small);
+				opacity: 0.5;
 				transition: opacity .5s;
 			}
 			#app .flag {
@@ -365,6 +378,10 @@ template {
 			#classBox input,
 			.classBox input {
 				display: none;
+			}
+			#classBox input:checked + .flag,
+			.classBox input:checked + .flag {
+				opacity: 1;
 			}
 			.setHead {
 				background: var(--theme-color-a);
@@ -715,8 +732,6 @@ template {
 				box-shadow: 0 0 5px var(--theme-color-c);
 				text-align: center;
 				z-index: 10;
-				opacity: 0%;
-				transition: opacity .5s;
 			}
 			.titlebar {
 				width: 100%;
@@ -842,14 +857,15 @@ template {
 				overflow-y: auto;
 				max-height: 8em;
 			}
+			hr {
+              border: 1px solid var(--theme-color-c);
+              margin: 0 .75em;
+			}
 			.issue {
 				margin: 2px .5em;
 				padding: 5px;
 				font-size: .85em;
 				font-weight: bold;
-				border: solid var(--theme-color-c);
-				border-width: 0;
-				border-top-width: 1px;
 			}
 			#issueHead {
 				border: none;
@@ -1040,9 +1056,9 @@ template {
 			<input id="search" name="search" type="text" placeholder="在此输入搜索 APP ..."/>
 		</div>
 		<div id="app">
-			<div id="app_container">
+			<form id="app_container">
 				<p id="nulltext" class="none">什么都没找到 T_T</p>
-			</div>
+			</form>
 			<p id="ajump" class="none"></p>
 		</div>
 		<div id="action" class="btnGrp">
@@ -1283,7 +1299,11 @@ template {
 				Firefox 52<br/>
 				Safari 11<br/>
 				Opera 47<br/>
-				不支持 Internet Explorer !
+				不支持 Internet Explorer !<br/><br/>
+				当前浏览器的 UA:<br/>
+				<code>
+                  <script>document.write(navigator.userAgent)</script>
+                </code>
 			</p>
 		</div>
 		<noscript><b>亲，打开 JavaScript 才能工作哟！</b></noscript>
@@ -1368,15 +1388,8 @@ template {
 				} else if (window.mdhtml) {
 					window.mdhtml.mdts(text);
 				} else {
-					const toast = $(false,"#toast"),
-					toast1 = function(){ toast.style.opacity = "100%"; },
-					toast2 = function(){ toast.style.opacity = "0%"; },
-					toast3 = function(){ toast.style.display = "none"; };
-					toast.innerHTML = text;
-					toast.style.display = "block";
-					setTimeout(toast1,50);
-					setTimeout(toast2,(time - 0.5) * 1000);
-					setTimeout(toast3,time * 1000);
+					$(false,"#toast").innerHTML = text;
+					$(false,"#toast").style.cssText = `display: block;animation: toast ${time}s ease;-webkit-animation: toast ${time}s ease;`;
 				}
 			}
 			
@@ -1504,6 +1517,7 @@ template {
 							ibox.appendChild(makeIssue('',true));
 							hasHead = true;
 						}
+						ibox.appendChild(document.createElement('hr'));
 						ibox.appendChild(makeIssue(i[1],false));
 					};
 				});
@@ -1512,13 +1526,13 @@ template {
 				};
 			}
 			
-			function makeFlagDiv(clas,box,chinese,opa) {
+			function makeFlagDiv(clas,box,chinese) {
 				const flag = document.createElement("b");
 				flag.className = "flag";
 				flag.innerHTML = tagConv(clas,chinese,true);
 				clas = tagConv(clas,chinese,false);
 				if (!box) { _(flag,false,`T${clas}`); }
-				flag.style.cssText = `background-color:${uaData.flag[clas][1]};color:${uaData.flag[clas][2]};opacity:${opa}`;
+				flag.style.cssText = `background-color:${uaData.flag[clas][1]};color:${uaData.flag[clas][2]}`;
 				return flag;
 			}
 			
@@ -1557,7 +1571,7 @@ template {
 					uaData.apps[app].class.forEach( cls => {
 						if (cls.slice(0,1)==="_" || uaData.tagfind.has(cls)) {
 							count += 1;
-							lab.appendChild(makeFlagDiv(cls,false,true,1));
+							lab.appendChild(makeFlagDiv(cls,false,true));
 							cls = tagConv(cls,true,false);
 							pushTagText(cls,app);
 							_(lab,false,cls);
@@ -1639,7 +1653,7 @@ template {
 					});
 					box.addEventListener('change', e => tagClick(e.target.parentNode.id,true));
 					lab.appendChild(box);
-					lab.appendChild(makeFlagDiv(flag,true,false,1));
+					lab.appendChild(makeFlagDiv(flag,true,false));
 					$(false,"#classBox").appendChild(lab);
 				});
 			}
@@ -1813,7 +1827,6 @@ template {
 			function tagClick(id,flt) {
 				const box = $(false,`#${id} input`),
 					flag = $(false,`#${id} .flag`);
-				flag.style.opacity = (box.checked) ? 1 : .5;
 				if (flt) {
 					fltAppUATag(id.slice(1),box.checked);
 					$(false,'#openClass').style.backgroundColor = ($(true,'#classBox input:not(:checked)').length===0) ? '' : __('tag-filtered');
@@ -1890,7 +1903,7 @@ template {
 								});
 							}
 							lab.appendChild(box);
-							lab.appendChild(makeFlagDiv(flag,true,false,0.5));
+							lab.appendChild(makeFlagDiv(flag,true,false));
 							sbox.appendChild(lab);
 						}
 					});
@@ -1910,8 +1923,6 @@ template {
 				$(true,'#addtable input[type="text"], #tkds').forEach( i => {
 					i.style.removeProperty('border-color');
 				});
- 				$(true,".classBox input").forEach( c => { c.checked = false; });
- 				$(true,".classBox .flag").forEach( f => { f.style.opacity = .5; });
 				$(true,'#addtable form').forEach( f => f.reset() );
 				aform_updateFlagPreview();
 				aform_switchBoth();
@@ -2096,26 +2107,18 @@ template {
 						}
 						break;
 				}
-
-				function tagSelect(id) {
-					let box = $(false,`#${id} input`),
-						flag = $(false,`#${id} .flag`);
-					box.checked = true;
-					flag.style.opacity = 1;
-				}
 				
 				function clsSet(obj,type) {
 					$(true,`#${type}clsbox input`).forEach( c => { c.checked = false; });
-					$(true,`#${type}clsbox .flag`).forEach( f => { f.style.opacity = .5; });
 					_($(false,`#${type}clsboxl`),false);
 					obj.class.forEach( cls => {
 						if (cls!=="qapp") {
 							if (cls.slice(0,1)==="_") {
-								tagSelect(`${type.toUpperCase()}third`);
+								$(false,`#${type.toUpperCase()}third input`).checked = true;
 								_($(false,`#${type}clsboxl`),true);
 								$(false,`#${type}thirdt`).value = cls.slice(1);
 							} else {
-								tagSelect(`${type.toUpperCase()}${cls}`);
+								$(false,`#${type.toUpperCase()}${cls}  input`).checked = true;
 							}
 						}
 					});
@@ -2412,7 +2415,7 @@ template {
 				ee($(false,'#openUA'),'click',openWin.bind(this,'#ua'));
 				ee($(false,'#search'),'input', fltAppUA.bind(this));
 				ee($(false,'#btnHelp'),'click',()=>{window.location.href='https://gitee.com/lemon399/user-agent-share-page/blob/master/README.md'});
-				ee($(false,'#btnCSel'),'click',()=>{$_('app').forEach( check => { check.checked = false; })});
+				ee($(false,'#btnCSel'),'click',()=>{$(!1,'#app_container').reset()});
 				ee($(false,'#openNew'),'click',openWin.bind(this,'#addui'));
 				ee($(false,'#btnSlst'),'click',fltAppUASelected.bind(this));
 				ee($(false,'#btnGen'),'click',genUA);
@@ -2452,6 +2455,8 @@ template {
 				$(true,'#acont1,#acont2a,#acont2b,#qcont1,#qcont2,#qcont3').forEach( e => ee(e,'input',previewUpdate));
 				$(true,'#apre input,#afol input').forEach( e => ee(e,'change', previewUpdate));
 				$(true,'#atbs,#ashort,#apc,#aspider').forEach( e => ee(e,'change',previewUpdate));
+				ee($(false,'#toast'),'animationend',e=>{e.target.style.display = "none";});
+				ee($(false,'#toast'),'webkitAnimationEnd',e=>{e.target.style.display = "none";});
 			}
 			
 			function init(){
