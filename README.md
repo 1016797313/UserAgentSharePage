@@ -25,8 +25,8 @@
 
 > 目前，对于 Android 10 以下的夜间模式，适配了以下浏览器。  
 >> Via / X / 荟萃 / 雨见 / Milk / 米侠 / Alook  
-   Mint / 鲨鱼 / B / UC Turbo / 夸克 / 神奇 / π  
-   e 浏览器 / UC  
+   Mint / 鲨鱼 / B ≼ 0.1.7 / UC Turbo / 夸克 / 神奇 / π  
+   e 浏览器 / UC / Pure ≼ 2.3.7  
 
 > 无法适配以下浏览器，因为其夜间模式可能是内核层面的，检测不到注入。  
 >> Oppo / 华为 / 三星 / 360 / 极速 / 搜狗 / 搜狗极速  
@@ -37,7 +37,8 @@
 > 无法适配 Soul 浏览器，其原理是 APP 层面将 白色 和 亮灰 反色。  
 > 无法适配 Lit 浏览器，其原理可能是 APP 层面加黑白滤镜。  
 > 无法适配 M 浏览器，其原理可能是 APP 层面将背景改为黑色。  
-> Pure 浏览器 3.2.7 更改了夜间模式的方法，无法适配。  
+> Pure 浏览器 2.3.7 以后更改了夜间模式的方法，无法适配。  
+> B 浏览器从 0.1.8 开始重构，目前的版本夜间模式只支持 Android 10 以上系统。  
 
 > Lim 浏览器禁用了 localStorage ，导致无法正常使用。
 ( 除非把添加窗口的功能全部禁用 ，目前不打算这么做 )
@@ -45,11 +46,6 @@
 > 鲨鱼浏览器在打开时会弹出 1 个错误，不会影响使用。  
 错误信息不详细，无法确定发生位置，如下:  
 >> 07-17 11:42:24.065  9461  9461 I chromium: \[INFO:CONSOLE(371)\] "Uncaught RangeError: Maximum call stack size exceeded", source: https://lemon399.gitee.io/user-agent-share-page/ (371)
-
-> B 浏览器在打开时会弹出 6 个错误，不会影响使用。  
-错误信息不详细，发生位置均指向第一行 (???)，如下:  
->> 07-17 12:20:30.503 30290 30290 I chromium: \[INFO:CONSOLE(1)\] "Uncaught TypeError: Cannot read property 'remove' of null", source: https://lemon399.gitee.io/user-agent-share-page/ (1)  
-07-17 12:20:31.911 30290 30290 I chromium: \[INFO:CONSOLE(1)\] "Uncaught TypeError: Cannot read property 'src' of undefined", source: https://lemon399.gitee.io/user-agent-share-page/ (1)
 
 > 欢欢浏览器在打开时会弹出 1 个错误，不会影响使用。  
 错误来自注入的脚本。无法修复。详细信息:  

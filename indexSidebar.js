@@ -14,7 +14,7 @@
 		}
 	};
 	emitter.subscribe('fingerLand', (data) => {
-		var indicator = document.querySelector('div.indicator');
+		var indicator = document.querySelector('.indicator');
 		if (data) {
 			var content = data.innerHTML;
 			indicator.classList.remove("none");
@@ -23,21 +23,21 @@
 			indicator.style.top = data.getBoundingClientRect().top + 'px';
 		} else {
 			indicator.style.opacity = '0';
-			setTimeout("document.querySelector('div.indicator').classList.add('none')",500);
+			setTimeout("document.querySelector('.indicator').classList.add('none')",500);
 		}
 	});
 	emitter.subscribe('fingerLand', (elem) => {
 		if (elem) {
 			if (elem.innerHTML.length == 1) {
-				var content = elem.innerHTML, scrolledElem = document.querySelector(`div#app_container > div[id="i${content}"]`);
+				var content = elem.innerHTML, scrolledElem = document.querySelector(`#app_container > div[id="i${content}"]`);
 				scrolledElem.scrollIntoView();
 			}
 		}
 	});
 	emitter.subscribe('fingerOff', () => {
-		var indicator = document.querySelector('div.indicator');
+		var indicator = document.querySelector('.indicator');
 		indicator.style.opacity = '0';
-		setTimeout("document.querySelector('div.indicator').classList.add('none')",500);
+		setTimeout("document.querySelector('.indicator').classList.add('none')",500);
 	});
 
 	window.IndexSidebar = function IndexSidebar(options) {

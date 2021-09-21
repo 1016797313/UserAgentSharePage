@@ -27,7 +27,7 @@
 				styleKey:"userAgentStyle",
 				版本:{
 					描述:"5.1 Beta 7",
-					详细:21092023,
+					详细:21092112,
 				},
 				设置:{
 					基础默认:1,
@@ -391,7 +391,9 @@ template {
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				width: 8.5em;
+				width: 6em;
+                flex-shrink: 0;
+                padding-bottom: 2px;
 			}
 			#ajump {
 				display: flex;
@@ -415,6 +417,8 @@ template {
 				grid-template-columns: repeat(4, max-content);
 				grid-template-rows: repeat(2, -webkit-max-content);
 				grid-template-rows: repeat(2, max-content);
+				column-gap: 5px;
+				grid-column-gap: 5px;
 			}
 			#modeopt {
 				display: flex;
@@ -422,6 +426,14 @@ template {
 			}
 			#modeopt > div {
 				display: flex;
+			}
+			#modeopt > div:first-child {
+                display: grid;
+                grid-template-columns: repeat(2, max-content);
+				column-gap: 5px;
+				grid-column-gap: 5px;
+				margin-bottom: 1px;
+				align-content: center;
 			}
 			#option label,
 			#classBox label,
@@ -472,6 +484,7 @@ template {
 				overflow-y: auto;
 				height: calc(1.5em * 14.5);
 				width: 100%;
+				scroll-behavior: smooth;
 			}
 			.btnGrp {
 				text-align: center;
@@ -483,6 +496,7 @@ template {
 			.savebtn .btnGrp,
 			#modeopt .btnGrp {
 				margin: 0;
+				padding: 0;
 			}
 			#modeopt .btnGrp {
 				box-shadow: none;
@@ -626,7 +640,7 @@ template {
 			}
 			#addtype {
 				text-align: center;
-				margin: auto;
+				margin: 5px auto;
 				font-size: .9em;
 			}
 			.atab > *,
@@ -652,17 +666,25 @@ template {
 				vertical-align: middle;
 				color: var(--theme-color-a);
 			}
-			#addtype > label b {
+			#addtype > label b,
+			#baseopt label b,
+			#modeopt label b {
 				border-radius: 2px;
 				font-size: 12px;
 				line-height: 12px;
 				padding: 5px .5em;
-				margin: 5px 0;
+				width: 100%;
+				text-align: center;
+				height: max-content;
 			}
-			#addtype > label:focus b {
+			#addtype > label:focus b,
+			#baseopt label:focus b,
+			#modeopt label:focus b {
 				background: var(--theme-color-h);
 			}
-			#addtype > label input:checked + b {
+			#addtype > label input:checked + b,
+			#baseopt label input:checked + b,
+			#modeopt label input:checked + b {
 				color: var(--theme-color-c);
 				background: var(--theme-color-a);
 			}
@@ -774,6 +796,7 @@ template {
 				top: 0;
 				left: 0;
 				z-index: 9;
+				background-color: white;
 				background-color: var(--theme-color-b);
 				opacity: 100%;
 				margin: 0;
@@ -786,11 +809,13 @@ template {
 				font-size: 1.5em;
 				font-weight: bold;
 				text-align: center;
+				color: lightgray;
 				color: var(--theme-color-j);
 			}
 			#browstr {
 				margin-top: .5em;
 				font-size: 1.25em;
+				width: 15em;
 			}
 			#tclsbox {
 				float: right;
@@ -930,6 +955,10 @@ template {
 				#modeopt button {
 					padding: 3px;
 				}
+				#addui {
+					top:10px;
+					left:0;
+				}
 			}
 			@media only screen and (min-width: 331px) and (max-width: 640px) {
 				#modeopt button {
@@ -940,6 +969,12 @@ template {
 				textarea {
 					height: 146px;
 					width: 94%;
+				}
+				#baseopt {
+					padding: 5px;
+				}
+				#modeopt div {
+					padding: 0 5px;
 				}
 				#ua {
 					width: 80%;
@@ -977,11 +1012,11 @@ template {
 					margin: 2px auto;
 				}
 				#baseopt {
-					padding: 5px;
+					padding: 5px 1em;
 					line-height: 19px;
 				}
-				#modeopt {
-					padding-left: 5px
+				#modeopt div {
+					padding: 0 1em;
 				}
 				#modeopt button {
 					padding: 5px .5em;
@@ -1036,12 +1071,10 @@ template {
 				<div id="modeopt">
 					<div>
 						<label for="gen" tabindex="0">
-							<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked="checked"/>
-							<span class="new-style new-radio"></span>生成
+							<input id="gen" type="radio" name="mode" value="gen" class="orig-box" checked="checked"/><b>生成</b>
 						</label>
 						<label for="add" tabindex="0">
-							<input id="add" type="radio" name="mode" value="add" class="orig-box"/>
-							<span class="new-style new-radio"></span>追加
+							<input id="add" type="radio" name="mode" value="add" class="orig-box"/><b>追加</b>
 						</label>
 					</div>
 					<div class="btnGrp">
@@ -1661,7 +1694,8 @@ template {
 			function makeBaseRadio() {
 				Object.keys(uaData.base).forEach( base => {
 					const lab = document.createElement("label"),
-						box = document.createElement("input");
+						box = document.createElement("input"),
+						bob = document.createElement("b");
 					lab.for = base;
 					lab.tabIndex = 0;
 					lab.addEventListener('keydown', spaceChecked);
@@ -1673,9 +1707,9 @@ template {
 						className: "orig-box",
 						tabIndex: -1
 					});
+					bob.innerHTML = uaData.base[base].text;
 					lab.appendChild(box);
-					lab.appendChild(newBox("radio"));
-					lab.innerHTML += uaData.base[base].text;
+					lab.appendChild(bob);
 					$(false,"#baseopt").appendChild(lab);
 					if ($(true,"#baseopt label").length===uaData.设置.基础默认) {
 						$(false,`#${base}`).checked = true;
@@ -2485,7 +2519,6 @@ template {
 				$(false,'#loadstr').innerHTML = '加载完成';
 				$(false,"#load").style.opacity = '0%';
 				setTimeout(finish,1000);
-				_($(false,"#load"),false,"finish");
 				lab = $(true,"#app_container label"),
 				cas = $(true,"#app_container .CaseHead"),
 				lah = $(true,"#app_container > label,.CaseHead"),
