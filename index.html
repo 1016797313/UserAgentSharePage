@@ -29,7 +29,7 @@
 				osdark:window.matchMedia("(prefers-color-scheme: dark)"),
 				版本:{
 					描述:"5.1 Beta 7",
-					详细:21092215,
+					详细:21092216,
 				},
 				设置:{
 					基础默认:1,
@@ -377,7 +377,7 @@ template {
 				transition: opacity .5s;
 			}
 			#app .flag {
-				margin: 1.5px 0 1.5px 3px;
+				margin: 1.5px 0 1.5px 5px;
 				box-shadow: var(--shadow-small);
 				line-height: 1.25em;
 			}
@@ -1700,7 +1700,6 @@ template {
 						box = document.createElement("input");
 					lab.id = `L${flag}`;
 					lab.tabIndex = 0;
-					lab.addEventListener('keydown', spaceChecked);
 					Object.assign(box, {
 						type: "checkbox",
 						name: "flag",
@@ -2460,12 +2459,12 @@ template {
 				if (ad.nodeName==='STYLE') {
 					ad.innerHTML = dark;
 				} else if (ad.nodeName==='LINK' && ad.rel==="stylesheet") {
-					ad.href = 'data:text/css;base64,' + btoa(dark);
+					ad.href = (dark='') ? '#' : 'data:text/css;base64,' + btoa(dark);
 				}
 			}
 			
 			function updBtnDark() {
-			  _(document.querySelector('#btnDark'),!uaData.dark,'dark');
+			  _($(!1,'#btnDark'),!uaData.dark,'dark');
 			}
 			
 			function addEvent() {
@@ -2654,11 +2653,11 @@ template {
 				}
 			})();
 			(()=>{
-				let dark = Object.values(document.getElementById('myDark').sheet.cssRules)[0].cssRules[0].cssText,
-				light = Object.values(document.getElementById('myLight').sheet.cssRules)[0].cssText,
+				let dark = Object.values(uaCode.$(!1,'#myDark').sheet.cssRules)[0].cssRules[0].cssText,
+				light = Object.values(uaCode.$(!1,'#myLight').sheet.cssRules)[0].cssText,
 				force = (uaData.设置.暗色主题===0) ? light : dark,
-				btnDark = document.querySelector('#btnDark'),
-				impSty = document.querySelector('#myImportant'),
+				btnDark = uaCode.$(!1,'#btnDark'),
+				impSty = uaCode.$(!1,'#myImportant'),
 				night = [
 					"via_inject_css_night",
 					"metaNight",
@@ -2692,22 +2691,27 @@ template {
                                 impSty.innerHTML = '';
                               }
                               uaData.dark = false;
+                              uaCode.dark();
                             }
                           })
                         }
 					}
 				}), opt = { childList: true, subtree: false };
 
-				night.forEach( id => {
+				
+				function patchStyle(css) {
+                  night.forEach( id => {
 					let ad = document.getElementById(id);
 					if (ad) {
-					  uaCode.injSty(ad,force);
+					  uaCode.injSty(ad,css);
 					  uaCode.dark();
 					}
-				});
+                  });
+                }
 				
 				btnDark.onclick = () => {
                   impSty.innerHTML = (uaData.dark) ? light : dark;
+                  patchStyle((uaData.dark) ? light : dark);
                   uaData.dark = !uaData.dark;
                   uaCode.dark();
 				}
@@ -2720,8 +2724,10 @@ template {
                   uaCode.dark();
                 }
                 
-				if (uaData.设置.暗色主题<2)
-				document.querySelector('#myImportant').innerHTML = force;
+				if (uaData.设置.暗色主题<2) {
+                  patchStyle(force);
+                  impSty.innerHTML = force;
+                }
 
                 switch (uaData.设置.暗色主题) {
                   case 0:
