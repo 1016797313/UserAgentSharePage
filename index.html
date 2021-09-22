@@ -25,9 +25,11 @@
 				},
 				storKey:"userAgentData",
 				styleKey:"userAgentStyle",
+				dark:false,
+				osdark:window.matchMedia("(prefers-color-scheme: dark)"),
 				版本:{
 					描述:"5.1 Beta 7",
-					详细:21092112,
+					详细:21092215,
 				},
 				设置:{
 					基础默认:1,
@@ -214,6 +216,7 @@ template {
 				--prvw-from: green;
 				--shadow-big: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
 				--shadow-small: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 3px 1px rgba(0,0,0,0.12);
+				--color-scheme: light;
 			}
 		</style>
 		<style id="myDark">
@@ -245,6 +248,7 @@ template {
 					--prvw-from: lime;
 					--shadow-big: 0 0 5px 3px rgba(50,80,120,0.5);
 					--shadow-small: none;
+					--color-scheme: dark;
 				}
 			}
 		</style>
@@ -275,6 +279,8 @@ template {
 				font-size: 16px;
 				font-family: -apple-system, Tahoma, sans;
 				background-color: var(--theme-color-f);
+				transition: background-color .5s;
+				color-scheme: var(--color-scheme);
 			}
 			textarea {
 				background-color: var(--theme-color-d);
@@ -484,7 +490,6 @@ template {
 				overflow-y: auto;
 				height: calc(1.5em * 14.5);
 				width: 100%;
-				scroll-behavior: smooth;
 			}
 			.btnGrp {
 				text-align: center;
@@ -866,7 +871,7 @@ template {
 			}
 			input[type="color"] {
 				padding: 0;
-				border: 1px solid;
+				border: none;
 			}
 			#stordata {
 				width: -webkit-fill-available;
@@ -951,6 +956,23 @@ template {
 			.topwin {
 				z-index: 9 !important;
 			}
+			.circle {
+              width: 1.25em;
+              height: 1.25em;
+              background: var(--theme-color-a);
+              border-radius: 100%;
+			  padding: 0 !important;
+			}
+			#btnDark {
+			  margin: .25em .5em;
+			}
+			#mask {
+			  background: var(--theme-color-b);
+			  transform: translate(30%,-100%);
+			}
+			#btnDark.dark #mask {
+			  transform: translate(25%,-15%);
+			}
 			@media only screen and (max-width: 330px) {
 				#modeopt button {
 					padding: 3px;
@@ -1012,11 +1034,11 @@ template {
 					margin: 2px auto;
 				}
 				#baseopt {
-					padding: 5px 1em;
+					padding: 5px .5em;
 					line-height: 19px;
 				}
 				#modeopt div {
-					padding: 0 1em;
+					padding: 0 .5em;
 				}
 				#modeopt button {
 					padding: 5px .5em;
@@ -1078,6 +1100,9 @@ template {
 						</label>
 					</div>
 					<div class="btnGrp">
+                        <div id='btnDark' class="circle">
+                          <div id='mask' class="circle"></div>
+                        </div>
 						<button type="button" id="openClass">标签筛选</button>
 						<button type="button" id="openUA">打开窗口</button>
 					</div>
@@ -1639,7 +1664,6 @@ template {
 						tabIndex: 0,
 						innerHTML: uaData.apps[app].text
 					});
-					lab.addEventListener('keydown', spaceChecked);
 					uaData.count[app] = parseClassinItem(lab,app);
 					Object.assign(box, {
 						type: "checkbox",
@@ -1692,28 +1716,25 @@ template {
 			}
 			
 			function makeBaseRadio() {
-				Object.keys(uaData.base).forEach( base => {
+				Object.keys(uaData.base).forEach( (base,i) => {
 					const lab = document.createElement("label"),
 						box = document.createElement("input"),
 						bob = document.createElement("b");
 					lab.for = base;
 					lab.tabIndex = 0;
-					lab.addEventListener('keydown', spaceChecked);
 					Object.assign(box, {
 						type: "radio",
 						name: "base",
 						id: base,
 						value: base,
 						className: "orig-box",
-						tabIndex: -1
+						tabIndex: -1,
+						checked: (uaData.设置.基础默认==i+1)
 					});
 					bob.innerHTML = uaData.base[base].text;
 					lab.appendChild(box);
 					lab.appendChild(bob);
 					$(false,"#baseopt").appendChild(lab);
-					if ($(true,"#baseopt label").length===uaData.设置.基础默认) {
-						$(false,`#${base}`).checked = true;
-					}
 				});
 			}
 			
@@ -1765,8 +1786,10 @@ template {
 							(e.clientY - win.offsetTop)
 							];
 							winActiv(win);
-							document.onmousemove = e => {
-								if(e.target.nodeName!=="TEXTAREA"&&e.target.type!=="text") {
+							if(e.target.nodeName!=="TEXTAREA" &&
+							e.target.type!=="text" &&
+							e.target.nodeName!=="SELECT") {
+								document.onmousemove = e => {
 									win.style.left = (e.clientX - pos[0]) + 'px';
 									win.style.top = (e.clientY - pos[1]) + 'px';
 								};
@@ -1918,7 +1941,6 @@ template {
 								box = document.createElement("input");
 							lab.id = `${getUpperHead(sbox.id)}${flag}`;
 							lab.tabIndex = 0;
-							lab.addEventListener('keydown', spaceChecked);
 							Object.assign(box, {
 								type: "checkbox",
 								name: "sflag",
@@ -2442,9 +2464,13 @@ template {
 				}
 			}
 			
+			function updBtnDark() {
+			  _(document.querySelector('#btnDark'),!uaData.dark,'dark');
+			}
+			
 			function addEvent() {
 				function ee(el,ev,fn) { el.addEventListener(ev,fn); }
-				$(true,'#mode label').forEach( e => ee(e,'keydown', spaceChecked));
+				$(true,'[type="radio"],[type="checkbox"]').forEach( e => ee(e.parentNode,'keydown', spaceChecked));
 				ee($(false,'#openClass'),'click',openWin.bind(this,'#class'));
 				ee($(false,'#openUA'),'click',openWin.bind(this,'#ua'));
 				ee($(false,'#search'),'input', fltAppUA.bind(this));
@@ -2461,15 +2487,12 @@ template {
 				ee($(false,'#btnCpUA'),'click',()=>{$(false,'#useragent').select();document.execCommand('copy');});
 				ee($(false,'#btnTgAl'),'click',()=>{$(true,'#classBox input:not(:checked)').forEach( b => { b.checked = true; tagClick(b.parentNode.id,true);});});
 				ee($(false,'#btnTgRv'),'click',()=>{$(true,'#classBox input').forEach( b => { b.checked = (!b.checked); tagClick(b.parentNode.id,true);});});
-				$(true,'#addtype label').forEach( e => ee(e,'keydown', spaceChecked));
 				$(true,'#addtype input').forEach( e => ee(e,'change', aform_switchCard));
 				$(true,'#addtype input').forEach( e => ee(e,'change', previewUpdate));
 				$(true,'.key').forEach( e => ee(e,'input',aform_KeyCheck.bind(this,false)));
 				$(true,'.msel').forEach( e => ee(e,'change',aform_Modify));
 				$(true,'#aappt .msel,#qappt .msel').forEach( e => ee(e,'change',previewUpdate));
-				$(true,'#apre label').forEach( e => ee(e,'keydown', spaceChecked));
 				$(true,'#apre input').forEach( e => ee(e,'change', aform_switchBoth));
-				$(true,'#afol label').forEach( e => ee(e,'keydown', spaceChecked));
 				ee($(false,'#ttext'),'input', aform_updateFlagPreview);
 				$(true,'#tbgc,#tfgc').forEach( e => ee(e,'change', aform_updateFlagPreview));
 				ee($(false,'#aok'),'click',aform_Add);
@@ -2501,8 +2524,8 @@ template {
 				makeItem();
 				makeFlaginBox();
 				aform_makeFlaginBox();
-				addEvent();
 				makeBaseRadio();
+				addEvent();
 				dndWin();
 				$(false,'#loadstr').innerHTML = '正在初始化 ...';
 				$(false,"#Raapp").checked = true;
@@ -2512,9 +2535,6 @@ template {
 				$(false,"#version").innerHTML = `版本:${uaData.版本.描述}_${uaData.版本.详细} 总数:${Object.keys(uaData.apps).length}`;
 				if (window.location.host.match('gitee.io')) {
 					$(false,"#version").innerHTML += ' <i>由 Gitee 提供代码和网页托管服务</i>';
-					$(false,"#version").onclick = () => {
-						window.location.href='https://gitee.com/lemon399/user-agent-share-page';
-					}
 				}
 				$(false,'#loadstr').innerHTML = '加载完成';
 				$(false,"#load").style.opacity = '0%';
@@ -2530,7 +2550,8 @@ template {
 				init: init,
 				$: $,
 				toast: toast,
-				injSty: injSty
+				injSty: injSty,
+				dark: updBtnDark
 			}
 		})();
 		</script>
@@ -2633,9 +2654,11 @@ template {
 				}
 			})();
 			(()=>{
-				let dark = (uaData.设置.暗色主题===0) ?
-				Object.values(document.getElementById('myLight').sheet.cssRules)[0].cssText :
-				Object.values(document.getElementById('myDark').sheet.cssRules)[0].cssRules[0].cssText,
+				let dark = Object.values(document.getElementById('myDark').sheet.cssRules)[0].cssRules[0].cssText,
+				light = Object.values(document.getElementById('myLight').sheet.cssRules)[0].cssText,
+				force = (uaData.设置.暗色主题===0) ? light : dark,
+				btnDark = document.querySelector('#btnDark'),
+				impSty = document.querySelector('#myImportant'),
 				night = [
 					"via_inject_css_night",
 					"metaNight",
@@ -2655,20 +2678,62 @@ template {
 					for (let mu of mus) {
 						if (mu.addedNodes.length>0) {
 							mu.addedNodes.forEach( ad => {
-								if (night.includes(ad.id)) uaCode.injSty(ad,dark);
+								if (night.includes(ad.id)) {
+								  uaCode.injSty(ad,force);
+                                  uaData.dark = true;
+                                  uaCode.dark();
+                                }
 							})
 						}
+                        if (mu.removedNodes.length>0) {
+                          mu.removedNodes.forEach( ad => {
+                            if (night.includes(ad.id)) {
+                              if (uaData.设置.暗色主题===2) {
+                                impSty.innerHTML = '';
+                              }
+                              uaData.dark = false;
+                            }
+                          })
+                        }
 					}
 				}), opt = { childList: true, subtree: false };
 
 				night.forEach( id => {
 					let ad = document.getElementById(id);
-					if (ad) uaCode.injSty(ad,dark);
+					if (ad) {
+					  uaCode.injSty(ad,force);
+					  uaCode.dark();
+					}
 				});
+				
+				btnDark.onclick = () => {
+                  impSty.innerHTML = (uaData.dark) ? light : dark;
+                  uaData.dark = !uaData.dark;
+                  uaCode.dark();
+				}
 
+				uaData.osdark.onchange = e => {
+				  if (uaData.设置.暗色主题===2) {
+                    impSty.innerHTML = '';
+                  }
+                  uaData.dark = e.matches;
+                  uaCode.dark();
+                }
+                
 				if (uaData.设置.暗色主题<2)
-				document.querySelector('#myImportant').innerHTML = dark;
+				document.querySelector('#myImportant').innerHTML = force;
 
+                switch (uaData.设置.暗色主题) {
+                  case 0:
+                    uaData.dark = false;
+                    break;
+                  case 1:
+                    uaData.dark = true;
+                    break;
+                  default:
+                    uaData.dark = uaData.osdark.matches;
+                }
+                uaCode.dark();
 				observer.observe(document.documentElement,opt);
 				observer.observe(document.head,opt);
 			})();
