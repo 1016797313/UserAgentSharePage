@@ -227,8 +227,8 @@ APP 的显示名称 。
 | --prvw-key | 编辑预览: 关键字颜色，<br>快应用 应用字段 颜色 |
 | --prvw-plat | 编辑预览: 快应用 平台字段 颜色 |
 | --prvw-from | 编辑预览: 快应用 来自字段 颜色 |
-| --shadow-big | [**box-shadow 格式**](https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow) 区块，窗口，下拉框 阴影参数 |
-| --shadow-small | [**box-shadow 格式**](https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow) 标签，按钮组 阴影参数 |
+| --shadow-big | [**box-shadow 格式**](https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow) 窗口 阴影参数 |
+| --shadow-small | [**box-shadow 格式**](https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow) 标签 阴影参数 |
 | --color-scheme | 浏览器原生控件主题 (滚动条，取色按钮)，最好不改 |
 
 > 主题数据不会校验，如果输入格式错误，导致颜色错乱的，**后果自负**

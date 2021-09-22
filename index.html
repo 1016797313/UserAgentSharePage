@@ -29,7 +29,7 @@
 				osdark:window.matchMedia("(prefers-color-scheme: dark)"),
 				版本:{
 					描述:"5.1 Beta 7",
-					详细:21092216,
+					详细:21092218,
 				},
 				设置:{
 					基础默认:1,
@@ -200,7 +200,7 @@ template {
 				--theme-color-h: #e6f4ff;		 /* 选框 聚焦 背景色 */
 				--theme-color-i: #3688d0;		 /* 按钮 聚焦 背景色 */
 				--theme-color-j: lightgray;		 /* 加载屏幕 空筛选 文字颜色 */
-				--theme-color-close: red;
+				--theme-color-close: crimson;
 				--theme-color-close-text: white;
 				--theme-color-prev: blueviolet;
 				--theme-color-top: #2b75c4;
@@ -215,7 +215,7 @@ template {
 				--prvw-plat: darkviolet;
 				--prvw-from: green;
 				--shadow-big: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 5px 2px rgba(0,0,0,0.12);
-				--shadow-small: 0 2px 2px 0 rgba(0,0,0,0.14), 0 2px 3px 1px rgba(0,0,0,0.12);
+				--shadow-small: 0px 1px 2px 1px lightgray;
 				--color-scheme: light;
 			}
 		</style>
@@ -232,7 +232,7 @@ template {
 					--theme-color-h: #3e5f8e;
 					--theme-color-i: #6cc3f9;
 					--theme-color-j: #728195;
-					--theme-color-close: red;
+					--theme-color-close: crimson;
 					--theme-color-close-text: white;
 					--theme-color-prev: blueviolet;
 					--theme-color-top: #2b75c4;
@@ -279,7 +279,6 @@ template {
 				font-size: 16px;
 				font-family: -apple-system, Tahoma, sans;
 				background-color: var(--theme-color-f);
-				transition: background-color .5s;
 				color-scheme: var(--color-scheme);
 			}
 			textarea {
@@ -347,12 +346,12 @@ template {
 			}
 			#option {
 				margin-bottom: 4px;
-				box-shadow: var(--shadow-big);
+				border: 1px solid var(--theme-color-a);
 			}
 			#app {
 				margin-bottom: 8px;
 				background: var(--theme-color-b);
-				box-shadow: var(--shadow-big);
+				border: 1px solid var(--theme-color-a);
 			}
 			.win {
 				font-size: 1em;
@@ -399,7 +398,6 @@ template {
 				align-items: center;
 				width: 6em;
                 flex-shrink: 0;
-                padding-bottom: 2px;
 			}
 			#ajump {
 				display: flex;
@@ -438,7 +436,6 @@ template {
                 grid-template-columns: repeat(2, max-content);
 				column-gap: 5px;
 				grid-column-gap: 5px;
-				margin-bottom: 1px;
 				align-content: center;
 			}
 			#option label,
@@ -496,7 +493,6 @@ template {
 				display: flex;
 				justify-content: space-between;
 				margin: 3px 4px;
-				box-shadow:var(--shadow-small);
 			}
 			.savebtn .btnGrp,
 			#modeopt .btnGrp {
@@ -599,7 +595,8 @@ template {
 				width: 100%;
 				font-size: .75em;
 				font-weight: bold;
-				padding: .5em;
+				line-height: 0;
+				padding: 1.1em .5em;
 				margin: 0;
 				transition: background-color .5s;
 			}
@@ -674,10 +671,9 @@ template {
 			#addtype > label b,
 			#baseopt label b,
 			#modeopt label b {
-				border-radius: 2px;
 				font-size: 12px;
 				line-height: 12px;
-				padding: 5px .5em;
+				padding: 5.5px .5em;
 				width: 100%;
 				text-align: center;
 				height: max-content;
@@ -1039,9 +1035,6 @@ template {
 				}
 				#modeopt div {
 					padding: 0 .5em;
-				}
-				#modeopt button {
-					padding: 5px .5em;
 				}
 				textarea {
 					height: 10em;
@@ -2690,7 +2683,7 @@ template {
                               if (uaData.设置.暗色主题===2) {
                                 impSty.innerHTML = '';
                               }
-                              uaData.dark = false;
+                              uaData.dark = uaData.osdark.matches;
                               uaCode.dark();
                             }
                           })
