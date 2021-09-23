@@ -29,7 +29,7 @@
 				osdark:window.matchMedia("(prefers-color-scheme: dark)"),
 				版本:{
 					描述:"5.1 Beta 7",
-					详细:21092218,
+					详细:21092318,
 				},
 				设置:{
 					基础默认:1,
@@ -499,9 +499,6 @@ template {
 				margin: 0;
 				padding: 0;
 			}
-			#modeopt .btnGrp {
-				box-shadow: none;
-			}
 			#action {
 				margin: 3px .5em;
 			}
@@ -872,8 +869,6 @@ template {
 			#stordata {
 				width: -webkit-fill-available;
 				width: -moz-available;
-			}
-			#stordata {
 				height:80px;
 				margin:0 4px;
 			}
@@ -918,10 +913,13 @@ template {
 				font-weight: bold;
 				transition: color .5s;
 			}
-			fieldset:focus-within, #swopt.inst fieldset {
+			fieldset:focus-within,
+			#swopt.inst fieldset {
 				border: 2px solid var(--theme-color-a);
 			}
-			fieldset:focus-within legend, #swopt.inst legend, #swopt.inst p {
+			fieldset:focus-within legend,
+			#swopt.inst legend,
+			#swopt.inst p {
 				color: var(--theme-color-a);
 			}
 			#addprvw {
@@ -1700,7 +1698,7 @@ template {
 						value: flag,
 						checked: true
 					});
-					box.addEventListener('change', e => tagClick(e.target.parentNode.id,true));
+					box.addEventListener('change', e => tagClick(e.target.parentNode.id));
 					lab.appendChild(box);
 					lab.appendChild(makeFlagDiv(flag,true,false));
 					$(false,"#classBox").appendChild(lab);
@@ -1873,13 +1871,11 @@ template {
 				filterExec(item,"tag_none");
 			}
 			
-			function tagClick(id,flt) {
+			function tagClick(id) {
 				const box = $(false,`#${id} input`),
 					flag = $(false,`#${id} .flag`);
-				if (flt) {
-					fltAppUATag(id.slice(1),box.checked);
-					$(false,'#openClass').style.backgroundColor = ($(true,'#classBox input:not(:checked)').length===0) ? '' : __('tag-filtered');
-				}
+				fltAppUATag(id.slice(1),box.checked);
+				$(false,'#openClass').style.backgroundColor = ($(true,'#classBox input:not(:checked)').length===0) ? '' : __('tag-filtered');
 			}
 			
 			/* "添加" 窗口表单 相关 */
@@ -1942,12 +1938,7 @@ template {
 							});
 							if (flag==="third") {
 								box.addEventListener('change', e => {
-									tagClick(e.target.parentNode.id,false);
 									_($(false,`#${sbox.id}l`),box.checked);
-								});
-							} else {
-								box.addEventListener('change', e => {
-									tagClick(e.target.parentNode.id,false);
 								});
 							}
 							lab.appendChild(box);
@@ -1971,6 +1962,8 @@ template {
 				$(true,'#addtable input[type="text"], #tkds').forEach( i => {
 					i.style.removeProperty('border-color');
 				});
+				_($(false,`#aclsboxl`),false);
+				_($(false,`#qclsboxl`),false);
 				$(true,'#addtable form').forEach( f => f.reset() );
 				aform_updateFlagPreview();
 				aform_switchBoth();
@@ -2477,8 +2470,8 @@ template {
 				ee($(false,'#useragent'),'input',issuesCheck);
 				ee($(false,'#btnClUA'),'click',()=>{$(false,'#useragent').value = '';issuesCheck();});
 				ee($(false,'#btnCpUA'),'click',()=>{$(false,'#useragent').select();document.execCommand('copy');});
-				ee($(false,'#btnTgAl'),'click',()=>{$(true,'#classBox input:not(:checked)').forEach( b => { b.checked = true; tagClick(b.parentNode.id,true);});});
-				ee($(false,'#btnTgRv'),'click',()=>{$(true,'#classBox input').forEach( b => { b.checked = (!b.checked); tagClick(b.parentNode.id,true);});});
+				ee($(false,'#btnTgAl'),'click',()=>{$(true,'#classBox input:not(:checked)').forEach( b => { b.checked = true; tagClick(b.parentNode.id);});});
+				ee($(false,'#btnTgRv'),'click',()=>{$(true,'#classBox input').forEach( b => { b.checked = (!b.checked); tagClick(b.parentNode.id);});});
 				$(true,'#addtype input').forEach( e => ee(e,'change', aform_switchCard));
 				$(true,'#addtype input').forEach( e => ee(e,'change', previewUpdate));
 				$(true,'.key').forEach( e => ee(e,'input',aform_KeyCheck.bind(this,false)));
