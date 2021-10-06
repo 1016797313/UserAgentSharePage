@@ -29,7 +29,7 @@
 				osdark:window.matchMedia("(prefers-color-scheme: dark)"),
 				版本:{
 					描述:"5.1 Beta 8",
-					详细:21100511,
+					详细:21100609,
 				},
 				设置:{
 					基础默认:1,
@@ -966,6 +966,21 @@ template {
 			#btnDark.dark #mask {
 			  transform: translate(25%,-15%);
 			}
+			#outside {
+			  position: absolute;
+			  left: -110%;
+			  top: -110%;
+			}
+			#dragger {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: max-content;
+              padding: .25em;
+              border-radius: .25em;
+              color: var(--theme-color-c);
+              background: var(--theme-color-a);
+            }
 			@media only screen and (max-width: 330px) {
 				#modeopt button {
 					padding: 3px;
@@ -1072,6 +1087,9 @@ template {
 		</style>
 	</head>
 	<body>
+		<div id='outside'>
+			<span id='dragger'></span>
+		</div>
 		<p id="version"></p>
 		<div id="option">
 			<div id="base">
@@ -1693,13 +1711,15 @@ template {
 					uaData.text.set(app, uaData.apps[app].text);
 					const lab = document.createElement("label"),
 						box = document.createElement("input"),
+						text = document.createElement("span"),
 						first = getUpperHead(app);
 					Object.assign(lab, {
 						id: app,
 						tabIndex: 0,
-						draggable: true,
-						innerHTML: uaData.apps[app].text
+						draggable: true
 					});
+					text.innerHTML = uaData.apps[app].text;
+					lab.appendChild(text);
 					uaData.count[app] = parseClassinItem(lab,app);
 					Object.assign(box, {
 						type: "checkbox",
@@ -2497,7 +2517,17 @@ template {
 				function ee(el,ev,fn) { el.addEventListener(ev,fn); }
 				$(true,'[type="radio"],[type="checkbox"]').forEach( e => {
 					ee(e.parentNode,'keydown', spaceChecked);
-					ee(e.parentNode,'dragstart', e => e.dataTransfer.setData('text',e.target.id));
+					ee(e.parentNode,'dragstart', e => {
+						e.dataTransfer.setData('text',e.target.id);
+						let dragger = document.querySelector('#dragger');
+						dragger.innerHTML = e.target.querySelector('span').innerHTML;
+						// FIXME: Firefox 有偏移问题
+						if (e.dataTransfer.mozCursor) {
+							e.dataTransfer.setDragImage(dragger, -50, -100);
+						} else {
+							e.dataTransfer.setDragImage(dragger, 0, 0);
+						}
+					});
 				});
 				ee($(false,'#openClass'),'click',openWin.bind(this,'#class'));
 				ee($(false,'#openUA'),'click',openWin.bind(this,'#ua'));
