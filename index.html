@@ -29,7 +29,7 @@
 				osdark:window.matchMedia("(prefers-color-scheme: dark)"),
 				版本:{
 					描述:"5.1 Beta 8",
-					详细:21110214,
+					详细:21110216,
 				},
 				设置:{
 					基础默认:1,
@@ -439,6 +439,9 @@ template {
 				grid-column-gap: 5px;
 				align-content: center;
 			}
+			#modeopt button {
+              width: auto;
+			}
 			#option label,
 			#classBox label,
 			.classBox label,
@@ -580,6 +583,10 @@ template {
 				color: var(--theme-color-a);
 				opacity: .5;
 			}
+			::-moz-selection {
+				background-color: var(--theme-color-a);
+				color: var(--theme-color-c);
+			}
 			::selection {
 				background-color: var(--theme-color-a);
 				color: var(--theme-color-c);
@@ -688,7 +695,8 @@ template {
 				background: var(--theme-color-a);
 			}
 			.atab > div > label {
-				line-height: 1.35em;
+				line-height: 1.5em;
+				font-size: 0.9em;
 			}
 			.atab > label b,
 			#addsave label b,
@@ -730,9 +738,9 @@ template {
 				width: 80%;
 				font-size: .9em;
 				-webkit-appearance: menulist;
-				   -moz-appearance: none;
+				   -moz-appearance: menulist;
+				        appearance: menulist;
 				border: none;
-				box-shadow:var(--shadow-big);
 			}
 			#toast {
 				position: absolute;
@@ -1118,7 +1126,7 @@ template {
                           <div id='mask' class="circle"></div>
                         </div>
 						<button type="button" id="openClass">标签筛选</button>
-						<button type="button" id="openUA">打开窗口</button>
+						<button type="button" id="openUA">UA 窗口</button>
 					</div>
 				</div>
 			</div>
@@ -1208,7 +1216,7 @@ template {
 							</select>
 						</label>
 						<label><b>名称</b>
-							<input id="atext" type="text" name="aapp"/>
+							<input id="atext" type="text" name="aapp" placeholder="显示名称，最好是 APP 名称"/>
 						</label>
 						<div id="apre">
 							<p>前置</p>
@@ -1264,7 +1272,7 @@ template {
 							</select>
 						</label>
 						<label><b>名称</b>
-							<input id="qtext" type="text" name="qapp"/>
+							<input id="qtext" type="text" name="qapp" placeholder="显示名称，最好是快应用名称"/>
 						</label>
 						<label><b>平台</b>
 							<input id="qcont1" type="text" name="qcont"/>
@@ -1298,7 +1306,7 @@ template {
 							<div id="tkds">
 								<div id="tclsbox" class="flag"></div>
 								<span>
-									<input id="ttext" type="text" name="atag"/>
+									<input id="ttext" type="text" name="atag" placeholder="标签名"/>
 								</span>
 							</div>
 						</div>
@@ -1337,12 +1345,12 @@ template {
 				<fieldset>
 					<legend>亮色主题</legend>
 					<label for="stylight" class="invilab">亮色主题</label>
-					<textarea id="stylight"></textarea>
+					<textarea id="stylight" placeholder="亮色主题 CSS"></textarea>
 				</fieldset>
 				<fieldset>
 					<legend>暗色主题</legend>
 					<label for="stydark" class="invilab">暗色主题</label>
-					<textarea id="stydark"></textarea>
+					<textarea id="stydark" placeholder="暗色主题 CSS"></textarea>
 				</fieldset>
 				<div class="savebtn btnGrp">
 					<button type="button" id="stysave">保存主题</button>
@@ -1844,7 +1852,8 @@ template {
 							winActiv(win);
 							if(e.target.nodeName!=="TEXTAREA" &&
 							e.target.type!=="text" &&
-							e.target.nodeName!=="SELECT") {
+							e.target.nodeName!=="SELECT" &&
+							e.target.className!=="flag") {
 								document.onmousemove = e => {
 									win.style.left = (e.clientX - pos[0]) + 'px';
 									win.style.top = (e.clientY - pos[1]) + 'px';
@@ -2543,7 +2552,13 @@ template {
 				ee($(false,'#openNew'),'click',openWin.bind(this,'#addui'));
 				ee($(false,'#btnSlst'),'click',fltAppUASelected.bind(this));
 				ee($(false,'#btnGen'),'click',genUA);
-				$(true,'.close').forEach( c => ee(c,'click',e => { e.target.parentNode.parentNode.classList.add('none')}));
+				$(true,'.close').forEach( c => ee(c,'click',e => {
+					e.target.parentNode.parentNode.classList.add('none');
+					if (e.target.parentNode.parentNode.id=='addui' &&
+						getComputedStyle($(!1,'#prvui')).display=='block') {
+							$(!1,'#prvui').classList.add('none');
+					};
+				}));
 				$(true,'.topbutton').forEach( c => ee(c,'click',topwin.bind(this)));
 				ee($(false,'.prev'),'click',openWin.bind(this,'#prvui'));
 				ee($(false,'#useragent'),'input',issuesCheck);

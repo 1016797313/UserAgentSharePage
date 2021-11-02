@@ -8,10 +8,12 @@
 这个项目基于 酷安 @长谷川直树 的 UA 提取计划 [酷安](https://www.coolapk.com/feed/19620138?shareKey=NWNlMTdjYmZlODIwNWZlNTk5Yzg~&shareUid=1166187&shareFrom=com.coolapk.market_11.0-beta6) ，也是其计划的补充部分 。
 
 这个项目使用的数据包含多名网友的无私贡献 ，在此表示感谢😄  
+> 由于项目负责人近期很忙，目前数据更新处于停滞状态。  
 
 所有 UA 按**原样**提供，所以，  
 很多 UA 可能本身不会带来**任何效果**。  
 有些 UA 可能还会带来**副作用**。  
+尤其是 百度系 的 UA 请慎用，一般情况只建议使用 简单搜索 的 UA。  
 因此，具体情况以实际效果为准。  
 
 我们没有时间和精力对所有 UA 进行测试。  
@@ -87,6 +89,8 @@ document.removeEventListener('copy', copyListener, true);
 > 所以 ，你可以先在 "UA 窗口" 里粘贴自己的 UA ，  
 然后将 "基础 UA" 设为空白 ，使用 "追加" 模式来直接补充现有的 UA 。
 
+> 现在，你可以长按并拖动 **UA 条目**到 **UA 窗口**来追加 UA 关键字。
+
 #### 标签筛选/搜索
 使用标签和名称来筛选 APP 列表，可以更快的找到目标 APP 。  
 当使用了标签筛选时，"标签筛选" 按钮将会变绿，以提示当前列表是筛选过的。
@@ -103,7 +107,7 @@ APP 列表右侧是导航条，
 
 ### 窗口相关
 
-鼠标: 除了 **文本框** **输入框** **下拉框** 以外，拖动任何部分都可以移动窗口。  
+鼠标: 除了 **文本框** **输入框** **下拉框** **项目标签** 以外，拖动任何部分都可以移动窗口。  
 触摸: 除了 **文本框** **输入框** **检查区** 以外，拖动任何部分都可以移动窗口。  
 点击窗口任意部分可提升窗口。
 
@@ -117,12 +121,14 @@ APP 列表右侧是导航条，
 
 #### 标准 UA
 下面是标准的 WebView UA 的例子:
-> Mozilla/5.0 (Linux; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.37 Mobile Safari/537.36
+> Mozilla/5.0 (Linux; Android 12; zh-cn; Pixel 6 Pro; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.27 Mobile Safari/537.36
 
 有些 APP 使用一种精简版的 UA，这里称作 "短 UA" :
-> Mozilla/5.0 (Linux; U; Android 10; zh-cn; Pixel 3 XL Build/QPP5.190530.014)
+> Mozilla/5.0 (Linux; U; Android 12; zh-cn; Pixel 6 Pro)
 
 大部分的 APP 的 UA 都是以这两种格式作为基础的 。
+
+> 新消息，Chrome 从版本 101 开始要精简 UA 内容。到时会看情况更新标准 UA 。
 
 #### 快应用
 快应用 UA 格式如下:
