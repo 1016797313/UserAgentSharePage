@@ -29,7 +29,7 @@
 				osdark:window.matchMedia("(prefers-color-scheme: dark)"),
 				版本:{
 					描述:"5.1 Beta 8",
-					详细:21100609,
+					详细:21110214,
 				},
 				设置:{
 					基础默认:1,
@@ -256,8 +256,8 @@ template {
 		<style id="myStyle">
 /*
 * Prefixed by https://autoprefixer.github.io
-* PostCSS: v7.0.29,
-* Autoprefixer: v9.7.6
+* PostCSS: v8.3.6,
+* Autoprefixer: v10.3.1
 * Browsers: last 3 years and not edge <= 78
 */
             @-webkit-keyframes toast {
@@ -433,6 +433,7 @@ template {
 			}
 			#modeopt > div:first-child {
                 display: grid;
+                grid-template-columns: repeat(2, -webkit-max-content);
                 grid-template-columns: repeat(2, max-content);
 				column-gap: 5px;
 				grid-column-gap: 5px;
@@ -456,6 +457,9 @@ template {
 				background: var(--theme-color-a);
 				color: var(--theme-color-c);
 				padding: 2px 0 2px 5px;
+				position: -webkit-sticky;
+				position: sticky;
+				top: 0;
 			}
 			.sideBar {
 				width: 15px;
@@ -576,10 +580,6 @@ template {
 				color: var(--theme-color-a);
 				opacity: .5;
 			}
-			::-moz-selection {
-				background-color: var(--theme-color-a);
-				color: var(--theme-color-c);
-			}
 			::selection {
 				background-color: var(--theme-color-a);
 				color: var(--theme-color-c);
@@ -672,6 +672,8 @@ template {
 				padding: 5.5px .5em;
 				width: 100%;
 				text-align: center;
+				height: -webkit-max-content;
+				height: -moz-max-content;
 				height: max-content;
 			}
 			#addtype > label:focus b,
@@ -922,6 +924,8 @@ template {
 				color: var(--theme-color-a);
 			}
 			#addprvw {
+				height: -webkit-max-content;
+				height: -moz-max-content;
 				height: max-content;
 				padding: 5px;
 				font-size: .9em;
@@ -975,6 +979,8 @@ template {
               position: absolute;
               top: 0;
               left: 0;
+              width: -webkit-max-content;
+              width: -moz-max-content;
               width: max-content;
               padding: .25em;
               border-radius: .25em;

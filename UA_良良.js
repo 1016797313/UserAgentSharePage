@@ -269,7 +269,7 @@ tycha: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "FromTYCAndroidClient(appVersion/Android 11.10.1,appDevice/Google_QAQ_Google Pixel 3 XL)"
+	内容: "FromTYCAndroidClient(appVersion/Android 11.10.1,appDevice/Google_QAQ_Google Pixel 6 Pro)"
 },
 txmap: {
 	名称: "腾讯地图",
@@ -339,14 +339,14 @@ hykbgame: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "Androidkb/1.5.5.002(android;Google Pixel 3 XL;9;1080x1920;WIFI);@4399_sykb_android_activity@"
+	内容: "Androidkb/1.5.5.002(android;Google Pixel 6 Pro;12;1080x1920;WIFI);@4399_sykb_android_activity@"
 },
 xlnews: {
 	名称: "新浪新闻",
 	前置: "不是",
 	无缝: "是",
 	标签: ["新浪"],
-	内容: "; Google-Google Pixel 3 XL__sinanews__7.30.0__android__9__490; Google-Google Pixel 3 XL__sinanews__7.30.0__android__9__490; env__online"
+	内容: "; Google-Google Pixel 6 Pro__sinanews__7.30.0__android__12__490; Google-Google Pixel 6 Pro__sinanews__7.30.0__android__12__490; env__online"
 },
 douban: {
 	名称: "豆瓣",
@@ -374,14 +374,14 @@ bdbk: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["百度"],
-	内容: "BaiduBaikeApp/3.0.8/paramers={\"scheme\":\" BaiduBaikeApp\",\"version\":\"3.0.8\",\"os\":\"android\",\"channel_id\":\"1000744a\",\"os_version\":\"9\",\"os_model\":\"Google Pixel 3 XL\"}"
+	内容: "BaiduBaikeApp/3.0.8/paramers={\"scheme\":\" BaiduBaikeApp\",\"version\":\"3.0.8\",\"os\":\"android\",\"channel_id\":\"1000744a\",\"os_version\":\"12\",\"os_model\":\"Google Pixel 6 Pro\"}"
 },
 bdwenku: {
 	名称: "百度文库",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["百度"],
-	内容: "WENKU-NA_1080_1920_6.5.4_9_WENKU-NA"
+	内容: "WENKU-NA_1080_1920_6.5.4_12_WENKU-NA"
 },
 gaodmap: {
 	名称: "高德地图",
@@ -458,7 +458,7 @@ xMimusic: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["小米"],
-	内容: "MiuiMusic/9 (Linux; U; Android 9; Google Pixel 3 XL Build/PKQ1.181007.001)"
+	内容: "MiuiMusic/9 (Linux; U; Android 12.0.1; Pixel 6 Pro)"
 },
 xMiAi: {
 	名称: "小爱",
@@ -486,7 +486,7 @@ acfun: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "ACVideoCore/6.16.0.863(Google;Google Pixel 3 XL;9)"
+	内容: "ACVideoCore/6.16.0.863(Google;Google Pixel 6 Pro;12)"
 },
 kuaidzye: {
 	名称: "快对作业",
@@ -500,14 +500,14 @@ bczhan: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "bcz_app_android/6030500 android_version/9 device_name/Google Pixel 3 XL - Google"
+	内容: "bcz_app_android/6030500 android_version/12 device_name/Google Pixel 6 Pro - Google"
 },
 bczhandict: {
 	名称: "百词斩词典",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "bcz_dict_app_android/1001304 android_version/9 device_name/Google Pixel 3 XL - Google"
+	内容: "bcz_dict_app_android/1001304 android_version/12 device_name/Google Pixel 6 Pro - Google"
 },
 ucnews: {
 	名称: "UC 头条",
@@ -640,7 +640,7 @@ kkanmh: {
 	前置: "是",
 	无缝: "是",
 	标签: [],
-	内容: "Kuaikan/5.63.1/563001(Android;9;Google Pixel 3 XL;kuaikan16;WIFI;1920*1080)+"
+	内容: "Kuaikan/5.63.1/563001(Android;12;Google Pixel 6 Pro;kuaikan16;WIFI;1920*1080)+"
 },
 shmh: {
 	名称: "神漫画",
@@ -668,7 +668,7 @@ dongm: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "nApps (Android 9; Google Pixel 3 XL; dongman; 2.3.9;VersionCode:230900)"
+	内容: "nApps (Android 12; Google Pixel 6 Pro; dongman; 2.3.9;VersionCode:230900)"
 },
 kuman: {
 	名称: "酷漫",
@@ -752,7 +752,7 @@ wynews: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["网易"],
-	内容: "NewsApp/58.0 Android/9 NewsAppLite/2.1.0 (Google/Google Pixel 3 XL) netease_news_android"
+	内容: "NewsApp/58.0 Android/12 NewsAppLite/2.1.0 (Google/Google Pixel 6 Pro) netease_news_android"
 },
 jrtt: {
 	名称: "今日头条",
@@ -780,14 +780,14 @@ blbl2: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "BiliDroid/2.4.0 os/android model/Google Pixel 3 XL mobi_app/android_i build/2040100 channel/master innerVer/2040120 osVer/9 network/2"
+	内容: "BiliDroid/2.4.0 os/android model/Google Pixel 6 Pro mobi_app/android_i build/2040100 channel/master innerVer/2040120 osVer/12 network/2"
 },
 kuan: {
 	名称: "酷安",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " (#Build; GOOGLE; Google Pixel 3 XL; QPP5.190530.014; 10) +CoolMarket/11.2.3-2106021-universal"
+	内容: " (#Build; GOOGLE; Google Pixel 6 Pro; 12) +CoolMarket/11.4.4-2110271-universal"
 },
 kuanvn: {
 	名称: "酷安 VN",
@@ -878,7 +878,7 @@ dZdp: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " TitansNoX/11.25.6 KNB/1.2.0 android/9 dp/com.dianping.v1/10.26.3 App/10220/10.26.3 com.dianping.v1/10.26.3 DpPhysicalScale/1.0022953748703003|1080.0|1920.0|2.75"
+	内容: " TitansNoX/11.25.6 KNB/1.2.0 android/12 dp/com.dianping.v1/10.26.3 App/10220/10.26.3 com.dianping.v1/10.26.3 DpPhysicalScale/1.0022953748703003|1080.0|1920.0|2.75"
 },
 ppZS: {
 	名称: "PP 助手",
@@ -906,14 +906,14 @@ mayuncode: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "Git@OSC.NET/v1.6.3(2020032000)_163/Android/9/Google Pixel 3 XL"
+	内容: "Git@OSC.NET/v1.6.3(2020032000)_163/Android/12/Google Pixel 6 Pro"
 },
 "weib4g": {
 	名称: "微博 4G 版",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["新浪"],
-	内容: "Weibo (Google-Google Pixel 3 XL__weibo__9.9.3__android__android9)AndroidWeibo_G3/1.0"
+	内容: "Weibo (Google-Google Pixel 6 Pro__weibo__9.9.3__android__android12)AndroidWeibo_G3/1.0"
 },
 yunrli: {
 	名称: "云日历",
@@ -997,21 +997,21 @@ nicon: {
 	前置: "是",
 	无缝: "不是",
 	标签: [],
-	内容: "Niconico/1.0 (Linux; U; Android 9; ja-jp; nicoandroid Google Pixel 3 XL) Version/5.31.0 "
+	内容: "Niconico/1.0 (Linux; U; Android 12; ja-jp; nicoandroid Google Pixel 6 Pro) Version/5.31.0 "
 },
 qSZS: {
 	名称: "骑士助手",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "Mozilla%2F5.0+%28Linux%3B+Android+9%3B+Google+Pixel+3+XL+Build%2FPKQ1.181007.001%3B+wv%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Chrome%2F81.0.4044.66+Mobile+Safari%2F537.36+867527035322985+mgcsdk%2F3.6.0+mgcframework%2F3.0.0"
+	内容: "Mozilla%2F5.0+%28Linux%3B+Android+12%3B+Google+Pixel+6+Pro+%3B+wv%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Version%2F4.0+Chrome%2F81.0.4044.66+Mobile+Safari%2F537.36+867527035322985+mgcsdk%2F3.6.0+mgcframework%2F3.0.0"
 },
 wifikey: {
 	名称: "WiFi 钥匙",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " wfkey/com.wifi.key/5.8.5/1 (Android 9; GoogleGoogle Pixel 3 XL) tx u/0"
+	内容: " wfkey/com.wifi.key/5.8.5/1 (Android 12; GoogleGoogle Pixel 6 Pro) tx u/0"
 },
 "360clean": {
 	名称: "360 清理大师",
@@ -1060,14 +1060,14 @@ weibtt: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["新浪"],
-	内容: "Weiboheadlines(Google-Google Pixel 3 XL__weiboheadlines__3.0.1__android__android9"
+	内容: "Weiboheadlines(Google-Google Pixel 6 Pro__weiboheadlines__3.0.1__android__android12"
 },
 weibtrdp: {
 	名称: "微博第三方通用",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["_③ 微博"],
-	内容: "Google Pixel 3 XL_9_WeiboIntlAndroid_540"
+	内容: "Google Pixel 6 Pro_12_WeiboIntlAndroid_540"
 },
 weico: {
 	名称: "weico",
@@ -1081,7 +1081,7 @@ weibSpeed: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["新浪"],
-	内容: " Weibo (Google-Google Pixel 3 XL__weibo__10.3.3__android__android9) WeiboLite/1.0 WeiboMini/1.0"
+	内容: " Weibo (Google-Google Pixel 6 Pro__weibo__10.3.3__android__android12) WeiboLite/1.0 WeiboMini/1.0"
 },
 tiebaSpeed: {
 	名称: "贴吧极速版",
@@ -1137,7 +1137,7 @@ momoword: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: ", AndroidVer: 28, pkg: com.maimemo.android.momo, model: Google Pixel 3 XL, pkgVer: 525, pkgVerName: 3.7.15"
+	内容: ", AndroidVer: 31, pkg: com.maimemo.android.momo, model: Google Pixel 6 Pro, pkgVer: 525, pkgVerName: 3.7.15"
 },
 yixg: {
 	名称: "译学馆",
@@ -1151,7 +1151,7 @@ czbbs: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "BBS Client/0.1.0 (Android; Google Pixel 3 XL; unkown)"
+	内容: "BBS Client/0.1.0 (Android; Google Pixel 6 Pro; unkown)"
 },
 huafclub: {
 	名称: "花粉俱乐部",
@@ -1179,14 +1179,14 @@ mzubbs: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["新浪"],
-	内容: " Weibo (Google-Google Pixel 3 XL__weibo__10.4.0__android__android9)"
+	内容: " Weibo (Google-Google Pixel 6 Pro__weibo__10.4.0__android__android12)"
 },
 xlmail: {
 	名称: "新浪邮箱",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["新浪"],
-	内容: " SinaMailClient SinaMail/1.6.5 (Google Google Pixel 3 XL; Android 9 release)"
+	内容: " SinaMailClient SinaMail/1.6.5 (Google Google Pixel 6 Pro; Android 12 release)"
 },
 zhuan: {
 	名称: "转转",
@@ -1207,7 +1207,7 @@ zhlwork: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "Google Pixel 3 XL(Android/9) (com.zhaopin.social/7.9.51) Weex/0.28.0 1080x1920"
+	内容: "Google Pixel 6 Pro(Android/12) (com.zhaopin.social/7.9.51) Weex/0.28.0 1080x1920"
 },
 zhchrobot: {
 	名称: "智齿客服",
@@ -1228,7 +1228,7 @@ baix: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "com.quanleimu.activity/9.7.6;Google;Google;Google+Pixel+3+XL;9;1080x1920;"
+	内容: "com.quanleimu.activity/9.7.6;Google;Google;Google+Pixel+6+Pro;12;1080x1920;"
 },
 jrreb: {
 	名称: "今日热榜",
@@ -1270,7 +1270,7 @@ shmodoc: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " ShimoDocsRN/3.0.4.9428 (shimo-android-app) Android/9 WV"
+	内容: " ShimoDocsRN/3.0.4.9428 (shimo-android-app) Android/12 WV"
 },
 jSdoc: {
 	名称: "金山文档",
@@ -1284,14 +1284,14 @@ xfyuj: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " APP/com.iflytek.vflynote;4.4.1274 SYS/Android;28 SDI/5be100beb8ad51bb3be1a20c270a32992891c238 FM/Google;Google+Pixel+3+XL NE/wifi;46011 Lang/zh_CN CLV/1 SDK/"
+	内容: " APP/com.iflytek.vflynote;4.4.1274 SYS/Android;31 SDI/5be100beb8ad51bb3be1a20c270a32992891c238 FM/Google;Google+Pixel+6+Pro NE/wifi;46011 Lang/zh_CN CLV/1 SDK/"
 },
 lychwke: {
 	名称: "荔枝微课",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " APP/com.lizhiweike;4.23.1 SYS/Android;28 SDI/00000000000000000000000000000000000000 FM/Google;Google+Pixel+3+XL NE/wifi;46011 Lang/zh_CN CLV/20190409 SDK/SHARESDK;30501 DC/1"
+	内容: " APP/com.lizhiweike;4.23.1 SYS/Android;31 SDI/00000000000000000000000000000000000000 FM/Google;Google+Pixel+3+XL NE/wifi;46011 Lang/zh_CN CLV/20190409 SDK/SHARESDK;30501 DC/1"
 },
 zhihu: {
 	名称: "知乎",
@@ -1340,7 +1340,7 @@ xhS: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " Resolution/1080*1920 Build/6400138 Device/(Google;Google Pixel 3 XL) discover/6.40.0 NetType/WiFi"
+	内容: " Resolution/1080*1920 Build/6400138 Device/(Google;Google Pixel 6 Pro) discover/6.40.0 NetType/WiFi"
 },
 wymail: {
 	名称: "网易邮箱",
@@ -1354,28 +1354,28 @@ bdread: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["百度"],
-	内容: " -HadesCore- 1080_1920_6.0.7.1_9_Google Pixel 3 XL_com.baidu.yuedu_1.0.1"
+	内容: " -HadesCore- 1080_1920_6.0.7.1_12_Google Pixel 6 Pro_com.baidu.yuedu_1.0.1"
 },
 bdreadPro: {
 	名称: "百度阅读 Pro",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["百度"],
-	内容: " -HadesCore- 1080_1920_0.9.0.0_9_Google Pixel 3 XL_com.baidu.yuedupro_1.0.1"
+	内容: " -HadesCore- 1080_1920_0.9.0.0_12_Google Pixel 6 Pro_com.baidu.yuedupro_1.0.1"
 },
 zhshxq: {
 	名称: "知识星球",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["TBS"],
-	内容: "xiaomiquan/4.14.2 Android/Phone/9 Google_Google_Pixel_3_XL"
+	内容: "xiaomiquan/4.14.2 Android/Phone/12 Google_Google_Pixel_6_Pro"
 },
 smZdm: {
 	名称: "什么值得买",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "{{ smzdm_android_V9.7.0 rv:625 (Google Pixel 3 XL;Android9;zh) jsbv_1.0.0 webv_2.0 smzdmapp }}"
+	内容: "{{ smzdm_android_V9.7.0 rv:625 (Google Pixel 6 Pro;Android12;zh) jsbv_1.0.0 webv_2.0 smzdmapp }}"
 },
 alimail: {
 	名称: "阿里邮箱",
@@ -1564,14 +1564,14 @@ cctapi: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "HJApp%201.0/android/GOOGLE%20R11%20Plus/00000000000000000000000/9/com.hujiang.cctalk/7.7.1.3061/qq/"
+	内容: "HJApp%201.0/android/GOOGLE%20Pixel%206%20Pro/00000000000000000000000/12/com.hujiang.cctalk/7.7.1.3061/qq/"
 },
 juejapi: {
 	名称: "掘金 API",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " GOOGLE/Google Pixel 3 XL Android/9 Juejin/Android/5.9.3"
+	内容: " GOOGLE/Google Pixel 6 Pro Android/12 Juejin/Android/5.9.3"
 },
 juej: {
 	名称: "掘金",
@@ -1634,7 +1634,7 @@ bczread: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " bcz_app_android_ireading/2010400 android_version/9 device_name/GOOGLER11Plus-GOOGLE channel/ireading"
+	内容: " bcz_app_android_ireading/2010400 android_version/12 device_name/GOOGLEPixel6Pro-GOOGLE channel/ireading"
 },
 ydaotrans: {
 	名称: "有道翻译官",
@@ -1669,7 +1669,7 @@ shihuo: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " Android 9 GOOGLE CPU_ABI armeabi-v7a CPU_ABI2 armeabi HARDWARE qcom MODEL Google Pixel 3 XL network/WIFI shihuo/6.15.0 sc(0000000000000000,myapp) vf_dv_id[00000000000000000000000000000000000000000000000000000000000000]"
+	内容: " Android 12 GOOGLE CPU_ABI armeabi-v7a CPU_ABI2 armeabi HARDWARE qcom MODEL Google Pixel 6 Pro network/WIFI shihuo/6.15.0 sc(0000000000000000,myapp) vf_dv_id[00000000000000000000000000000000000000000000000000000000000000]"
 },
 bukam: {
 	名称: "布卡漫画",
@@ -1718,7 +1718,7 @@ kaiyan: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "EYEPETIZER/6030022 (Google Pixel 3 XL;android;10;zh_CN;android;6.3.2;cn-bj;yingyongbao;00000000000000000000000000000000;LTE;1080*2175) "
+	内容: "EYEPETIZER/6030022 (Google Pixel 6 Pro;android;10;zh_CN;android;6.3.2;cn-bj;yingyongbao;00000000000000000000000000000000;LTE;1080*2175) "
 },
 letvv: {
 	名称: "乐视视频",
@@ -1739,7 +1739,7 @@ sqxS: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["阿里"],
-	内容: "AliApp(shuqi_android/11.1.5.113) TTID/src1029 Shuqi (Google-Google Pixel 3 XL__shuqi__11.1.5.113__1029) AliApp(SQREADER/11.1.5.113)"
+	内容: "AliApp(shuqi_android/11.1.5.113) TTID/src1029 Shuqi (Google-Google Pixel 6 Pro__shuqi__11.1.5.113__1029) AliApp(SQREADER/11.1.5.113)"
 },
 tmgenie: {
 	名称: "天猫精灵",
@@ -1788,7 +1788,7 @@ dtanga: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "nayutas 7.9.3 (Android; Android os 10; zh_CN)"
+	内容: "nayutas 7.9.3 (Android; Android os 12; zh_CN)"
 },
 dtangb: {
 	名称: "堆糖 (2)",
@@ -1809,7 +1809,7 @@ sohuv: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["搜狐"],
-	内容: "com.sohu.sohuvideo/8002003 (Linux; U; Android 10; zh_CN; Google Pixel 3 XL; Build/QKQ1.191222.002)"
+	内容: "com.sohu.sohuvideo/8002003 (Linux; U; Android 12; zh_CN; Google Pixel 6 Pro)"
 },
 sohuvb: {
 	名称: "搜狐视频 (2)",
@@ -1837,14 +1837,14 @@ xysoti: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "Solar/10.9.0 (RedmiGoogle Pixel 3 XL; Android 10; Scale/2.75)"
+	内容: "Solar/10.9.0 (GoogleGoogle Pixel 6 Pro; Android 12; Scale/2.75)"
 },
 hxinkf: {
 	名称: "环信客服",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "Easemob-Android V1.2.1(Google Google Pixel 3 XL; Android 10/29)"
+	内容: "Easemob-Android V1.2.1(Google Google Pixel 6 Pro; Android 12/31)"
 },
 wpso: {
 	名称: "WPS Office",
@@ -1865,7 +1865,7 @@ eleme: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["阿里"],
-	内容: "Rajax/1 Redmi_K30_5G/picasso Android/10 Display/QKQ1.191222.002_test-keys Eleme/165 ID/bingghost; KERNEL_VERSION:4.19.81-perf-gcec9311"
+	内容: "Rajax/1 Google_Pixel_6_Pro/raven Android/12 Display/QKQ1.191222.002_test-keys Eleme/165 ID/bingghost; KERNEL_VERSION:4.19.81-perf-gcec9311"
 },
 weiph: {
 	名称: "唯品会",
@@ -1879,14 +1879,14 @@ kugom: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "Android10-AndroidPhone-10209-14-0-Splash%20image-cmnet(13)"
+	内容: "Android12-AndroidPhone-10209-14-0-Splash%20image-cmnet(13)"
 },
 kuwom: {
 	名称: "酷我音乐",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "22BB7A85A0D389F490742BDFDC2D2379Google Pixel 3 XLcn.kuwo.player-9.3.3.2200000000000000000000000000000000000000000"
+	内容: "22BB7A85A0D389F490742BDFDC2D2379Google Pixel 6 Procn.kuwo.player-9.3.3.2200000000000000000000000000000000000000000"
 },
 bdpan: {
 	名称: "百度网盘",
@@ -1900,7 +1900,7 @@ jgyun: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "NutstoreApp-Android-10-Google Pixel 3 XL-4.20.3360"
+	内容: "NutstoreApp-Android-10-Google Pixel 6 Pro-4.20.3360"
 },
 anqyp: {
 	名称: "安全云盘",
@@ -1914,7 +1914,7 @@ xClvx: {
 	前置: "不是",
 	无缝: "是",
 	标签: ["短 UA"],
-	内容: "_CtripAPP_Android_8.26.2_eb64_Ctrip_CtripWireless_8.26.2_cDevice=Google Pixel 3 XL_cSize=w1080*h2175__v=826.002_os=Android_osv=10_m=Google Pixel 3 XL_brand=Google_vg=0_SOAHTTP"
+	内容: "_CtripAPP_Android_8.26.2_eb64_Ctrip_CtripWireless_8.26.2_cDevice=Google Pixel 6 Pro_cSize=w1080*h2175__v=826.002_os=Android_osv=10_m=Google Pixel 6 Pro_brand=Google_vg=0_SOAHTTP"
 },
 huya: {
 	名称: "虎牙",
@@ -1977,14 +1977,14 @@ qqapp: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["腾讯"],
-	内容: "V1_AND_SQ_8.5.5_1630_YYB_DA_8050500 QQ/8.5.5.5105 NetType/WIFI WebP/0.3.0 Pixel/1080 StatusBarHeight/80 SimpleUISwitch/1 QQTheme/2920 InMagicWin/0"
+	内容: "V1_AND_SQ_8.8.38_2266_YYB_DA_8083800 QQ/8.8.38.6590 NetType/WIFI WebP/0.3.0 Pixel/1080 StatusBarHeight/80 SimpleUISwitch/1 QQTheme/2920 InMagicWin/0 StudyMode/0 CurrentMode/1 CurrentFontScale/1.0"
 },
 wxapp: {
 	名称: "微信",
 	前置: "不是",
 	无缝: "不是",
 	标签: ["腾讯"],
-    内容: "MMWEBID/4268 MicroMessenger/8.0.11.1980(0x28000B37) Process/toolsmp WeChat/arm64 Weixin NetType/WIFI Language/zh_CN ABI/arm64"
+    内容: "MMWEBID/4268 MicroMessenger/8.0.16.2640(0x28001037) Process/toolsmp WeChat/arm64 Weixin NetType/WIFI Language/zh_CN ABI/arm64"
 },
 jiandanss: {
 	名称: "简单搜索",
@@ -2068,14 +2068,14 @@ sssbrowaser: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " SamsungBrowser/9.4"
+	内容: " SamsungBrowser/16.0"
 },
 oppobrowser: {
 	名称: "Oppo 浏览器",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " HeyTapBrowser/10.7.10.1"
+	内容: " HeyTapBrowser/10.7.30.1"
 },
 youchubank: {
 	名称: "邮储银行",
@@ -2089,14 +2089,14 @@ zgnyyh: {
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: "BankabcAndroid/5.1.0 SDKVersion/28"
+	内容: "BankabcAndroid/5.1.0 SDKVersion/31"
 },
 zggSyh: {
 	名称: "中国工商银行",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: ["ICBCAndroidBSNew F-WAPB 6.0.1.1.0 fullversion:601100 newversion:6.0.1.1.0","9 Google Pixel 3 XL 0000000000000000000000000000000000000000 WIFI BSComponentVersion:6.1"]
+	内容: ["ICBCAndroidBSNew F-WAPB 6.0.1.1.0 fullversion:601100 newversion:6.0.1.1.0","12 Google Pixel 6 Pro 0000000000000000000000000000000000000000 WIFI BSComponentVersion:6.1"]
 },
 tblite: {
 	名称: "淘宝 Lite",
@@ -2152,13 +2152,13 @@ zhifubao: {
 	前置: "不是",
 	无缝: "不是",
 	标签: ["阿里"],
-	内容: "AlipayDefined(nt:WIFI,ws:360|0|3.0,ac:sp) AliApp(AP/10.2.23.7100) AlipayClient/10.2.23.7100"
+	内容: "AlipayDefined(nt:WIFI,ws:360|0|3.0,ac:sp) AliApp(AP/10.2.36.8000) AlipayClient/10.2.36.8000"
 },
 meituan: {
 	名称: "美团",
 	前置: "不是",
 	无缝: "不是",
 	标签: [],
-	内容: " TitansX/11.39.13 KNB/1.2.0 android/9 mt/com.sankuai.meituan/11.9.403 App/10120/11.9.403 MeituanGroup/11.9.403 EH/8.1.0"
+	内容: " TitansX/11.39.13 KNB/1.2.0 android/12 mt/com.sankuai.meituan/11.9.403 App/10120/11.9.403 MeituanGroup/11.9.403 EH/8.1.0"
 },
 });
