@@ -29,7 +29,7 @@
 				osdark:window.matchMedia("(prefers-color-scheme: dark)"),
 				版本:{
 					描述:"5.1 Beta 8",
-					详细:21112221,
+					详细:21112222,
 				},
 				设置:{
 					基础默认:1,
@@ -457,6 +457,8 @@ template {
 				background: var(--theme-color-a);
 				color: var(--theme-color-c);
 				padding: 2px 0 2px 5px;
+			}
+			#app_container.fixed .CaseHead {
 				position: -webkit-sticky;
 				position: sticky;
 				top: 0;
@@ -1750,6 +1752,7 @@ template {
 					});
 				} else {
 					_($(false,'#ajump'),true);
+					_(cont,!1,'fixed');
 				};
 			}
 			
