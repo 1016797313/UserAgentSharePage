@@ -383,9 +383,8 @@
 				vertical-align: middle;
 				line-height: 1.25em;
 			}
-			.atab > label b,
-			#addsave label b,
-			.classPart > label b,
+			.atab > label strong,
+			.classPart > label strong,
 			.atab div p,
 			#addsave div p {
 				width: 20%;
@@ -393,11 +392,10 @@
 				margin: 0 .25em;
 				font-size: .9em;
 			}
-			.classPart > label b {
+			.classPart > label strong {
 				margin: 0 .45em 0 calc(.25em - 3px);
 			}
 			.atab > label input,
-			#addsave > label input,
 			.classPart > label input {
 				border: 1px solid transparent;
 				color: black;
@@ -407,8 +405,7 @@
 				min-width: 14em;
 				border-radius: 20px;
 			}
-			.atab div p,
-			#addsave div p {
+			.atab div p {
 				display: inline-block;
 				font-weight: bold;
 			}
@@ -789,15 +786,15 @@
 			</div>
 			<div id="addtable">
 				<div id="aappt" class="atab">
-					<label id="akeyl"><b>标识</b>
+					<label id="akeyl"><strong>标识</strong>
 						<input id="akey" type="text" name="aapp" placeholder="首字母对应名称拼音首字母" oninput="uaCode.aform.check(false)"/>
 					</label>
-					<label id="asell" class="none"><b>标识</b>
+					<label id="asell" class="none"><strong>标识</strong>
 						<select id="asel" class="msel" onchange="uaCode.aform.modify()">
 							<option selected hidden disabled value="">请选择要修改的项目...</option>
 						</select>
 					</label>
-					<label><b>名称</b>
+					<label><strong>名称</strong>
 						<input id="atext" type="text" name="aapp">
 					</label>
 					<div id="apre">
@@ -826,56 +823,56 @@
 							<span class="new-style new-radio"></span>否
 						</label>
 					</div>
-					<label class="acont1"><b>关键字</b>
+					<label class="acont1"><strong>关键字</strong>
 						<input id="acont1" type="text" name="acont1"/>
 					</label>
-					<label class="acont2 none"><b>前置关键字</b>
+					<label class="acont2 none"><strong>前置关键字</strong>
 						<input id="acont2a" type="text" name="acont2"/>
 					</label>
-					<label class="acont2 none"><b>后置关键字</b>
+					<label class="acont2 none"><strong>后置关键字</strong>
 						<input id="acont2b" type="text" name="acont2"/>
 					</label>
 					<div id="acls">
 						<div id="aclsbox" class="classBox"></div>
 						<div id="aclsboxt" class="classPart">
-							<label id="aclsboxl" class="none"><b>自定义标签</b>
+							<label id="aclsboxl" class="none"><strong>自定义标签</strong>
 								<input id="athirdt" type="text" name="athird"/>
 							</label>
 						</div>
 					</div>
 				</div>
 				<div id="qappt" class="atab none">
-					<label id="qkeyl"><b>标识</b>
+					<label id="qkeyl"><strong>标识</strong>
 						<input id="qkey" type="text" name="qapp" placeholder="首字母对应名称拼音首字母" oninput="uaCode.aform.check(false)"/>
 					</label>
-					<label id="qsell" class="none"><b>标识</b>
+					<label id="qsell" class="none"><strong>标识</strong>
 						<select id="qsel" class="msel" onchange="uaCode.aform.modify()">
 							<option selected hidden disabled value="">请选择要修改的项目...</option>
 						</select>
 					</label>
-					<label><b>名称</b>
+					<label><strong>名称</strong>
 						<input id="qtext" type="text" name="qapp"/>
 					</label>
-					<label><b>平台</b>
+					<label><strong>平台</strong>
 						<input id="qcont1" type="text" name="qcont"/>
 					</label>
-					<label><b>来自</b>
+					<label><strong>来自</strong>
 						<input id="qcont2" type="text" name="qcont"/>
 					</label>
-					<label><b>应用</b>
+					<label><strong>应用</strong>
 						<input id="qcont3" type="text" name="qcont"/>
 					</label>
 					<div id="qcls">
 						<div id="qclsbox" class="classBox"></div>
 						<div id="qclsboxt" class="classPart">
-							<label id="qclsboxl" class="none"><b>自定义标签</b>
+							<label id="qclsboxl" class="none"><strong>自定义标签</strong>
 								<input id="qthirdt" type="text" name="qthird"/>
 							</label>
 						</div>
 					</div>
 				</div>
 				<div id="atagt" class="atab none">
-					<label id="tkeyl"><b>标识</b>
+					<label id="tkeyl"><strong>标识</strong>
 						<div id="tkds">
 							<div id="tclsbox" class="flag"></div>
 							<span>
@@ -883,18 +880,18 @@
 							</span>
 						</div>
 					</label>
-					<label id="tsell" class="none"><b>标识</b>
+					<label id="tsell" class="none"><strong>标识</strong>
 						<select id="tsel" class="msel" onchange="uaCode.aform.modify()">
 							<option selected hidden disabled value="">请选择要修改的项目...</option>
 						</select>
 					</label>
-					<label><b>名称</b>
+					<label><strong>名称</strong>
 						<input id="ttext" type="text" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
 					</label>
-					<label><b>背景</b>
+					<label><strong>背景</strong>
 						<input id="tbgc" type="color" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
 					</label>
-					<label><b>文字</b>
+					<label><strong>文字</strong>
 						<input id="tfgc" type="color" name="atag" onchange="uaCode.aform.updateFlagPreview()"/>
 					</label>
 				</div>
@@ -1128,7 +1125,7 @@
 									( ua.includes('Android') && ua.includes('qqnews') ),
 									'此 UA 可能会导致 腾讯视频播放页面 加载时弹出 确认/取消 对话框'
 								],[ // #5 蓝奏云 mtt: 确认框
-									( /\(.*Android.*\)/.test(ua) && ( /MQQBrowser\/\d*/.exec(ua)[0].replace('MQQBrowser/','') >= 5 )),
+									( /\(.*Android.*\)/.test(ua) && ua.includes('MQQBrowser/') && ( /MQQBrowser\/\d*/.exec(ua)[0].replace('MQQBrowser/','') >= 5 )),
 									'此 UA 可能会导致 蓝奏云部分页面 加载广告时弹出 确认/取消 对话框'
 								]
 							];

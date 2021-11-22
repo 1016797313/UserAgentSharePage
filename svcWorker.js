@@ -1,22 +1,20 @@
 var data = [
-  ["I","./index.html",21112214],
+  ["I","./index.html",21112220],
   ["L","./数据列表.js",2],
   ["B","./基础_良良.js",21110215],
   ["A","./UA_良良.js",21110215],
   ["C","./电脑_良良.js",21031415],
   ["Q","./快应用_良良.js",21031415],
   ["S","./爬虫_良良.js",21031415],
-  ["T","./indexSidebar.js",3],
+  ["T","./indexSidebar.js",4],
   ["O","../favicon.ico",2],
-  ["D","./",21112214],
+  ["D","./",21112220],
 ];
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
     data.map( d => {
-      caches.open(`${d[0]}_${d[2]}`).then( cache => {
-        return cache.add(d[1]);
-      });
+      caches.open(`${d[0]}_${d[2]}`).then( cache => cache.add(d[1]) );
     })
   );
 });
@@ -41,9 +39,7 @@ self.addEventListener('fetch', function(event) {
   function cacheData(req,resp) {
     data.map ( d => {
       if ('.' + /\/+\w+\.+\w+$/.exec(req.url) == d[1]) {
-        caches.open(`${d[0]}_${d[2]}`).then( cache => {
-          cache.put(req,resp);
-        });
+        caches.open(`${d[0]}_${d[2]}`).then( cache => cache.put(req,resp) );
       }
     });
   }
@@ -53,8 +49,6 @@ self.addEventListener('fetch', function(event) {
 	  cacheData(event.request, response);
 	  return response.clone();
 	}
-    return fetch(event.request).then( response => {
-      return response;
-    });;
+    return fetch(event.request).then( response => response );
   }));
 });

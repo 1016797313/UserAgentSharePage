@@ -12,7 +12,13 @@
 			(this.events[event]) || (this.events[event] = []);
 			this.events[event].push(fn);
 		}
-	};
+    };
+    function hide() {
+      let indicator = document.querySelector('.indicator'),
+          out = function() {indicator.classList.add('none')};
+          indicator.style.opacity = '0';
+          setTimeout(out,500);
+    }
 	emitter.subscribe('fingerLand', (data) => {
 		var indicator = document.querySelector('.indicator');
 		if (data) {
@@ -22,8 +28,7 @@
 			indicator.style.opacity = '1';
 			indicator.style.top = data.getBoundingClientRect().top + 'px';
 		} else {
-			indicator.style.opacity = '0';
-			setTimeout("document.querySelector('.indicator').classList.add('none')",500);
+            hide();
 		}
 	});
 	emitter.subscribe('fingerLand', (elem) => {
@@ -34,11 +39,7 @@
 			}
 		}
 	});
-	emitter.subscribe('fingerOff', () => {
-		var indicator = document.querySelector('.indicator');
-		indicator.style.opacity = '0';
-		setTimeout("document.querySelector('.indicator').classList.add('none')",500);
-	});
+	emitter.subscribe('fingerOff', hide);
 
 	window.IndexSidebar = function IndexSidebar(options) {
 		this.init(options);
