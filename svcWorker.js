@@ -1,5 +1,5 @@
 var data = [
-  ["I","./index.html",21110216],
+  ["I","./index.html",21112214],
   ["L","./数据列表.js",2],
   ["B","./基础_良良.js",21110215],
   ["A","./UA_良良.js",21110215],
@@ -8,7 +8,7 @@ var data = [
   ["S","./爬虫_良良.js",21031415],
   ["T","./indexSidebar.js",3],
   ["O","../favicon.ico",2],
-  ["D","./",21110216],
+  ["D","./",21112214],
 ];
 
 self.addEventListener('install', function(event) {
@@ -38,34 +38,23 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  let patch;
-  
   function cacheData(req,resp) {
-	  data.map ( d => {
-	    if ('.' + /\/+\w+\.+\w+$/.exec(req.url) == d[1]) {
-		  caches.open(`${d[0]}_${d[2]}`).then( cache => {
-			patch = true;
-		    cache.put(req,resp);
-		  });
-	    }
-	  });
+    data.map ( d => {
+      if ('.' + /\/+\w+\.+\w+$/.exec(req.url) == d[1]) {
+        caches.open(`${d[0]}_${d[2]}`).then( cache => {
+          cache.put(req,resp);
+        });
+      }
+    });
   }
   
   event.respondWith(caches.match(event.request).then( response => {
-	if (response!==undefined) {
+	if (response) {
 	  cacheData(event.request, response);
 	  return response.clone();
-	} else {
-	  patch = false;
-	  cacheData(event.request, response);
-	  return (patch) ? response.clone() : unCachedBypass(event.request);
 	}
+    return fetch(event.request).then( response => {
+      return response;
+    });;
   }));
 });
-
-function unCachedBypass(req) {
-	let url = req.clone();
-	return fetch(url).then( resp => {
-		return resp;
-	});
-};
