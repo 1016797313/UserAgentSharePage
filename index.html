@@ -29,7 +29,7 @@
 				osdark:window.matchMedia("(prefers-color-scheme: dark)"),
 				版本:{
 					描述:"5.1 Beta 8",
-					详细:21112222,
+					详细:21120910,
 				},
 				设置:{
 					基础默认:1,
@@ -1396,11 +1396,9 @@ template {
 			}
 			
 			function _(ele,del,nclass = "none") {
-				if (del) {
-					ele.classList.remove(nclass);
-				} else {
-					ele.classList.add(nclass);
-				}
+				return (del) ?
+				ele.classList.remove(nclass) :
+				ele.classList.add(nclass);
 			}
 			
 			function __(prop) {
@@ -1469,7 +1467,7 @@ template {
 				}
 			}
 			
-			function spaceChecked(e = event) {
+			function spaceChecked(e) {
 				switch (e.code) {
 					case "Space":
 					case "Enter":
@@ -1480,8 +1478,8 @@ template {
 				}
 			}
 			
-			function insertUA() {
-				const e = window.event, win = $(false,"#ua"),
+			function insertUA(e) {
+				const win = $(false,"#ua"),
 					value = e.dataTransfer.getData('text'),
 					appo = uaData.apps[value];
 				let result = ['',''], baseUA = $(false,"textarea").value,
@@ -1865,17 +1863,13 @@ template {
 			
 			function openWin(id) {
 				let win = $(false,id);
-				if (win.classList.contains('none')) {
-					_(win,true);
-					winActiv(win);
-				} else {
-					_(win,false);
-				}
+				win.classList.toggle('none');
+				if (!win.classList.contains('none')) winActiv(win);
 			}
 			
 			function topwin(e) {
 				let btn = e.target, win = btn.parentNode.parentNode;
-				_(win,(win.classList.contains('topwin')),'topwin');
+				win.classList.toggle('topwin');
 				btn.style.backgroundColor = (win.classList.contains('topwin')) ?
 					__('theme-color-top-enable') : __('theme-color-top');
 			}
@@ -1897,7 +1891,7 @@ template {
 			}
 			
 			function filterResume(nclass) {
-				lah.forEach( ele => { _(ele,true,nclass); });
+				lah.forEach( ele => _(ele,true,nclass));
 				scanForHead();
 				_(ntx,!scanAll());
 			}
@@ -1932,11 +1926,7 @@ template {
 				$(true,`.T${clas}`).forEach( tag => _(tag,selected) );
 				if (uaData.tagtext[clas]) {
 					uaData.tagtext[clas].forEach( id => {
-						if (selected) {
-							uaData.count[id]++;
-						} else {
-							uaData.count[id]--;
-						}
+						(selected) ? uaData.count[id]++ : uaData.count[id]--;
 					});
 				}
 				const item = Object.keys(uaData.count).filter(obj => uaData.count[obj]!==0);
@@ -2009,9 +1999,9 @@ template {
 								checked: false
 							});
 							if (flag==="third") {
-								box.addEventListener('change', e => {
-									_($(false,`#${sbox.id}l`),box.checked);
-								});
+								box.addEventListener('change', e =>
+									_($(false,`#${sbox.id}l`),box.checked)
+								);
 							}
 							lab.appendChild(box);
 							lab.appendChild(makeFlagDiv(flag,true,false));
