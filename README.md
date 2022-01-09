@@ -25,6 +25,9 @@
 网页方面，由于本人技术水平有限 ，代码混乱 ，Bug 多多 。  
 以上，还望大家帮助测试 ，多提意见和建议 ，多谢 。
 
+这个页面使用了 GitHub @YueminHu 的 indexSidebar 控件 [GitHub](https://github.com/YueminHu/indexSidebar) ，在此表示感谢 。  
+文末和 LICENSE 文件里包含了此控件使用的 MIT 许可证原文 。
+
 > 目前，对于 Android 10 以下的夜间模式，适配了以下浏览器。  
 >> Via / X / 荟萃 / 雨见 / Milk / 米侠 / Alook  
    Mint / 鲨鱼 / B ≼ 0.1.7 / UC Turbo / 夸克 / 神奇 / π  
@@ -36,11 +39,11 @@
 > 无法适配以下浏览器，其 CSS 注入标签没有标识符，无法分辨。  
 >> 灯塔 / VC / 桔子  
 
-> 无法适配 Soul 浏览器，其原理是 APP 层面将 白色 和 亮灰 反色。  
-> 无法适配 Lit 浏览器，其原理可能是 APP 层面加黑白滤镜。  
-> 无法适配 M 浏览器，其原理可能是 APP 层面将背景改为黑色。  
-> Pure 浏览器 2.3.7 以后更改了夜间模式的方法，无法适配。  
-> B 浏览器从 0.1.8 开始重构，目前的版本夜间模式只支持 Android 10 以上系统。  
+> 无法适配 lit / Stargon / 欢欢，其原理可能是 APP 层面加黑白滤镜。  
+
+> 新版 鲨鱼 / M / Pure / B / Soul / Milk 的夜间模式  
+已经支持在 Android 10 以下系统使用标准接口了。  
+但是 Milk 在开启夜间模式的情况下刷新网页仍然会注入 CSS ......
 
 > Lim 浏览器禁用了 localStorage ，导致无法正常使用。
 ( 除非把添加窗口的功能全部禁用 ，目前不打算这么做 )
@@ -62,10 +65,6 @@ disableNightMode()
     at \<anonymous\>:1:38  
 \
 document.removeEventListener('copy', copyListener, true);
-
-
-这个页面使用了 GitHub @YueminHu 的 indexSidebar 控件 [GitHub](https://github.com/YueminHu/indexSidebar) ，在此表示感谢 。  
-文末和 LICENSE 文件里包含了此控件使用的 MIT 许可证原文 。
 
 ## 帮助
 ### 使用
